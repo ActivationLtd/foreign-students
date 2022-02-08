@@ -1,0 +1,1 @@
+@extends('projects.dgme-students.layouts.module.grid.template')
