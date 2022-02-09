@@ -25,7 +25,16 @@ class HomeController extends BaseController
      */
     public function index()
     {
-        $this->view('projects.dgme-students.dashboards.admin');
+        if($this->user->isAdmin() || $this->user->isSuperUser()){
+            $this->view('projects.dgme-students.dashboards.admin');
+            $sampleData = (new SampleDataBlock)->data();
+
+            return $this->response()
+                ->setViewVars(['sampleData' => $sampleData])
+                ->send();
+        }
+        if($this->user->isApplicant())
+        $this->view('projects.dgme-students.dashboards.applicant');
         $sampleData = (new SampleDataBlock)->data();
 
         return $this->response()

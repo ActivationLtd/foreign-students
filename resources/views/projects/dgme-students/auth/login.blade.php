@@ -46,7 +46,7 @@
                     <div class="clearfix"></div>
                     <a class="btn btn-default btn-block" target="_blank"
 
-                       href="{{route('register.tenant')}}">{{ __('Registration Business') }}
+                       href="{{route('register.applicant')}}">{{ __('Applicant Sign Up') }}
                     </a>
 
                 </div>

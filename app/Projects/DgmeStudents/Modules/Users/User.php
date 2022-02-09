@@ -162,18 +162,20 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     public const SUPERADMIN_GROUP_ID     = 1;
     public const API_GROUP_ID            = 2;
     public const TENANT_ADMIN_GROUP_ID   = 3;
-    public const PROJECT_ADMIN_GROUP_ID  = 4;
-    public const USER_GROUP_ID           = 26;
     public const TENANT_USER_GROUP_ID    = 27;
+    public const PROJECT_ADMIN_GROUP_ID  = 4;
+    public const USER_GROUP_ID           = 5;
+    public const APPLICANT_USER_GROUP_ID       = 6;
     public const CUSTOMER_ADMIN_GROUP_ID = 28;
     public const CUSTOMER_USER_GROUP_ID  = 29;
 
     public const SUPERADMIN_GROUP     = 'superuser';
     public const API_GROUP            = 'api';
     public const TENANT_ADMIN_GROUP   = 'tenant-admin';
+    public const TENANT_USER_GROUP    = 'tenant-user';
     public const PROJECT_ADMIN_GROUP  = 'project-admin';
     public const USER_GROUP           = 'user';
-    public const TENANT_USER_GROUP    = 'tenant-user';
+    public const APPLICANT_USER_GROUP = 'applicant-user';
     public const CUSTOMER_ADMIN_GROUP = 'customer-admin';
     public const CUSTOMER_USER_GROUP  = 'customer-user';
 
@@ -215,6 +217,7 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         'county',
         'country_id',
         'country_name',
+        'passport_no',
         'zip_code',
         'phone',
         'mobile',

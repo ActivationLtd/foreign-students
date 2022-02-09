@@ -1,100 +1,64 @@
 <?php
 
-namespace App\Projects\DgmeStudents\Modules\Users;
+namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
-use App\Change;
-use Illuminate\Database\Eloquent\Builder;
-
-/** @mixin \App\User  $this */
-trait UserHelper
+/** @mixin ForeignStudentApplication */
+trait ForeignStudentApplicationHelper
 {
     /*
     |--------------------------------------------------------------------------
-    | Autofill and functions to calculated field updates
+    | Section: Autofill and functions to calculated field updates
     |--------------------------------------------------------------------------
     */
     /**
      * Populate model
+     * Fill data and set calculated data in fields for saving the module
+     * This can depend of supporting fillFunct, setFunct,calculateFunct
      * return $this
      */
+    public function populate()
+    {
+        // Example code
+        // $this->fillAddress()->setAmounts();
+        return $this;
+    }
+
+    // /**
+    //  * Set address
+    //  * Example code
+    //  *
+    //  * @return $this
+    //  */
+    // public function setAddress()
+    // {
+    //     $this->field = 'val';
+    //     return $this;
+    // }
 
     /*
     |--------------------------------------------------------------------------
-    | Non-static helper functions
+    | Section: Non-static helper functions
     |--------------------------------------------------------------------------
     */
-    /**
-     * Check if user is admin
-     *
-     * @return bool
-     */
-    public function isAdmin()
-    {
-        return $this->isA('superuser');
-    }
-    /**
-     * Check if user is applicant
-     *
-     * @return bool
-     */
-    public function isApplicant()
-    {
-        return $this->isA('applicant-user');
-    }
-
-    /**
-     * Checks if the user is related to an element.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model|mixed  $element
-     * @return bool
-     */
-    public function relatesToElement($element)
-    {
-        // Allow admin
-        if ($this->isAdmin()) {
-            return true;
-        }
-
-        if ($element) {
-            // Check for reseller match
-            // if ($this->ofReseller() && isset($element->reseller_id)
-            //     && ($this->reseller_id == $element->reseller_id)) {
-            //     return true;
-            // }
-            return false;
-        }
-
-        return false;
-    }
+    // Todo: Write non-static helper functions here
 
     /*
     |--------------------------------------------------------------------------
-    | Static helper functions
+    | Section: Static helper functions
     |--------------------------------------------------------------------------
     */
-    /**
-     * Get admin users
-     *
-     * @return \App\User[]|Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public static function adminUsers()
-    {
-        return \App\User::whereHas('groups', function (Builder $query) {
-            $query->whereIn('group_id', [1, 18]);
-        })->get();
-    }
-
-
+    // Todo: static helper functions
 
     /*
     |--------------------------------------------------------------------------
-    | Ability to create, edit, delete or restore
+    | Section: Ability to create, edit, delete or restore
     |--------------------------------------------------------------------------
     |
     | An element can be editable or non-editable based on it's internal status
     | This is not related to any user, rather it is a model's individual sate
     | For example - A confirmed quotation should not be editable regardless
     | Of who is attempting to edit it.
+    |
     */
 
     // public function isViewable() { return true; }
@@ -104,8 +68,9 @@ trait UserHelper
 
     /*
     |--------------------------------------------------------------------------
-    | Notifications
+    | Section: Notifications
     |--------------------------------------------------------------------------
+    |
     */
     // /**
     //  * Notify admins when quote is accepted
@@ -114,4 +79,5 @@ trait UserHelper
     // {
     //     Notification::send($users, new NotificationClass($this));
     // }
+
 }
