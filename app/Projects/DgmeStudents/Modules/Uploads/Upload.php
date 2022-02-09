@@ -125,6 +125,7 @@ class Upload extends BaseModule
     public const TYPE_PROFILE_PIC = 'Profile Picture';
     public const TYPE_LOGO        = 'Logo';
 
+
     public static $types = [
         self::TYPE_GENERIC,
         self::TYPE_PROFILE_PIC,

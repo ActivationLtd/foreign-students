@@ -21,6 +21,13 @@ class ForeignAppLangProficiency extends BaseModule
         'tenant_id',
         'uuid',
         'name',
+        'foreign_student_application_id',
+        'user_id',
+        'language_id',
+        'language_name',
+        'reading_proficiency',
+        'writing_proficiency',
+        'speaking_proficiency',
         'is_active',
     ];
 
@@ -35,7 +42,11 @@ class ForeignAppLangProficiency extends BaseModule
     | Option values
     |--------------------------------------------------------------------------
     */
-    // public static $types = [];
+    public static $proficiencyLevels = [
+        'High',
+        'Average',
+        'Low',
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +101,15 @@ class ForeignAppLangProficiency extends BaseModule
     |--------------------------------------------------------------------------
     */
     // public function updater() { return $this->belongsTo(\App\User::class, 'updated_by'); }
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class, 'user_id');
+    }
 
+    public function foreignApplication()
+    {
+        return $this->belongsTo(\App\ForeignStudentApplication::class, 'foreign_student_application_id');
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Helpers

@@ -21,6 +21,14 @@ class ForeignApplicationExamination extends BaseModule
         'tenant_id',
         'uuid',
         'name',
+        'foreign_student_application_id',
+        'user_id',
+        'examination_id',
+        'examination_name',
+        'passing_year',
+        'subjects',
+        'certificate_id',
+        'certificate_name',
         'is_active',
     ];
 
@@ -89,7 +97,16 @@ class ForeignApplicationExamination extends BaseModule
     | Section: Relations
     |--------------------------------------------------------------------------
     */
-    // public function updater() { return $this->belongsTo(\App\User::class, 'updated_by'); }
+    //
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class, 'user_id');
+    }
+
+    public function foreignApplication()
+    {
+        return $this->belongsTo(\App\ForeignStudentApplication::class, 'foreign_student_application_id');
+    }
 
     /*
     |--------------------------------------------------------------------------

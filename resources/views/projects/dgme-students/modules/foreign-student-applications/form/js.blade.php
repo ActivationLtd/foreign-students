@@ -27,7 +27,9 @@
 
     // Validation
     addValidationRules();
+    showDeclaration();
     enableValidation('{{$module->name}}');
+    showDeclaration();
 
     /*
     |--------------------------------------------------------------------------
@@ -35,6 +37,7 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isCreating())
+        $('#foreign-student-applicationsSubmitBtn').html("Next");
     // Todo: write codes here.
     @endif
 
@@ -58,5 +61,23 @@
      */
     function addValidationRules() {
         $("input[name=name]").addClass('validate[required]');
+    }
+    function declarationLogic(){
+        if($('select[name=status]').val() == "Submitted"){
+            $('#declaration').show();
+            $("input[id=declaration_check]").addClass('validate[required]');
+        }else{
+            $('#declaration').hide();
+            $("input[id=declaration_check]").removeClass('validate[required]');
+        }
+    }
+    function showDeclaration(){
+        declarationLogic();
+        $('select[name=status]').change(declarationLogic);
+        $('select[name=status]').change(function () {
+            if ($('select[name=status]').val() == "Submitted") {
+                showAlert("Please confirm the declaration <br> Once submitted the application can be edited in the next 24 hour only.");
+            }
+        });
     }
 </script>
