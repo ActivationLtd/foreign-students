@@ -3,8 +3,10 @@
 namespace App\Projects\DgmeStudents\Http\Controllers\Auth;
 
 use App\Group;
-use App\Mainframe\Http\Controllers\Auth\RegisterTenantController;
-use App\Mainframe\Http\Controllers\Auth\RegisterTenantController as MfRegisterTenantController;
+
+use App\Projects\DgmeStudents\Http\Controllers\Auth\RegisterTenantController as MfRegisterTenantController;
+use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
+use Illuminate\Auth\Events\Registered;
 use Validator;
 use App\Tenant;
 use App\User;
@@ -124,5 +126,17 @@ class RegisterApplicantController extends MfRegisterTenantController
         ]);
     }
 
+    /**
+     * The user has been successfully registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  User  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        event(new Registered($user));
+        $user->notifyNow(new VerifyEmail());
+    }
 
 }

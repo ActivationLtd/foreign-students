@@ -47,7 +47,7 @@ Route::get('register-tenant', 'Auth\RegisterTenantController@showRegistrationFor
 Route::post('register-tenant', 'Auth\RegisterTenantController@register');
 // Applicant Registration Routes
 Route::get('apply/foreign-students', 'Auth\RegisterApplicantController@showRegistrationForm')->name('register.applicant');
-Route::post('register-applicant', 'Auth\RegisterApplicantController@register');
+Route::post('apply/foreign-students', 'Auth\RegisterApplicantController@register');
 // Tenant Registration Routes...
 // Route::get('reseller/register', 'Auth\RegisterResellerController@showRegistrationForm')->name('register.reseller');
 // Route::post('reseller/register', 'Auth\RegisterResellerController@register');
