@@ -19,18 +19,26 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Online Application</span>
-                @if($applicantData['applications']['ongoing']>0)
-                    <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingApplicationId'])}}" style="color:white">
-                        <span class="info-box-number">{{$applicantData['applications']['ongoing']}} Current Applications</span>
+                @if($applicantData['applications']['total']>0 )
+                    <a href="{{route('foreign-student-applications.index')}}" style="color:white">
+                        <span class="info-box-number">{{$applicantData['applications']['total']}} Current Applications</span>
                     </a>
-
-                    <span class="progress-description">Status : {{$applicantData['applications']['ongoingApplicationStatus']}}</span>
-                @else
+                    @if($applicantData['applications']['ongoingMBBSNumber']>0)
+                        <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingMBBSApplicationId'])}}" style="color:white">
+                            <span class="info-box-number">MBBS Application : {{$applicantData['applications']['ongoingMBBSApplicationStatus']}} </span>
+                        </a>
+                    @endif
+                    @if($applicantData['applications']['ongoingBDSNumber']>0)
+                        <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingBDSApplicationId'])}}" style="color:white">
+                            <span class="info-box-number">BDS Application : {{$applicantData['applications']['ongoingBDSApplicationStatus']}} </span>
+                        </a>
+                    @endif
+                @endif
+                @if($applicantData['applications']['ongoingMBBSNumber']==0 || $applicantData['applications']['ongoingBDSNumber']==0)
                     <a href="{{route('foreign-student-applications.create')}}" style="color:white">
                         <span class="info-box-number">Apply Online</span>
                     </a>
                 @endif
-
 
             </div>
         </div>

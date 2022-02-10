@@ -24,9 +24,10 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     public function immutables()
     {
 
-        if(user()->isAdmin() && $this->element->status=='Submitted'){
-            $this->immutables=array_merge($this->immutables,$this->element->fields(['status']));
+        if (user()->isAdmin() && $this->element->status == 'Submitted') {
+            $this->immutables = array_merge($this->immutables, $this->element->fields(['status']));
         }
+
         return $this->immutables;
     }
     /*
@@ -55,39 +56,42 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     {
         $rules = [
             //'name' => 'required|between:1,100|'.'unique:foreign_student_applications,name,'.($element->id ?? 'null').',id,deleted_at,NULL',
-            'applicant_name'=>'required|alpha',
-            'applicant_father_name'=>'required|alpha',
-            'applicant_mother_name'=>'required|alpha',
-            'communication_address'=>'required',
-            'dob'=>'required|after:2000-01-01',
-            'dob_country_id'=>'required',
-            'dob_address'=>'required',
-            'domicile_country_id'=>'required',
-            'domicile_address'=>'required',
-            'nationality'=>'required',
-            'applicant_passport_no'=>'required',
-            'applicant_passport_issue_date'=>'required',
-            'applicant_passport_expiry_date'=>'required',
-            'applicant_email'=>'required',
-            'applicant_mobile_no'=>'required',
-            'legal_guardian_name'=>'required',
-            'legal_guardian_nationality'=>'required',
-            'legal_guardian_address'=>'required',
-            'emergency_contact_bangladesh_name'=>'required',
-            'emergency_contact_bangladesh_address'=>'required',
-            'emergency_contact_domicile_name'=>'required',
-            'emergency_contact_domicile_address'=>'required',
-            'has_previous_application'=>'required',
-            'previous_application_feedback'=>'required_if:has_previous_application,1',
+            'applicant_name' => 'required|regex:/[a-zA-Z\s]+/ ',
+            'applicant_email' => 'required',
+            'applicant_mobile_no' => 'required',
             'is_active' => 'in:1,0',
         ];
-        if($element->id && $element->status=='Submitted'){
+        if ($element->id && $element->status == 'Submitted') {
             $rules = array_merge($rules, [
-                'course_id'=>'required',
-                'financing_mode'=>'required',
-                'payment_transaction_id'=>'required',
+                'course_id' => 'required',
+                'payment_transaction_id' => 'required',
+                'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
+                'applicant_mother_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
+                'communication_address' => 'required',
+                'dob' => 'required|after:2000-01-01',
+                'dob_country_id' => 'required',
+                'dob_address' => 'required',
+                'domicile_country_id' => 'required',
+                'domicile_address' => 'required',
+                'nationality' => 'required',
+                'applicant_passport_no' => 'required',
+                'applicant_passport_issue_date' => 'required',
+                'applicant_passport_expiry_date' => 'required',
+
+                'legal_guardian_name' => 'required',
+                'legal_guardian_nationality' => 'required',
+                'legal_guardian_address' => 'required',
+                'emergency_contact_bangladesh_name' => 'required',
+                'emergency_contact_bangladesh_address' => 'required',
+                'emergency_contact_domicile_name' => 'required',
+                'emergency_contact_domicile_address' => 'required',
+                'has_previous_application' => 'required',
+                'previous_application_feedback' => 'required_if:has_previous_application,1',
+                'financing_mode' => 'required',
+                'finance_mode_other' => 'required_if:financing_mode,Other',
             ]);
         }
+
         return array_merge($rules, $merge);
     }
 
@@ -107,24 +111,22 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
      */
     public function saving($element)
     {
-
-
         // Todo: First validate
         // --------------------
         // $this->checkSomething();
-        if($this->hasTransition('status','Draft','Submitted')){
-            $this->element->submitted_at=now();
+        if ($this->hasTransition('status', 'Draft', 'Submitted')) {
+            $this->element->submitted_at = now();
         }
-        if($this->element->status=='Submitted'){
+        $this->checkCourse();
+        if ($this->element->status == 'Submitted') {
             $this->checkDocuments();
             $this->checkExaminations();
             $this->checkLanguageProficiencies();
         }
 
-
         // Todo: Then do further processing
         // ----------------------------------
-        if($this->isValid()){
+        if ($this->isValid()) {
             $this->fillRelationData();
 
         }
@@ -132,7 +134,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         return $this;
     }
 
-    // public function creating($element) { return $this; }
+    public function creating($element) { return $this; }
     // public function updating($element) { return $this; }
     // public function created($element) { return $this; }
     // public function updated($element) { return $this; }

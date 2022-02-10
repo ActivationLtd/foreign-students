@@ -26,17 +26,22 @@ class ApplicantDataBlock extends DataBlock
     public function process()
     {
         $user=user();
-        $totalApplications=$user->applications()->count();
-        $inProgressApplications=$user->applications()->whereNotIn('status',['Declined'])->count();
-        $inProgressApplication=$user->applications()->whereNotIn('status',['Declined'])->first();
+        $totalApplicationCount=$user->applications()->whereNotIn('status',['Declined'])->count();
+        $inProgressMBBSApplicationCount=$user->applications()->where('course_id',1)->whereNotIn('status',['Declined'])->count();
+        $inProgressMBBSApplication=$user->applications()->where('course_id',1)->whereNotIn('status',['Declined'])->first();
+        $inProgressBDSApplicationCount=$user->applications()->where('course_id',2)->whereNotIn('status',['Declined'])->count();
+        $inProgressBDSApplication=$user->applications()->where('course_id',2)->whereNotIn('status',['Declined'])->first();
         // Todo: Prepare and load data
 
         $this->data = [
             'applications' => [
-                'total' => $totalApplications,
-                'ongoing' => $inProgressApplications,
-                'ongoingApplicationId'=>($inProgressApplication)?$inProgressApplication->id:null,
-                'ongoingApplicationStatus'=>($inProgressApplication)?$inProgressApplication->status:null
+                'total' => $totalApplicationCount,
+                'ongoingMBBSNumber' => $inProgressMBBSApplicationCount,
+                'ongoingMBBSApplicationId'=>($inProgressMBBSApplication)?$inProgressMBBSApplication->id:null,
+                'ongoingMBBSApplicationStatus'=>($inProgressMBBSApplication)?$inProgressMBBSApplication->status:null,
+                'ongoingBDSNumber' => $inProgressBDSApplicationCount,
+                'ongoingBDSApplicationId'=>($inProgressBDSApplication)?$inProgressBDSApplication->id:null,
+                'ongoingBDSApplicationStatus'=>($inProgressBDSApplication)?$inProgressBDSApplication->status:null
             ],
         ];
     }

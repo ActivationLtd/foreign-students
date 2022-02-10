@@ -565,6 +565,9 @@ body.projects-mph-market-dashboards-vendor .content {
     border-radius: 2px;
     margin-bottom: 15px;
 }
+.info-box-icon{
+    height:105px!important;
+}
 .login-box-body .callout {
     text-align: center;
 }

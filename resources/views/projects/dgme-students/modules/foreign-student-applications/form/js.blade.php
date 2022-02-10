@@ -29,6 +29,8 @@
     addValidationRules();
     showDeclaration();
     applicationSubmitButtonAction();
+    showPreviousApplicationFeedback();
+    showApplicationFinanceOther();
     enableValidation('{{$module->name}}');
 
     /*
@@ -100,5 +102,26 @@
             $('#declaration').show();
             $("input[id=declaration_check]").addClass('validate[required]');
         });
+    }
+    function showPreviousApplicationFeedbackLogic(){
+        $('#previousApplicationFeedback').hide();
+        if($('select[name=has_previous_application]').val()==1){
+            $('#previousApplicationFeedback').show();
+        }
+    }
+    function showPreviousApplicationFeedback(){
+        showPreviousApplicationFeedbackLogic();
+        $('select[name=has_previous_application]').change(showPreviousApplicationFeedbackLogic);
+    }
+
+    function showApplicationFinanceOtherLogic(){
+        $('#applicationFinanceOther').hide();
+        if($('select[name=financing_mode]').val()=='Other'){
+            $('#applicationFinanceOther').show();
+        }
+    }
+    function showApplicationFinanceOther(){
+        showApplicationFinanceOtherLogic();
+        $('select[name=financing_mode]').change(showApplicationFinanceOtherLogic);
     }
 </script>

@@ -61,6 +61,22 @@ trait ForeignStudentApplicationProcessorHelper
     /**
      * @return $this
      */
+    public function checkCourse()
+    {
+        $element = $this->element;
+        $existingOngoingApplicationForCourseCount = $this->user->applications()->where('id','!=',$element->id)
+            ->where('course_id', $element->course_id)->whereNotIn('status', ['Declined'])
+            ->count();
+        if ($existingOngoingApplicationForCourseCount) {
+            $this->error('An Application on this course '.$element->course->name.' is all ready under processing'); // Raise error
+        }
+
+        return $this; // Return the same object for validation method chaining
+    }
+
+    /**
+     * @return $this
+     */
     public function checkDocuments(): static
     {
         $element = $this->element; // Short hand variable.
@@ -95,7 +111,8 @@ trait ForeignStudentApplicationProcessorHelper
     public function checkExaminations(): static
     {
         $element = $this->element; // Short hand variable.
-        if ($element->applicationExaminations->count() <= 2 && $element->applicationExaminations->count() >= 1) {
+
+        if ($element->applicationExaminations()->count() < 2) {
             $this->error('Examinations Details has not been updated'); // Raise error
         }
 
@@ -108,7 +125,7 @@ trait ForeignStudentApplicationProcessorHelper
     public function checkLanguageProficiencies(): static
     {
         $element = $this->element; // Short hand variable.
-        if ($element->applicationLanguageProfiencies->count() < 1) {
+        if ($element->applicationLanguageProfiencies()->count() < 1) {
             $this->error('Language Proficiencies has not been updated'); // Raise error
         }
 

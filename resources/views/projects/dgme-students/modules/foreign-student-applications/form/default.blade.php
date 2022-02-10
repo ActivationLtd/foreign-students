@@ -15,7 +15,7 @@
  */
 use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;$foreignStudentApplication = $element;
 ?>
-@if($element->id)
+@if($element->id && $element->status=="Submitted")
 @section('content-top')
     <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
 @endsection
@@ -28,63 +28,71 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             {{ Form::model($element, $formConfig)}}
         @endif
         {{---------------|  Form input start |-----------------------}}
-        <h4>Name of the course to which admission is sought:</h4>
+        <h4>Name of the course to which admission is sought</h4>
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-4']])
         <div class="clearfix"></div>
+        <h4>Applicant Info</h4>
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-12']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-4']])
-        @include('form.text',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-4']])
-        @include('form.text',['var'=>['name'=>'applicant_father_name','label'=>'Father\'s Name','div'=>'col-md-6']])
-        @include('form.text',['var'=>['name'=>'applicant_mother_name','label'=>'Mother\'s Name','div'=>'col-md-6']])
-        <div class="clearfix"></div>
-        @include('form.textarea',['var'=>['name'=>'communication_address','label'=>'Full Address to which communication may be sent']])
-        <div class="clearfix"></div>
-        @include('form.date',['var'=>['name'=>'dob','label'=>'Date Of Birth','div'=>'col-md-4']])
-        @include('form.select-model',['var'=>['name'=>'dob_country_id','label'=>'Country of Birth','table'=>'countries', 'div'=>'col-md-4']])
-        @include('form.text',['var'=>['name'=>'dob_address','label'=>'Place Of Birth','div'=>'col-md-4']])
-        <div class="clearfix"></div>
-        @include('form.select-model',['var'=>['name'=>'domicile_country_id','label'=>'Country of Domicile','table'=>'countries', 'div'=>'col-md-4']])
-        @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
-        <div class="clearfix"></div>
-        @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
-        <div class="clearfix"></div>
-        @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4']])
-        @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])
-        @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])
-        <div class="clearfix"></div>
-        @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
-        @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
-        @include('form.textarea',['var'=>['name'=>'legal_guardian_address','label'=>'Address of Legal Guardian']])
-        <div class="clearfix"></div>
-        <h4>Name and Address of person to be notified in case of emergency</h4>
-        @include('form.text',['var'=>['name'=>'emergency_contact_bangladesh_name','label'=>'Emergency Contact Name (Bangladesh)','div'=>'col-md-4']])
-        @include('form.textarea',['var'=>['name'=>'emergency_contact_bangladesh_address','label'=>'Emergency Contact Address (Bangladesh)']])
-        <div class="clearfix"></div>
-        @include('form.text',['var'=>['name'=>'emergency_contact_domicile_name','label'=>'Emergency Contact Name (Domicile)','div'=>'col-md-4']])
-        @include('form.textarea',['var'=>['name'=>'emergency_contact_domicile_address','label'=>'Emergency Contact Address (Domicile)']])
-        <div class="clearfix"></div>
-        <?php
-        $yesNoOptions = ForeignStudentApplication::$optionsYesNo;
-        $proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
-        $fundingModes = ForeignStudentApplication::$fundingModes;
-        $statuses = ForeignStudentApplication::$statuses;
-        if (user()->isApplicant()) {
-            unset($statuses['2']);
-            unset($statuses['3']);
-            unset($statuses['4']);
-        }
-        if (user()->isAdmin()) {
-            unset($statuses['0']);
-        }
-        ?>
-        <h4>Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h4>
-        @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions)]])
-        @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
-        <div class="clearfix"></div>
-
-        @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
+        @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-4']])
         <div class="clearfix"></div>
         @if($element->id)
+            @include('form.text',['var'=>['name'=>'applicant_father_name','label'=>'Father\'s Name','div'=>'col-md-6']])
+            @include('form.text',['var'=>['name'=>'applicant_mother_name','label'=>'Mother\'s Name','div'=>'col-md-6']])
+            <div class="clearfix"></div>
+            @include('form.textarea',['var'=>['name'=>'communication_address','label'=>'Full Address to which communication may be sent']])
+            <div class="clearfix"></div>
+            @include('form.date',['var'=>['name'=>'dob','label'=>'Date Of Birth','div'=>'col-md-4']])
+            @include('form.select-model',['var'=>['name'=>'dob_country_id','label'=>'Country of Birth','table'=>'countries', 'div'=>'col-md-4']])
+            @include('form.text',['var'=>['name'=>'dob_address','label'=>'Place Of Birth','div'=>'col-md-4']])
+            <div class="clearfix"></div>
+            @include('form.select-model',['var'=>['name'=>'domicile_country_id','label'=>'Country of Domicile','table'=>'countries', 'div'=>'col-md-4']])
+            @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
+            <div class="clearfix"></div>
+            @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
+            <div class="clearfix"></div>
+            @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4']])
+            @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])
+            @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])
+            <div class="clearfix"></div>
+            @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
+            @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
+            @include('form.textarea',['var'=>['name'=>'legal_guardian_address','label'=>'Address of Legal Guardian']])
+            <div class="clearfix"></div>
+            <h4>Name and Address of person to be notified in case of emergency</h4>
+            @include('form.text',['var'=>['name'=>'emergency_contact_bangladesh_name','label'=>'Emergency Contact Name (Bangladesh)','div'=>'col-md-4']])
+            @include('form.textarea',['var'=>['name'=>'emergency_contact_bangladesh_address','label'=>'Emergency Contact Address (Bangladesh)']])
+            <div class="clearfix"></div>
+            @include('form.text',['var'=>['name'=>'emergency_contact_domicile_name','label'=>'Emergency Contact Name (Domicile)','div'=>'col-md-4']])
+            @include('form.textarea',['var'=>['name'=>'emergency_contact_domicile_address','label'=>'Emergency Contact Address (Domicile)']])
+            <div class="clearfix"></div>
+            <?php
+            $yesNoOptions = ForeignStudentApplication::$optionsYesNo;
+            $proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
+            $fundingModes = ForeignStudentApplication::$fundingModes;
+            $statuses = ForeignStudentApplication::$statuses;
+            if (user()->isApplicant()) {
+                unset($statuses['2']);
+                unset($statuses['3']);
+                unset($statuses['4']);
+            }
+            if (user()->isAdmin()) {
+                unset($statuses['0']);
+            }
+            ?>
+            <h4>Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h4>
+            @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions)]])
+            <div id="previousApplicationFeedback">
+                @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
+            </div>
+            <div class="clearfix"></div>
+
+            @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
+            <div id="applicationFinanceOther">
+                @include('form.textarea',['var'=>['name'=>'finance_mode_other','label'=>'Details of Finance Other']])
+            </div>
+            <div class="clearfix"></div>
+
             <div class="col-md-12 no-padding-l">
                 {{--Education List--}}
                 <?php
@@ -121,31 +129,31 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
             </div>
             <div class="clearfix"></div>
+            <h4>Payment Info</h4>
             @include('form.text',['var'=>['name'=>'payment_transaction_id','label'=>'Payment Transaction Id','div'=>'col-md-6']])
-
-
             <div class="clearfix"></div>
             @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
-        @endif
-        <div class="clearfix"></div>
-        <div id="declaration">
-            <h5>Declaration</h5>
-            @include('form.checkbox',['var'=>['name'=>'declaration_check']])
-            <div class="clearfix"></div>
-            <h5>I, hereby, declare that particulars given above are true to the best of my knowledge and believe, that I <br>
-                have made satisfactory arrangements for regular supply of funds for my expenditure in Bangladesh and <br>
-                that I shall return to my country of domicile after completion or discontinuation of studies in Bangladesh. <br>
-                I further declare I shall abide fully by the rules and regulations of the institute and any decision to the <br>
-                Authority of the institutions to which I may be admitted</h5>
-        </div>
 
-        {{--        @include('form.is-active')--}}
-        {{---------------|  Form input start |-----------------------}}
-        @if($view->showSubmitButton())
-            <button id="applicationSubmitButton" type="button" class="submit btn btn-warning">
-                <i class="fa fa-check"></i>Submit
-            </button>
+            <div class="clearfix"></div>
+            <div id="declaration">
+                <h5>Declaration</h5>
+                @include('form.checkbox',['var'=>['name'=>'declaration_check']])
+                <div class="clearfix"></div>
+                <h5>I, hereby, declare that particulars given above are true to the best of my knowledge and believe, that I <br>
+                    have made satisfactory arrangements for regular supply of funds for my expenditure in Bangladesh and <br>
+                    that I shall return to my country of domicile after completion or discontinuation of studies in Bangladesh. <br>
+                    I further declare I shall abide fully by the rules and regulations of the institute and any decision to the <br>
+                    Authority of the institutions to which I may be admitted</h5>
+            </div>
+
+            {{--        @include('form.is-active')--}}
+            {{---------------|  Form input start |-----------------------}}
+            @if($view->showSubmitButton())
+                <button id="applicationSubmitButton" type="button" class="submit btn btn-warning">
+                    <i class="fa fa-check"></i>Submit
+                </button>
+            @endif
         @endif
         @include('form.action-buttons')
         {{ Form::close() }}
@@ -163,7 +171,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             <h5>Guardian Signature upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])
             <h5>Passport upload</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PASSPORT]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
             <h5>Payment Document upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
             <h5>SSC Equivalent File upload</h5><small>Upload one or more files</small>

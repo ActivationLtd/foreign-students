@@ -42,8 +42,14 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
         if (!parent::create($user, $element)) {
             return false;
         }
-        if($user->isApplicant() && $user->applications()->whereNotIn('status',['Declined'])->count()>=1){
-            return false;
+
+        if($user->isApplicant()){
+            $mbbsOngoingApplication=$user->applications()->where('course_id',1)->whereNotIn('status',['Declined'])->count();
+            $bdsOngoingApplication=$user->applications()->where('course_id',2)->whereNotIn('status',['Declined'])->count();
+            if($mbbsOngoingApplication > 0 && $bdsOngoingApplication>0){
+                return false;
+            }
+
         }
         return true;
     }
