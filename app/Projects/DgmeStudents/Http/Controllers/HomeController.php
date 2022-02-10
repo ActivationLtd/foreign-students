@@ -3,6 +3,7 @@
 namespace App\Projects\DgmeStudents\Http\Controllers;
 
 
+use App\Projects\DgmeStudents\DataBlocks\AdminDataBlock;
 use App\Projects\DgmeStudents\DataBlocks\ApplicantDataBlock;
 use App\Projects\DgmeStudents\DataBlocks\SampleDataBlock;
 
@@ -28,10 +29,10 @@ class HomeController extends BaseController
     {
         if($this->user->isAdmin() || $this->user->isSuperUser()){
             $this->view('projects.dgme-students.dashboards.admin');
-            $sampleData = (new SampleDataBlock)->data();
+            $adminData = (new AdminDataBlock)->data();
 
             return $this->response()
-                ->setViewVars(['sampleData' => $sampleData])
+                ->setViewVars(['adminData' => $adminData])
                 ->send();
         }
         if($this->user->isApplicant()){

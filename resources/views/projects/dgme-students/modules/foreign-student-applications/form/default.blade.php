@@ -24,6 +24,9 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             {{ Form::model($element, $formConfig)}}
         @endif
         {{---------------|  Form input start |-----------------------}}
+        <h4>Name of the course to which admission is sought:</h4>
+        @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-4']])
+        <div class="clearfix"></div>
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-12']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-4']])
         @include('form.text',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-4']])
@@ -74,8 +77,9 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
         @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions)]])
         @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
         <div class="clearfix"></div>
-        <h4>Name of the course to which admission is sought:</h4>
-        @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-4']])
+
+        @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
+        <div class="clearfix"></div>
         @if($element->id)
             <div class="col-md-12 no-padding-l">
                 {{--Education List--}}
@@ -116,12 +120,10 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             @include('form.text',['var'=>['name'=>'payment_transaction_id','label'=>'Payment Transaction Id','div'=>'col-md-6']])
 
 
-
+            <div class="clearfix"></div>
+            @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
+            @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
         @endif
-        @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
-        <div class="clearfix"></div>
-        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
-        @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
         <div class="clearfix"></div>
         <div id="declaration">
             <h5>Declaration</h5>
@@ -148,16 +150,24 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
 
 @section('content-bottom')
     @parent
-    <div class="col-md-6 no-padding-l">
-        <h5>Passport upload</h5><small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PASSPORT]])
-        <h5>Payment Document upload</h5><small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
-        <h5>SSC Equivalent File upload</h5><small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
-        <h5>HSC Equivalent File upload</h5><small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
-    </div>
+    @if($element->id)
+        <div class="col-md-6 no-padding-l">
+            <h5>Picture upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
+            <h5>Signature upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
+            <h5>Guardian Signature upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])
+            <h5>Passport upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PASSPORT]])
+            <h5>Payment Document upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
+            <h5>SSC Equivalent File upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
+            <h5>HSC Equivalent File upload</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
+        </div>
+    @endif
     @if($element->id && $view->showExaminationCreateButton())
         <div class="modal fade" id="examinationModal" tabindex="-1" role="dialog" aria-labelledby="examinationModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

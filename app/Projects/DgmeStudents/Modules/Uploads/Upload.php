@@ -129,6 +129,8 @@ class Upload extends BaseModule
     public const TYPE_PASSPORT        = 'Passport';
     public const TYPE_PAYMENT_DOCUMENT        = 'Payment Document';
     public const TYPE_OTHER       = 'Other Document';
+    public const TYPE_APPLICANT_SIGNATURE       = 'Applicant Signature';
+    public const TYPE_GUARDIAN_SIGNATURE       = 'Guardian Signature';
 
 
     public static $types = [

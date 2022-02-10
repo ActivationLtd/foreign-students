@@ -47,8 +47,8 @@ class ApplicationExaminationDatatable extends Datatable
      */
     public function filter($query)
     {
-        if (request('application_id')) {
-            return $query->where('foreign_student_application_id', request('application_id'));
+        if (request('foreign_student_application_id')) {
+            return $query->where('foreign_student_application_id', request('foreign_student_application_id'));
         }
         if (request('user_id')) {
             return $query->where('user_id', request('user_id'));

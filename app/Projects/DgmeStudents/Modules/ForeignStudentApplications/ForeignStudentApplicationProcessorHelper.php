@@ -76,6 +76,15 @@ trait ForeignStudentApplicationProcessorHelper
         if ($element->uploads()->where('type', 'Payment Document')->count() < 1) {
             $this->error('Payment Document Has Not Been Uploaded'); // Raise error
         }
+        if ($element->uploads()->where('type', 'Profile Picture')->count() < 1) {
+            $this->error('Profile Picture Has Not Been Uploaded'); // Raise error
+        }
+        if ($element->uploads()->where('type', 'Applicant Signature')->count() < 1) {
+            $this->error('Applicant Signature Has Not Been Uploaded'); // Raise error
+        }
+        if ($element->uploads()->where('type', 'Payment Document')->count() < 1) {
+            $this->error('Guardian Signature Has Not Been Uploaded'); // Raise error
+        }
 
         return $this; // Return the same object for validation method chaining
     }
@@ -86,7 +95,7 @@ trait ForeignStudentApplicationProcessorHelper
     public function checkExaminations(): static
     {
         $element = $this->element; // Short hand variable.
-        if ($element->applicationExaminations->count() <= 3 && $element->applicationExaminations->count() >= 1) {
+        if ($element->applicationExaminations->count() <= 2 && $element->applicationExaminations->count() >= 1) {
             $this->error('Examinations Details has not been updated'); // Raise error
         }
 
