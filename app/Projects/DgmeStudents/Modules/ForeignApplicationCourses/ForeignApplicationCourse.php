@@ -48,7 +48,9 @@ class ForeignApplicationCourse extends BaseModule
         self::observe(ForeignApplicationCourseObserver::class);
 
         // static::saving(function (ForeignApplicationCourse $element) { });
-        // static::creating(function (ForeignApplicationCourse $element) { });
+        static::creating(function (ForeignApplicationCourse $element) {
+            $element->is_active=1;
+        });
         // static::updating(function (ForeignApplicationCourse $element) { });
         // static::created(function (ForeignApplicationCourse $element) { });
         // static::updated(function (ForeignApplicationCourse $element) { });

@@ -81,6 +81,7 @@ class RegisterApplicantController extends MfRegisterTenantController
         $this->user = $this->createUser();
         if (!$this->user) {
             $this->fail('User creation failed');
+
             //Tenant::where('id', $this->tenant->id)->forceDelete();
             return $this;
         }
@@ -114,13 +115,14 @@ class RegisterApplicantController extends MfRegisterTenantController
     protected function createUser()
     {
         return User::create([
-            'first_name'=> request('first_name'),
+            'first_name' => request('first_name'),
             'last_name' => request('last_name'),
             'full_name' => request('first_name').' '.request('last_name'),
-            'email'     => request('email'),
-            'passport_no'     => request('passport_no'),
-            'password'  => Hash::make(request('password')),
-            'group_ids' => User::APPLICANT_USER_GROUP_ID,
+            'name' => request('first_name').' '.request('last_name'),
+            'email' => request('email'),
+            'passport_no' => request('passport_no'),
+            'password' => Hash::make(request('password')),
+            'group_ids' => [(string) User::APPLICANT_USER_GROUP_ID],
             'is_active' => 1,
             //'tenant_id' => $this->tenant->id,
         ]);

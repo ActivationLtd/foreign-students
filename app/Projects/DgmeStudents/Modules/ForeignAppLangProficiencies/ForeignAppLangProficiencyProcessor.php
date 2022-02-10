@@ -47,6 +47,10 @@ class ForeignAppLangProficiencyProcessor extends ModelProcessor
     {
         $rules = [
             // 'name' => 'required|between:1,100|'.'unique:foreign_app_lang_proficiencies,name,'.($element->id ?? 'null').',id,deleted_at,NULL',
+            'language_name'=> 'required',
+            'reading_proficiency'=> 'required',
+            'writing_proficiency'=> 'required',
+            'speaking_proficiency'=> 'required',
             'is_active' => 'in:1,0',
         ];
 

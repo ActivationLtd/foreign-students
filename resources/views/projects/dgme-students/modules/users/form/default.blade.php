@@ -15,7 +15,7 @@
 
 @section('content')
 
-            @dump($element->sGroups()->get()->toArray())
+{{--            @dump($element->sGroups()->get()->toArray())--}}
     {{--        @dump($element->sTags()->pluck('tag')->toArray())--}}
 {{--    @dump($element->spreads)--}}
 {{--            @dump($element->getSpreadTags('first_name'))--}}

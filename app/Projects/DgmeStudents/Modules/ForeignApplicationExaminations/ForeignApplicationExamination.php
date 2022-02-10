@@ -56,7 +56,9 @@ class ForeignApplicationExamination extends BaseModule
         self::observe(ForeignApplicationExaminationObserver::class);
 
         // static::saving(function (ForeignApplicationExamination $element) { });
-        // static::creating(function (ForeignApplicationExamination $element) { });
+        static::creating(function (ForeignApplicationExamination $element) {
+            $element->is_active=1;
+        });
         // static::updating(function (ForeignApplicationExamination $element) { });
         // static::created(function (ForeignApplicationExamination $element) { });
         // static::updated(function (ForeignApplicationExamination $element) { });
@@ -105,7 +107,7 @@ class ForeignApplicationExamination extends BaseModule
 
     public function foreignApplication()
     {
-        return $this->belongsTo(\App\ForeignStudentApplication::class, 'foreign_student_application_id');
+        return $this->hasOne(\App\ForeignStudentApplication::class, 'id','foreign_student_application_id');
     }
 
     /*

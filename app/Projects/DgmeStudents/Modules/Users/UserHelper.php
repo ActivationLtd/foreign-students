@@ -30,7 +30,7 @@ trait UserHelper
      */
     public function isAdmin()
     {
-        return $this->isA('superuser');
+        return $this->isA('admin');
     }
     /**
      * Check if user is applicant

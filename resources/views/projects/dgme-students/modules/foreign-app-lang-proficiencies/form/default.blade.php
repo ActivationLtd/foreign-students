@@ -13,6 +13,7 @@
  * @var \App\Tenant $tenant
  * @var \App\Projects\DgmeStudents\Modules\ForeignAppLangProficiencies\ForeignAppLangProficiencyViewProcessor $view
  */
+use App\ForeignAppLangProficiency;
 $foreignAppLangProficiency = $element;
 ?>
 
@@ -25,8 +26,14 @@ $foreignAppLangProficiency = $element;
         @endif
 
         {{---------------|  Form input start |-----------------------}}
-        @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
-        @include('form.is-active')
+        <?php
+        $proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
+        ?>
+        @include('form.text',['var'=>['name'=>'language_name','label'=>'Language','div'=>'col-md-12']])
+        @include('form.select-array',['var'=>['name'=>'reading_proficiency','label'=>'Reading', 'options'=>kv($proficiencyLevels)]])
+        @include('form.select-array',['var'=>['name'=>'writing_proficiency','label'=>'Writing', 'options'=>kv($proficiencyLevels)]])
+        @include('form.select-array',['var'=>['name'=>'speaking_proficiency','label'=>'Speaking', 'options'=>kv($proficiencyLevels)]])
+{{--        @include('form.is-active')--}}
         {{---------------|  Form input start |-----------------------}}
 
         @include('form.action-buttons')

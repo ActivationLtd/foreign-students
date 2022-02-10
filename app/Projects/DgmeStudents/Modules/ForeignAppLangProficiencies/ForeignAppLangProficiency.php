@@ -59,7 +59,9 @@ class ForeignAppLangProficiency extends BaseModule
         self::observe(ForeignAppLangProficiencyObserver::class);
 
         // static::saving(function (ForeignAppLangProficiency $element) { });
-        // static::creating(function (ForeignAppLangProficiency $element) { });
+        static::creating(function (ForeignAppLangProficiency $element) {
+            $element->is_active=1;
+        });
         // static::updating(function (ForeignAppLangProficiency $element) { });
         // static::created(function (ForeignAppLangProficiency $element) { });
         // static::updated(function (ForeignAppLangProficiency $element) { });
@@ -108,7 +110,7 @@ class ForeignAppLangProficiency extends BaseModule
 
     public function foreignApplication()
     {
-        return $this->belongsTo(\App\ForeignStudentApplication::class, 'foreign_student_application_id');
+        return $this->hasOne(\App\ForeignStudentApplication::class, 'id','foreign_student_application_id');
     }
     /*
     |--------------------------------------------------------------------------

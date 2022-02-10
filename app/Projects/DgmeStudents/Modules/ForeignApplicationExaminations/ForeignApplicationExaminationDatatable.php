@@ -31,9 +31,13 @@ class ForeignApplicationExaminationDatatable extends ModuleDatatable
     public function columns()
     {
         return [
+
             // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
-            [$this->table.'.name', 'name', 'Name'],
+            [$this->table.'.examination_name', 'examination_name', 'Examination'],
+            [$this->table.'.passing_year', 'passing_year', 'Passing Year'],
+            [$this->table.'.subjects', 'subjects', 'Subjects Taken'],
+            [$this->table.'.certificate_name', 'certificate_name', 'Certificates'],
             [$this->table.'.updated_by', 'updated_by', 'Updater'],
             [$this->table.'.updated_at', 'updated_at', 'Updated at'],
             [$this->table.'.is_active', 'is_active', 'Active'],
@@ -62,14 +66,18 @@ class ForeignApplicationExaminationDatatable extends ModuleDatatable
     //  * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixed  $query
     //  * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixed
     //  */
-    // public function filter($query)
-    // {
-    //     // if (request('id')) { // Example code
-    //     //     $query->where('id', request('id'));
-    //     // }
-    //
-    //     return $query;
-    // }
+    public function filter($query)
+    {
+        // if (request('id')) { // Example code
+        //     $query->where('id', request('id'));
+        // }
+        $user=user();
+        if($user->isApplicant()){
+            $query->where('user_id', $user->id);
+        }
+
+        return $query;
+    }
 
     /*---------------------------------
     | Section : Modify row-columns

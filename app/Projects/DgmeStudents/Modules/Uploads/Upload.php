@@ -124,12 +124,22 @@ class Upload extends BaseModule
     public const TYPE_GENERIC     = 'Generic';
     public const TYPE_PROFILE_PIC = 'Profile Picture';
     public const TYPE_LOGO        = 'Logo';
+    public const TYPE_SSC_EQUIVALENT        = 'SSC Equivalent Document';
+    public const TYPE_HSC_EQUIVALENT        = 'HSC Equivalent Document';
+    public const TYPE_PASSPORT        = 'Passport';
+    public const TYPE_PAYMENT_DOCUMENT        = 'Payment Document';
+    public const TYPE_OTHER       = 'Other Document';
 
 
     public static $types = [
         self::TYPE_GENERIC,
         self::TYPE_PROFILE_PIC,
         self::TYPE_LOGO,
+        self::TYPE_SSC_EQUIVALENT,
+        self::TYPE_HSC_EQUIVALENT,
+        self::TYPE_PASSPORT,
+        self::TYPE_PAYMENT_DOCUMENT,
+        self::TYPE_OTHER,
     ];
 
     public static $typesWithSingleImage = [

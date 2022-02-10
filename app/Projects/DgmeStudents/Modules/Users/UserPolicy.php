@@ -26,7 +26,17 @@ class UserPolicy extends BaseModulePolicy
      * @param  User  $element
      * @return mixed
      */
-    // public function view($user, $element) {if (! parent::view($user, $element)) {return false;} return true;}
+    public function view($user, $element)
+    {
+        if (!parent::view($user, $element)) {
+            return false;
+        }
+        if ($user->isApplicant() && $user->id != $element->id) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Determine whether the user can create Users.
@@ -44,7 +54,16 @@ class UserPolicy extends BaseModulePolicy
      * @param  User  $element
      * @return mixed
      */
-    // public function update($user, $element) {if (! parent::update($user, $element)) {return false;} return true;}
+    public function update($user, $element)
+    {
+        if (!parent::update($user, $element)) {
+            return false;
+        }
+        if($user->isApplicant() && $user->id!=$element->id){
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Determine whether the user can delete the superHero.

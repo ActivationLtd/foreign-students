@@ -16,6 +16,7 @@ class ForeignStudentApplication extends BaseModule
     public const STATUS_SUBMITTED             = 'Submitted';
     public const STATUS_PAYMENT_VERIFICATION  = 'Payment Verified';
     public const STATUS_DOCUMENT_VERIFICATION = 'Document Verified';
+    public const STATUS_DECLINED              = 'Declined';
 
     public const FINANCE_MODE_OWN_FUND        = 'Own funds';
     public const FINANCE_MODE_CANDIDATE_GOVT  = 'Scholarship awarded by candidates\'s own Government';
@@ -35,7 +36,7 @@ class ForeignStudentApplication extends BaseModule
         'tenant_id',
         'uuid',
         'name',
-        'user_id',
+        //'user_id',
         'applicant_name',
         'applicant_father_name',
         'applicant_mother_name',
@@ -67,6 +68,8 @@ class ForeignStudentApplication extends BaseModule
         'financing_mode',
         'finance_mode_other',
         'status',
+        //'submitted_at',
+        'payment_transaction_id',
         'is_active',
     ];
 
@@ -87,6 +90,7 @@ class ForeignStudentApplication extends BaseModule
         ForeignStudentApplication::STATUS_SUBMITTED,
         ForeignStudentApplication::STATUS_PAYMENT_VERIFICATION,
         ForeignStudentApplication::STATUS_DOCUMENT_VERIFICATION,
+        ForeignStudentApplication::STATUS_DECLINED,
     ];
     public static $fundingModes = [
         ForeignStudentApplication::FINANCE_MODE_OWN_FUND,
@@ -164,14 +168,29 @@ class ForeignStudentApplication extends BaseModule
         return $this->belongsTo(\App\User::class, 'user_id');
     }
 
-    public function applicationEducationalQualifications()
+    public function dobCountry()
     {
-        return $this->hasMany(\App\ApplicationEducationalQualification::class, 'application_id');
+        return $this->belongsTo(\App\Country::class, 'dob_country_id');
+    }
+
+    public function domicileCountry()
+    {
+        return $this->belongsTo(\App\Country::class, 'domicile_country_id');
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(\App\ForeignApplicationCourse::class, 'course_id');
+    }
+
+    public function applicationExaminations()
+    {
+        return $this->hasMany(\App\ForeignApplicationExamination::class, 'foreign_student_application_id');
     }
 
     public function applicationLanguageProfiencies()
     {
-        return $this->hasMany(\App\ApplicationLanguageProficiency::class, 'application_id');
+        return $this->hasMany(\App\ForeignAppLangProficiency::class, 'foreign_student_application_id');
     }
     /*
     |--------------------------------------------------------------------------

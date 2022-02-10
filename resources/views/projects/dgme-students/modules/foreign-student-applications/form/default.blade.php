@@ -23,41 +23,6 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
         @elseif($formState == 'edit')
             {{ Form::model($element, $formConfig)}}
         @endif
-        {{--  'name',
-                'user_id',
-                'applicant_name',
-                'applicant_father_name',
-                'applicant_mother_name',
-                'communication_address',
-                'dob',
-                'dob_country_id',
-                'dob_country_name',
-                'dob_address',
-                'domicile_country_id',
-                'domicile_country_name',
-                'domicile_address',
-                'nationality',
-                'applicant_passport_no',
-                'applicant_passport_issue_date',
-                'applicant_passport_expiry_date',
-                'applicant_email',
-                'applicant_mobile_no',
-                'legal_guardian_name',
-                'legal_guardian_nationality',
-                'legal_guardian_address',
-                'emergency_contact_bangladesh_name',
-                'emergency_contact_bangladesh_address',
-                'emergency_contact_domicile_name',
-                'emergency_contact_domicile_address',
-                'has_previous_application',
-                'previous_application_feedback',
-                'course_id',
-                'course_name',
-                'financing_mode',
-                'finance_mode_other',
-                'status',
-                --}}
-
         {{---------------|  Form input start |-----------------------}}
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-12']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-4']])
@@ -96,16 +61,19 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
         $proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
         $fundingModes = ForeignStudentApplication::$fundingModes;
         $statuses = ForeignStudentApplication::$statuses;
-        if(user()->isApplicant()){
-            unset($statuses['Payment Verified']);
-            unset($statuses['Document Verified']);
+        if (user()->isApplicant()) {
+            unset($statuses['2']);
+            unset($statuses['3']);
+            unset($statuses['4']);
+        }
+        if(user()->isAdmin()){
+            unset($statuses['0']);
         }
         ?>
         <h4>Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h4>
         @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions)]])
         @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
         <div class="clearfix"></div>
-
         <h4>Name of the course to which admission is sought:</h4>
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-4']])
         @if($element->id)
@@ -116,11 +84,14 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
                 ?>
                 <h4 class="col-md-6 no-padding-l">Beginning with Matriculation/SSC or equivalent examinations</h4>
-                <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#examinationModal">
-                        Add Examinations
-                    </button>
-                </div>
+
+                @if($view->showExaminationCreateButton())
+                    <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#examinationModal">
+                            Add Examinations
+                        </button>
+                    </div>
+                @endif
                 <div class="clearfix"></div>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
             </div>
@@ -131,18 +102,26 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
                 ?>
                 <h4 class="col-md-6 no-padding-l">Proficiency Of Language</h4>
-                <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#languageProficiencyModal">
-                        Add Language Proficiency
-                    </button>
-                </div>
+                @if($view->showLanguageProfiencyCreateButton())
+                    <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#languageProficiencyModal">
+                            Add Language Proficiency
+                        </button>
+                    </div>
+                @endif
                 <div class="clearfix"></div>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
             </div>
-                @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
+            <div class="clearfix"></div>
+            @include('form.text',['var'=>['name'=>'payment_transaction_id','label'=>'Payment Transaction Id','div'=>'col-md-6']])
 
-            @endif
+
+
+        @endif
         @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
+        <div class="clearfix"></div>
+        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
+        @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
         <div class="clearfix"></div>
         <div id="declaration">
             <h5>Declaration</h5>
@@ -166,10 +145,16 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
 @section('content-bottom')
     @parent
     <div class="col-md-6 no-padding-l">
-        <h5>File upload</h5><small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['limit'=>99,'type'=>\App\Upload::TYPE_GENERIC]])
+        <h5>Passport upload</h5><small>Upload one or more files</small>
+        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PASSPORT]])
+        <h5>Payment Document upload</h5><small>Upload one or more files</small>
+        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
+        <h5>SSC Equivalent File upload</h5><small>Upload one or more files</small>
+        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
+        <h5>HSC Equivalent File upload</h5><small>Upload one or more files</small>
+        @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
     </div>
-    @if($element->id)
+    @if($element->id && $view->showExaminationCreateButton())
         <div class="modal fade" id="examinationModal" tabindex="-1" role="dialog" aria-labelledby="examinationModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -203,6 +188,8 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 </div>
             </div>
         </div>
+    @endif
+    @if($element->id && $view->showLanguageProfiencyCreateButton())
         <div class="modal fade" id="languageProficiencyModal" tabindex="-1" role="dialog" aria-labelledby="languageProficiencyModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -242,6 +229,9 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
     @parent
     @include('projects.dgme-students.modules.foreign-student-applications.form.js')
     <script type="text/javascript">
+        $('select[id=dob_country_id]').select2();
+        $('select[id=domicile_country_id]').select2();
+
         $('#applicationExaminationForm').validationEngine({
             prettySelect: true,
             promptPosition: "topLeft",

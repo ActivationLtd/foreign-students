@@ -11,7 +11,7 @@
     <div class="clearfix"></div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-green-active">
-            <a href="#" style="color:white">
+            <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
                   <ion-icon name="newspaper-outline"></ion-icon>
                 </span>
@@ -19,14 +19,19 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Online Application</span>
-                <span class="info-box-number">Apply Online</span>
+                @if($applicantData['applications']['ongoing']>0)
+                    <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingApplicationId'])}}" style="color:white">
+                        <span class="info-box-number">{{$applicantData['applications']['ongoing']}} Current Applications</span>
+                    </a>
 
-{{--                <div class="progress">--}}
-{{--                    <div class="progress-bar" style="width: 50%"></div>--}}
-{{--                </div>--}}
-{{--                <span class="progress-description">--}}
-{{--                    50% Increase in 30 Days--}}
-{{--                  </span>--}}
+                    <span class="progress-description">Status : {{$applicantData['applications']['ongoingApplicationStatus']}}</span>
+                @else
+                    <a href="{{route('foreign-student-applications.create')}}" style="color:white">
+                        <span class="info-box-number">Apply Online</span>
+                    </a>
+                @endif
+
+
             </div>
         </div>
     </div>

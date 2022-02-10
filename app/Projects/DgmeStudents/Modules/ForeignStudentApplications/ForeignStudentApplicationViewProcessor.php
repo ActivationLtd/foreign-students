@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
 use App\ForeignStudentApplication;
+use App\Projects\DgmeStudents\Helpers\Time;
 
 class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 {
@@ -51,6 +52,30 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     // public function showFormListBtn() { }
     // public function showReportLink() { }
     // public function showTenantSelector() { }
+    /**
+     * @return bool
+     */
+
+    public function showExaminationCreateButton()
+    {
+        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function showLanguageProfiencyCreateButton()
+    {
+        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+            return false;
+        }
+
+        return true;
+    }
 
     /*
     |--------------------------------------------------------------------------

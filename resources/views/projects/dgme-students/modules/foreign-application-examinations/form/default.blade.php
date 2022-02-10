@@ -25,8 +25,12 @@ $foreignApplicationExamination = $element;
         @endif
 
         {{---------------|  Form input start |-----------------------}}
-        @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
-        @include('form.is-active')
+{{--        @include('form.text',['var'=>['name'=>'name','label'=>'Name']])--}}
+        @include('form.text',['var'=>['name'=>'examination_name','label'=>'Examination','div'=>'col-md-12']])
+        @include('form.number',['var'=>['name'=>'passing_year','label'=>'Passing Year','div'=>'col-md-6']])
+        @include('form.textarea',['var'=>['name'=>'subjects','label'=>'Subjects Taken','div'=>'col-md-12']])
+        @include('form.text',['var'=>['name'=>'certificate_name','label'=>'Certificate','div'=>'col-md-12']])
+{{--        @include('form.is-active')--}}
         {{---------------|  Form input start |-----------------------}}
 
         @include('form.action-buttons')

@@ -3,6 +3,7 @@
 namespace App\Projects\DgmeStudents\Http\Controllers;
 
 
+use App\Projects\DgmeStudents\DataBlocks\ApplicantDataBlock;
 use App\Projects\DgmeStudents\DataBlocks\SampleDataBlock;
 
 class HomeController extends BaseController
@@ -33,13 +34,15 @@ class HomeController extends BaseController
                 ->setViewVars(['sampleData' => $sampleData])
                 ->send();
         }
-        if($this->user->isApplicant())
-        $this->view('projects.dgme-students.dashboards.applicant');
-        $sampleData = (new SampleDataBlock)->data();
+        if($this->user->isApplicant()){
+            $this->view('projects.dgme-students.dashboards.applicant');
+            $applicantData = (new ApplicantDataBlock)->data();
 
-        return $this->response()
-            ->setViewVars(['sampleData' => $sampleData])
-            ->send();
+            return $this->response()
+                ->setViewVars(['applicantData' => $applicantData])
+                ->send();
+        }
+
     }
 
 }

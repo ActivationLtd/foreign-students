@@ -352,6 +352,10 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     | Relations
     |--------------------------------------------------------------------------
     */
+    public function applications()
+    {
+        return $this->hasMany(\App\ForeignStudentApplication::class, 'user_id');
+    }
 
     public function sGroups()
     {
