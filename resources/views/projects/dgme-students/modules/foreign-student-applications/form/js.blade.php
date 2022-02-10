@@ -28,6 +28,7 @@
     // Validation
     addValidationRules();
     showDeclaration();
+    applicationSubmitButtonAction();
     enableValidation('{{$module->name}}');
 
     /*
@@ -78,13 +79,26 @@
         declarationLogic();
         $('select[name=status]').change(function () {
             if ($('select[name=status]').val() == "Submitted") {
-                showAlert("Please confirm the declaration <br> Once submitted the application can be edited in the next 24 hour only.");
+                showAlert("Please confirm the declaration <br>"+
+                    " Once submitted the application can be edited in the next 24 hour only.");
                 $('#declaration').show();
                 $("input[id=declaration_check]").addClass('validate[required]');
             } else {
                 $('#declaration').hide();
                 $("input[id=declaration_check]").removeClass('validate[required]');
             }
+        });
+    }
+    function applicationSubmitButtonAction(){
+        $('#applicationSubmitButton').click(function(){
+            $('select[name=status]').val('Submitted');
+            showAlert("Please confirm the declaration.<br>"+
+                "Once submitted the application can be edited in the next 24 hour only.<br>" +
+                "Click Save after confirmation to update the Application."
+            );
+
+            $('#declaration').show();
+            $("input[id=declaration_check]").addClass('validate[required]');
         });
     }
 </script>

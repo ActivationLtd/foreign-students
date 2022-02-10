@@ -66,7 +66,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             unset($statuses['3']);
             unset($statuses['4']);
         }
-        if(user()->isAdmin()){
+        if (user()->isAdmin()) {
             unset($statuses['0']);
         }
         ?>
@@ -127,16 +127,20 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             <h5>Declaration</h5>
             @include('form.checkbox',['var'=>['name'=>'declaration_check']])
             <div class="clearfix"></div>
-            <h6>I, hereby, declare that particulars given above are true to the best of my knowledge and believe, that I <br>
+            <h5>I, hereby, declare that particulars given above are true to the best of my knowledge and believe, that I <br>
                 have made satisfactory arrangements for regular supply of funds for my expenditure in Bangladesh and <br>
                 that I shall return to my country of domicile after completion or discontinuation of studies in Bangladesh. <br>
                 I further declare I shall abide fully by the rules and regulations of the institute and any decision to the <br>
-                Authority of the institutions to which I may be admitted</h6>
+                Authority of the institutions to which I may be admitted</h5>
         </div>
 
         {{--        @include('form.is-active')--}}
         {{---------------|  Form input start |-----------------------}}
-
+        @if($view->showSubmitButton())
+            <button id="applicationSubmitButton" type="button" class="submit btn btn-warning">
+                <i class="fa fa-check"></i>Submit
+            </button>
+        @endif
         @include('form.action-buttons')
         {{ Form::close() }}
     </div>
