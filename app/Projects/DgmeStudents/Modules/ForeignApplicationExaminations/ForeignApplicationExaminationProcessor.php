@@ -76,7 +76,7 @@ class ForeignApplicationExaminationProcessor extends ModelProcessor
         // Todo: First validate
         // --------------------
         // $this->checkSomething();
-
+        $this->checkYear();
         // Todo: Then do further processing
         // ----------------------------------
         // if($this->isValid()){

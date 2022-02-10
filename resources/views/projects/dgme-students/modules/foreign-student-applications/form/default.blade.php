@@ -257,6 +257,9 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
     <script type="text/javascript">
         $('select[id=dob_country_id]').select2();
         $('select[id=domicile_country_id]').select2();
+        let currentYear=new Date().getFullYear();
+        let oneYearBefore=currentYear-1;
+        let fiveYearBefore=currentYear-5;
 
         $('#applicationExaminationForm').validationEngine({
             prettySelect: true,
@@ -264,7 +267,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             scroll: false
         });
         $('#applicationExaminationForm #examination_name').addClass('validate[required]');
-        $('#applicationExaminationForm #passing_year').addClass('validate[required]');
+        $('#applicationExaminationForm #passing_year').addClass('validate[required,min['+fiveYearBefore+'],max['+oneYearBefore+']]');
         $('#applicationExaminationForm #subjects').addClass('validate[required]');
         $('#applicationExaminationForm #certificate_name').addClass('validate[required]');
 

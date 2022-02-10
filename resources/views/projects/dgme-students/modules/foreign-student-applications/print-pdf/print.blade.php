@@ -35,7 +35,10 @@
             <td>Name of the course for which Admission is sought - {{$application->course_name}}</td>
         </tr>
         <tr>
-            <td>Student ID - {{$application->id}}</td>
+            <td>Application Status - {{$application->status}}</td>
+        </tr>
+        <tr>
+            <td>Application ID - {{$application->id}}</td>
         </tr>
         <tr>
             <td>Student Name - {{$application->applicant_name}}</td>

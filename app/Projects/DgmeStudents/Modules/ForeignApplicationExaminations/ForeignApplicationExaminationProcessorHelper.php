@@ -43,4 +43,21 @@ trait ForeignApplicationExaminationProcessorHelper
 
         return $this; // Return the same object for validation method chaining
     }
+
+    /**
+     * @return $this
+     */
+    public function checkYear()
+    {
+        $element = $this->element;
+        $thisYear = today()->year;
+        $oneYearBefore = $thisYear - 1;
+        $fiveYearsBefore = $thisYear - 5;
+
+        if ((int) $element->passing_year < $fiveYearsBefore || (int) $element->passing_year > $oneYearBefore) {
+            $this->error('Passing Year Should Be Between '.$fiveYearsBefore.' to '.$oneYearBefore, 'passing_year'); // Raise error
+        }
+
+        return $this; // Return the same object for validation method chaining
+    }
 }
