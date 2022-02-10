@@ -5,7 +5,7 @@
     Applicant Dashboard
 @endsection
 @section('title')
-    Welcome to Online Application For Foreign Students
+    Foreign Medical/Dental Student Application
 @endsection
 @section('content')
     <div class="clearfix"></div>

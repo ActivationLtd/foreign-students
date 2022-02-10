@@ -5,7 +5,7 @@
     Admin Dashboard
 @endsection
 @section('title')
-    Foreign Student Online Application
+    Foreign Medical/Dental Student Application
 @endsection
 @section('content')
 

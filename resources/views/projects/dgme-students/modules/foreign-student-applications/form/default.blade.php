@@ -15,7 +15,11 @@
  */
 use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;$foreignStudentApplication = $element;
 ?>
-
+@if($element->id)
+@section('content-top')
+    <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
+@endsection
+@endif
 @section('content')
     <div class="col-md-12 no-padding">
         @if(($formState == 'create'))

@@ -67,5 +67,19 @@ class ForeignStudentApplicationController extends ModularController
     |--------------------------------------------------------------------------
     | Write down additional controller functions that might be required for your project to handle bu
     */
+    public function printView($id)
+    {
+        $application = ForeignStudentApplication::find($id);
 
+        if (!$this->user->can('view', $application)) {
+            return $this->permissionDenied();
+        }
+
+        // Resolve blade view
+        $view = 'projects.dgme-students.modules.foreign-student-applications.print-pdf.print';
+
+        return $this->view($view)->with([
+            'application' => $application,
+        ]);
+    }
 }
