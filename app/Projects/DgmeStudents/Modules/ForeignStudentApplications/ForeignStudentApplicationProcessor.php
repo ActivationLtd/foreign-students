@@ -118,6 +118,9 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             $this->element->submitted_at = now();
         }
         $this->checkCourse();
+        if($this->element->id){
+            $this->checkPassport();
+        }
         if ($this->element->status == 'Submitted') {
             $this->checkDocuments();
             $this->checkExaminations();

@@ -73,6 +73,13 @@ trait ForeignStudentApplicationProcessorHelper
 
         return $this; // Return the same object for validation method chaining
     }
+    public function checkPassport(){
+        $element = $this->element;
+        if($element->applicant_passport_no !=$element->user->passport_no){
+            $this->error('Passport should be the same as the signed up user','applicant_passport_no'); // Raise error
+        }
+        return $this; // Return the same object for validation method chaining
+    }
 
     /**
      * @return $this

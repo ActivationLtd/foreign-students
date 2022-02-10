@@ -9,13 +9,13 @@
         {{ Form::open(['route' => 'register.applicant','class'=>"applicant-registration-form", 'name'=>'applicant_registration_form','id'=>'applicant_registration_form']) }}
 
 
-        @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name', 'div'=>'col-sm-12']])
-        @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name', 'div'=>'col-sm-12']])
-        @include('form.text',['var'=>['name'=>'email','label'=>'Email Address', 'div'=>'col-sm-12']])
-        @include('form.select-model',['var'=>['name'=>'country_id','label'=>'Country','table'=>'countries', 'div'=>'col-sm-12']])
-        @include('form.text',['var'=>['name'=>'passport_no','label'=>'Passport No', 'div'=>'col-sm-12']])
-        @include('form.text',['var'=>['name'=>'password','type'=>'password','label'=>'Password','value'=>'', 'div'=>'col-sm-12']])
-        @include('form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm Password', 'div'=>'col-sm-12']])
+        @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s First Name']])
+        @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Last Name']])
+        @include('form.text',['var'=>['name'=>'email','label'=>'Email Address', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Email Name']])
+        @include('form.select-model',['var'=>['name'=>'country_id','label'=>'Country','table'=>'countries', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Country Of Residence']])
+        @include('form.text',['var'=>['name'=>'passport_no','label'=>'Passport No', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Own Passport No']])
+        @include('form.text',['var'=>['name'=>'password','type'=>'password','label'=>'Password','value'=>'', 'div'=>'col-sm-12','tooltip'=>'Min 6 Characters Including Alphabets And Numbers']])
+        @include('form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm Password', 'div'=>'col-sm-12','tooltip'=>'Must Match Given Password']])
 
         <div class="form-group row mb-0">
             <div class="col-md-12">
@@ -24,7 +24,11 @@
         </div>
 
         {{ Form::close() }}
-
+        <div class="form-group row mb-0" style="margin-top:5px">
+        <div class="col-md-12">
+            <a class="btn btn-primary btn-block " href="{{route('login')}}" style="color:white">Log In</a>
+        </div>
+        </div>
     </div>
 
 @endsection
