@@ -57,11 +57,11 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         $rules = [
             //'name' => 'required|between:1,100|'.'unique:foreign_student_applications,name,'.($element->id ?? 'null').',id,deleted_at,NULL',
             'applicant_name' => 'required|regex:/[a-zA-Z\s]+/ ',
-            'applicant_email' => 'required',
-            'applicant_mobile_no' => 'required',
+            'applicant_email' => 'required|email',
+            'applicant_mobile_no' => 'required|numeric',
             'is_active' => 'in:1,0',
         ];
-        if ($element->id && $element->status == 'Submitted') {
+        if ($element->id) {
             $rules = array_merge($rules, [
                 'course_id' => 'required',
                 'payment_transaction_id' => 'required',
@@ -81,8 +81,8 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                 'legal_guardian_name' => 'required',
                 'legal_guardian_nationality' => 'required',
                 'legal_guardian_address' => 'required',
-                'emergency_contact_bangladesh_name' => 'required',
-                'emergency_contact_bangladesh_address' => 'required',
+                //'emergency_contact_bangladesh_name' => 'required',
+                'emergency_contact_bangladesh_address' => 'required_unless:emergency_contact_bangladesh_name,null',
                 'emergency_contact_domicile_name' => 'required',
                 'emergency_contact_domicile_address' => 'required',
                 'has_previous_application' => 'required',

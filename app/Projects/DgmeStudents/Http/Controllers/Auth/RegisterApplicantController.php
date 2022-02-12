@@ -55,8 +55,8 @@ class RegisterApplicantController extends MfRegisterTenantController
     {
         // Validate
         $validator = Validator::make(request()->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|regex:/[a-zA-Z\s]+/ ',
+            'last_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'country_id' => 'required',
             'email' => 'required|email|unique:users,email',
             'passport_no' => 'required|alpha_num|unique:users,passport_no',
