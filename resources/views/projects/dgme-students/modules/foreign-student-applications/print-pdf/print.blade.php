@@ -25,17 +25,25 @@
 @section('content')
     <style>
 
-        table, tr, th, td, thead, tbody{
-            font-size:18px!important;
+        table, tr, th, td, thead, tbody {
+            font-size: 18px !important;
         }
 
     </style>
     <table class="no-border no-padding" style="margin-top:5%">
         <tr>
-            <td>Name of the course for which Admission is sought - {{$application->course_name}}</td>
+            <td class="pull-left" style="margin-bottom:10px">
+                @if($profilePic)
+                    <div class="pull-right">
+                        <img class="img-thumbnail" style="height:200px!important;" src="{{$profilePic->path}}" alt="alt text">
+                    </div>
+                @endif
+            </td>
         </tr>
+
         <tr>
-            <td>Application Status - {{$application->status}}</td>
+            <td>Name of the course for which Admission is sought - {{$application->course_name}}</td>
+
         </tr>
         <tr>
             <td>Application ID - {{$application->id}}</td>

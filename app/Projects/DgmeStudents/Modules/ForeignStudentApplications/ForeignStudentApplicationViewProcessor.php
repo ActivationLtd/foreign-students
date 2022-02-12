@@ -76,19 +76,46 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
         return true;
     }
+
     /**
      * @return bool
      */
     public function showSubmitButton()
     {
-        if($this->element->status=='Draft' && user()->isApplicant()){
+        if ($this->element->status == 'Draft' && user()->isApplicant()) {
             return true;
         }
-
 
         return false;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed|null
+     */
+    public function profilePicPath()
+    {
+        $element = $this->element;
+        $profilePic = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
+        if ($profilePic) {
+            return $profilePic->path;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function showProfilePic()
+    {
+        $element = $this->element;
+        $profilePic = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
+        if (isset($element->id) && $profilePic) {
+            return true;
+        }
+
+        return false;
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Report related view helpers
