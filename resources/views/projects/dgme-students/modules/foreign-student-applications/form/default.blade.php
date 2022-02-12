@@ -51,9 +51,9 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
-            @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4']])
-            @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])
-            @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])
+            @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4','tooltip'=>'Must Match The Logged In User Passport']])
+{{--            @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])--}}
+{{--            @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])--}}
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
@@ -86,7 +86,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
             </div>
             <div class="clearfix"></div>
-
+            <h4>Proposed Mode Of Financing Study</h4>
             @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
             <div id="applicationFinanceOther">
                 @include('form.textarea',['var'=>['name'=>'finance_mode_other','label'=>'Details of Finance Other']])
@@ -99,7 +99,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 $datatable = new \App\Projects\DgmeStudents\Datatables\ApplicationExaminationDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
                 ?>
-                <h4 class="col-md-6 no-padding-l">Beginning with Matriculation/SSC or equivalent examinations</h4>
+                <h4 class="col-md-6 no-padding-l">Beginning with Matriculation/O Level or equivalent examinations list your examinations</h4>
 
                 @if($view->showExaminationCreateButton())
                     <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
@@ -140,11 +140,10 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                 <h5>Declaration</h5>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
-                <h5>I, hereby, declare that particulars given above are true to the best of my knowledge and believe, that I <br>
-                    have made satisfactory arrangements for regular supply of funds for my expenditure in Bangladesh and <br>
-                    that I shall return to my country of domicile after completion or discontinuation of studies in Bangladesh. <br>
-                    I further declare I shall abide fully by the rules and regulations of the institute and any decision to the <br>
-                    Authority of the institutions to which I may be admitted</h5>
+                <h5>I, thereby, declare that particulars given and documents submitted above are true and valid to the best of my knowledge.<br>
+                    I also declare that I shall fully abide by the rules and regulations of the institutions and any decisions of Authority of the<br>
+                    institution to which I may be admitted. I furthermore declare that if any of the submitted documents found false <br>
+                    or tempered, the application will be cancelled'</h5>
             </div>
 
             {{--        @include('form.is-active')--}}
@@ -168,15 +167,15 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
             <h5>Signature upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
-            <h5>Guardian Signature upload</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])
+            {{--            <h5>Guardian Signature upload</h5><small>Upload one or more files</small>--}}
+            {{--            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])--}}
             <h5>Passport upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
             <h5>Payment Document upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
-            <h5>SSC Equivalent File upload</h5><small>Upload one or more files</small>
+            <h5>SSC/O Level Equivalent File upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
-            <h5>HSC Equivalent File upload</h5><small>Upload one or more files</small>
+            <h5>HSC/A Level Equivalent File upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
         </div>
     @endif
@@ -257,9 +256,9 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
     <script type="text/javascript">
         $('select[id=dob_country_id]').select2();
         $('select[id=domicile_country_id]').select2();
-        let currentYear=new Date().getFullYear();
-        let oneYearBefore=currentYear-1;
-        let fiveYearBefore=currentYear-5;
+        let currentYear = new Date().getFullYear();
+        let oneYearBefore = currentYear - 1;
+        let fiveYearBefore = currentYear - 5;
 
         $('#applicationExaminationForm').validationEngine({
             prettySelect: true,
@@ -267,7 +266,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             scroll: false
         });
         $('#applicationExaminationForm #examination_name').addClass('validate[required]');
-        $('#applicationExaminationForm #passing_year').addClass('validate[required,min['+fiveYearBefore+'],max['+oneYearBefore+']]');
+        $('#applicationExaminationForm #passing_year').addClass('validate[required,min[' + fiveYearBefore + '],max[' + oneYearBefore + ']]');
         $('#applicationExaminationForm #subjects').addClass('validate[required]');
         $('#applicationExaminationForm #certificate_name').addClass('validate[required]');
 

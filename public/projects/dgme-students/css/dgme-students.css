@@ -558,7 +558,7 @@ body.projects-mph-market-dashboards-vendor .content {
 }
 .info-box {
     display: block;
-    min-height: 90px;
+    min-height: 105px!important;
     /* background: #fff; */
     width: 100%;
     box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
