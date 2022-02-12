@@ -17,7 +17,10 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
 ?>
 @if($element->id && $element->status=="Submitted")
 @section('content-top')
-    <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
+    <div class="pull-right">
+        <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
+    </div>
+
 @endsection
 @endif
 @section('content')
@@ -27,9 +30,14 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
         @elseif($formState == 'edit')
             {{ Form::model($element, $formConfig)}}
         @endif
+
+
         {{---------------|  Form input start |-----------------------}}
         <h4>Name of the course to which admission is sought</h4>
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-4']])
+        @if($view->showProfilePic())
+            <div class="pull-right"><img class="img-thumbnail" style="height:200px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
+        @endif
         <div class="clearfix"></div>
         <h4>Applicant Info</h4>
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-12']])
@@ -52,8 +60,8 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4','tooltip'=>'Must Match The Logged In User Passport']])
-{{--            @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])--}}
-{{--            @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])--}}
+            {{--            @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])--}}
+            {{--            @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])--}}
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
@@ -163,19 +171,19 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
     @parent
     @if($element->id)
         <div class="col-md-6 no-padding-l">
-            <h5>Picture upload</h5><small>Upload one or more files</small>
+            <h5>Applicant Picture upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
-            <h5>Signature upload</h5><small>Upload one or more files</small>
+            <h5>Applicant Signature upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
             {{--            <h5>Guardian Signature upload</h5><small>Upload one or more files</small>--}}
             {{--            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])--}}
-            <h5>Passport upload</h5><small>Upload one or more files</small>
+            <h5>Applicant Passport upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
-            <h5>Payment Document upload</h5><small>Upload one or more files</small>
+            <h5>Confirmed Payment Document upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
-            <h5>SSC/O Level Equivalent File upload</h5><small>Upload one or more files</small>
+            <h5>Applicant SSC/O Level Equivalent File upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
-            <h5>HSC/A Level Equivalent File upload</h5><small>Upload one or more files</small>
+            <h5>Applicant HSC/A Level Equivalent File upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
         </div>
     @endif

@@ -74,12 +74,16 @@ class ForeignStudentApplicationController extends ModularController
         if (!$this->user->can('view', $application)) {
             return $this->permissionDenied();
         }
-
+        $profilePic=null;
+        if($application->uploads()->where('type',\App\Upload::TYPE_PROFILE_PIC)->first()){
+            $profilePic=$application->uploads()->where('type',\App\Upload::TYPE_PROFILE_PIC)->first();
+        }
         // Resolve blade view
         $view = 'projects.dgme-students.modules.foreign-student-applications.print-pdf.print';
 
         return $this->view($view)->with([
             'application' => $application,
+            'profilePic' => $profilePic,
         ]);
     }
 }
