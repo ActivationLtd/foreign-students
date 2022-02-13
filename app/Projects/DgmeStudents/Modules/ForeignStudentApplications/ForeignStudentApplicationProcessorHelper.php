@@ -61,23 +61,38 @@ trait ForeignStudentApplicationProcessorHelper
     /**
      * @return $this
      */
-    public function checkCourse()
+    public function checkCourseAndType()
     {
         $element = $this->element;
-        $existingOngoingApplicationForCourseCount = $this->user->applications()->where('id','!=',$element->id)
-            ->where('course_id', $element->course_id)->whereNotIn('status', ['Declined'])
+        $existingOngoingApplicationForCourseCount = $this->user->applications()->where('id', '!=', $element->id)
+            ->where('course_id', $element->course_id)
+            ->where('application_category', $element->application_category)
+            ->whereNotIn('status', ['Declined'])
             ->count();
         if ($existingOngoingApplicationForCourseCount) {
-            $this->error('An Application on this course '.$element->course->name.' is all ready under processing'); // Raise error
+            $this->error('An Application on this course '.$element->course->name.' and application category '.$element->application_category.' is all ready under processing'); // Raise error
         }
 
         return $this; // Return the same object for validation method chaining
     }
-    public function checkPassport(){
+
+    /**
+     * @return $this
+     */
+    public function checkSAARCCountry()
+    {
+        return $this;
+    }
+    /**
+     * @return $this
+     */
+    public function checkPassport()
+    {
         $element = $this->element;
-        if($element->applicant_passport_no !=$element->user->passport_no){
-            $this->error('Passport should be the same as the signed up user','applicant_passport_no'); // Raise error
+        if ($element->applicant_passport_no != $element->user->passport_no) {
+            $this->error('Passport should be the same as the signed up user', 'applicant_passport_no'); // Raise error
         }
+
         return $this; // Return the same object for validation method chaining
     }
 

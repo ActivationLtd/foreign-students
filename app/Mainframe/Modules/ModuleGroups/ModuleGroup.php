@@ -68,6 +68,9 @@ use App\Mainframe\Modules\ModuleGroups\Traits\ModuleGroupTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereUuid($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|ModuleGroup onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ModuleGroup withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ModuleGroup withoutTrashed()
  */
 class ModuleGroup extends BaseModule
 {

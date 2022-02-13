@@ -13,7 +13,21 @@
  * @var \App\Tenant $tenant
  * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor $view
  */
-use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;$foreignStudentApplication = $element;
+use App\ForeignAppLangProficiency;use App\ForeignApplicationExamination;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;$foreignStudentApplication = $element;
+$yesNoOptions = ForeignStudentApplication::$optionsYesNo;
+$optionsGovernmentPublic = ForeignStudentApplication::$optionsGovernmentPublic;
+$proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
+$fundingModes = ForeignStudentApplication::$fundingModes;
+$statuses = ForeignStudentApplication::$statuses;
+$examinationTypes = ForeignApplicationExamination::$examinationTypes;
+if (user()->isApplicant()) {
+    unset($statuses['2']);
+    unset($statuses['3']);
+    unset($statuses['4']);
+}
+if (user()->isAdmin()) {
+    unset($statuses['0']);
+}
 ?>
 @if($element->id && $element->status=="Submitted")
 @section('content-top')
@@ -34,13 +48,16 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
 
         {{---------------|  Form input start |-----------------------}}
         <h4>Name of the course to which admission is sought</h4>
-        @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-4']])
+
+        @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Public Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-2']])
         @if($view->showProfilePic())
             <div class="pull-right"><img class="img-thumbnail" style="height:200px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
         @endif
         <div class="clearfix"></div>
         <h4>Applicant Info</h4>
-        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-12']])
+        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-8']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-4']])
         @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-4']])
         <div class="clearfix"></div>
@@ -74,20 +91,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             @include('form.text',['var'=>['name'=>'emergency_contact_domicile_name','label'=>'Emergency Contact Name (Domicile)','div'=>'col-md-4']])
             @include('form.textarea',['var'=>['name'=>'emergency_contact_domicile_address','label'=>'Emergency Contact Address (Domicile)']])
             <div class="clearfix"></div>
-            <?php
-            $yesNoOptions = ForeignStudentApplication::$optionsYesNo;
-            $proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
-            $fundingModes = ForeignStudentApplication::$fundingModes;
-            $statuses = ForeignStudentApplication::$statuses;
-            if (user()->isApplicant()) {
-                unset($statuses['2']);
-                unset($statuses['3']);
-                unset($statuses['4']);
-            }
-            if (user()->isAdmin()) {
-                unset($statuses['0']);
-            }
-            ?>
+
             <h4>Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h4>
             @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions)]])
             <div id="previousApplicationFeedback">
@@ -204,6 +208,7 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
                             <input name="foreign_student_application_id" type="hidden" value="{{$element->id}}">
                             <input name="user_id" type="hidden" value="{{$element->user_id}}">
                             <div class="clearfix"></div>
+                            @include('form.select-array',['var'=>['name'=>'examination_type','label'=>'O Level/ A Level Equivalent', 'options'=>($examinationTypes),'div'=>'col-md-12']])
                             @include('form.text',['var'=>['name'=>'examination_name','label'=>'Examination','div'=>'col-md-12']])
                             @include('form.number',['var'=>['name'=>'passing_year','label'=>'Passing Year','div'=>'col-md-6']])
                             @include('form.textarea',['var'=>['name'=>'subjects','label'=>'Subjects Taken','div'=>'col-md-12']])
@@ -266,6 +271,8 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
         $('select[id=domicile_country_id]').select2();
         let currentYear = new Date().getFullYear();
         let oneYearBefore = currentYear - 1;
+        let twoYearBefore = currentYear - 2;
+        let threeYearBefore = currentYear - 3;
         let fiveYearBefore = currentYear - 5;
 
         $('#applicationExaminationForm').validationEngine({
@@ -273,8 +280,22 @@ use App\ForeignAppLangProficiency;use App\Projects\DgmeStudents\Modules\ForeignS
             promptPosition: "topLeft",
             scroll: false
         });
+        $('#applicationExaminationForm #examination_type').addClass('validate[required]');
         $('#applicationExaminationForm #examination_name').addClass('validate[required]');
-        $('#applicationExaminationForm #passing_year').addClass('validate[required,min[' + fiveYearBefore + '],max[' + oneYearBefore + ']]');
+        $('#applicationExaminationForm #passing_year').addClass('validate[required]');
+        $('#applicationExaminationForm #examination_type').change(function () {
+            let minYear = null;
+            let maxYear = null;
+            $('#applicationExaminationForm #passing_year').removeClass('validate[min[' + minYear + '],max[' + maxYear + ']]')
+            if (this.value == 'O level') {
+                minYear = fiveYearBefore;
+                maxYear = threeYearBefore;
+            } else if (this.value == 'A level') {
+                minYear = twoYearBefore;
+                maxYear = oneYearBefore;
+            }
+            $('#applicationExaminationForm #passing_year').addClass('validate[min[' + minYear + '],max[' + maxYear + ']]')
+        });
         $('#applicationExaminationForm #subjects').addClass('validate[required]');
         $('#applicationExaminationForm #certificate_name').addClass('validate[required]');
 

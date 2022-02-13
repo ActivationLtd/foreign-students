@@ -59,11 +59,14 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'applicant_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'applicant_email' => 'required|email',
             'applicant_mobile_no' => 'required|numeric',
+            'course_id' => 'required',
+            'application_category' => 'required',
+            'is_saarc' => 'required',
             'is_active' => 'in:1,0',
         ];
         if ($element->id) {
             $rules = array_merge($rules, [
-                'course_id' => 'required',
+
                 'payment_transaction_id' => 'required',
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
                 'applicant_mother_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
@@ -117,9 +120,10 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         if ($this->hasTransition('status', 'Draft', 'Submitted')) {
             $this->element->submitted_at = now();
         }
-        $this->checkCourse();
+        $this->checkCourseAndType();
         if($this->element->id){
             $this->checkPassport();
+            $this->checkSAARCCountry();
         }
         if ($this->element->status == 'Submitted') {
             $this->checkDocuments();
