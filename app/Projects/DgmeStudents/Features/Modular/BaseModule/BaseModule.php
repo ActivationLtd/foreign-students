@@ -25,6 +25,9 @@ use App\Mainframe\Features\Modular\BaseModule\BaseModule as MainframeBaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|BaseModule newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BaseModule query()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|BaseModule onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BaseModule withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BaseModule withoutTrashed()
  */
 class BaseModule extends MainframeBaseModule
 {

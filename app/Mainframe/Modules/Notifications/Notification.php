@@ -65,6 +65,9 @@ use App\Mainframe\Modules\Notifications\Traits\NotificationTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUuid($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $notifiable
+ * @method static \Illuminate\Database\Query\Builder|Notification onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Notification withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Notification withoutTrashed()
  */
 class Notification extends BaseModule
 {

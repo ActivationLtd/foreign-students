@@ -56,6 +56,9 @@ use App\Mainframe\Modules\Packages\Traits\PackageTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereYearlyPrice($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|Package onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Package withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Package withoutTrashed()
  */
 class Package extends BaseModule
 {

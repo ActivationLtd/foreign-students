@@ -20,7 +20,13 @@ class UserProcessor extends ModelProcessor
     public $immutables = ['email'];
     // public $transitions;
     // public $trackedFields;
-
+    public function immutables()
+    {
+        if(user()->isApplicant()){
+            $this->immutables=array_merge( $this->immutables,['group_ids']);
+        }
+        return $this->immutables;
+    }
     /* Further customize immutables and allowed value transitions*/
     /*
     |--------------------------------------------------------------------------

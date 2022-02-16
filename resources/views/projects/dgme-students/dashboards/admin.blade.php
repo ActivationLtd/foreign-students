@@ -5,58 +5,60 @@
     Admin Dashboard
 @endsection
 @section('title')
-    Admin Dashboard
+    Foreign Medical/Dental Student Application
 @endsection
 @section('content')
-    Welcome to mainframe
-
-    {{content('sample-content','my-content')}}
 
 
-    <?php
+{{--    {{content('sample-content','my-content')}}--}}
+
+
+{{--    <?php--}}
 
 
 
-    use App\Projects\DgmeStudents\Contents\SampleContent;
-    use App\Projects\DgmeStudents\Datatables\SampleDatatable;
-    $sampleContent = (new SampleContent())->get('body');
+{{--    use App\Projects\DgmeStudents\Contents\SampleContent;--}}
+{{--    use App\Projects\DgmeStudents\Datatables\SampleDatatable;--}}
+{{--    $sampleContent = (new SampleContent())->get('body');--}}
 
-    $str = '\App\Mainframe\Modules\Modules\Module';
-    // echo \Illuminate\Support\Arr::last(explode('\\',$str));
+{{--    $str = '\App\Mainframe\Modules\Modules\Module';--}}
+{{--    // echo \Illuminate\Support\Arr::last(explode('\\',$str));--}}
 
-    $user = \App\Module::byName('users')->modelInstance();
+{{--    $user = \App\Module::byName('users')->modelInstance();--}}
 
-    ?>
+{{--    ?>--}}
 
-    <div class="clearfix"></div>
-    {!! $sampleContent  !!}
+{{--    <div class="clearfix"></div>--}}
+{{--    {!! $sampleContent  !!}--}}
 
 
     <div class="clearfix"></div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-green-active">
-            <a href="#" style="color:white">
+            <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
-                    <ion-icon name="cart-outline"></ion-icon>
+                   <ion-icon name="newspaper-outline"></ion-icon>
                 </span>
             </a>
 
             <div class="info-box-content">
-                <span class="info-box-text">Orders</span>
-                <span class="info-box-number">ORders</span>
+                <span class="info-box-text">Foreign Applications</span>
+                <span class="info-box-number">Total : {{$adminData['applications']['total']}}</span>
+                <span class="info-box-number">In Progress : {{$adminData['applications']['ongoing']}}</span>
 
-                <div class="progress">
-                    <div class="progress-bar" style="width: 50%"></div>
-                </div>
-                <span class="progress-description">
-                    50% Increase in 30 Days
-                  </span>
+{{--                <div class="progress">--}}
+{{--                    <div class="progress-bar" style="width: 50%"></div>--}}
+{{--                </div>--}}
+{{--                <span class="progress-description">--}}
+{{--                    50% Increase in 30 Days--}}
+{{--                  </span>--}}
             </div>
         </div>
     </div>
     <div class="clearfix"></div>
 
     <?php
+    use App\Projects\DgmeStudents\Datatables\SampleDatatable;
     $datatable = new SampleDatatable();
 
 

@@ -5,6 +5,7 @@ use App\Mainframe\Modules\ModuleGroups\ModuleGroupController;
 use App\Projects\DgmeStudents\Http\Controllers\DataBlockController;
 use App\Projects\DgmeStudents\Http\Controllers\DatatableController;
 use App\Projects\DgmeStudents\Http\Controllers\ReportController;
+use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationController;
 use App\Projects\DgmeStudents\Modules\Uploads\UploadController;
 
 $modules = Mf::modules();
@@ -63,6 +64,8 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
     | Project specific routs
     |---------------------------------*/
     // Todo : Write new routes for your project
+
+    Route::get('foreign-student-applications/{id}/print-view', [ForeignStudentApplicationController::class, 'printView'])->name('applications.print-view');
 });
 
 /*---------------------------------
