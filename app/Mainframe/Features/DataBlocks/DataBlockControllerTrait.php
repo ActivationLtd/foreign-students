@@ -47,7 +47,7 @@ trait DataBlockControllerTrait
 
         // A project is setup
         if (project()) {
-            $path = '\App\Projects\\'.project().'\DataBlocks\\'.$class;
+            $path = projectNamespace().'\DataBlocks\\'.$class;
             if (class_exists($path)) {
                 return $path;
             }

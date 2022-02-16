@@ -8,7 +8,7 @@
 
 <div class="clearfix"></div>
 
-<div id="{{$module->name}}CtaBlock" class="btn-group pull-left cta-block no-margin col-md-12">
+<div id="{{$module->name}}CtaBlock" class="cta-block no-margin col-md-12">
 
     {{--  Save button --}}
     @if(((isset($element) && $editable)) || (!isset($element) && $user->can('create',$element)))

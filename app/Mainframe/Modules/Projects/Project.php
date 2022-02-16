@@ -60,6 +60,9 @@ use App\Mainframe\Modules\Projects\Traits\ProjectTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereViewDirectory($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|Project onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Project withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Project withoutTrashed()
  */
 class Project extends BaseModule
 {

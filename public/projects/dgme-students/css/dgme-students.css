@@ -558,7 +558,7 @@ body.projects-mph-market-dashboards-vendor .content {
 }
 .info-box {
     display: block;
-    min-height: 105px!important;
+    min-height: 125px!important;
     /* background: #fff; */
     width: 100%;
     box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
@@ -566,7 +566,7 @@ body.projects-mph-market-dashboards-vendor .content {
     margin-bottom: 15px;
 }
 .info-box-icon{
-    height:105px!important;
+    height:125px!important;
 }
 .login-box-body .callout {
     text-align: center;

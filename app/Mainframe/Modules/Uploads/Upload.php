@@ -75,6 +75,9 @@ use App\Mainframe\Modules\Uploads\Traits\UploadTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUploadableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUuid($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|Upload onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Upload withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Upload withoutTrashed()
  */
 class Upload extends BaseModule
 {

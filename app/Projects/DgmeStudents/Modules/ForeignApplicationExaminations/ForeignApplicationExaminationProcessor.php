@@ -48,6 +48,7 @@ class ForeignApplicationExaminationProcessor extends ModelProcessor
         $rules = [
             // 'name' => 'required|between:1,100|'.'unique:foreign_application_examinations,name,'.($element->id ?? 'null').',id,deleted_at,NULL',
             'examination_name'=> 'required',
+            'examination_type'=> 'required',
             'passing_year'=> 'required',
             'subjects'=> 'required',
             'certificate_name'=> 'required',

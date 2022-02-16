@@ -39,7 +39,7 @@ class Input extends Form
         $this->name = $this->var['name'] ?? Str::random(8);
         $this->params = $this->var['params'] ?? [];
         $this->isEditable = $this->var['editable'] ?? true; // $this->getEditable();
-        $this->isHidden = $this->var['hidden'] ?? false;
+        $this->isHidden = $this->var['hidden'] ?? in_array($this->name, $this->hiddenFields);
         $this->tooltip = $this->var['tooltip'] ?? null;
 
         // Force add form-control class
@@ -61,6 +61,14 @@ class Input extends Form
 
         // Place-holder
         $this->params['placeholder'] = $this->var['placeholder'] ?? $this->params['placeholder'] ?? '';
+    }
+
+    public function setIsHidden()
+    {
+        $this->isHidden = $this->var['hidden'] ??
+            in_array($this->name, $this->hiddenFields);
+
+        return $this;
     }
 
     /**
@@ -102,38 +110,6 @@ class Input extends Form
         }
 
         return null;
-    }
-
-    /**
-     * logically determine if the field is editable
-     * todo: unused
-     *
-     * @return bool|mixed
-     */
-    public function determineEditability()
-    {
-
-        if (isset($this->var['editable'])) {
-            return $this->var['editable'];
-        }
-
-        return true;
-
-        // $element = $this->element;
-        //
-        // if ($element
-        //     && $element->isUpdating()
-        //     && user()->cannot('update', $element)) {
-        //
-        //     return false;
-        // }
-        //
-        // if ($element
-        //     && $element->isCreating()
-        //     && user()->cannot('create', $element)) {
-        //
-        //     return false;
-        // }
     }
 
     /**

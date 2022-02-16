@@ -32,7 +32,7 @@
                     //dd($changes);
                     ?>
                     <table class="table table-striped table-condensed">
-                        <thead class="bg-gray-light">
+                        <thead>
                         <tr>
                             <th style="width: 150px">Field</th>
                             <th>Old</th>

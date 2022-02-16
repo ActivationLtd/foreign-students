@@ -1,6 +1,7 @@
 <?php
 /** @noinspection SpellCheckingInspection */
 $scriptPaths = [
+    'js/app.js',
     'js/all.js',
     // 'mainframe/templates/admin/plugins/jQuery/jquery-2.2.3.min.js',
     // // 'mainframe/js/jquery-ui-1.10.3.min.js',
@@ -52,7 +53,7 @@ $scriptPaths = [
     'mainframe/js/after-loader.js',
     'mainframe/js/custom.js',
     // WARNING: Do not put project specific JS here. Instead include them at the end of
-    // project template. i.e. resources/views/projects/dgme-students/layouts/default/template.blade.php
+    // project template. i.e. resources/views/projects/my-project/layouts/default/template.blade.php
 ];
 
 /*--------------------------------------

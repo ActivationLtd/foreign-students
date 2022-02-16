@@ -26,7 +26,7 @@
  */
 
 
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
 $input = new App\Mainframe\Features\Form\Text\Datetime($var);
 
 $input->format = config('mainframe.config.datetime_format'); // Format to show in the datepicker

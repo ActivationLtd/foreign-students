@@ -58,6 +58,9 @@ use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
  * @method static Builder|Group whereUpdatedBy($value)
  * @method static Builder|Group whereUuid($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|Group onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Group withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Group withoutTrashed()
  */
 class Group extends BaseModule
 {

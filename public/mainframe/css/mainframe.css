@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Karla:400,700|Montserrat:300,400,500,600,700,800|Roboto:400,500,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 /***********************************************************************
 * Global font settings
@@ -14,29 +15,47 @@
 body, html, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
 .content-header h4,
 .main-header, input, textarea {
-    font-family: 'Karla', 'Roboto', 'Arial', sans-serif;
+    font-family: 'Inter', 'Karla', 'Roboto', 'Arial', sans-serif;
 !important;
     color: #666;
     font-weight: normal;
 
 }
 
-.main-header .logo, .logo, .logo-mini, .logo-lg, .login-logo, .register-logo, .h1, h1, .h2, h2 {
-    font-family: 'Poppins', 'Roboto', 'Arial', sans-serif;
-    font-weight: 100;
-    /*background: rgb(63,94,251);*/
-    /*background: linear-gradient(90deg, rgba(63,94,251,1) 37%, rgba(252,70,107,1) 55%);*/
-    /*-webkit-background-clip: text;*/
-    /*-webkit-text-fill-color: transparent;*/
+[v-cloak] { display: none; }
+
+body, .form-control, .btn, table, tr, th, td, thead, tbody {
+    font-size: 12px;
 }
 
-[v-cloak] { display: none; }
+.main-header .logo, .logo, .logo-mini, .logo-lg, .login-logo, .register-logo, .h1, h1, .h2, h2 {
+    font-family: 'Inter', 'Karla', 'Roboto', 'Arial', sans-serif;
+    font-weight: 100;
+}
+
+.main-header .logo, .logo, .logo-mini, .logo-lg {
+    font-weight: 600;
+}
+
+h3 {
+    color: #000;
+    font-weight: 600;
+}
 
 a, a:hover {
     color: #001fbd;
 }
 a:hover {
     text-decoration: underline;
+}
+.btn {
+    transition: all ease-in-out .25s;
+    border: 0;
+}
+
+.btn-group.pull-right .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
 .skin-blue-light .main-header .logo:hover {
@@ -53,16 +72,11 @@ a:hover {
     background-color: white;
 }
 
-.btn {
-    transition: all ease-in-out .25s;
-    border: 0;
-}
-
 .login-page {
     background-image: url('../images/login-bg1.jpg');
     background-repeat: no-repeat;
-    background-size: 100%;
-    background-color: #ffffff;
+    background-size: cover;
+    background-color: white;
 }
 
 .login-page input {
@@ -71,9 +85,54 @@ a:hover {
 }
 
 .login-box-body button.login {
-    font-size: 18px;
+    /*font-size: 18px;*/
 }
 
+.login-box-body .callout {
+    text-align: center;
+}
+
+.login-page .btn.btn-success:hover, .btn.btn-primary:hover {
+    background-color: #000;
+    border-color: #000;
+}
+
+.login-page .btn.btn-default {
+    background-color: #777777;
+    border-color: #777777;
+    color: #fff
+}
+
+.login-page .btn.btn-default:hover {
+    background-color: #000;
+    border-color: #000;
+}
+
+.login-logo, .register-logo {
+    font-family: 'Poppins', 'Quicksand', sans-serif;
+    padding-top: 20px;
+    margin-bottom: 5px;
+    font-weight: 100;
+}
+
+.login-logo {
+    color: #000;
+    font-weight: 600;
+    padding: 15px;
+}
+
+.login-page .login-box-body a {
+    color: #333;
+}
+
+.login-box-body {
+    padding-top: 0px;
+}
+
+.login-box-body h4 {
+    text-align: center;
+    color: #000;
+}
 code {
     font-size: 80%;
 }
@@ -97,7 +156,7 @@ code {
 .sidebar-menu .treeview-menu {
     padding-left: 10px;
     padding-bottom: 10px;
-    border-left: 4px solid rgb(126, 87, 223);
+    border-left: 4px solid #0f202f;
 }
 
 .form-control,
@@ -115,7 +174,8 @@ table, tr, th, td, thead, tbody {
     background-image: url('../images/top-strip-1.png');
     background-repeat: no-repeat;
     background-size: 100%;
-    background-color: black;
+    /*background-color: black;*/
+    background: linear-gradient(90deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
 }
 
 /* remove some borders from the top menu*/
@@ -127,7 +187,8 @@ table, tr, th, td, thead, tbody {
     border-right: 0;
 }
 
-.skin-black-light .main-header .navbar .navbar-custom-menu .navbar-nav > li > a, .skin-black-light .main-header .navbar .navbar-right > li > a {
+.skin-black-light .main-header .navbar .navbar-custom-menu .navbar-nav > li > a,
+.skin-black-light .main-header .navbar .navbar-right > li > a {
     border-right: 0;
     border-left: 0;
 }
@@ -154,6 +215,8 @@ table, tr, th, td, thead, tbody {
 
 /* reduced margin for module titles to align with breadcrumb*/
 .content-header h2 {
+    font-weight: 600;
+    color: #000;
     margin-top: 0;
 }
 
@@ -163,19 +226,34 @@ table, tr, th, td, thead, tbody {
 
 /* datatable */
 table.dataTable {
+    margin-top: 5px !important;
     border-collapse: collapse;
     width: 100%;
 }
 
 table.dataTable thead > tr > th {
-    font-weight: normal;
+    font-weight: bold;
     font-size: 12px;
+
+}
+
+table.dataTable td {
+    /*background-color: #f5f5f6;*/
+    border-color: #fff;
+    color: #000;
 }
 
 table.dataTable th {
-    background-color: #222222;
-    color: #fff;
-    font-weight: 600
+    text-transform: uppercase;
+}
+
+table.dataTable thead .sorting::after,
+table.dataTable thead .sorting_asc::after,
+table.dataTable thead .sorting_desc::after {
+    opacity: 1;
+    font-weight: normal;
+    font-size: 10px;
+    color: lightgrey;
 }
 
 /* make textarea same size of ckeditor */
@@ -185,8 +263,11 @@ textarea {
 
 /* made label font weight bold*/
 label {
-    font-weight: normal;
+    font-weight: bold;
     font-size: 0.8em;
+    text-transform: uppercase;
+    color: #b8b8b8;
+
 }
 
 /* style for permissions tree in group details form*/
@@ -250,7 +331,7 @@ label {
 }
 
 /* Make button smaller beside the tile. usually these are create (plus button) or list button*/
-h2 .btn-xs {
+h2 .btn-sm, h2 .btn-xs, h2 .btn-clone {
     font-size: 12px;
 }
 
@@ -288,6 +369,7 @@ div.form-group span.readonly {
     min-height: 34px;
     height: auto;
     background-color: #fbfbfb;
+    padding-left: 10px;
 }
 
 div.form-control {
@@ -319,6 +401,28 @@ div.form-control {
 }
 
 /* Select2 style customization */
+
+/* manage border*/
+.select2-drop, .select2-drop.select2-drop-above,
+.select2-container.select2-drop-above .select2-choice,
+.select2-container .select2-choice .select2-arrow,
+.select2-container-multi .select2-choices .select2-search-choice,
+.select2-container .select2-choice,
+.form-control,
+.info-box,
+.callout,
+.ajax-file-upload-statusbar,
+.ajax-upload-dragdrop,
+.mark, mark {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+input, textarea {
+    border-radius: 0;
+}
+
 .select2-container .select2-choice {
     -moz-user-select: none;
     background-clip: padding-box;
@@ -372,6 +476,8 @@ div.form-control {
 
 .select2-container .select2-choice .select2-arrow {
     border: 0;
+    background-image: none;
+    background: transparent;
 }
 
 .select2-container, .select2-container-multi {
@@ -465,10 +571,16 @@ label {
     border-right: 0;
 }
 
-.formError .formErrorArrow .line3, .formError .formErrorArrow .line2, .formError .formErrorArrow .line1 {
+.formError .formErrorArrow .line3,
+.formError .formErrorArrow .line2,
+.formError .formErrorArrow .line1 {
     border-left: 0;
     border-right: 0;
     background-color: red;
+}
+
+.dashboard-tile {
+    padding: 15px;
 }
 
 /* Make module CTA block semi-transparent*/
@@ -487,16 +599,33 @@ label {
     display: block;
 }
 
-/* Show full border for text-area*/
-textarea.form-control {
-    border: 1px #f0f0f0 solid;
-    padding: 5px;
-    height: 100px;
+.panel-title a:hover {
+    display: block;
+    text-decoration: none;
+}
+
+.panel-default > .panel-heading {
+    color: #fff;
+    border-color: #666666;
+    /*background: rgb(63,94,251);*/
+    /*background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);*/
+
+}
+
+.panel-default > .panel-heading > * {
+    color: #222222;
 }
 
 /* Reduce space from accordion panel bottom*/
 .panel-group {
     margin-bottom: 10px;
+}
+
+/* Show full border for text-area*/
+textarea.form-control {
+    border: 1px #f0f0f0 solid;
+    padding: 5px;
+    height: 100px;
 }
 
 /* Remove border bottom from datatable rows_per_page selector */
@@ -532,7 +661,7 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
 }
 
 .pagination > li > a, .pagination > li > span {
-    border: 0;
+    padding: 5px 8px;
 }
 
 .callout h4 {
@@ -545,7 +674,7 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
 }
 
 .callout {
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     margin: 0 0 20px 0;
     padding: 15px 30px 15px 15px;
     /*border-left: 5px solid #eee; */
@@ -589,10 +718,16 @@ a i {
     border: 0px solid lightgray;
     width: 420px;
     margin: 0;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
     padding: 0;
+}
+
+.ajax-upload-dragdrop {
+    border: 2px dotted #A5A5C7;
+    width: 420px;
+    color: #DADCE3;
+    text-align: left;
+    vertical-align: middle;
+    padding: 10px 10px 10px 10px;
 }
 
 .text-smart-blue {
@@ -633,7 +768,6 @@ a i {
 .mark, mark {
     padding: 0;
     background-color: yellow;
-    border-radius: 5px;
 }
 .transparent, .bg-transparent {
     background-color: transparent;
@@ -661,4 +795,24 @@ a i {
 
 textarea.json {
     font-family: Monospace, serif;
+}
+
+.info-box {
+    display: block;
+    min-height: 90px;
+    /* background: #fff; */
+    width: 100%;
+    box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
+    margin-bottom: 15px;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 130px;
+}
+
+.truncate:hover {
+    overflow: visible;
 }

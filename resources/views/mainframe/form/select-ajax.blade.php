@@ -11,6 +11,7 @@
 |
 */
 /**
+ * @var array $var
  *      $var['div'] ?? 'col-md-3';
  *      $var['label']           ?? null;
  *      $var['label_class']     ?? null;
@@ -25,10 +26,13 @@
  * @var bool $editable
  * @var array $immutables
  */
+use App\Mainframe\Features\Form\Form as MfForm;use App\Mainframe\Features\Form\Select\SelectAjax;
 
+$var = MfForm::setUpVar($var, $errors ?? null
+    , $element ?? null, $editable ?? null
+    , $immutables ?? null, $hiddenFields ?? null);
 
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null);
-$input = new \App\Mainframe\Features\Form\Select\SelectAjax($var);
+$input = new SelectAjax($var);
 ?>
 @if($input->isHidden)
     {{ Form::hidden($input->name, $input->value()) }}
@@ -40,12 +44,10 @@ $input = new \App\Mainframe\Features\Form\Select\SelectAjax($var);
 
         {{-- input --}}
         <div class="clearfix"></div>
-        @php
-            $span = $input->isEditable ? '10' : '12'
-        @endphp
-        <div class="col-md-{{$span}} no-padding">
+
+        <div class="col-md-{{ $input->isEditable ? '10' : '12'}} no-padding">
             {{ Form::text($input->name, $input->value(), $input->params) }}
-            <input name="preload" type="hidden" value="{{$input->preload}}"/>
+            <input name="preload" type="hidden" class="select2-ajax-preload" value="{{$input->preload}}"/>
         </div>
 
         {{--clear button--}}
@@ -92,11 +94,11 @@ $input = new \App\Mainframe\Features\Form\Select\SelectAjax($var);
             function initAjaxSelect(divId, url, inputName) {
 
                 var select2 = $("#" + divId + " input.ajax").select2({
-                    minimumInputLength: 2,
+                    minimumInputLength: {{$input->minimumInputLength}},
                     allowClear: true,
                     initSelection: function (element, callback) {
                         var id = element.val();
-                        var text = $("#" + divId + ' input[name=preload]').val();
+                        var text = $("#" + divId + ' .select2-ajax-preload').val();
                         var data = {id: id, text: text};
                         callback(data);
                     },

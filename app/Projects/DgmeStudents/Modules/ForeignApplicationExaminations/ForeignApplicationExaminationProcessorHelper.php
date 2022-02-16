@@ -52,10 +52,19 @@ trait ForeignApplicationExaminationProcessorHelper
         $element = $this->element;
         $thisYear = today()->year;
         $oneYearBefore = $thisYear - 1;
+        $twoYearBefore = $thisYear - 2;
+        $threeYearBefore = $thisYear - 3;
         $fiveYearsBefore = $thisYear - 5;
 
-        if ((int) $element->passing_year < $fiveYearsBefore || (int) $element->passing_year > $oneYearBefore) {
-            $this->error('Passing Year Should Be Between '.$fiveYearsBefore.' to '.$oneYearBefore, 'passing_year'); // Raise error
+        if ($element->examination_type == 'A level') {
+            if ((int) $element->passing_year > $oneYearBefore || (int) $element->passing_year < $twoYearBefore) {
+                $this->error('Passing Year Should Be Between '.$twoYearBefore.' to '.$oneYearBefore, 'passing_year');
+            }
+        }
+        if ($element->examination_type == 'O level') {
+            if ((int) $element->passing_year > $threeYearBefore || (int) $element->passing_year < $fiveYearsBefore) {
+                $this->error('Passing Year Should Be Between '.$fiveYearsBefore.' to '.$threeYearBefore, 'passing_year');
+            }
         }
 
         return $this; // Return the same object for validation method chaining

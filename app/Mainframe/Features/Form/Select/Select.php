@@ -34,7 +34,7 @@ class Select extends Input
      */
     public function print()
     {
-        return $this->options[$this->value()] ?? '';
+        return $this->options()[$this->value()] ?? '';
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Mainframe\Features\Report\Traits;
 
 use App\Mainframe\Helpers\Convert;
 use App\Mainframe\Helpers\Sanitize;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
@@ -84,7 +83,7 @@ trait Filterable
     /**
      * Custom query for escaped filter fields.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -148,7 +147,7 @@ trait Filterable
     /**
      * Default query builder from input.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -182,7 +181,7 @@ trait Filterable
     /**
      * Query for fields that exists in the data-source
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -213,7 +212,7 @@ trait Filterable
     /**
      * Default query builder from input.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -230,7 +229,7 @@ trait Filterable
     /**
      * Default query builder from input.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -243,7 +242,7 @@ trait Filterable
     /**
      * Default query builder from input.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -265,7 +264,7 @@ trait Filterable
     /**
      * Key based search in multiple columns. The columns are defined in $searchFields
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
+     * @param  Builder  $query
      * @return mixed
      */
     public function keySearch($query)
@@ -279,7 +278,7 @@ trait Filterable
         # Key based search
         $query->where(function ($query) use ($key) {
             foreach ($this->searchFields as $field) {
-                /** @var \Illuminate\Database\Query\Builder $query */
+                /** @var Builder $query */
                 // $query->where('name', 'LIKE', "{$key}%");
 
                 if (!$this->fieldExists($field)) {
@@ -304,7 +303,7 @@ trait Filterable
     /**
      * Default query builder from input.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -331,7 +330,7 @@ trait Filterable
     /**
      * Default query builder from input.
      *
-     * @param $query \Illuminate\Database\Query\Builder
+     * @param $query Builder
      * @param $field
      * @param $val
      * @return mixed
@@ -444,7 +443,13 @@ trait Filterable
      */
     public function columnIsFullText($column)
     {
-        return in_array($column, $this->getFullTextFields());
+        $fieldNameWithoutDot = $column;
+        if (Str::contains($fieldNameWithoutDot, '.')) {
+            $fieldNameWithoutDot = Str::after($column, '.');
+        }
+
+        return in_array($column, $this->getFullTextFields()) ||
+            in_array($fieldNameWithoutDot, $this->getFullTextFields());
     }
 
     /**

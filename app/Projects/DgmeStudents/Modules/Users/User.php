@@ -141,6 +141,10 @@ use Watson\Rememberable\Rememberable;
  * @property-read mixed $group
  * @property string|null $date_of_birth
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDateOfBirth($value)
+ * @property string|null $passport_no
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ForeignStudentApplication[] $applications
+ * @property-read int|null $applications_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassportNo($value)
  */
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
@@ -159,13 +163,13 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
      */
     public const PASSWORD_VALIDATION_RULE = 'required|confirmed|min:6|regex:/[a-zA-Z]/|regex:/[0-9]/';
 
-    public const SUPERADMIN_GROUP_ID     = 1;
-    public const API_GROUP_ID            = 2;
-    public const TENANT_ADMIN_GROUP_ID   = 3;
-    public const TENANT_USER_GROUP_ID    = 27;
+    public const SUPERADMIN_GROUP_ID   = 1;
+    public const API_GROUP_ID          = 2;
+    public const TENANT_ADMIN_GROUP_ID = 3;
     public const PROJECT_ADMIN_GROUP_ID  = 4;
     public const USER_GROUP_ID           = 5;
-    public const APPLICANT_USER_GROUP_ID       = 6;
+    public const APPLICANT_USER_GROUP_ID = 6;
+    public const TENANT_USER_GROUP_ID    = 27;
     public const CUSTOMER_ADMIN_GROUP_ID = 28;
     public const CUSTOMER_USER_GROUP_ID  = 29;
 

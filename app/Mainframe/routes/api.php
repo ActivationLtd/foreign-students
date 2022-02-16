@@ -96,5 +96,6 @@ Route::prefix("core/{$version}")->middleware($middlewares)->group(function () us
             Route::post('in-app-notifications/delete-all', 'Api\UserApiController@inAppNotificationsDeleteAll')
                 ->name("{$namePrefix}.in-app-notifications.delete-all");
         });
+
     });
 });

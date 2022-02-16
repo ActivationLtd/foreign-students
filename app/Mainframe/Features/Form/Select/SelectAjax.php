@@ -8,6 +8,7 @@ class SelectAjax extends SelectModel
 {
     public $url;
     public $preload;
+    public $minimumInputLength = 2;
 
     public function __construct($var = [], $element = null)
     {
@@ -23,6 +24,8 @@ class SelectAjax extends SelectModel
             unset($this->params['disabled']);
             $this->params['readonly'] = 'readonly';
         }
+
+        $this->minimumInputLength = $this->var['minimum_input'] ?? 2;
     }
 
     /**

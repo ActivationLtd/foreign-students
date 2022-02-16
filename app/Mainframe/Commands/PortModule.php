@@ -2,6 +2,7 @@
 
 namespace App\Mainframe\Commands;
 
+use App\Mainframe\Helpers\Mf;
 use App\Module;
 use Artisan;
 use File;
@@ -44,6 +45,8 @@ class PortModule extends Command
     {
         $this->moduleName = $this->argument('module');
         $this->projectName = $this->option('project');
+
+        $this->projectName ?? Mf::project();
 
         $this->info('Porting module:'.$this->moduleName.' to -> Project:'.$this->projectName);
 

@@ -43,14 +43,22 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
             return false;
         }
 
-        if($user->isApplicant()){
-            $mbbsOngoingApplication=$user->applications()->where('course_id',1)->whereNotIn('status',['Declined'])->count();
-            $bdsOngoingApplication=$user->applications()->where('course_id',2)->whereNotIn('status',['Declined'])->count();
-            if($mbbsOngoingApplication ==1 && $bdsOngoingApplication==1){
+        if ($user->isApplicant()) {
+            $govermentMbbsOngoingApplication = $user->applications()->where('course_id', 1)->where('application_category', 'Government')
+                ->whereNotIn('status', ['Declined'])->count();
+            $privatembbsOngoingApplication = $user->applications()->where('course_id', 1)->where('application_category', 'Private')
+                ->whereNotIn('status', ['Declined'])->count();
+            $govermentbdsOngoingApplication = $user->applications()->where('course_id', 2)->where('application_category', 'Government')
+                ->whereNotIn('status', ['Declined'])->count();
+            $privatebdsOngoingApplication = $user->applications()->where('course_id', 2)->where('application_category', 'Private')
+                ->whereNotIn('status', ['Declined'])->count();
+            if ($govermentMbbsOngoingApplication == 1 && $privatembbsOngoingApplication == 1 &&
+                $govermentbdsOngoingApplication == 1 && $privatebdsOngoingApplication == 1) {
                 return false;
             }
 
         }
+
         return true;
     }
 
