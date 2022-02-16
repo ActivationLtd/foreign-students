@@ -49,6 +49,12 @@
             <td>Application ID - {{$application->id}}</td>
         </tr>
         <tr>
+            <td>Application Status - {{$application->status}}</td>
+        </tr>
+        <tr>
+            <td>Application Date - {{formatDateTime($application->submitted_at)}}</td>
+        </tr>
+        <tr>
             <td>Student Name - {{$application->applicant_name}}</td>
         </tr>
         <tr>
@@ -67,7 +73,7 @@
             <td>Emergency Contact Name (Domicile) - {{$application->emergency_contact_domicile_name}}</td>
         </tr>
         <tr>
-            <td>Thank you, we have received your Application for {{$application->course_name}} Course in Bangladesh.</td>
+            <td>Thank you, We have received your Application for {{$application->course_name}} Course in Bangladesh.</td>
         </tr>
     </table>
 @endsection

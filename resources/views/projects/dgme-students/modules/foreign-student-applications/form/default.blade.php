@@ -71,7 +71,17 @@ if (user()->isAdmin()) {
             @include('form.select-model',['var'=>['name'=>'dob_country_id','label'=>'Country of Birth','table'=>'countries', 'div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'dob_address','label'=>'Place Of Birth','div'=>'col-md-4']])
             <div class="clearfix"></div>
-            @include('form.select-model',['var'=>['name'=>'domicile_country_id','label'=>'Country of Domicile','table'=>'countries', 'div'=>'col-md-4']])
+
+            <?php
+            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'table' => 'countries'];
+            if ($element->is_saarc == 1) {
+                $var['query'] = DB::table('countries')->where('is_saarc', '1');
+            } else {
+                $var['query'] = DB::table('countries')->whereNull('is_saarc');
+            }
+            ?>
+
+            @include('form.select-model',['var'=>$var])
             @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
