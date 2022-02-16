@@ -10,7 +10,6 @@
 |
 */
 /**
- * @var array $var
  *      $var['div'] ?? 'col-md-3';
  *      $var['label']           ?? null;
  *      $var['label_class']     ?? null;
@@ -25,12 +24,8 @@
  * @var bool $editable
  * @var array $immutables
  */
-
-use App\Mainframe\Features\Form\Form as MfForm;
-use App\Mainframe\Features\Form\Select\SelectModel;
-
-$var = MfForm::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
-$input = new SelectModel($var);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null);
+$input = new App\Mainframe\Features\Form\Select\SelectModel($var);
 ?>
 
 @if($input->isHidden)
@@ -42,52 +37,7 @@ $input = new SelectModel($var);
         @include('mainframe.form.includes.label')
 
         {{-- input --}}
-        {{-- {{ Form::select($input->name, $input->options, $input->value(), $input->params) }}--}}
-
-        <?php
-
-        $attributes = "";
-        foreach ($input->params as $attr => $val) {
-            $attributes .= " $attr='$val' ";
-        }
-
-        ?>
-
-        <select name="{!! $input->name  !!}" id="{!! $input->id  !!}" {!! $attributes !!}>
-
-            @if(!$input->isMultiple())
-                <option value="">-</option>
-            @endif
-
-            @foreach($input->result() as $option)
-                <?php
-                /** @var $option */
-                $optionVal = $option->{$input->valueField};
-                $optionName = $option->{$input->nameField};
-                $selected = "";
-                if (in_array($optionVal, array_wrap($input->value()))) {
-                    $selected = "selected";
-                }
-
-                $dataAttributes = '';
-                foreach ($input->dataAttributes as $attribute) {
-
-                    $dataAttr = "data-{$attribute}";
-                    $dataVal = $option->{$attribute};
-
-                    if (!is_string($dataVal)) {
-                        $dataVal = json_encode($dataVal);
-                    }
-
-                    $dataAttributes .= " $dataAttr= '$dataVal'";
-                }
-                ?>
-
-                <option value="{!! $optionVal !!}" {{$selected}} {!! $dataAttributes !!}>
-                    {!! $optionName !!}
-                </option>
-            @endforeach
-        </select>
+        {{ Form::select($input->name, $input->options, $input->value(), $input->params) }}
 
         {{-- Place hidden input if not editable--}}
         @if(!$input->isEditable)
