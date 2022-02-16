@@ -120,7 +120,6 @@
         $("input[name=api_token]").attr('readonly', true);
 
 
-
         $("#api_token_generate").click(function (e) {
             event.preventDefault(e);
             $("input[name=api_token]").val(randomString(64));

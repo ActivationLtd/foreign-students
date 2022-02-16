@@ -7,6 +7,7 @@ trait Resolvable
     /**
      * Get the view processor instance
      * Todo: This is no longer used. Instead $model->viewProcessor();
+     *
      * @return mixed|null
      */
     public function viewProcessor()
@@ -22,14 +23,14 @@ trait Resolvable
             $this->module->namespace.'\\'.$this->module->modelClassName().'View',
             $this->module->namespace.'\\'.$this->module->modelClassName().'ViewProcessor',
 
-            '\App\Projects\\'.config('mainframe.config.project').'\Features\Modular\BaseModule\BaseModuleView',
+            projectNamespace().'\Features\Modular\BaseModule\BaseModuleView',
             // // Note: Utilize project asset instead of Mainframe default
-            '\App\Projects\\'.config('mainframe.config.project').'\Features\Modular\BaseModule\BaseModuleViewProcessor',
+            projectNamespace().'\Features\Modular\BaseModule\BaseModuleViewProcessor',
             // // Note: Utilize project asset instead of Mainframe default
 
             // Check in module directory
-            'App\Mainframe\Features\Modular\BaseModule\BaseModuleView',
-            'App\Mainframe\Features\Modular\BaseModule\BaseModuleViewProcessor',
+            '\App\Mainframe\Features\Modular\BaseModule\BaseModuleView',
+            '\App\Mainframe\Features\Modular\BaseModule\BaseModuleViewProcessor',
         ];
 
         foreach ($classPaths as $classPath) {

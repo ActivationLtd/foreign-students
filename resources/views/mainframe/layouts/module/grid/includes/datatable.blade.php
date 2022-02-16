@@ -15,7 +15,7 @@ $datatableName = $datatable->name();
 
 <div class="{{$datatableName}}-container datatable-container">
     <table id="{{$datatableName}}" class="table module-grid table-condensed {{$datatableName}} dataTable table-hover" style="width: 100%">
-        <thead class="bg-gray-light">
+        <thead>
         <tr>
             @foreach($titles as $title)
                 <th>{!! $title !!}</th>

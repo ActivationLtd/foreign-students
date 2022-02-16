@@ -16,7 +16,7 @@ use App\User;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
 
-/** @mixin \App\Mainframe\Features\Modular\BaseModule\BaseModule $this */
+/** @mixin BaseModule $this */
 trait ModularTrait
 {
 
@@ -499,7 +499,7 @@ trait ModularTrait
     /**
      * Get a valid element.
      *
-     * @return \App\Mainframe\Features\Modular\BaseModule\BaseModule
+     * @return BaseModule
      */
     public function validate() // Todo: Need to reevaluate this functions purpose.
     {
@@ -746,12 +746,12 @@ trait ModularTrait
             $module->namespace.'\\'.$module->modelClassName().'ViewProcessor',
 
             // Step 3: Check project default
-            '\App\Projects\\'.config('mainframe.config.project').'\Features\Modular\BaseModule\BaseModuleView',
-            '\App\Projects\\'.config('mainframe.config.project').'\Features\Modular\BaseModule\BaseModuleViewProcessor',
+            projectNamespace().'\Features\Modular\BaseModule\BaseModuleView',
+            projectNamespace().'\Features\Modular\BaseModule\BaseModuleViewProcessor',
 
             // Step 4: Fallback to mainframe
-            'App\Mainframe\Features\Modular\BaseModule\BaseModuleView',
-            'App\Mainframe\Features\Modular\BaseModule\BaseModuleViewProcessor',
+            '\App\Mainframe\Features\Modular\BaseModule\BaseModuleView',
+            '\App\Mainframe\Features\Modular\BaseModule\BaseModuleViewProcessor',
         ];
 
         foreach ($classPaths as $classPath) {

@@ -10,7 +10,7 @@ class DeleteButton extends Button
         $this->value = $this->var['value'] ?? 'Delete';
         $this->params['name'] = 'genericDeleteBtn';
         $this->params['type'] = 'button';
-        $this->params['class'] = $this->var['params']['class'] ?? $this->var['class'] ?? 'btn btn-danger flat';
+        $this->params['class'] = $this->var['params']['class'] ?? $this->var['class'] ?? 'btn btn-danger';
 
         $this->params['data-toggle'] = 'modal';
         $this->params['data-target'] = '#deleteModal';

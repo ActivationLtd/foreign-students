@@ -10,14 +10,14 @@ use DB;
 use Exception;
 use Illuminate\Database\Query\Builder;
 
-/** @mixin \App\Mainframe\Features\Report\ReportBuilder $this */
+/** @mixin ReportBuilder $this */
 trait Query
 {
 
     /**
      * Set the table or model query as the primary data source
      *
-     * @param  \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Model|string  $dataSource
+     * @param  Builder|\Illuminate\Database\Eloquent\Model|string  $dataSource
      * @return $this
      */
     public function setDataSource($dataSource)
@@ -35,7 +35,7 @@ trait Query
     /**
      * Build query to get the data.
      *
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     public function resultQuery()
     {
@@ -127,7 +127,7 @@ trait Query
     {
 
         try {
-            if ($this->total) {
+            if ($this->total && is_int($this->total)) {
                 return $this->total;
             }
 
@@ -147,7 +147,7 @@ trait Query
     /**
      * Query to get total number of rows
      *
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|mixed|string
+     * @return \Illuminate\Database\Eloquent\Model|Builder|mixed|string
      */
     public function totalQuery()
     {
@@ -313,7 +313,7 @@ trait Query
 
     /**
      * @param $query Builder|\Illuminate\Database\Eloquent\Builder
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     public function orderBy($query)
     {
@@ -451,7 +451,7 @@ trait Query
      * Add groupBy clause to the query builder.
      *
      * @param $query Builder
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     public function groupBy($query)
     {

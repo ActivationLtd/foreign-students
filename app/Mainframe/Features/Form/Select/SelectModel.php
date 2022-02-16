@@ -4,19 +4,23 @@ namespace App\Mainframe\Features\Form\Select;
 
 use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Module;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
 class SelectModel extends SelectArray
 {
     public $nameField;
     public $valueField;
+    public $orderBy;
     public $table;
 
     /** @var BaseModule|null */
     public $model;
     public $query;
+    public $result;
     public $showInactive;
     public $cache;
+    public $dataAttributes;
 
     /**
      * SelectModel constructor.
@@ -30,6 +34,7 @@ class SelectModel extends SelectArray
 
         $this->nameField = $this->var['name_field'] ?? 'name';
         $this->valueField = $this->var['value_field'] ?? 'id';
+        $this->orderBy = $this->var['order_by'] ?? $this->nameField;
 
         $this->table = $this->var['table'] ?? null; // Must have table
         $this->model = $this->var['model'] ?? null; // Must have table
@@ -38,6 +43,7 @@ class SelectModel extends SelectArray
         $this->query = $this->var['query'] ?? $this->getQuery(); // DB::table($this->table);
         $this->showInactive = $this->var['show_inactive'] ?? false;
         $this->cache = $this->var['cache'] ?? timer('none');
+        $this->dataAttributes = $this->var['data_attributes'] ?? [];
 
         $this->options = $this->options();
     }
@@ -62,9 +68,64 @@ class SelectModel extends SelectArray
         return $this;
     }
 
+    /**
+     * @return Builder|\Illuminate\Database\Query\Builder
+     */
     public function getQuery()
     {
         return $this->model;
+    }
+
+    /**
+     * Query on columns
+     *
+     * @return array
+     */
+    public function columns()
+    {
+
+        $columns = [$this->nameField, $this->valueField];
+
+        foreach ($this->dataAttributes as $attribute) {
+
+            // Include in columns if the attribute exists
+            if ($this->model->hasColumn($attribute)) {
+                $columns[] = $attribute;
+            }
+        }
+
+        return $columns;
+    }
+
+    /**
+     * Get a query result with all necessary fields
+     *
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function result()
+    {
+        if ($this->result) {
+            return $this->result;
+        }
+
+        $q = $this->query
+            ->select($this->columns())
+            ->whereNull('deleted_at');
+
+        if (!$this->showInactive) {
+            $q->where('is_active', 1);
+        }
+
+        // Inject tenant context.
+        if ($this->inTenantContext()) {
+            $q->where('tenant_id', user()->tenant_id);
+        }
+
+        $q->orderBy($this->orderBy);
+
+        $this->result = $q->remember($this->cache)->get();
+
+        return $this->result;
     }
 
     /**
@@ -74,16 +135,7 @@ class SelectModel extends SelectArray
      */
     public function options()
     {
-        $query = $this->query->whereNull('deleted_at');
-        if (!$this->showInactive) {
-            $query->where('is_active', 1);
-        }
-
-        // Inject tenant context.
-        if ($this->inTenantContext()) {
-            $query->where('tenant_id', user()->tenant_id);
-        }
-        $options = $query->orderBy($this->nameField)
+        $options = $this->result()
             ->pluck($this->nameField, $this->valueField)
             ->toArray();
 
@@ -112,7 +164,7 @@ class SelectModel extends SelectArray
      */
     public function print()
     {
-        return $this->options[$this->value()] ?? '';
+        return $this->options()[$this->value()] ?? '';
     }
 
 }

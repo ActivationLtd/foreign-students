@@ -21,6 +21,8 @@ trait ViewProcessorTrait
     }
 
     /**
+     * Add view variables to be shared to the blade.
+     *
      * @param $vars
      * @return ViewProcessor|mixed|$this
      */
@@ -31,12 +33,19 @@ trait ViewProcessorTrait
         return $this;
     }
 
+    /**
+     * Getter for view variables to be shared to the blade
+     *
+     * @return array
+     */
     public function getVars()
     {
         return $this->vars ?? [];
     }
 
     /**
+     * Set view variables to be shared with the blade
+     *
      * @param $vars
      * @return ViewProcessor|mixed|$this
      */
@@ -48,6 +57,8 @@ trait ViewProcessorTrait
     }
 
     /**
+     * Set an element and based on that set the module, model and add immutables
+     *
      * @param  \App\Mainframe\Features\Modular\BaseModule\BaseModule  $element
      * @return ViewProcessor|mixed|$this
      */
@@ -70,6 +81,8 @@ trait ViewProcessorTrait
     }
 
     /**
+     * Set module
+     *
      * @param  \App\Module  $module
      * @return ViewProcessor|mixed|$this
      */
@@ -81,6 +94,8 @@ trait ViewProcessorTrait
     }
 
     /**
+     * Set model
+     *
      * @param  \App\Mainframe\Features\Modular\BaseModule\BaseModule  $model
      * @return ViewProcessor|mixed|$this
      */
@@ -92,16 +107,32 @@ trait ViewProcessorTrait
     }
 
     /**
+     * @param  \App\Mainframe\Features\Datatable\Datatable  $datatable
+     * @return ViewProcessor|mixed|$this
+     */
+    public function setDatatable($datatable)
+    {
+        $this->datatable = $datatable;
+
+        return $this;
+    }
+
+    /**
+     * Set editable (model/form editability)
+     *
      * @param  bool  $editable
      * @return ViewProcessor|mixed|$this
      */
-    public function setEditable($editable)
+    public function setEditable(bool $editable): mixed
     {
         $this->editable = $editable;
 
         return $this;
     }
 
+    /*---------------------------------
+    |  Immutables
+    |---------------------------------*/
     /**
      * @param $immutables
      * @return ViewProcessor|mixed|$this
@@ -124,23 +155,47 @@ trait ViewProcessorTrait
     }
 
     /**
-     * @param  \App\Mainframe\Features\Datatable\Datatable  $datatable
-     * @return ViewProcessor|mixed|$this
-     */
-    public function setDatatable($datatable)
-    {
-        $this->datatable = $datatable;
-
-        return $this;
-    }
-
-    /**
      * @param  array  $immutables
      * @return ViewProcessor|mixed|$this
      */
     public function addImmutables($immutables = [])
     {
         $this->immutables = array_unique(array_merge($this->immutables, $immutables));
+
+        return $this;
+    }
+
+    /*---------------------------------
+    |  Hidden fields
+    |---------------------------------*/
+    /**
+     * @param $hiddenFields
+     * @return ViewProcessor|mixed|$this
+     */
+    public function setHiddenFields($hiddenFields = [])
+    {
+        $this->hiddenFields = $hiddenFields;
+
+        return $this;
+    }
+
+    /**
+     * @param $hiddenFields
+     * @return ViewProcessor|mixed|$this
+     * @deprecated  use setHiddenFields
+     */
+    public function setHiddenField($hiddenFields = [])
+    {
+        return $this->setHiddenFields($hiddenFields);
+    }
+
+    /**
+     * @param  array  $hiddenFields
+     * @return ViewProcessor|mixed|$this
+     */
+    public function addHiddenFields($hiddenFields = [])
+    {
+        $this->hiddenFields = array_unique(array_merge($this->hiddenFields, $hiddenFields));
 
         return $this;
     }
@@ -258,17 +313,18 @@ trait ViewProcessorTrait
     public function varsCreate()
     {
         $this->addVars([
-            'uuid'       => $this->element->uuid,
-            'element'    => $this->element,
-            'formState'  => 'create',
+            'uuid' => $this->element->uuid,
+            'element' => $this->element,
+            'formState' => 'create',
             'formConfig' => [
                 'route' => $this->module->name.'.store',
                 'class' => $this->module->name.'-form module-base-form create-form',
-                'name'  => $this->module->name,
+                'name' => $this->module->name,
                 'files' => true,
             ],
-            'editable'   => true,
-            'immutables' => $this->getImmutables(),
+            'editable' => true,
+            'immutables' => $this->immutables(),
+            'hiddenFields' => $this->hiddenFields(),
         ]);
 
         return $this->vars;
@@ -282,18 +338,19 @@ trait ViewProcessorTrait
     public function viewVarsEdit()
     {
         $this->addVars([
-            'element'    => $this->element,
-            'formState'  => 'edit',
+            'element' => $this->element,
+            'formState' => 'edit',
             'formConfig' => [
-                'route'  => [$this->module->name.'.update', $this->element->id],
-                'class'  => $this->module->name.'-form module-base-form edit-form',
-                'name'   => $this->module->name,
-                'files'  => true,
+                'route' => [$this->module->name.'.update', $this->element->id],
+                'class' => $this->module->name.'-form module-base-form edit-form',
+                'name' => $this->module->name,
+                'files' => true,
                 'method' => 'patch',
-                'id'     => $this->module->name.'Form',
+                'id' => $this->module->name.'Form',
             ],
-            'editable'   => $this->user->can('update', $this->element),
-            'immutables' => $this->getImmutables(),
+            'editable' => $this->user->can('update', $this->element),
+            'immutables' => $this->immutables(),
+            'hiddenFields' => $this->hiddenFields(),
         ]);
 
         return $this->vars;
@@ -322,6 +379,18 @@ trait ViewProcessorTrait
     public function immutables()
     {
         return array_unique($this->immutables);
+    }
+
+    /**
+     * Hidden fields
+     * Get the array of hidden field names.
+     * Originally the hidden are passed in view processor from module processor.
+     *
+     * @return array
+     */
+    public function hiddenFields()
+    {
+        return array_unique($this->hiddenFields);
     }
 
     /**

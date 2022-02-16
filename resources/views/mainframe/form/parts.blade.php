@@ -26,7 +26,7 @@
  * @var array $immutables
  */
 
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
 $input = new \App\Mainframe\Features\Form\Parts($var);
 ?>
 
@@ -75,26 +75,26 @@ $input = new \App\Mainframe\Features\Form\Parts($var);
     @parent
     <script>
         var {{$input->vueElement()}} =
-        new Vue({
-            el: '#{{$input->vueElement()}}',
-            data: {
-                parts: JSON.parse($("#{{$input->name}}").val())
-            },
+            new Vue({
+                el: '#{{$input->vueElement()}}',
+                data: {
+                    parts: JSON.parse($("#{{$input->name}}").val())
+                },
 
-            computed: {
-                partsString: function () {
-                    return JSON.stringify(this.parts);
+                computed: {
+                    partsString: function () {
+                        return JSON.stringify(this.parts);
+                    },
                 },
-            },
-            methods: {
-                addRow: function () {
-                    this.parts.push({key: '', value: ''});
-                },
-                removeRow: function (index) {
-                    this.parts.splice(index, 1);
-                },
-            }
-        });
+                methods: {
+                    addRow: function () {
+                        this.parts.push({key: '', value: ''});
+                    },
+                    removeRow: function (index) {
+                        this.parts.splice(index, 1);
+                    },
+                }
+            });
     </script>
 
 @endsection

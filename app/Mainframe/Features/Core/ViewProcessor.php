@@ -3,7 +3,6 @@
 namespace App\Mainframe\Features\Core;
 
 use App\Mainframe\Features\Modular\BaseModule\Traits\ViewProcessorTrait;
-use App\Mainframe\Features\Report\ReportBuilder;
 use App\Mainframe\Features\Report\Traits\ReportViewProcessorTrait;
 use App\Module;
 
@@ -40,8 +39,19 @@ class ViewProcessor
     /** @var bool */
     public $editable;
 
-    /** @var array */
-    public $immutables=[];
+    /**
+     * Fields that can not be editable in the view
+     *
+     * @var array
+     */
+    public $immutables = [];
+
+    /**
+     * Fields hidden in the view
+     *
+     * @var array
+     */
+    public $hiddenFields = [];
 
     /** @var \App\Mainframe\Features\Datatable\Datatable */
     public $datatable;

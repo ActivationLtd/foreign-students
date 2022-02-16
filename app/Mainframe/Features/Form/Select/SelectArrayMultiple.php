@@ -27,8 +27,8 @@ class SelectArrayMultiple extends SelectArray
 
         $str = '';
         foreach ($this->value() as $val) {
-            if (isset($this->options[$val])) {
-                $str .= $this->options[$val].', ';
+            if (isset($this->options()[$val])) {
+                $str .= $this->options()[$val].', ';
             }
         }
 
