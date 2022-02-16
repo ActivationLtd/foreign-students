@@ -12,7 +12,7 @@
         @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s First Name']])
         @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Last Name']])
         @include('form.text',['var'=>['name'=>'email','label'=>'Email Address', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Email Name']])
-        @include('form.select-model',['var'=>['name'=>'country_id','label'=>'Country','table'=>'countries', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Country Of Residence']])
+        @include('form.select-model',['var'=>['name'=>'country_id','label'=>'Country','table' => 'countries', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Country Of Residence']])
         @include('form.text',['var'=>['name'=>'passport_no','label'=>'Passport No', 'div'=>'col-sm-12','tooltip'=>'Applicant\'s Own Passport No']])
         @include('form.text',['var'=>['name'=>'password','type'=>'password','label'=>'Password','value'=>'', 'div'=>'col-sm-12','tooltip'=>'Min 6 Characters Including Alphabets And Numbers']])
         @include('form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm Password', 'div'=>'col-sm-12','tooltip'=>'Must Match Given Password']])
