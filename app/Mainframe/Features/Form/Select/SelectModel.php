@@ -4,6 +4,7 @@ namespace App\Mainframe\Features\Form\Select;
 
 use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Module;
+use Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
@@ -123,9 +124,16 @@ class SelectModel extends SelectArray
 
         $q->orderBy($this->orderBy);
 
-        $this->result = $q->remember($this->cache)->get();
+        $this->result = Cache::remember($this->cacheKey(), $this->cache, function () use ($q) {
+            return $q->get();
+        });
 
         return $this->result;
+    }
+
+    public function cacheKey()
+    {
+        return 'select-'.$this->name.'-'.user()->id;
     }
 
     /**
