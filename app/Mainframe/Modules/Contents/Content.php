@@ -63,9 +63,6 @@ use App\Mainframe\Modules\Contents\Traits\ContentTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUuid($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|Content onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Content withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Content withoutTrashed()
  */
 class Content extends BaseModule
 {

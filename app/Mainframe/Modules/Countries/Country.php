@@ -82,9 +82,6 @@ use App\Mainframe\Modules\Countries\Traits\CountryTrait;
  * @property int|null $tenant_id
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereTenantId($value)
- * @method static \Illuminate\Database\Query\Builder|Country onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Country withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Country withoutTrashed()
  */
 class Country extends BaseModule
 {

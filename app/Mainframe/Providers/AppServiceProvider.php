@@ -20,9 +20,9 @@ class AppServiceProvider extends ServiceProvider
     ];
 
     protected $providers = [
-        \App\Mainframe\Providers\AuthServiceProvider::class,
-        \App\Mainframe\Providers\EventServiceProvider::class,
-        \App\Mainframe\Providers\RouteServiceProvider::class,
+        AuthServiceProvider::class,
+        EventServiceProvider::class,
+        RouteServiceProvider::class,
         \OwenIt\Auditing\AuditingServiceProvider::class,
     ];
 
@@ -55,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Builder::macro('searchIn', function ($attributes, $needle) {
         //     return $this->where(function (Builder $query) use ($attributes, $needle) {
-        //         foreach (array_wrap($attributes) as $attribute) {
+        //         foreach (\Arr:wrap($attributes) as $attribute) {
         //             $query->orWhere($attribute, 'LIKE', "%{$needle}%");
         //         }
         //     });

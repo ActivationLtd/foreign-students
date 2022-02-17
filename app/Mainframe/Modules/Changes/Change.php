@@ -69,9 +69,6 @@ use App\Mainframe\Modules\Changes\Traits\ChangeTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Change whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Change whereUuid($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|Change onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Change withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Change withoutTrashed()
  */
 class Change extends BaseModule
 {

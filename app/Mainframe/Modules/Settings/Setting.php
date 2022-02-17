@@ -65,9 +65,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|Setting whereTenantId($value)
  * @property int|null $tenant_editable Some settings are not allowed to be edited by tenant
  * @method static Builder|Setting whereTenantEditable($value)
- * @method static \Illuminate\Database\Query\Builder|Setting onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Setting withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Setting withoutTrashed()
  */
 class Setting extends BaseModule
 {

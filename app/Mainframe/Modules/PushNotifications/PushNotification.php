@@ -80,9 +80,6 @@ use App\Mainframe\Modules\PushNotifications\Traits\PushNotificationTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereUuid($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $notifiable
- * @method static \Illuminate\Database\Query\Builder|PushNotification onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|PushNotification withTrashed()
- * @method static \Illuminate\Database\Query\Builder|PushNotification withoutTrashed()
  */
 class PushNotification extends BaseModule
 {

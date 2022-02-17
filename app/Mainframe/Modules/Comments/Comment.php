@@ -65,9 +65,6 @@ use App\Mainframe\Modules\Comments\Traits\CommentTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUuid($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|Comment onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Comment withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Comment withoutTrashed()
  */
 class Comment extends BaseModule
 {
