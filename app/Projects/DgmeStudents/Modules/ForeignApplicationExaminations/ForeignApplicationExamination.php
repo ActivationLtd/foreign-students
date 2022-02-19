@@ -119,7 +119,7 @@ class ForeignApplicationExamination extends BaseModule
     */
     // public static $types = [];
     public static $examinationTypes = [
-        ForeignApplicationExamination::OPTION_O_Level=>'O Level Or Equivalent',
+        ForeignApplicationExamination::OPTION_O_Level=>'O Level/Different Grading System Or Equivalent',
         ForeignApplicationExamination::OPTION_A_Level=>'A Level Or Equivalent',
 
     ];

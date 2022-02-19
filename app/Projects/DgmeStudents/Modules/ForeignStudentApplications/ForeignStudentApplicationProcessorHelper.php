@@ -83,6 +83,7 @@ trait ForeignStudentApplicationProcessorHelper
     {
         return $this;
     }
+
     /**
      * @return $this
      */
@@ -132,10 +133,13 @@ trait ForeignStudentApplicationProcessorHelper
      */
     public function checkExaminations(): static
     {
-        $element = $this->element; // Short hand variable.
+        $element = $this->element; // Shorthand variable.
 
-        if ($element->applicationExaminations()->count() < 2) {
-            $this->error('Examinations Details has not been updated'); // Raise error
+        if ($element->applicationExaminations()->where('examination_type', 'O level')->count() < 1) {
+            $this->error('O Level/Different Grading System Or Equivalent examination details has not been updated'); // Raise error
+        }
+        if ($element->applicationExaminations()->where('examination_type', 'A level')->count() < 1) {
+            $this->error('A Level Or Equivalent examination details has not been updated'); // Raise error
         }
 
         return $this; // Return the same object for validation method chaining
