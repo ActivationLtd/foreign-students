@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h4>Password reset</h4>
+    <h4>Password Reset</h4>
 
     <div class="card-body">
 
@@ -15,9 +15,7 @@
 
         <form method="POST" action="{{ route('password.email') }}" aria-label="{{ __('Reset Password') }}">
             @csrf
-
-            @include('mainframe.form.text',['var'=>['name'=>'email','label'=>'Email', 'div'=>'col-sm-12']])
-
+            @include('form.text',['var'=>['name'=>'email','label'=>'Email', 'div'=>'col-sm-12']])
             <div class="form-group row mb-0">
                 <div class="col-md-12 offset-md-4">
                     <button type="submit" class="btn btn-primary">

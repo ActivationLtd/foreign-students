@@ -6,5 +6,6 @@ use App\Mainframe\Http\Controllers\Auth\ForgotPasswordController as MfForgotPass
 
 class ForgotPasswordController extends MfForgotPasswordController
 {
-
+    /** @var string */
+    protected $form = 'projects.dgme-students.auth.passwords.email';
 }

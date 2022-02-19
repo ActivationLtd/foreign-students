@@ -130,7 +130,11 @@ table.dataTable thead .sorting::after {
 .login-page .login-box-body a {
     color: #333;
 }
-
+.login-box,
+.register-box {
+    width: 720px;
+    margin: 7% auto;
+}
 .login-box-body {
     padding-top: 0px;
 }
