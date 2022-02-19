@@ -16,7 +16,11 @@
 use App\ForeignAppLangProficiency;
 $foreignAppLangProficiency = $element;
 ?>
-
+@section('content-top')
+    @if($element->foreignApplication()->exists())
+        <a class="btn btn-default" href="{{route('foreign-student-applications.edit',$element->foreignApplication->id)}}"> <i class="fa fa-angle-left"></i> Back To Application </a>
+    @endif
+@endsection
 @section('content')
     <div class="col-md-12 no-padding">
         @if(($formState == 'create'))

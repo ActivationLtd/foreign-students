@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h4>Password reset</h4>
+    <h4>Password Reset</h4>
 
     <div class="card-body">
 
@@ -17,10 +17,10 @@
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
 
-            @include('mainframe.form.text',['var'=>['name'=>'email','label'=>'Email','div'=>'col-sm-12']])
+            @include('form.text',['var'=>['name'=>'email','label'=>'Email','div'=>'col-sm-12']])
 
-            @include('mainframe.form.text',['var'=>['name'=>'password','type'=>'password','label'=>'New password','value'=>'','div'=>'col-sm-12']])
-            @include('mainframe.form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm new password','div'=>'col-sm-12']])
+            @include('form.text',['var'=>['name'=>'password','type'=>'password','label'=>'New password','value'=>'','div'=>'col-sm-12']])
+            @include('form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm new password','div'=>'col-sm-12']])
             <input type="submit" value="Reset Password">
         </form>
     </div>

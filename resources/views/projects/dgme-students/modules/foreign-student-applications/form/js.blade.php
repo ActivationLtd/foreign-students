@@ -39,7 +39,7 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isCreating())
-    $('#foreign-student-applicationsSubmitBtn').html("Next");
+    $('#foreign-student-applicationsSubmitBtn').html('<i class="fa fa-check"></i>Next');
     // Todo: write codes here.
     @endif
 
@@ -82,8 +82,10 @@
         $('select[name=status]').change(function () {
             if ($('select[name=status]').val() == "Submitted") {
                 showAlert("Please confirm the declaration <br>"+
-                    " Once submitted the application can be edited in the next 24 hour only.");
+                    " Once submitted the application can be edited in the next 24 hours only.");
                 $('#declaration').show();
+                $('#applicationSubmitButton').hide();
+                $('#foreign-student-applicationsSubmitBtn').html("Submit");
                 $("input[id=declaration_check]").addClass('validate[required]');
             } else {
                 $('#declaration').hide();
@@ -95,10 +97,10 @@
         $('#applicationSubmitButton').click(function(){
             $('select[name=status]').val('Submitted');
             showAlert("Please confirm the declaration.<br>"+
-                "Once submitted the application can be edited in the next 24 hour only.<br>" +
-                "Click Save after confirmation to update the Application."
+                "Once submitted the application can be edited in the next 24 hours only.<br>"
             );
-
+           $('#applicationSubmitButton').hide();
+            $('#foreign-student-applicationsSubmitBtn').removeClass('submit btn btn-success').addClass('submit btn btn-warning').html('<i class="fa fa-check"></i>Submit');
             $('#declaration').show();
             $("input[id=declaration_check]").addClass('validate[required]');
         });

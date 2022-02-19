@@ -43,8 +43,11 @@ class ForeignAppLangProficiencyPolicy extends BaseModulePolicy
         if (!parent::update($user, $element)) {
             return false;
         }
-        if ($element->foreignApplication && $element->foreignApplication->status == 'Submitted' && Time::differenceInHours($element->foreignApplication->submitted_at,
-                now()) >= 24) {
+        // if ($element->foreignApplication && $element->foreignApplication->status == 'Submitted' && Time::differenceInHours($element->foreignApplication->submitted_at,
+        //         now()) >= 24) {
+        //     return false;
+        // }
+        if ($element->foreignApplication()->exists() && ($user->cannot('update',$element->foreignApplication))) {
             return false;
         }
 
@@ -56,8 +59,11 @@ class ForeignAppLangProficiencyPolicy extends BaseModulePolicy
         if (!parent::delete($user, $element)) {
             return false;
         }
-        if ($element->foreignApplication && $element->foreignApplication->status == 'Submitted' && Time::differenceInHours($element->foreignApplication->submitted_at,
-                now()) >= 24) {
+        // if ($element->foreignApplication && $element->foreignApplication->status == 'Submitted' && Time::differenceInHours($element->foreignApplication->submitted_at,
+        //         now()) >= 24) {
+        //     return false;
+        // }
+        if ($element->foreignApplication()->exists() && ($user->cannot('update',$element->foreignApplication))) {
             return false;
         }
         return true;
