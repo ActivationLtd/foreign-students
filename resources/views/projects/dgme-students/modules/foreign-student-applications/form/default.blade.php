@@ -185,19 +185,19 @@ if (user()->isAdmin()) {
     @parent
     @if($element->id)
         <div class="col-md-6 no-padding-l">
-            <h5>Applicant Picture upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's Picture upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
-            <h5>Applicant Signature upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's Signature upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
             {{--            <h5>Guardian Signature upload</h5><small>Upload one or more files</small>--}}
             {{--            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])--}}
-            <h5>Applicant Passport upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's Passport upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
             <h5>Confirmed Payment Document upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
-            <h5>Applicant SSC/O Level Equivalent File upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
-            <h5>Applicant HSC/A Level Equivalent File upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's A Level Or Equivalent Certificate upload</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
         </div>
     @endif
