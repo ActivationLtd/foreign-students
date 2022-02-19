@@ -163,9 +163,9 @@ if (user()->isAdmin()) {
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
                 <h5>I, thereby, declare that particulars given and documents submitted above are true and valid to the best of my knowledge.<br>
-                    I also declare that I shall fully abide by the rules and regulations of the institutions and any decisions of Authority of the<br>
+                    I also declare that I shall fully abide by the rules and regulations of the institutions, country and any decisions of Authority of the<br>
                     institution to which I may be admitted. I furthermore declare that if any of the submitted documents found false <br>
-                    or tempered, the application will be cancelled'</h5>
+                    or tempered, the application will be cancelled</h5>
             </div>
 
             {{--        @include('form.is-active')--}}

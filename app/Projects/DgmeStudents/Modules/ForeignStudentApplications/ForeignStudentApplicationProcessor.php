@@ -66,7 +66,6 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         ];
         if ($element->id) {
             $rules = array_merge($rules, [
-
                 'payment_transaction_id' => 'required',
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
                 'applicant_mother_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
@@ -121,13 +120,14 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             $this->element->submitted_at = now();
         }
         $this->checkCourseAndType();
-        if($this->element->id){
+        if ($this->element->id) {
             $this->checkPassport();
             $this->checkSAARCCountry();
+            $this->checkExaminations();
         }
         if ($this->element->status == 'Submitted') {
             $this->checkDocuments();
-            $this->checkExaminations();
+
             $this->checkLanguageProficiencies();
         }
 
