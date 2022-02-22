@@ -58,7 +58,7 @@ class RegisterApplicantController extends MfRegisterTenantController
             'first_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'last_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'country_id' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email:rfc,dns|unique:users,email',
             'passport_no' => 'required|alpha_num|unique:users,passport_no',
             'password' => User::PASSWORD_VALIDATION_RULE,
         ]);

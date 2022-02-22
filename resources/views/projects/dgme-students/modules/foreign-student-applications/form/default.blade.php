@@ -209,7 +209,7 @@ if (user()->isAdmin()) {
                           method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add Examination</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button id="applicationExaminationModalCloseButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -229,7 +229,7 @@ if (user()->isAdmin()) {
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Add Examination</button>
+                            <button id="applicationExaminationFormButton" name="applicationExaminationFormButton" type="submit" class="btn btn-primary">Add Examination</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -244,7 +244,7 @@ if (user()->isAdmin()) {
                     <form id="languageProficiencyForm" name="languageProficiencyForm" action="{{route('foreign-app-lang-proficiencies.store')}}" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add Language Proficiency </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" id="languageProficiencyFormModalCloseButton" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -264,7 +264,7 @@ if (user()->isAdmin()) {
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Add Language Proficiency</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="languageProficiencyFormButtonClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
@@ -279,44 +279,9 @@ if (user()->isAdmin()) {
     <script type="text/javascript">
         $('select[id=dob_country_id]').select2();
         $('select[id=domicile_country_id]').select2();
-        let currentYear = new Date().getFullYear();
-        let oneYearBefore = currentYear - 1;
-        let twoYearBefore = currentYear - 2;
-        let threeYearBefore = currentYear - 3;
-        let fiveYearBefore = currentYear - 5;
 
-        $('#applicationExaminationForm').validationEngine({
-            prettySelect: true,
-            promptPosition: "topLeft",
-            scroll: false
-        });
-        $('#applicationExaminationForm #examination_type').addClass('validate[required]');
-        $('#applicationExaminationForm #examination_name').addClass('validate[required]');
-        $('#applicationExaminationForm #passing_year').addClass('validate[required]');
-        $('#applicationExaminationForm #examination_type').change(function () {
-            let minYear = null;
-            let maxYear = null;
-            $('#applicationExaminationForm #passing_year').removeClass('validate[min[' + minYear + '],max[' + maxYear + ']]')
-            if (this.value == 'O level') {
-                minYear = fiveYearBefore;
-                maxYear = threeYearBefore;
-            } else if (this.value == 'A level') {
-                minYear = twoYearBefore;
-                maxYear = oneYearBefore;
-            }
-            $('#applicationExaminationForm #passing_year').addClass('validate[min[' + minYear + '],max[' + maxYear + ']]')
-        });
-        $('#applicationExaminationForm #subjects').addClass('validate[required]');
-        $('#applicationExaminationForm #certificate_name').addClass('validate[required]');
 
-        $('#languageProficiencyForm').validationEngine({
-            prettySelect: true,
-            promptPosition: "topLeft",
-            scroll: false
-        });
-        $('#languageProficiencyForm #language_name').addClass('validate[required]');
-        $('#languageProficiencyForm #reading_proficiency').addClass('validate[required]');
-        $('#languageProficiencyForm #writing_proficiency').addClass('validate[required]');
-        $('#languageProficiencyForm #speaking_proficiency').addClass('validate[required]');
+
+
     </script>
 @endsection

@@ -33,7 +33,7 @@
 
 
     <div class="clearfix"></div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-sm-8 col-xs-12">
         <div class="info-box bg-green-active">
             <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
