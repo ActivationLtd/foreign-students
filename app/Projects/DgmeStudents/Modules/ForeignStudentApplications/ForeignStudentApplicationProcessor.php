@@ -113,6 +113,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
      */
     public function saving($element)
     {
+        
         // Todo: First validate
         // --------------------
         // $this->checkSomething();
@@ -143,7 +144,17 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
 
     public function creating($element) { return $this; }
     // public function updating($element) { return $this; }
-    // public function created($element) { return $this; }
+
+    /**
+     * @param $element
+     * @return $this|ForeignStudentApplicationProcessor
+     */
+    public function created($element)
+    {
+        $element->sendApplicationStatusChangeEmail();
+
+        return $this;
+    }
     // public function updated($element) { return $this; }
 
     /**
@@ -153,7 +164,9 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     public function saved($element)
     {
         $element->refresh(); // Get the updated model(and relations) before using.
-
+        if($this->hasTransition('status',ForeignStudentApplication::STATUS_DRAFT,ForeignStudentApplication::STATUS_SUBMITTED)){
+            $element->sendApplicationStatusChangeEmail();
+        }
         return $this;
     }
     // public function deleting($element) { return $this; }

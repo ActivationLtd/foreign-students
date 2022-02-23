@@ -2,6 +2,9 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
+use App\Projects\DgmeStudents\Notifications\ForeignStudentApplication\ApplicationStatusChange;
+use Notification;
+
 /** @mixin ForeignStudentApplication */
 trait ForeignStudentApplicationHelper
 {
@@ -48,7 +51,14 @@ trait ForeignStudentApplicationHelper
     |--------------------------------------------------------------------------
     */
     // Todo: static helper functions
-
+    /**
+     * Notify user when application status is changed
+     */
+    public function sendApplicationStatusChangeEmail()
+    {
+        /** @var ForeignStudentApplication $this */
+        Notification::send($this->user, new ApplicationStatusChange($this));
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Ability to create, edit, delete or restore

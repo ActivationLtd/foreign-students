@@ -52,5 +52,18 @@
                 </div>
             </div>
         </form>
+
     </div>
+    <div class="clearfix"></div>
+    <div class="col-md-3 pull-left">
+        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="img-thumbnail" style="margin-top: 2%; border:none!important; height: 120px;">
+    </div>
+    <div class="col-md-6">
+        <h4>Government of the People's Republic of Bangladesh</h4>
+        <h4>Directorate General of Medical Education (DGME)</h4>
+    </div>
+    <div class="col-md-3 pull-right">
+        <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="img-thumbnail pull-right" style="margin-top: 2%; border:none!important;height: 120px;">
+    </div>
+    <div class="clearfix"></div>
 @endsection
