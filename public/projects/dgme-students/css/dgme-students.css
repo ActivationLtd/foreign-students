@@ -7,3 +7,21 @@
 .main-header {
     /*background-image: none;*/
 }
+
+.login-box, .register-box{
+    width: 460px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+.login-page {
+    background-image: url(../images/login-bg-1.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #ffffff;
+}
+
+.login-logo, .register-logo{
+    font-size: 24px;
+}
