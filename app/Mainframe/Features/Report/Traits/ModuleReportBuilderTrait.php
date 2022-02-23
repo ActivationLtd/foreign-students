@@ -3,7 +3,6 @@
 namespace App\Mainframe\Features\Report\Traits;
 
 use App\Mainframe\Features\Report\ReportBuilder;
-use App\Mainframe\Helpers\Convert;
 use App\Module;
 
 /** @mixin ReportBuilder $this */
@@ -22,7 +21,7 @@ trait ModuleReportBuilderTrait
     }
 
     /**
-     * @param Module|string $module
+     * @param  Module|string  $module
      * @return ModuleReportBuilderTrait
      */
     public function setModule($module)
@@ -36,8 +35,13 @@ trait ModuleReportBuilderTrait
         $this->table = $this->model->getTable();
 
         $this->dataSource = $this->model;
+
+        if ($columns = $this->querySelectColumns()) {
+            $this->dataSource = $this->model->select($columns);
+        }
+
         if (request('with')) {
-            $this->dataSource = $this->model->with($this->queryRelations());
+            $this->dataSource->with($this->queryRelations());
         }
 
         return $this;
@@ -56,6 +60,10 @@ trait ModuleReportBuilderTrait
     public function defaultColumns()
     {
         // return ['id'];
+        if ($columns = $this->getColumnsFromRequest()) {
+            return array_merge($columns, ['id', 'uuid', 'tenant_id']);
+        }
+
         return $this->model->tableColumns();
     }
 
@@ -66,8 +74,9 @@ trait ModuleReportBuilderTrait
      */
     public function selectedColumns()
     {
-        if (request('columns_csv')) {
-            return Convert::csvToArray(request('columns_csv'));
+        # Check if the column names are available in request().
+        if ($columns = $this->getColumnsFromRequest()) {
+            return $columns;
         }
 
         return ['id', 'name', 'created_at', 'updated_at',];
