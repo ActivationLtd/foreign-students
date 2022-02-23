@@ -16,7 +16,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
 <body class="hold-transition login-page lb-bg">
+
+
+
+
+
+<div class="clearfix"></div>
 <div class="login-box shadow">
+    <div class="row">
+        <div class="login-box no-margin-t no-margin-b">
+            <div class="col-sm-3">
+                <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="" alt="" style="width: 90%">
+
+            </div>
+            <div class="col-sm-6">
+                <h3 class="no-margin">Directorate General of Medical Education (DGME)</h3>
+                <h5>Government of the People's Republic of Bangladesh</h5>
+            </div>
+            <div class="col-sm-3">
+                <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="" alt="" style="width: 100%">
+
+            </div>
+        </div>
+    </div>
     <div class="login-logo">
         {{config('app.name')}}
     </div>
