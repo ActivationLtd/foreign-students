@@ -66,6 +66,7 @@ class ApplicationExaminationDatatable extends Datatable
         return [
             // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
+            [$this->table.'.examination_type', 'examination_type', 'Type'],
             [$this->table.'.examination_name', 'examination_name', 'Examination'],
             [$this->table.'.passing_year', 'passing_year', 'Passing Year'],
             [$this->table.'.subjects', 'subjects', 'Subjects'],

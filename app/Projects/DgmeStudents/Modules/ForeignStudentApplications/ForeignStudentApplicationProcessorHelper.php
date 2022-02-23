@@ -81,6 +81,10 @@ trait ForeignStudentApplicationProcessorHelper
      */
     public function checkSAARCCountry()
     {
+        $element = $this->element;
+        if ($element->domicileCountry->is_saarc != 1) {
+            $this->error('Selected Country is Not Saarc', 'domicile_country_id'); // Raise error
+        }
         return $this;
     }
 
