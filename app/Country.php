@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Country extends \App\Projects\DgmeStudents\Modules\Countries\Country
+class Country extends \App\Mainframe\Modules\Countries\Country
 {
    /*--------------------------------------
    | Note : Empty class.

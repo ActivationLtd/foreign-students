@@ -3,6 +3,7 @@
 namespace Tests\Feature\Mainframe\Auth;
 
 use App\Group;
+use App\Mainframe\Notifications\Auth\VerifyEmail;
 use App\User;
 use Tests\TestCase;
 
@@ -37,6 +38,8 @@ class UserRegistrationTest extends TestCase
      */
     public function test_guest_can_register_to_default_user_group()
     {
+        \Mail::fake();
+        \Notification::fake();
 
         $groupId = Group::byName('user')->id;
 
@@ -57,10 +60,12 @@ class UserRegistrationTest extends TestCase
 
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
-        $this->seeEmailWasSent()
-            ->seeEmailCountEquals(1)
-            ->seeEmailTo($user->email, $this->emails[0])
-            ->seeEmailSubjectContains('Verify Email Address');
+        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+
+        // $this->seeEmailWasSent()
+        //     ->seeEmailCountEquals(1)
+        //     ->seeEmailTo($user->email, $this->emails[0])
+        //     ->seeEmailSubjectContains('Verify Email Address');
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
@@ -73,6 +78,7 @@ class UserRegistrationTest extends TestCase
 
     public function test_unverified_user_can_login_but_see_verification_prompt()
     {
+        sleep(2);
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->followingRedirects()
@@ -95,6 +101,10 @@ class UserRegistrationTest extends TestCase
     public function test_unverified_user_can_resend_verification_code_link()
     {
 
+        \Mail::fake();
+        \Notification::fake();
+
+        sleep(2);
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->be($user);
@@ -107,10 +117,12 @@ class UserRegistrationTest extends TestCase
         // Note: In above I couldn't capture session('resent') which conditionally renders a
         //  Different message in the HTML.
 
-        $this->seeEmailWasSent()
-            ->seeEmailCountEquals(1)
-            ->seeEmailTo($user->email, $this->emails[0])
-            ->seeEmailSubjectContains('Verify Email Address');
+        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+
+        // $this->seeEmailWasSent()
+        //     ->seeEmailCountEquals(1)
+        //     ->seeEmailTo($user->email, $this->emails[0])
+        //     ->seeEmailSubjectContains('Verify Email Address');
     }
 
     public function test_verified_user_can_see_dashboard_upon_login()
@@ -145,7 +157,7 @@ class UserRegistrationTest extends TestCase
         $this->followingRedirects()
             ->get('/')
             ->assertStatus(200)
-            ->assertViewHas('sampleData',[
+            ->assertViewHas('sampleData', [
                 'books' => [
                     'purchased' => 10,
                     'read' => 7,

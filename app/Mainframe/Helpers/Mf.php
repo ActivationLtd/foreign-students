@@ -102,7 +102,7 @@ class Mf
     }
 
     /**
-     * Get project directory app/Projects/MyProject
+     * Get project directory app/Projects/DgmeStudents
      *
      * @return array|\Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed|string|string[]
      */

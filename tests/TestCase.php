@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, MailTracking, TestHelperTrait;
+    use CreatesApplication, TestHelperTrait;
 
     /** @var \Faker\Generator */
     public $faker;
