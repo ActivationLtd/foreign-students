@@ -24,7 +24,7 @@ class MakeModule extends Command
      */
     protected $description = 'Create a mainframe module';
 
-    /** @var string  \App\Projects\MyProject\Modules\ */
+    /** @var string  \App\Projects\DgmeStudents\Modules\ */
     private $namespace;
 
     /** * @var string */
@@ -247,7 +247,7 @@ class MakeModule extends Command
     }
 
     /**
-     * @return array|string|string[] app\Projects\MyProject\SuperHeroes
+     * @return array|string|string[] app\Projects\DgmeStudents\SuperHeroes
      */
     private function classDirectory()
     {
@@ -259,7 +259,7 @@ class MakeModule extends Command
     }
 
     // /**
-    //  * @return string \App\Projects\MyProject\Modules\SuperHeroes
+    //  * @return string \App\Projects\DgmeStudents\Modules\SuperHeroes
     //  */
     // private function namespace()
     // {

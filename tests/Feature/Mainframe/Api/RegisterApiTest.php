@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Mainframe\Api;
 
+use App\Mainframe\Notifications\Auth\VerifyEmail;
 use App\User;
 
 class RegisterApiTest extends ApiTestCase
@@ -15,6 +16,9 @@ class RegisterApiTest extends ApiTestCase
     # 1. A guest can register
     public function test_a_guest_can_register_as_a_user()
     {
+
+        \Mail::fake();
+        \Notification::fake();
         // Call register api
         $firstName = $this->faker->firstName;
         $email = $this->faker->email;
@@ -38,10 +42,13 @@ class RegisterApiTest extends ApiTestCase
 
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
-        $this->seeEmailWasSent()
-            ->seeEmailCountEquals(1)
-            ->seeEmailTo($user->email, $this->emails[0])
-            ->seeEmailSubjectContains('Verify Email Address');
+        //\Mail::assertSent( VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+
+        // $this->seeEmailWasSent()
+        //     ->seeEmailCountEquals(1)
+        //     ->seeEmailTo($user->email, $this->emails[0])
+        //     ->seeEmailSubjectContains('Verify Email Address');
     }
 
     # 2. An email-unverified user should still be able to log in.
