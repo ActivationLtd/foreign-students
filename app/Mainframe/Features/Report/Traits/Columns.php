@@ -104,8 +104,8 @@ trait Columns
     public function selectedColumns()
     {
         # Check if the column names are available in request().
-        if (request('columns_csv')) {
-            return Convert::csvToArray(request('columns_csv'));
+        if ($columns = $this->getColumnsFromRequest()) {
+            return $columns;
         }
 
         # Default selection
@@ -113,6 +113,30 @@ trait Columns
 
         # Include all the data-source columns
         return $this->dataSourceColumns();
+    }
+
+    /**
+     * Get columns based on request field
+     *
+     * @return array|null
+     */
+    public function getColumnsFromRequest()
+    {
+        // check following request() fields
+        $requestCsvKeys = [
+            'columns',
+            'columns_csv',
+            'fields',
+            'fields_csv',
+        ];
+
+        foreach ($requestCsvKeys as $key) {
+            if (request($key)) {
+                return Convert::csvToArray(request($key));
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -169,7 +193,7 @@ trait Columns
     public function removeDotFromColumns($columns)
     {
         return collect($columns)->map(function ($item, $key) {
-            return \Str::after($item, '.');
+            return Str::after($item, '.');
         })->toArray();
     }
 

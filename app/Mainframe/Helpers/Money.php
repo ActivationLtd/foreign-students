@@ -96,7 +96,7 @@ class Money
     //     }
     //
     //     if ($from == $to) {
-    //         return \App\Projects\MyProject\Helpers\Money::format($amount);
+    //         return \App\Projects\DgmeStudents\Helpers\Money::format($amount);
     //         //return number_format($amount);
     //     }
     //     /**

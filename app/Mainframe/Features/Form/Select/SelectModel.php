@@ -20,7 +20,7 @@ class SelectModel extends SelectArray
     public $query;
     public $result;
     public $showInactive;
-    public $cache;
+    public $cache = 5;
     public $dataAttributes;
 
     /**
@@ -43,7 +43,7 @@ class SelectModel extends SelectArray
 
         $this->query = $this->var['query'] ?? $this->getQuery(); // DB::table($this->table);
         $this->showInactive = $this->var['show_inactive'] ?? false;
-        $this->cache = $this->var['cache'] ?? timer('none');
+        $this->cache = $this->var['cache'] ?? $this->cache;
         $this->dataAttributes = $this->var['data_attributes'] ?? [];
 
         $this->options = $this->options();

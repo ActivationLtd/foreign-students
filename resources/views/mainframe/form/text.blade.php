@@ -37,8 +37,10 @@ $input = new \App\Mainframe\Features\Form\Text\InputText($var);
         @include('mainframe.form.includes.label')
 
         @if($input->isEditable)
-            @if($input->type === 'password')
+            @if($input->type == 'password')
                 {{ Form::password($input->name, $input->params) }}
+            @elseif(($input->type == 'number'))
+                {{ Form::number($input->name, $input->value(), $input->params) }}
             @else
                 {{ Form::text($input->name, $input->value(), $input->params) }}
             @endif
