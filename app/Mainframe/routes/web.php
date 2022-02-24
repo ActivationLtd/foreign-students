@@ -18,3 +18,7 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
 | Public routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});

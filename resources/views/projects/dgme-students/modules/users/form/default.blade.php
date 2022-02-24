@@ -59,7 +59,10 @@
             'params' => ['multiple', 'id' => 'groups'],
             'container_class' => 'col-sm-3'
         ];
+
+        echo  $element->test->something;
         ?>
+
         @include('form.select-model-multiple', compact('var'))
 
         <div class='clearfix'></div>
