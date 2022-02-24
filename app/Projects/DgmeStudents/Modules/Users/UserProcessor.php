@@ -23,7 +23,7 @@ class UserProcessor extends ModelProcessor
     public function immutables()
     {
         if(user()->isApplicant()){
-            $this->immutables=array_merge( $this->immutables,['group_ids','is_active','passport_no']);
+            $this->immutables=array_merge( $this->immutables,['group_ids','is_active','passport_no','email_verified_at']);
         }
         return $this->immutables;
     }
