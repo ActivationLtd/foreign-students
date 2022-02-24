@@ -50,7 +50,7 @@ if (user()->isAdmin()) {
         <h4>Name of the course to which admission is sought</h4>
 
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
-        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Public Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
         @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-2']])
         @if($view->showProfilePic())
             <div class="pull-right"><img class="img-thumbnail" style="height:200px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
