@@ -60,7 +60,7 @@
             'container_class' => 'col-sm-3'
         ];
 
-        echo  $element->test->something;
+        //echo  $element->test->something;
         ?>
 
         @include('form.select-model-multiple', compact('var'))
