@@ -64,7 +64,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'is_saarc' => 'required',
             'is_active' => 'in:1,0',
         ];
-        if ($element->id) {
+        if ($element->id && $element->status== ForeignStudentApplication::STATUS_SUBMITTED) {
             $rules = array_merge($rules, [
                 'payment_transaction_id' => 'required',
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
