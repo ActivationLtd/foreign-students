@@ -71,16 +71,18 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
 
 
 /*---------------------------------
+| Public routes
+|---------------------------------*/
+// Todo : Write any public routes for your project
+
+
+/*---------------------------------
 | testing routes
 |---------------------------------*/
 Route::prefix('test')->middleware($middlewares)->group(function () {
     Route::prefix('preview')->group(function () {
         // {app}/test/preview
         Route::get('email/application-status-change/{id}', [TestController::class, 'previewApplicationStatusChangeEmail']);
+        // Todo : add new test routes here
     });
 });
-
-/*---------------------------------
-| Public routes
-|---------------------------------*/
-// Todo : Write any public routes for your project
