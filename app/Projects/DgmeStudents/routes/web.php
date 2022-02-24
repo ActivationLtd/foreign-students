@@ -5,6 +5,7 @@ use App\Mainframe\Modules\ModuleGroups\ModuleGroupController;
 use App\Projects\DgmeStudents\Http\Controllers\DataBlockController;
 use App\Projects\DgmeStudents\Http\Controllers\DatatableController;
 use App\Projects\DgmeStudents\Http\Controllers\ReportController;
+use App\Projects\DgmeStudents\Http\Controllers\TestController;
 use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationController;
 use App\Projects\DgmeStudents\Modules\Uploads\UploadController;
 
@@ -25,13 +26,13 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
         $controller = $module->controller;
         $moduleName = $module->name;
 
-        Route::get($path.'/{id}/restore', $controller.'@restore')->name($moduleName.'.restore'); // Restore
-        Route::get($path.'/datatable/json', $controller.'@datatableJson')->name($moduleName.'.datatable-json'); // Json response route for data-table
-        Route::get($path.'/list/json', $controller.'@listJson')->name($moduleName.'.list-json'); // List/Array of objects
-        Route::get($path.'/report', $controller.'@report')->name($moduleName.'.report'); // Report
-        Route::get($path.'/{id}/changes', $controller.'@changes')->name($moduleName.'.changes'); // Audits (change-log)
-        Route::get($path.'/{id}/uploads', $controller.'@uploads')->name($moduleName.'.uploads.index'); // Uploads
-        Route::post($path.'/{id}/uploads', $controller.'@attachUpload')->name($moduleName.'.uploads.store');
+        Route::get($path . '/{id}/restore', $controller . '@restore')->name($moduleName . '.restore'); // Restore
+        Route::get($path . '/datatable/json', $controller . '@datatableJson')->name($moduleName . '.datatable-json'); // Json response route for data-table
+        Route::get($path . '/list/json', $controller . '@listJson')->name($moduleName . '.list-json'); // List/Array of objects
+        Route::get($path . '/report', $controller . '@report')->name($moduleName . '.report'); // Report
+        Route::get($path . '/{id}/changes', $controller . '@changes')->name($moduleName . '.changes'); // Audits (change-log)
+        Route::get($path . '/{id}/uploads', $controller . '@uploads')->name($moduleName . '.uploads.index'); // Uploads
+        Route::post($path . '/{id}/uploads', $controller . '@attachUpload')->name($moduleName . '.uploads.store');
 
         /* * Route to add comment file a particular element */
         // Route::get($path.'/{id}/comments', $controller.'@comments')->name($moduleName.'.comments.index');
@@ -51,7 +52,7 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
     // Module-group index routes
     foreach ($moduleGroups as $moduleGroup) {
         $path = $moduleGroup->route_path;
-        Route::get('module-groups/index/'.$path, [ModuleGroupController::class, 'home'])->name($moduleGroup->route_name.'.index');
+        Route::get('module-groups/index/' . $path, [ModuleGroupController::class, 'home'])->name($moduleGroup->route_name . '.index');
     }
 
     Route::post('update-file', [UploadController::class, 'updateExistingUpload'])->name('uploads.update-file'); // Update uploaded file
@@ -66,6 +67,17 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
     // Todo : Write new routes for your project
 
     Route::get('foreign-student-applications/{id}/print-view', [ForeignStudentApplicationController::class, 'printView'])->name('applications.print-view');
+});
+
+
+/*---------------------------------
+| testing routes
+|---------------------------------*/
+Route::prefix('test')->middleware($middlewares)->group(function () {
+    Route::prefix('preview')->group(function () {
+        // {app}/test/preview
+        Route::get('email/application-status-change/{id}', [TestController::class, 'previewApplicationStatusChangeEmail']);
+    });
 });
 
 /*---------------------------------
