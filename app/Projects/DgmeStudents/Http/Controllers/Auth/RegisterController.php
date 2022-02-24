@@ -3,8 +3,11 @@
 namespace App\Projects\DgmeStudents\Http\Controllers\Auth;
 
 use App\Mainframe\Http\Controllers\Auth\RegisterController as MainframeRegisterController;
+use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
 use App\Mainframe\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,6 +71,19 @@ class RegisterController extends MainframeRegisterController
 
         return $this;
 
+    }
+
+    /**
+     * The user has been successfully registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  User  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        event(new Registered($user));
+        $user->notifyNow(new VerifyEmail());
     }
 
     /**
