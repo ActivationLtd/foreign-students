@@ -26,8 +26,9 @@
                 <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="img-thumbnail" style="margin-top: 2%; border:none!important; height: 120px;">
             </td>
             <td>
-                <h2 align="center">Government of the People's Republic of Bangladesh</h2>
                 <h2 align="center">Directorate General of Medical Education (DGME)</h2>
+                <h3 align="center">Government of the People's Republic of Bangladesh</h3>
+
             </td>
             <td>
                 <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="img-thumbnail pull-right" style="margin-top: 2%; border:none!important;height: 120px;">
@@ -97,17 +98,18 @@
             <td>Emergency Contact Name (Domicile) - </td>
             <td>{{$application->emergency_contact_domicile_name}}</td>
         </tr>
-        <tr>
-            <td colspan="2">
-                Thank you, We have received your Application for {{$application->course_name}} Course in Bangladesh.
-            </td>
-        </tr>
+
     </table>
 @endsection
 @section('content-bottom')
     <table class="no-border no-padding" style="margin-top:5%">
         <tr>
-            <td>Signature</td>
+            <td colspan="2">
+            Thank you, We have received your Application for {{$application->course_name}} Course in Bangladesh.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-top:100px;">Signature</td>
         </tr>
         <tr>
             <td>Director Medical Education</td>
