@@ -122,7 +122,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         }
         $this->checkCourseAndType();
         if ($this->element->id) {
-            $this->checkPassport();
+            $this->checkPassportAndEmail();
             $this->checkSAARCCountry();
             $this->checkExaminations();
         }
