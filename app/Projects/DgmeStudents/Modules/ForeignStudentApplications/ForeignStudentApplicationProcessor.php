@@ -121,14 +121,12 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             $this->element->submitted_at = now();
         }
         $this->checkCourseAndType();
-        if ($this->element->id) {
+
+        if ($this->element->status == 'Submitted') {
+            $this->checkDocuments();
             $this->checkPassportAndEmail();
             $this->checkSAARCCountry();
             $this->checkExaminations();
-        }
-        if ($this->element->status == 'Submitted') {
-            $this->checkDocuments();
-
             $this->checkLanguageProficiencies();
         }
 
