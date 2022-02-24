@@ -22,7 +22,9 @@ body, html, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
 
 }
 
-[v-cloak] { display: none; }
+[v-cloak] {
+    display: none;
+}
 
 body, .form-control, .btn, table, tr, th, td, thead, tbody {
     font-size: 12px;
@@ -45,9 +47,11 @@ h3 {
 a, a:hover {
     color: #001fbd;
 }
+
 a:hover {
     text-decoration: underline;
 }
+
 .btn {
     transition: all ease-in-out .25s;
     border: 0;
@@ -133,6 +137,7 @@ a:hover {
     text-align: center;
     color: #000;
 }
+
 code {
     font-size: 80%;
 }
@@ -552,7 +557,14 @@ select, .form-control {
     border-top: 0;
     border-left: 0;
     border-right: 0;
-    font-weight: bold;
+    /*font-weight: bold;*/
+}
+
+input:focus {
+    border-radius: 0;
+    border-bottom: 2px #001fbd solid;
+    -webkit-animation: animation 2s ease-in-out;
+    -moz-animation: animation 2s ease-in-out;
 }
 
 input:read-only, .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control,
@@ -595,6 +607,7 @@ label {
     font-size: 14px;
     font-weight: bold;
 }
+
 .panel-title a {
     display: block;
 }
@@ -668,6 +681,7 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
     font-weight: normal;
     color: inherit;
 }
+
 .callout a {
     color: #3c8dbc;
     text-decoration: underline;
@@ -746,6 +760,7 @@ a i {
 .bg-white {
     background-color: white;
 }
+
 .bg-smart-red, .bg-smart-red:hover {
     background-color: rgb(252, 70, 107);
     color: white;
@@ -769,6 +784,7 @@ a i {
     padding: 0;
     background-color: yellow;
 }
+
 .transparent, .bg-transparent {
     background-color: transparent;
 }
