@@ -55,5 +55,9 @@
 
     </div>
     <div class="clearfix"></div>
+    <a class="btn btn-info btn-block" target="_blank"
+       href="{{asset('projects/dgme-students/files/user manual.pdf')}}"><b>User Manual</b>
+    </a>
+
 
 @endsection
