@@ -1,10 +1,11 @@
 @extends('projects.dgme-students.layouts.email.template')
 
 @section('title')
-    <table class="no-border no-padding" style="width:60%">
+    <table class="no-border no-padding" style="width:50%; margin: 0 auto;" >
         <tr>
             <td>
-                <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="img-thumbnail" style="margin-top: 2%; border:none!important; height: 120px;">
+                <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="img-thumbnail"
+                     style="margin-top: 2%; border:none!important; height: 120px;">
             </td>
             <td>
                 <h2 align="center">Directorate General of Medical Education (DGME)</h2>
@@ -12,7 +13,8 @@
 
             </td>
             <td>
-                <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="img-thumbnail pull-right" style="margin-top: 2%; border:none!important;height: 120px;">
+                <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="img-thumbnail pull-right"
+                     style="margin-top: 2%; border:none!important;height: 120px;">
 
             </td>
         </tr>
