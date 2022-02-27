@@ -77,8 +77,8 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                 'domicile_address' => 'required',
                 'nationality' => 'required',
                 'applicant_passport_no' => 'required',
-                'applicant_passport_issue_date' => 'required',
-                'applicant_passport_expiry_date' => 'required',
+                //'applicant_passport_issue_date' => 'required',
+                //'applicant_passport_expiry_date' => 'required',
 
                 'legal_guardian_name' => 'required',
                 'legal_guardian_nationality' => 'required',
