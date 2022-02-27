@@ -137,15 +137,16 @@
         $('#applicationExaminationForm #examination_type').change(function () {
             let minYear = null;
             let maxYear = null;
-            $('#applicationExaminationForm #passing_year').removeClass('validate[min[' + minYear + '],max[' + maxYear + ']]')
+            $('#applicationExaminationForm #passing_year').removeClass();
             if (this.value == 'O level') {
                 minYear = fiveYearBefore;
                 maxYear = threeYearBefore;
+
             } else if (this.value == 'A level') {
                 minYear = twoYearBefore;
                 maxYear = oneYearBefore;
             }
-            $('#applicationExaminationForm #passing_year').addClass('validate[min[' + minYear + '],max[' + maxYear + ']]')
+            $('#applicationExaminationForm #passing_year').addClass('form-control passing_year validate[required] validate[min[' + minYear + '],max[' + maxYear + ']]')
         });
         $('#applicationExaminationForm #subjects').addClass('validate[required]');
         $('#applicationExaminationForm #certificate_name').addClass('validate[required]');

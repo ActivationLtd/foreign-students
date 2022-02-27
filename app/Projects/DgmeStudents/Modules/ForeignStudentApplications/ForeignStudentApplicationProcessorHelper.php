@@ -97,7 +97,7 @@ trait ForeignStudentApplicationProcessorHelper
         if ($element->applicant_passport_no != $element->user->passport_no) {
             $this->error('Passport should be the same as the signed up user', 'applicant_passport_no'); // Raise error
         }
-        if($element->applicant_email != $element->user->passport_no){
+        if($element->applicant_email != $element->user->email){
             $this->error('Email should be the same as the signed up user', 'applicant_email'); // Raise error
         }
 
