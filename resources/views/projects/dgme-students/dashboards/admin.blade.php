@@ -8,26 +8,6 @@
     Foreign Medical/Dental Student Application
 @endsection
 @section('content')
-
-
-    {{--    {{content('sample-content','my-content')}}--}}
-
-    {{--    <?php--}}
-    {{--    use App\Projects\DgmeStudents\Contents\SampleContent;--}}
-    {{--    use App\Projects\DgmeStudents\Datatables\SampleDatatable;--}}
-    {{--    $sampleContent = (new SampleContent())->get('body');--}}
-
-    {{--    $str = '\App\Mainframe\Modules\Modules\Module';--}}
-    {{--    // echo \Illuminate\Support\Arr::last(explode('\\',$str));--}}
-
-    {{--    $user = \App\Module::byName('users')->modelInstance();--}}
-
-    {{--    ?>--}}
-
-    {{--    <div class="clearfix"></div>--}}
-    {{--    {!! $sampleContent  !!}--}}
-
-
     <div class="clearfix"></div>
     <div class="col-md-4 col-sm-8 col-xs-12">
         <div class="info-box bg-green-active">
