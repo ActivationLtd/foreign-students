@@ -54,3 +54,5 @@ Section: Data table JS
     </script>
     @parent
 @endsection
+
+@unset($datatable)
