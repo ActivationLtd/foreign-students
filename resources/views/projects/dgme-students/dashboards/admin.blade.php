@@ -58,7 +58,7 @@
     <div class="clearfix"></div>
 
     <?php
-    // $datatable = new \App\Projects\MphMarket\Modules\Orders\OrderDatatable('orders');
+    // $datatable = new \App\Projects\DgmeStudents\Modules\Orders\OrderDatatable('orders');
     ?>
     {{--    @include('mainframe.layouts.module.grid.includes.datatable',compact($datatable));--}}
 
