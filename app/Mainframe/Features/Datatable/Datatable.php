@@ -75,7 +75,7 @@ class Datatable
     }
 
     /**
-     * @param  \App\Module|string  $module
+     * @param  Module|string  $module
      * @return Datatable|bool
      */
     public function setModule($module)
@@ -135,6 +135,8 @@ class Datatable
     }
 
     /**
+     * Add additional params in the AJAX data URL
+     *
      * @param  array  $params
      * @return string
      */
@@ -162,7 +164,7 @@ class Datatable
      */
     public function lengthMenu()
     {
-        if(isset($this->lengthMenu)){
+        if (isset($this->lengthMenu)) {
             return $this->lengthMenu;
         }
 
@@ -179,7 +181,7 @@ class Datatable
      */
     public function order()
     {
-        if(isset($this->order)){
+        if (isset($this->order)) {
             return $this->order;
         }
 
