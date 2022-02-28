@@ -25,15 +25,15 @@
 <div class="login-box shadow">
     <div class="row">
         <div class="login-box no-margin-t no-margin-b">
-            <div class="col-sm-3">
+            <div class="col-xs-3">
                 <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="" alt="" style="width: 90%">
 
             </div>
-            <div class="col-sm-6">
+            <div class="col-xs-6 text-center">
                 <h3 class="no-margin">Directorate General of Medical Education (DGME)</h3>
                 <h5>Government of the People's Republic of Bangladesh</h5>
             </div>
-            <div class="col-sm-3">
+            <div class="col-xs-3">
                 <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="" alt="" style="width: 100%">
 
             </div>
