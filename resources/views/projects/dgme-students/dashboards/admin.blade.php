@@ -8,30 +8,6 @@
     Foreign Medical/Dental Student Application
 @endsection
 @section('content')
-
-
-{{--    {{content('sample-content','my-content')}}--}}
-
-
-{{--    <?php--}}
-
-
-
-{{--    use App\Projects\DgmeStudents\Contents\SampleContent;--}}
-{{--    use App\Projects\DgmeStudents\Datatables\SampleDatatable;--}}
-{{--    $sampleContent = (new SampleContent())->get('body');--}}
-
-{{--    $str = '\App\Mainframe\Modules\Modules\Module';--}}
-{{--    // echo \Illuminate\Support\Arr::last(explode('\\',$str));--}}
-
-{{--    $user = \App\Module::byName('users')->modelInstance();--}}
-
-{{--    ?>--}}
-
-{{--    <div class="clearfix"></div>--}}
-{{--    {!! $sampleContent  !!}--}}
-
-
     <div class="clearfix"></div>
     <div class="col-md-4 col-sm-8 col-xs-12">
         <div class="info-box bg-green-active">
@@ -46,12 +22,12 @@
                 <span class="info-box-number">Total : {{$adminData['applications']['total']}}</span>
                 <span class="info-box-number">In Progress : {{$adminData['applications']['ongoing']}}</span>
 
-{{--                <div class="progress">--}}
-{{--                    <div class="progress-bar" style="width: 50%"></div>--}}
-{{--                </div>--}}
-{{--                <span class="progress-description">--}}
-{{--                    50% Increase in 30 Days--}}
-{{--                  </span>--}}
+                {{--                <div class="progress">--}}
+                {{--                    <div class="progress-bar" style="width: 50%"></div>--}}
+                {{--                </div>--}}
+                {{--                <span class="progress-description">--}}
+                {{--                    50% Increase in 30 Days--}}
+                {{--                  </span>--}}
             </div>
         </div>
     </div>
@@ -84,6 +60,6 @@
     <?php
     // $datatable = new \App\Projects\MphMarket\Modules\Orders\OrderDatatable('orders');
     ?>
-{{--    @include('mainframe.layouts.module.grid.includes.datatable',compact($datatable));--}}
+    {{--    @include('mainframe.layouts.module.grid.includes.datatable',compact($datatable));--}}
 
 @endsection

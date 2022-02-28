@@ -64,7 +64,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'is_saarc' => 'required',
             'is_active' => 'in:1,0',
         ];
-        if ($element->id) {
+        if ($element->id && $element->status== ForeignStudentApplication::STATUS_SUBMITTED) {
             $rules = array_merge($rules, [
                 'payment_transaction_id' => 'required',
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
@@ -77,8 +77,8 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                 'domicile_address' => 'required',
                 'nationality' => 'required',
                 'applicant_passport_no' => 'required',
-                'applicant_passport_issue_date' => 'required',
-                'applicant_passport_expiry_date' => 'required',
+                //'applicant_passport_issue_date' => 'required',
+                //'applicant_passport_expiry_date' => 'required',
 
                 'legal_guardian_name' => 'required',
                 'legal_guardian_nationality' => 'required',
@@ -121,14 +121,12 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             $this->element->submitted_at = now();
         }
         $this->checkCourseAndType();
-        if ($this->element->id) {
-            $this->checkPassport();
-            $this->checkSAARCCountry();
-            $this->checkExaminations();
-        }
+
         if ($this->element->status == 'Submitted') {
             $this->checkDocuments();
-
+            $this->checkPassportAndEmail();
+            $this->checkSAARCCountry();
+            $this->checkExaminations();
             $this->checkLanguageProficiencies();
         }
 
@@ -163,6 +161,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
      */
     public function saved($element)
     {
+        $element->sendApplicationStatusChangeEmail();
         $element->refresh(); // Get the updated model(and relations) before using.
         if($this->hasTransition('status',ForeignStudentApplication::STATUS_DRAFT,ForeignStudentApplication::STATUS_SUBMITTED)){
             $element->sendApplicationStatusChangeEmail();

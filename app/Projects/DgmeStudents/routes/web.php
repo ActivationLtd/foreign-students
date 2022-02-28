@@ -83,6 +83,8 @@ Route::prefix('test')->middleware($middlewares)->group(function () {
     Route::prefix('preview')->group(function () {
         // {app}/test/preview
         Route::get('email/application-status-change/{id}', [TestController::class, 'previewApplicationStatusChangeEmail']);
+        Route::get('email/user-email-verification/{id}', [TestController::class, 'previewUserVerifyEmail']);
+        Route::get('email/user-reset-password/{id}', [TestController::class, 'previewUserResetPasswordEmail']);
         // Todo : add new test routes here
     });
 });
