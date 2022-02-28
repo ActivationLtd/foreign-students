@@ -217,7 +217,7 @@
                 "Once submitted the application can be edited in the next 24 hours only.<br>"
             );
             $('#applicationSubmitButton').hide();
-            $('#foreign-student-applicationsSubmitBtn').removeClass('submit btn btn-success').addClass('submit btn btn-warning').html('<i class="fa fa-check"></i>Submit');
+            $('#foreign-student-applicationsSubmitBtn').removeClass('submit btn btn-success').addClass('submit btn btn-success').html('<i class="fa fa-check"></i> Submit');
             $('#declaration').show();
             $("input[id=declaration_check]").addClass('validate[required]');
         });
