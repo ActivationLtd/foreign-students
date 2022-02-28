@@ -55,8 +55,8 @@
 
     </div>
     <div class="clearfix"></div>
-    <a class="btn btn-info btn-block" target="_blank"
-       href="{{asset('projects/dgme-students/files/user manual.pdf')}}"><b>User Manual</b>
+    <a class="btn btn-block" target="_blank"
+       href="{{asset('projects/dgme-students/files/user manual.pdf')}}"> <i class="fa fa-download"></i> <b>Download User Manual For Application</b>
     </a>
 
 
