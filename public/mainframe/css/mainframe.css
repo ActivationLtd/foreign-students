@@ -356,6 +356,8 @@ div.filecard .info-box-icon img {
     float: left;
     height: 100%;
     background-color: white;
+    font-size: 10px;
+    overflow: hidden;
 }
 
 div.filecard .info-box-icon {
