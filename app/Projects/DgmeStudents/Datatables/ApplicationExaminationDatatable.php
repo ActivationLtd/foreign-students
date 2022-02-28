@@ -2,10 +2,8 @@
 
 namespace App\Projects\DgmeStudents\Datatables;
 
-use App\Mainframe\Features\Datatable\Traits\CustomDatatableTrait;
 use App\Module;
 use App\Projects\DgmeStudents\Features\Datatable\Datatable;
-use App\Projects\DgmeStudents\Features\Datatable\ModuleDatatable;
 use App\Projects\DgmeStudents\Modules\ForeignApplicationExaminations\ForeignApplicationExamination;
 use DataTables;
 
@@ -74,6 +72,7 @@ class ApplicationExaminationDatatable extends Datatable
             [$this->table.'.id', 'action', '-'],
         ];
     }
+
     /**
      * @param  \Yajra\DataTables\DataTableAbstract  $dt
      * @return mixed|\Yajra\DataTables\DataTableAbstract
@@ -83,13 +82,12 @@ class ApplicationExaminationDatatable extends Datatable
 
         $dt = parent::modify($dt);
 
-
         if ($this->hasColumn('action')) {
             $dt = $dt->editColumn('action', function ($row) {
-                return "<a target='_blank' class='btn btn-default bg-smart-blue' href=".route('foreign-application-examinations.edit', $row->id).">Click to View</a>";
+                return "<a target='_blank' class='pull-right btn btn-sm bg-smart-blue' href=".route('foreign-application-examinations.edit',
+                        $row->id).">View</a>";
             });
         }
-
 
         return $dt;
     }
