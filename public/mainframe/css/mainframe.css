@@ -142,6 +142,10 @@ code {
     font-size: 80%;
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    line-height: 1.5em;
+}
+
 .h2, h2 {
     font-size: 20px;
 }
@@ -269,9 +273,9 @@ textarea {
 /* made label font weight bold*/
 label {
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.9em;
     text-transform: uppercase;
-    color: #b8b8b8;
+    color: #555;
 
 }
 
@@ -557,6 +561,7 @@ select, .form-control {
     border-top: 0;
     border-left: 0;
     border-right: 0;
+    color: #222;
     /*font-weight: bold;*/
 }
 
