@@ -86,7 +86,7 @@ class AppLanguageProficiencyDatatable extends Datatable
 
         if ($this->hasColumn('action')) {
             $dt = $dt->editColumn('action', function ($row) {
-                return "<a target='_blank' class='btn btn-default bg-smart-blue' href=".route('foreign-app-lang-proficiencies.edit', $row->id).">Click to View</a>";
+                return "<a target='_blank' class='pull-right btn btn-sm bg-smart-blue' href=".route('foreign-app-lang-proficiencies.edit', $row->id).">View</a>";
             });
         }
 

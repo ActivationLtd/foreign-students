@@ -2,8 +2,8 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
-use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
 use App\ForeignStudentApplication;
+use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
 use App\Projects\DgmeStudents\Helpers\Time;
 
 class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
@@ -58,6 +58,10 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
     public function showExaminationCreateButton()
     {
+        if ($this->user->isAdmin()) {
+            return true;
+        }
+
         if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
             return false;
         }
@@ -68,13 +72,9 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
-    public function showLanguageProfiencyCreateButton()
+    public function showLanguageProficiencyCreateButton()
     {
-        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
-            return false;
-        }
-
-        return true;
+        return $this->showExaminationCreateButton();
     }
 
     /**
@@ -82,6 +82,10 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showSubmitButton()
     {
+        if ($this->user->isAdmin()) {
+            return true;
+        }
+        
         if ($this->element->status == 'Draft' && user()->isApplicant()) {
             return true;
         }

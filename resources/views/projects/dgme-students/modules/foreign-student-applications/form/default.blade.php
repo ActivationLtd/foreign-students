@@ -13,7 +13,10 @@
  * @var \App\Tenant $tenant
  * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor $view
  */
-use App\ForeignAppLangProficiency;use App\ForeignApplicationExamination;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;$foreignStudentApplication = $element;
+use App\ForeignAppLangProficiency;use App\ForeignApplicationExamination;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;
+$foreignStudentApplication = $element;
+
+
 $yesNoOptions = ForeignStudentApplication::$optionsYesNo;
 $optionsGovernmentPublic = ForeignStudentApplication::$optionsGovernmentPublic;
 $proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
@@ -31,14 +34,14 @@ if (user()->isAdmin()) {
 ?>
 @if($element->id && $element->status=="Submitted")
 @section('content-top')
-    <div class="pull-right">
+    <div class="pull-left">
         <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
     </div>
-
+    <div class="clearfix"></div>
 @endsection
 @endif
 @section('content')
-    <div class="col-md-12 no-padding">
+    <div class="col-md-10 no-padding">
         @if(($formState == 'create'))
             {{ Form::open($formConfig) }} <input name="uuid" type="hidden" value="{{$uuid}}"/>
         @elseif($formState == 'edit')
@@ -51,21 +54,26 @@ if (user()->isAdmin()) {
 
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
         @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
-        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-2']])
-        @if($view->showProfilePic())
-            <div class="pull-right"><img class="img-thumbnail" style="height:200px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
-        @endif
+        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+
         <div class="clearfix"></div>
+
         <h4>Applicant Info</h4>
-        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Name','div'=>'col-md-8']])
-        @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-4']])
-        @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-4']])
+
+        @if($view->showProfilePic())
+            <div class="pull-left" style="padding-right: 20px"><img class="img-thumbnail" style="height:150px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
+        @endif
+        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','div'=>'col-md-6']])
+        @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-3']])
+        @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-3']])
+
         <div class="clearfix"></div>
         @if($element->id)
+
             @include('form.text',['var'=>['name'=>'applicant_father_name','label'=>'Father\'s Name','div'=>'col-md-6']])
             @include('form.text',['var'=>['name'=>'applicant_mother_name','label'=>'Mother\'s Name','div'=>'col-md-6']])
             <div class="clearfix"></div>
-            @include('form.textarea',['var'=>['name'=>'communication_address','label'=>'Full Address to which communication may be sent']])
+            @include('form.text',['var'=>['name'=>'communication_address','label'=>'Full Address to which communication may be sent','div'=>'col-md-12']])
             <div class="clearfix"></div>
             @include('form.date',['var'=>['name'=>'dob','label'=>'Date Of Birth','div'=>'col-md-4']])
             @include('form.select-model',['var'=>['name'=>'dob_country_id','label'=>'Country of Birth','table'=>'countries', 'div'=>'col-md-4']])
@@ -73,7 +81,7 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
 
             <?php
-            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'table' => 'countries'];
+            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'table' => 'countries', 'div' => 'col-md-4'];
             if ($element->is_saarc == 1) {
                 $var['query'] = DB::table('countries')->where('is_saarc', '1');
             } else {
@@ -83,7 +91,6 @@ if (user()->isAdmin()) {
 
             @include('form.select-model',['var'=>$var])
             @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
-            <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4','tooltip'=>'Must Match The Logged In User Passport']])
@@ -92,24 +99,24 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
-            @include('form.textarea',['var'=>['name'=>'legal_guardian_address','label'=>'Address of Legal Guardian']])
+            @include('form.text',['var'=>['name'=>'legal_guardian_address','label'=>'Address of Legal Guardian','div'=>'col-md-12']])
             <div class="clearfix"></div>
             <h4>Name and Address of person to be notified in case of emergency</h4>
             @include('form.text',['var'=>['name'=>'emergency_contact_bangladesh_name','label'=>'Emergency Contact Name (Bangladesh)','div'=>'col-md-4']])
-            @include('form.textarea',['var'=>['name'=>'emergency_contact_bangladesh_address','label'=>'Emergency Contact Address (Bangladesh)']])
+            @include('form.text',['var'=>['name'=>'emergency_contact_bangladesh_address','label'=>'Emergency Contact Address (Bangladesh)','div'=>'col-md-12']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'emergency_contact_domicile_name','label'=>'Emergency Contact Name (Domicile)','div'=>'col-md-4']])
-            @include('form.textarea',['var'=>['name'=>'emergency_contact_domicile_address','label'=>'Emergency Contact Address (Domicile)']])
+            @include('form.text',['var'=>['name'=>'emergency_contact_domicile_address','label'=>'Emergency Contact Address (Domicile)','div'=>'col-md-12']])
             <div class="clearfix"></div>
 
             <h4>Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h4>
-            @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions)]])
+            @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions), 'div'=>'col-md-6']])
             <div id="previousApplicationFeedback">
                 @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
             </div>
             <div class="clearfix"></div>
             <h4>Proposed Mode Of Financing Study</h4>
-            @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes)]])
+            @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-6']])
             <div id="applicationFinanceOther">
                 @include('form.textarea',['var'=>['name'=>'finance_mode_other','label'=>'Details of Finance Other']])
             </div>
@@ -121,17 +128,14 @@ if (user()->isAdmin()) {
                 $datatable = new \App\Projects\DgmeStudents\Datatables\ApplicationExaminationDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
                 ?>
-                <h4 class="col-md-6 no-padding-l">Beginning with Matriculation/O Level or equivalent examinations list your examinations</h4>
-
-                @if($view->showExaminationCreateButton())
-                    <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#examinationModal">
-                            Add Examinations
-                        </button>
-                    </div>
-                @endif
-                <div class="clearfix"></div>
+                <h4>Beginning with Matriculation/O Level or equivalent examinations list your examinations</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
+                @if($view->showExaminationCreateButton())
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#examinationModal">
+                        Add Examinations
+                    </button>
+                @endif
+
             </div>
             <div class="col-md-12 no-padding-l">
                 {{--Proficiency List--}}
@@ -139,16 +143,13 @@ if (user()->isAdmin()) {
                 $datatable = new \App\Projects\DgmeStudents\Datatables\AppLanguageProficiencyDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
                 ?>
-                <h4 class="col-md-6 no-padding-l">Proficiency Of Language</h4>
-                @if($view->showLanguageProfiencyCreateButton())
-                    <div class="col-md-6 no-padding-r">  <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#languageProficiencyModal">
-                            Add Language Proficiency
-                        </button>
-                    </div>
-                @endif
-                <div class="clearfix"></div>
+                <h4>Proficiency Of Language</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
+                @if($view->showLanguageProficiencyCreateButton())
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#languageProficiencyModal">
+                        Add Language Proficiency
+                    </button>
+                @endif
             </div>
             <div class="clearfix"></div>
             <h4>Payment Info</h4>
@@ -162,17 +163,17 @@ if (user()->isAdmin()) {
                 <h5>Declaration</h5>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
-                <h5>I, thereby, declare that particulars given and documents submitted above are true and valid to the best of my knowledge.<br>
+                <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the best of my knowledge.<br>
                     I also declare that I shall fully abide by the rules and regulations of the institutions, country and any decisions of Authority of the<br>
                     institution to which I may be admitted. I furthermore declare that if any of the submitted documents found false <br>
-                    or tempered, the application will be cancelled</h5>
+                    or tempered, the application will be cancelled</p>
             </div>
 
             {{--        @include('form.is-active')--}}
             {{---------------|  Form input start |-----------------------}}
             @if($view->showSubmitButton())
-                <button id="applicationSubmitButton" type="button" class="submit btn btn-warning">
-                    <i class="fa fa-check"></i>Submit
+                <button id="applicationSubmitButton" type="button" class="submit btn btn-success">
+                    <i class="fa fa-check"></i> Submit Application
                 </button>
             @endif
         @endif
@@ -184,20 +185,26 @@ if (user()->isAdmin()) {
 @section('content-bottom')
     @parent
     @if($element->id)
+        <div class="col-md-12 no-padding-l">
+            <h3>Upload Documents</h3>
+        </div>
         <div class="col-md-6 no-padding-l">
-            <h5>Applicant's Picture upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's Picture</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
-            <h5>Applicant's Signature upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's Signature</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
-            {{--            <h5>Guardian Signature upload</h5><small>Upload one or more files</small>--}}
+            {{--            <h5>Guardian Signature</h5><small>Upload one or more files</small>--}}
             {{--            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])--}}
-            <h5>Applicant's Passport upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's Passport</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
-            <h5>Confirmed Payment Document upload</h5><small>Upload one or more files</small>
+
+        </div>
+        <div class="col-md-6 no-padding-l">
+            <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
-            <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
-            <h5>Applicant's A Level Or Equivalent Certificate upload</h5><small>Upload one or more files</small>
+            <h5>Applicant's A Level Or Equivalent Certificate</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
         </div>
     @endif
@@ -229,7 +236,9 @@ if (user()->isAdmin()) {
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
-                            <button id="applicationExaminationFormButton" name="applicationExaminationFormButton" type="submit" class="btn btn-primary">Add Examination</button>
+                            <button id="applicationExaminationFormButton" name="applicationExaminationFormButton" type="submit" class="btn btn-primary">Add
+                                Examination
+                            </button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -237,7 +246,7 @@ if (user()->isAdmin()) {
             </div>
         </div>
     @endif
-    @if($element->id && $view->showLanguageProfiencyCreateButton())
+    @if($element->id && $view->showLanguageProficiencyCreateButton())
         <div class="modal fade" id="languageProficiencyModal" tabindex="-1" role="dialog" aria-labelledby="languageProficiencyModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -279,9 +288,6 @@ if (user()->isAdmin()) {
     <script type="text/javascript">
         $('select[id=dob_country_id]').select2();
         $('select[id=domicile_country_id]').select2();
-
-
-
 
     </script>
 @endsection
