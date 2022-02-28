@@ -61,7 +61,7 @@ if (user()->isAdmin()) {
         <h4>Applicant Info</h4>
 
         @if($view->showProfilePic())
-            <div class="pull-left" style="padding-right: 20px"><img class="img-thumbnail" style="height:150px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
+            <div class="col-md-3 no-padding-l" style="padding-right: 20px"><img class="img-thumbnail" style="height:120px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
         @endif
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','div'=>'col-md-6']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-3']])
