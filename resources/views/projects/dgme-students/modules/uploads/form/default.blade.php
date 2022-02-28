@@ -4,7 +4,7 @@
 /**
  * @var \App\Mainframe\Modules\Modules\Module $module
  * @var \App\User $user
- * @var \App\Projects\MphMarket\Modules\Uploads\Upload $element
+ * @var \App\Projects\DgmeStudents\Modules\Uploads\Upload $element
  * @var string $formState create|edit
  * @var array $formConfig
  * @var string $uuid Only available for create
