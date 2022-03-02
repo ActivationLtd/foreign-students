@@ -59,5 +59,8 @@
        href="{{asset('projects/dgme-students/files/user manual.pdf')}}"> <i class="fa fa-download"></i> <b>Download User Manual For Application</b>
     </a>
 
+{{--    <p>For further information email us at <a href="mailto:supportforeignstudents@dgme.gov.bd">supportforeignstudents@dgme.gov.bd</a></p>--}}
+    <p style="text-align: center">If you require any further information, please feel free to email us at <a href="mailto:supportforeignstudents@dgme.gov.bd">supportforeignstudents@dgme.gov.bd</a></p>
+
 
 @endsection
