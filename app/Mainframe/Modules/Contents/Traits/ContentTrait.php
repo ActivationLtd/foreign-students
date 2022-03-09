@@ -38,7 +38,9 @@ trait ContentTrait
 
         $array = [];
         foreach ($parts as $part) {
-            $array[$part->key] = $part->value;
+            if (isset($part->key)) {
+                $array[$part->key] = $part->value;
+            }
         }
 
         return $array;
@@ -50,7 +52,6 @@ trait ContentTrait
         if (is_array($value)) {
             return $value;
         }
-
 
         return json_decode($value ?? '[]');
     }
@@ -89,6 +90,17 @@ trait ContentTrait
         }
 
         return null;
+    }
+
+    /**
+     * Check if content has a part
+     *
+     * @param $key
+     * @return bool
+     */
+    public function hasPart($key)
+    {
+        return (bool) $this->part($key);
     }
 
     /**

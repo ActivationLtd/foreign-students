@@ -39,7 +39,13 @@ class FixContentKey extends MakeModule
                 $str = multipleStrReplace($str, ['content' => 'value']);
 
                 $this->info('#'.$content->id. ' > '.$str);
-                \DB::table('contents')->where('id',$content->id)->update(['parts'=>$content->parts]);
+
+                $count = \DB::table('contents')->where('id',$content->id)->update(['parts'=>$str]);
+
+                if($count){
+                    $this->info('... Updated');
+                }
+
             }
         });
 

@@ -391,3 +391,26 @@ function urlWithParams($url, $params = null)
 {
     return Mf::link($url, $params);
 }
+
+/**
+ * Flatten array keys
+ *
+ * @param $array
+ * @param $keys
+ * @return array|mixed
+ */
+function array_flat_keys($array, $keys = [])
+{
+
+    foreach ($array as $key => $value) {
+
+        $keys[] = $key;
+
+        if (is_array($value) && count($value)) {
+            $keys = array_merge($keys, array_flat_keys($value, $keys));
+        }
+
+    }
+
+    return array_unique($keys);
+}
