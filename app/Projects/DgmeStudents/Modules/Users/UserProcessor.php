@@ -59,7 +59,7 @@ class UserProcessor extends ModelProcessor
     public static function rules($element, $merge = [])
     {
         $rules = [
-            'email' => 'required|email:rfc,dns|'.Rule::unique('users', 'email')->ignore($element->id)->whereNull('deleted_at'),
+            'email' => 'required|email:rfc,dns,filter,strict|'.Rule::unique('users', 'email')->ignore($element->id)->whereNull('deleted_at'),
             'first_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'last_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'password'=>'min:6|regex:/[a-zA-Z]/|regex:/[0-9]/'
