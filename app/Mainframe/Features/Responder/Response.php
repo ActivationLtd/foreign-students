@@ -244,7 +244,7 @@ class Response
     }
 
     /**
-     * @param  string|null  $viewPath
+     * @param  \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string|null  $viewPath
      * @return $this
      */
     public function setViewPath($viewPath)
@@ -265,7 +265,7 @@ class Response
     /**
      * Resolve singleton response
      *
-     * @return \App\Mainframe\Features\Responder\Response|\Illuminate\Contracts\Foundation\Application|mixed
+     * @return Response|\Illuminate\Contracts\Foundation\Application|mixed
      */
     public static function resolve()
     {

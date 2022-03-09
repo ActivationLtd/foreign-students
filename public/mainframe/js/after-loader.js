@@ -146,3 +146,7 @@ autosize(document.querySelectorAll('textarea'));
 |--------------------------------------------------------------------------
 */
 initJsonTextarea();
+
+
+// Enable sortable
+$('.sortable').sortable();

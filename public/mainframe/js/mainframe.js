@@ -266,19 +266,22 @@ function initUploader(id, url) {
         // dynamicFormData: function () {                   // old implementation
         //     return {
         //         "ret": "json",
-        //         //"tenant_id": $("#" + id + " form input[name=tenant_id]").val(),
-        //         //"module_id": $("#" + id + " form input[name=module_id]").val(),
-        //         //"element_id": $("#" + id + " form input[name=element_id]").val(),
-        //         //"element_uuid": $("#" + id + " form input[name=element_uuid]").val()
+        //         "_token": $("#" + id + " input[name=_token]").val(),
+        //         "tenant_id": $("#" + id + " input[name=tenant_id]").val(),
+        //         "module_id": $("#" + id + " input[name=module_id]").val(),
+        //         "element_id": $("#" + id + " input[name=element_id]").val(),
+        //         "element_uuid": $("#" + id + " input[name=element_uuid]").val(),
+        //         "type": $("#" + id + " input[name=type]").val()
         //     };
         // },
         dynamicFormData: function () {                      // New implementation using serialization
-            return $('#' + id + ' form').serialize();
+            // return $('#' + id + ' form').serialize();
+            return $('div#' + id).find("select, textarea, input").serialize();
         },
         //onSuccess: function (files, ret, xhr){};
         onSuccess: function (files, ret) {
-            loadMsg(parseJson(ret));
-            $('#msgModal').modal('show');
+            showResponseModal(parseJson(ret), 3000);
+
             //console.log(ret);
             if (ret.status == 'fail') {
                 $('div.ajax-file-upload-green').hide();
@@ -405,10 +408,10 @@ function initJsonTextarea(css) {
 
     // console.log(css);
     $('textarea.' + css).each(function (i, el) {
-        var elem = $( el );
+        var elem = $(el);
         $(elem).bind('change', () => {
             var ugly = elem.val();
-            if(ugly) {
+            if (ugly) {
                 // console.log(elem);
                 var obj = JSON.parse(ugly);
                 var pretty = JSON.stringify(obj, undefined, 4);
