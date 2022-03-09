@@ -46,7 +46,7 @@ $content = $element;
         <?php
         $var = [
             'name' => 'parts',
-            'label' => 'Properties',
+            'label' => 'Parts',
         ]
         ?>
         @include('mainframe.form.parts', compact('var'))

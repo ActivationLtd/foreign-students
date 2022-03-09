@@ -157,6 +157,10 @@ code {
     font-size: 16px;
 }
 
+.h5, h6 {
+    font-size: 14px;
+}
+
 .sidebar-menu {
     margin-top: 10px;
 }
@@ -275,6 +279,7 @@ label {
     /*font-size: 0.9em;*/
     /*text-transform: uppercase;*/
     color: #666666;
+    margin-bottom: 0;
 
 }
 
@@ -445,8 +450,8 @@ input, textarea {
     white-space: nowrap;
     background-image: none;
     border: 0;
-    height: 33px;
-    padding: 2px 0 6px 0
+    height: 32px;
+    padding: 3px 0 5px 10px;
 }
 
 .select2-container {
@@ -560,29 +565,32 @@ input, textarea {
 
 select, .form-control {
     border-color: #f0f0f0;
-    padding-left: 0;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
+    /*padding-left: 0;*/
+    /*border-top: 0;*/
+    /*border-left: 0;*/
+    /*border-right: 0;*/
     /*font-weight: bold;*/
 }
 
 input:focus {
-    border-radius: 0;
-    border-bottom: 2px #001fbd solid;
+    /*border-radius: 0;*/
+    /*border-bottom: 2px #001fbd solid;*/
     -webkit-animation: animation 2s ease-in-out;
     -moz-animation: animation 2s ease-in-out;
 }
 
-input:read-only, .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control,
-.select2-container.select2-container-disabled .select2-choice {
+input:read-only, .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
     background-color: #fbfbfb;
-    border: inherit;
+    /*border: 1px solid #f4f4f4;*/
+    /*border: inherit;*/
     /*padding-left: 10px;*/
 }
 
-label {
-    margin-bottom: 0;
+.select2-container.select2-container-disabled .select2-choice {
+    background-color: #fbfbfb;
+    border: none;
+    /*border: inherit;*/
+    /*padding-left: 10px;*/
 }
 
 .formError .formErrorArrow div {
@@ -845,3 +853,22 @@ textarea.json {
 }
 
 .print-btn {margin: 10px 0;}
+
+/**************************
+ * Font sizes
+ *************************/
+.f-8 { font-size: 8px; }
+.f-9 { font-size: 9px; }
+.f-10 { font-size: 10px; }
+.f-11 { font-size: 11px; }
+.f-11 { font-size: 11px; }
+.f-12 { font-size: 12px; }
+.f-13 { font-size: 13px; }
+.f-14 { font-size: 14px; }
+.f-16 { font-size: 16px; }
+.f-18 { font-size: 18px; }
+.f-20 { font-size: 20px; }
+.f-24 { font-size: 24px; }
+.f-24 { font-size: 24px; }
+.f-36 { font-size: 36px; }
+.f-48 { font-size: 48px; }
