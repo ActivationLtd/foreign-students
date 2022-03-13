@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\Users;
 
 use App\Mainframe\Modules\Users\Traits\UserDatatableTrait;
 use App\Projects\DgmeStudents\Features\Datatable\ModuleDatatable;
+use DB;
 
 class UserDatatable extends ModuleDatatable
 {
@@ -16,26 +17,28 @@ class UserDatatable extends ModuleDatatable
     //  *
     //  * @return \Illuminate\Database\Query\Builder|static
     //  */
-    // public function source()
-    // {
-    //     return DB::table($this->table)->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by');
-    // }
+    public function source()
+    {
+        return DB::table($this->table)->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by');
+    }
 
     // /**
     //  * Select columns, alias and corresponding HTML title
     //  *
     //  * @return array
     //  */
-    // public function columns()
-    // {
-    //     return [
-    //         [$this->table.'.id', 'id', 'ID'],
-    //         [$this->table.'.name', 'name', 'Name'],
-    //         ['updater.name', 'user_name', 'Updater'],
-    //         [$this->table.'.updated_at', 'updated_at', 'Updated at'],
-    //         [$this->table.'.is_active', 'is_active', 'Active'],
-    //     ];
-    // }
+    public function columns()
+    {
+        return [
+            [$this->table.'.id', 'id', 'ID'],
+            [$this->table.'.name', 'name', 'Name'],
+            [$this->table.'.email', 'email', 'Email'],
+            [$this->table.'.passport_no', 'passport_no', 'Passport'],
+            ['updater.name', 'user_name', 'Updater'],
+            [$this->table.'.updated_at', 'updated_at', 'Updated at'],
+            [$this->table.'.is_active', 'is_active', 'Active'],
+        ];
+    }
 
     // /**
     //  * Apply filter on query.
@@ -61,18 +64,16 @@ class UserDatatable extends ModuleDatatable
     //  * @return mixed
     //  * @var $dt \Yajra\DataTables\DataTableAbstract
     //  */
-    // public function modify($dt)
-    // {
-    //     // $dt->rawColumns(['id', 'name', 'is_active']);
-    //     $dt = parent::modify($dt);
-    //
-    //     if ($this->hasColumn('column_name')) {
-    //         $dt->editColumn('column_name', function ($row) {
-    //             return $row->column_name.'updated';
-    //         });
-    //     }
-    //
-    //     return $dt;
-    // }
+    public function modify($dt)
+    {
+        // $dt->rawColumns(['id', 'name', 'is_active']);
+        $dt = parent::modify($dt);
+
+        if ($this->hasColumn('email')) {
+            $dt->editColumn('email', '<a href="{{ route(\''.$this->module->name.'.edit\', $id) }}">{{$email}}</a>');
+        }
+
+        return $dt;
+    }
 
 }
