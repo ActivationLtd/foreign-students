@@ -39,6 +39,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () use ($modul
             'edit' => "{$module->name}.edit",
             'update' => "{$module->name}.update",
             'destroy' => "{$module->name}.destroy",
+        ])->parameters([
+            $moduleName => 'element', // In case of param name larger than 32 chars
         ]);
     }
 

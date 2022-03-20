@@ -5,6 +5,6 @@
         {!! $input->label !!}
     </label>
     @if($input->tooltip)
-        <i class="fa fa-info-circle text-gray" data-toggle="tooltip" data-placement="top" title="{{$input->tooltip}}"></i>
+        <i class="fa fa-info-circle tooltip-icon" data-toggle="tooltip" data-placement="top" title="{{$input->tooltip}}"></i>
     @endif
 @endif

@@ -60,7 +60,7 @@ class LoginController extends BaseController
     /**
      * Attempt to log the user into the application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      * @return bool
      */
     protected function attemptLogin(Request $request)
@@ -75,10 +75,9 @@ class LoginController extends BaseController
     /**
      * Get the failed login response instance.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -94,8 +93,8 @@ class LoginController extends BaseController
     /**
      * The user has been authenticated.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\User|mixed $user
+     * @param  Request  $request
+     * @param  \App\User|mixed  $user
      * @return mixed
      */
     protected function authenticated(Request $request, $user)
@@ -103,14 +102,16 @@ class LoginController extends BaseController
         $user->hasLoggedIn();
 
         if ($this->expectsJson()) {
-            return $this->success()->load($user->refresh())->json();
+            return $this->success()
+                ->load($user->append(['type'])->refresh())
+                ->json();
         }
     }
 
     /**
      * The user has logged out of the application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      * @return mixed
      */
     protected function loggedOut(Request $request)

@@ -269,6 +269,10 @@ trait Validable
      */
     public function mergeValidatorErrors($validator)
     {
+        if (property_exists($validator, 'validator')) {
+            $validator = $validator->validator;
+        }
+
         $this->validator()->messages()->merge($validator->messages());
 
         return $this;

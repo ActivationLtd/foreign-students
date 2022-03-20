@@ -17,37 +17,35 @@ class CreateSuperHeroesTable extends Migration
     public function up()
     {
 
-        // Note: Skip if the table exists
-        if (Schema::hasTable('{table}')) {
-            return;
-        }
-
         /*---------------------------------
-        | Create the table
+        | Create the table if doesnt exists
         |---------------------------------*/
-        Schema::create('{table}', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('uuid', 64)->nullable()->default(null);
-            $table->unsignedInteger('project_id')->nullable()->default(null);
-            $table->unsignedInteger('tenant_id')->nullable()->default(null);
-            $table->string('name', 512)->nullable()->default(null);
+        if (!Schema::hasTable('{table}')) {
 
-            /******* Custom columns **********/
-            // Todo: Add module specific fields and denormalized fields. In computing, denormalization is the process of
-            //  improving the read performance of a database, at the expense of losing some write performance,
-            //  by adding redundant copies of data or by grouping it.
+            Schema::create('{table}', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('uuid', 64)->nullable()->default(null)->index();
+                $table->unsignedInteger('project_id')->nullable()->default(null)->index();
+                $table->unsignedInteger('tenant_id')->nullable()->default(null)->index();
+                $table->string('name', 255)->nullable()->default(null)->index();
 
-            //$table->string('title', 100)->nullable()->default(null);
-            //$table->text('field')->nullable()->default(null);
-            /*********************************/
+                /******* Custom columns **********/
+                // Todo: Add module specific fields and denormalized fields. In computing, denormalization is the process of
+                //  improving the read performance of a database, at the expense of losing some write performance,
+                //  by adding redundant copies of data or by grouping it.
 
-            $table->tinyInteger('is_active')->nullable()->default(1);
-            $table->unsignedInteger('created_by')->nullable()->default(null);
-            $table->unsignedInteger('updated_by')->nullable()->default(null);
-            $table->timestamps();
-            $table->softDeletes();
-            $table->unsignedInteger('deleted_by')->nullable()->default(null);
-        });
+                //$table->string('title', 100)->nullable()->default(null);
+                //$table->text('field')->nullable()->default(null);
+                /*********************************/
+
+                $table->tinyInteger('is_active')->nullable()->default(1);
+                $table->unsignedInteger('created_by')->nullable()->default(null);
+                $table->unsignedInteger('updated_by')->nullable()->default(null);
+                $table->timestamps();
+                $table->softDeletes();
+                $table->unsignedInteger('deleted_by')->nullable()->default(null);
+            });
+        }
 
         /*---------------------------------
         | Update modules table
@@ -84,12 +82,15 @@ class CreateSuperHeroesTable extends Migration
             'cache:clear',
             'route:clear',
             'mainframe:create-root-models',
-            // 'ide-helper:model -W'
         ];
         foreach ($commands as $command) {
             $output->writeLn('php artisan '.$command);
             Artisan::call($command);
         }
+
+        // if (env('APP_ENV') == 'local') {
+        //     Artisan::call('ide-helper:model -W');
+        // }
 
     }
 

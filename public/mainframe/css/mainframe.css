@@ -26,8 +26,8 @@ body, html, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
     display: none;
 }
 
-body, .form-control, .btn, table, tr, th, td, thead, tbody {
-    font-size: 12px;
+body, .form-control, .btn, table, tr, th, td, thead, tbody, .dropdown-menu {
+    font-size: 13px;
 }
 
 .main-header .logo, .logo, .logo-mini, .logo-lg, .login-logo, .register-logo, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
@@ -52,9 +52,13 @@ a:hover {
     text-decoration: underline;
 }
 
+a:focus {
+    color: inherit;
+}
+
 .btn {
     transition: all ease-in-out .25s;
-    border: 0;
+    /*border: 0;*/
 }
 
 .btn-group.pull-right .dropdown-menu {
@@ -521,6 +525,7 @@ input, textarea {
 
 .select2-search-choice-close {
     width: 17px;
+    top: 25%;
 }
 
 .main-header {
@@ -630,18 +635,6 @@ input:read-only, .form-control[disabled], .form-control[readonly], fieldset[disa
 .panel-title a:hover {
     display: block;
     text-decoration: none;
-}
-
-.panel-default > .panel-heading {
-    color: #fff;
-    border-color: #666666;
-    /*background: rgb(63,94,251);*/
-    /*background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);*/
-
-}
-
-.panel-default > .panel-heading > * {
-
 }
 
 /* Reduce space from accordion panel bottom*/
@@ -872,3 +865,28 @@ textarea.json {
 .f-24 { font-size: 24px; }
 .f-36 { font-size: 36px; }
 .f-48 { font-size: 48px; }
+
+/**************************
+ * Module quick finder
+ *************************/
+.quick-modules-menu > .dropdown-menu {
+    width: 300px;
+}
+
+.quick-modules-menu > .dropdown-menu > .dropdown-item {
+    padding: 10px;
+}
+
+ul.quick-module-list {
+    list-style: none;
+    padding-left: 10px;
+}
+
+.skin-blue-light .main-header .navbar .dropdown-menu li a {
+    color: inherit;
+}
+
+ul.quick-module-list li {
+    padding: 5px 5px 5px 0;
+    font-size: inherit;
+}

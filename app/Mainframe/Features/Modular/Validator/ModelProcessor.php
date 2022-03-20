@@ -6,6 +6,7 @@
 namespace App\Mainframe\Features\Modular\Validator;
 
 use App\Mainframe\Features\Core\Traits\Validable;
+use App\Mainframe\Jobs\JobSyncData;
 use App\Module;
 use App\User;
 use Illuminate\Support\Str;
@@ -14,6 +15,9 @@ use Validator;
 class ModelProcessor
 {
     use Validable;
+
+    /** @var User */
+    public $user;
 
     /**
      * Element filled with new values
@@ -42,7 +46,7 @@ class ModelProcessor
     public $original;
 
     /**
-     * Old element filled with old values
+     * Old element(object) filled with old values
      *
      * @var \App\Mainframe\Features\Modular\BaseModule\BaseModule
      */
@@ -69,9 +73,6 @@ class ModelProcessor
     /** @var array Field that should be explicitly tracked in the changes table */
     public $trackedFields = [];
 
-    /** @var User */
-    public $user;
-
     /**
      * MainframeModelValidator constructor.
      *
@@ -89,6 +90,8 @@ class ModelProcessor
     }
 
     /**
+     * Adds an array of fields to existing $immutables array
+     *
      * @param  array  $immutables
      * @return ModelProcessor|mixed|$this
      */
@@ -600,6 +603,26 @@ class ModelProcessor
         return $this->forSave();
     }
 
+    /**
+     * Dry runs all the validation logics for saving
+     *
+     * @return $this
+     */
+    public function checkForSave()
+    {
+        return $this->forSave();
+    }
+
+    /**
+     * Dry runs all the validation logics for delete
+     *
+     * @return $this
+     */
+    public function checkForDelete()
+    {
+        return $this->forDelete();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Events
@@ -865,6 +888,24 @@ class ModelProcessor
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Data sync between different tables.
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    /**
+     * @param  array  $fields
+     * @return void
+     */
+    public function syncDataForChanges(array $fields = [])
+    {
+        if ($this->fieldHasChanged($fields)) {
+            JobSyncData::dispatch($this->element);
+        }
+
+    }
     /*
     |--------------------------------------------------------------------------
     | Event specific validation
