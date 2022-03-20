@@ -7,6 +7,7 @@ use App\Group;
 use App\Projects\DgmeStudents\Http\Controllers\Auth\RegisterTenantController as MfRegisterTenantController;
 use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rule;
 use Validator;
 use App\Tenant;
 use App\User;
@@ -58,8 +59,8 @@ class RegisterApplicantController extends MfRegisterTenantController
             'first_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'last_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'country_id' => 'required',
-            'email' => 'required|email:rfc,dns,filter,strict|unique:users,email',
-            'passport_no' => 'required|alpha_num|unique:users,passport_no',
+            'email' => 'required|email:rfc,dns,filter,strict|'.Rule::unique('users', 'email')->whereNull('deleted_at'),
+            'passport_no' => 'required|alpha_num|'.Rule::unique('users', 'passport_no')->whereNull('deleted_at'),
             'password' => User::PASSWORD_VALIDATION_RULE,
         ]);
 
