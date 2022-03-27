@@ -8,6 +8,13 @@ use App\Upload;
 /** @mixin Upload */
 trait UploadTrait
 {
+
+    public static $types = [
+        self::TYPE_GENERIC,
+        self::TYPE_PROFILE_PIC,
+        self::TYPE_LOGO,
+    ];
+
     /**
      * get all uploads under a module
      *
