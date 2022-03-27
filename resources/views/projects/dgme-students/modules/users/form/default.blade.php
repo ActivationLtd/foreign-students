@@ -146,7 +146,7 @@
         $("#api_token_generate").click(function (e) {
             event.preventDefault(e);
             $("input[name=api_token]").val(randomString(64));
-            console.log(randomString(64));
+            //console.log(randomString(64));
         });
     </script>
 @endsection
