@@ -81,7 +81,7 @@ class Upload extends BaseModule
     use UploadTrait;
 
     protected $moduleName = 'uploads';
-    protected $table      = 'uploads';
+    protected $table = 'uploads';
 
     /*
     |--------------------------------------------------------------------------
@@ -113,16 +113,19 @@ class Upload extends BaseModule
     // protected $casts = [];
     // protected $with = [];
     protected $appends = ['url', 'dir'];
-    protected $hidden  = ['linked_module'];
+    protected $hidden = ['linked_module'];
 
     /*
     |--------------------------------------------------------------------------
     | Options
     |--------------------------------------------------------------------------
     */
-    public const TYPE_GENERIC     = 'Generic';
+    /**
+     * Upload type options
+     */
+    public const TYPE_GENERIC = 'Generic';
     public const TYPE_PROFILE_PIC = 'Profile Picture';
-    public const TYPE_LOGO        = 'Logo';
+    public const TYPE_LOGO = 'Logo';
 
     public static $types = [
         self::TYPE_GENERIC,

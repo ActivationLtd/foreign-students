@@ -1,6 +1,7 @@
 <?php /** @noinspection DuplicatedCode */
 
 use App\Mainframe\Helpers\Mf;
+use App\Mainframe\Modules\Uploads\UploadController;
 
 $modules = Mf::modules();
 $moduleGroups = Mf::moduleGroups();
@@ -38,6 +39,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () use ($modul
             'edit' => "{$module->name}.edit",
             'update' => "{$module->name}.update",
             'destroy' => "{$module->name}.destroy",
+        ])->parameters([
+            $moduleName => 'element', // In case of param name larger than 32 chars
         ]);
     }
 
@@ -48,8 +51,9 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () use ($modul
     }
 
     // Update uploaded file
-    Route::post('update-file', '\App\Mainframe\Modules\Uploads\UploadController@updateExistingUpload')->name('uploads.update-file');
+    Route::post('update-file', [UploadController::class, 'updateExistingUpload'])->name('uploads.update-file');
+    Route::post('update-upload-order', [UploadController::class, 'reorder'])->name('uploads.reorder');
     // Download
-    Route::get('download/{uuid}', '\App\Mainframe\Modules\Uploads\UploadController@download')->name('download');
+    Route::get('download/{uuid}', [UploadController::class, 'download'])->name('download');
 
 });

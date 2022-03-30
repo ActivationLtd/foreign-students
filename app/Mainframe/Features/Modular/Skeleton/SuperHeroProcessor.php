@@ -54,7 +54,7 @@ class SuperHeroProcessor extends ModelProcessor
     }
 
     /* Further customize error messages and attribute names by overriding */
-    // public function customErrorMessages($merge = [])
+    // public static function customErrorMessages($merge = [])
     // public static function customAttributes($merge = [])
 
     /*

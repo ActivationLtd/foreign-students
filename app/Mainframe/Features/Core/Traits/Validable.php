@@ -40,7 +40,7 @@ trait Validable
     /**
      * Retrieve the singleton messageBag
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Support\MessageBag|mixed
+     * @return \Illuminate\Contracts\Foundation\Application|MessageBag|mixed
      */
     public function messageBag()
     {
@@ -70,9 +70,9 @@ trait Validable
     /**
      * Add an error message to a key-value pair
      *
-     * @param  null  $message
-     * @param  null  $key
-     * @return \App\Mainframe\Features\Core\Traits\Validable
+     * @param  string  $message
+     * @param  string|null  $key
+     * @return Validable
      */
     public function error($message, $key = null)
     {
@@ -269,6 +269,10 @@ trait Validable
      */
     public function mergeValidatorErrors($validator)
     {
+        if (property_exists($validator, 'validator')) {
+            $validator = $validator->validator;
+        }
+
         $this->validator()->messages()->merge($validator->messages());
 
         return $this;

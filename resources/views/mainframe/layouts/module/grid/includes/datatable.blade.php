@@ -44,11 +44,16 @@ Section: Data table JS
                 columns: [{!! $columnsJson !!}],
                 processing: true,
                 serverSide: true,
-                searchDelay: 2000, // Search delay
-                minLength: 3, // Minimum characters to be typed before search begins
+                searchDelay: {!! $datatable->searchDelay() !!}, // Search delay
+                minLength: {!! $datatable->minLength() !!}, // Minimum characters to be typed before search begins
                 lengthMenu: {!! $datatable->lengthMenu() !!},
                 pageLength: {!! $datatable->pageLength()!!},
                 order: {!! $datatable->order()!!}, // First row descending
+                bLengthChange: {!! $datatable->bLengthChange() !!}, // show the length field
+                bPaginate: {!! $datatable->bPaginate() !!},
+                bFilter: {!! $datatable->bFilter() !!},
+                bInfo: {!! $datatable->bInfo() !!},
+                bDeferRender: {!! $datatable->bDeferRender() !!},
                 mark: true // Mark/highlight the search results (in yellow)
             });
     </script>

@@ -13,7 +13,7 @@ trait UploadControllerTrait
     public $file;
 
     /**
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \App\Mainframe\Features\Modular\ModularController\ModularController|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|void
      */
     public function store(Request $request)
@@ -112,10 +112,8 @@ trait UploadControllerTrait
 
     /**
      * Relative path to local directory inside public
-     *
      * Upload location: public/{upload_root}/{tenant_id}/YYYY/mm/dd/HH/ii
      *                  public/files        /1          /2021/12/25/23/59
-     *
      * For uploads where there is no tenant the default tenant_id=0
      *
      * @return \Illuminate\Config\Repository|mixed
@@ -146,6 +144,7 @@ trait UploadControllerTrait
 
     /**
      * Relative file path
+     *
      * @return string
      */
     public function localRelativePath()
@@ -210,5 +209,28 @@ trait UploadControllerTrait
 
         return false;
 
+    }
+
+    /**
+     * Reorder JobUnits/Paragraphs with in paragraphs.
+     * IDs are sent as an array job_unit_ids
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function reorder(Request $request)
+    {
+        $ids = \request('ids');
+        $i = 1;
+        foreach ($ids as $id) {
+            Upload::where('id', $id)->update(['order' => $i++]);
+        }
+
+        return $this->load(['ids' => $ids])->success('Order has been updated')->json();
+    }
+
+    public function updateExistingUpload()
+    {
+        // Todo
     }
 }

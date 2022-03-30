@@ -499,11 +499,11 @@ trait ModularTrait
     /**
      * Get a valid element.
      *
-     * @return BaseModule
+     * @return bool
      */
     public function validate() // Todo: Need to reevaluate this functions purpose.
     {
-        return $this->module()->processorInstance($this)->forSave()->element;
+        return $this->module()->processorInstance($this)->forSave()->isValid();
     }
 
     /*
@@ -948,6 +948,30 @@ trait ModularTrait
         $this->saveQuietly();
 
         return $sl;
+
+    }
+
+    /**
+     * This function updates(saves) other tables where changes of this model should reflect
+     *
+     * @return void
+     */
+    public function syncData()
+    {
+
+    }
+
+    /**
+     * This function updates(saves) the denormalize fields with in the same entry
+     * for example if in the same module based on client_id it fills other fields
+     * like client_name, client_address etc. use setters to set values
+     *
+     * @return \App\Mainframe\Modules\Users\User|\App\Projects\MyProject\Modules\Users\User|BaseModule
+     */
+    public function denormalize()
+    {
+
+        return $this;
 
     }
 }

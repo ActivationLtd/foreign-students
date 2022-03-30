@@ -55,8 +55,68 @@ class Datatable
      */
     public $ajaxUrl;
 
+    /**
+     * Default rows per page
+     *
+     * @var int
+     */
     public $pageLength = 50;
 
+    /**
+     * Allow changing rows per page
+     *
+     * @var bool
+     */
+    public $bLengthChange = true;
+
+    /**
+     * Show hide search options
+     *
+     * @var bool
+     */
+    public $bFilter = true;
+
+    /**
+     * Milliseconds to wait before requesting ajax search call
+     *
+     * @var int
+     */
+    public $searchDelay = 2000;
+
+    /**
+     * Minimum character to type to initiate search
+     *
+     * @var int
+     */
+    public $minLength = 3;
+
+    /**
+     * Show pagination. You can hide pegination and show all data if
+     * the data amount is small (<500 rows)
+     *
+     * @var bool
+     */
+    public $bPaginate = true;
+
+    /**
+     * Show table info
+     *
+     * @var bool
+     */
+    public $bInfo = true;
+
+    /**
+     * Defer render for performance optimization
+     *
+     * @var bool
+     */
+    public $bDeferRender = true;
+
+    /**
+     * Force hide some fields that are already included in the column list
+     *
+     * @var array
+     */
     public $hidden;
 
     /**
@@ -188,6 +248,89 @@ class Datatable
         return "[[0, 'desc']]";
     }
 
+    /**
+     * Allow datatable length change
+     *
+     * @return string
+     */
+    public function bLengthChange()
+    {
+        if ($this->bLengthChange == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function bPaginate()
+    {
+        if ($this->bPaginate == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function bFilter()
+    {
+        if ($this->bFilter == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function bInfo()
+    {
+        if ($this->bInfo == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function bDeferRender()
+    {
+        if ($this->bDeferRender == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function searchDelay()
+    {
+        return $this->searchDelay;
+    }
+
+    /**
+     * @return string
+     */
+    public function minLength()
+    {
+        return $this->minLength;
+    }
+
+    /**
+     * Hide fields/columns
+     *
+     * @return array
+     */
     public function hidden()
     {
         return $this->hidden ?? [];

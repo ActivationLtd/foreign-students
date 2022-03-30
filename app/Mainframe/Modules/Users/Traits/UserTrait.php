@@ -663,11 +663,11 @@ trait UserTrait
      * Find user based on bearer token(auth_token)
      *
      * @param $id
-     * @return \App\User|mixed|null
+     * @return User|mixed|null
      */
     public static function byId($id = null)
     {
-        return \App\User::active()->remember(timer('short'))->find($id);
+        return User::active()->remember(timer('short'))->find($id);
 
     }
 
@@ -680,7 +680,7 @@ trait UserTrait
         $token = $token ?: request()->bearerToken();
 
         if ($token) {
-            return \App\User::active()
+            return User::active()
                 ->where('auth_token', $token)
                 ->remember(timer('short'))
                 ->first();
@@ -694,7 +694,7 @@ trait UserTrait
      *
      * @param  null|mixed  $token
      * @param  null|mixed  $clientId
-     * @return null|\App\User|mixed
+     * @return null|User|mixed
      */
     public static function apiAuthenticator($token = null, $clientId = null)
     {
@@ -702,7 +702,7 @@ trait UserTrait
         $clientId = $clientId ?: request()->header('client-id');
 
         if ($token && $clientId) {
-            return \App\User::active()
+            return User::active()
                 ->where('api_token', $token)
                 ->remember(timer('short'))
                 ->find($clientId);
@@ -712,11 +712,11 @@ trait UserTrait
     /**
      * Create an empty guest user
      *
-     * @return \App\User
+     * @return User
      */
     public static function guestInstance()
     {
-        return new \App\User(['first_name' => 'guest']);
+        return new User(['first_name' => 'guest']);
     }
 
     /*
@@ -743,6 +743,14 @@ trait UserTrait
     |
     */
     /**
+     * Send email verification link.
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notifyNow(new VerifyEmail());
+    }
+
+    /**
      * Send reset password link
      *
      * @param  string  $token
@@ -750,14 +758,6 @@ trait UserTrait
     public function sendPasswordResetNotification($token)
     {
         $this->notifyNow(new ResetPassword($token));
-    }
-
-    /**
-     * Send email verification link.
-     */
-    public function sendEmailVerificationNotification()
-    {
-        $this->notifyNow(new VerifyEmail());
     }
 
     /**

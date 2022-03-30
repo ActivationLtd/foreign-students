@@ -33,8 +33,6 @@
     </div>
 @endsection
 
-
-
 @section('js')
     @parent
     @include('mainframe.modules.module-groups.form.js')

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
         @section('head-title')
-            {{config('app.name')}} | {{isset($module) ? $module->title: ''}}  {{isset($element) ? $element->id : ''}}
+            {{config('app.name')}} | {{isset($module) ? $module->title: ''}} {{isset($element) ? $element->id : ''}}
         @show
     </title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -49,6 +49,8 @@
                     {{--@include('template.include.top-menu.message-menu')--}}
                     {{--@include('template.include.top-menu.message-menu')--}}
                     {{--@include('template.include.top-menu.task-menu')--}}
+                    {{--@include('mainframe.layouts.default.includes.navigation.top-menu.task-menu')--}}
+                    @include('mainframe.layouts.default.includes.navigation.top-menu.quick-module-finder')
                     @include('mainframe.layouts.default.includes.navigation.top-menu.top-right-menu')
                     {{--<li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>--}}
                 </ul>

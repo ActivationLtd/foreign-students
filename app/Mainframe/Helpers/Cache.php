@@ -14,14 +14,18 @@ class Cache extends \Illuminate\Support\Facades\Cache
 {
 
     /**
-     * @param  string  $key
+     * @param  int|string  $key
      * @return \Illuminate\Config\Repository|int|mixed
      */
-    public static function time($key = 'none')
+    public static function time($key = 0)
     {
 
         if (config('mainframe.config.query_cache') == false || request('no_cache') == 'true') {
             return 0;
+        }
+
+        if (is_int($key)) {
+            return $key;
         }
 
         return config('mainframe.cache-time.'.$key, 0);

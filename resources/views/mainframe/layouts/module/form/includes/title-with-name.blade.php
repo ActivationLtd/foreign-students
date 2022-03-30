@@ -25,6 +25,6 @@ if ($element->isCreating()) {
        title="View list of {{Str::plural($module->title)}}"><i class="fa fa-list"></i></a>
 @endif
 
-@if($user->can('create', $element) && $element->isCreated() && $view->showCloneBtn())
+@if($view->showCloneBtn())
     @include('mainframe.layouts.default.includes.navigation.clone')
 @endif

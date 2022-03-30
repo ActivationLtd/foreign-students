@@ -27,22 +27,18 @@
  */
 
 $var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
-$input = new App\Mainframe\Features\Form\Text\Date($var);
-
-$input->format = config('mainframe.config.date_format'); // Format to show in the datepicker
+$input = new \App\Mainframe\Features\Form\Text\InputText($var);
 ?>
+
 @if($input->isHidden)
     {{ Form::hidden($input->name, $input->value()) }}
 @else
     <div class="{{$input->containerClasses()}}" id="{{$input->uid}}">
-
         {{-- label --}}
         @include('mainframe.form.includes.label')
 
-        {{-- input --}}
         @if($input->isEditable)
-            {{ Form::text('formatted_'.$input->name, $input->formatted(), array_merge($input->params,['id'=> $input->params['id'].'_formatted'])) }}
-            {{ Form::hidden($input->name, $input->value(),$input->params) }}
+            {{ Form::number($input->name, $input->value(), $input->params) }}
         @else
             @include('mainframe.form.includes.read-only-view')
         @endif
@@ -52,16 +48,4 @@ $input->format = config('mainframe.config.date_format'); // Format to show in th
     </div>
 @endif
 
-@section('js')
-    @if(!$input->isHidden && $input->isEditable)
-        <?php
-        $selector = '#'.$input->uid.' #'.$input->params['id'];
-        ?>
-        <script>
-            var datepicker_{{$input->params['id']}} = initJQueryDatePicker('{{$selector}}');
-        </script>
-    @endif
-    @parent
-@stop
-
-<?php unset($input) ?>
+<?php unset($input) // Make sure to clear $input var ?>

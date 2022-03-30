@@ -1,12 +1,5 @@
 @extends('mainframe.layouts.module.form.template')
 
-@section('css')
-    @parent
-    <style>
-        #partsTable {margin-bottom: 0;}
-        #partsTable > tbody > tr > td {border-top: 0;}
-    </style>
-@endsection
 <?php
 /**
  * @var \App\Module $module
@@ -22,6 +15,13 @@
  */
 $content = $element;
 ?>
+@section('css')
+    @parent
+    <style>
+        #partsTable {margin-bottom: 0;}
+        #partsTable > tbody > tr > td {border-top: 0;}
+    </style>
+@endsection
 
 @section('content')
     <div class="col-md-12 no-padding">
@@ -46,7 +46,7 @@ $content = $element;
         <?php
         $var = [
             'name' => 'parts',
-            'label' => 'Properties',
+            'label' => 'Parts',
         ]
         ?>
         @include('mainframe.form.parts', compact('var'))
