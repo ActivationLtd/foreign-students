@@ -92,8 +92,8 @@ trait Output
         }
 
         $paths = [
-            $this->path.'.result',
-            projectResources().'.layouts.report.result',
+            $this->path . '.result',
+            projectResources() . '.layouts.report.result',
         ];
 
         foreach ($paths as $path) {
@@ -119,8 +119,8 @@ trait Output
         }
 
         $paths = [
-            $this->path.'.result-print',
-            projectResources().'.layouts.report.result-print',
+            $this->path . '.result-print',
+            projectResources() . '.layouts.report.result-print',
         ];
 
         foreach ($paths as $path) {
@@ -157,7 +157,7 @@ trait Output
     /**
      * Download excel
      *
-     * @param  bool  $csv
+     * @param bool $csv
      * @return bool|void
      */
     public function excel($csv = false)
@@ -234,7 +234,7 @@ trait Output
     /**
      * Output as HTML
      *
-     * @param  null  $type  blank|print|null
+     * @param null $type blank|print|null
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function html($type = null)
@@ -251,7 +251,7 @@ trait Output
      * @param $selectedColumns
      * @param $aliasColumns
      * @param $result
-     * @param  bool  $csv
+     * @param bool $csv
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
@@ -271,7 +271,7 @@ trait Output
          */
         $i = 0;
         foreach ($aliasColumns as $column) {
-            $sheet->setCellValue($ranges[$i++]. 1, $column);
+            $sheet->setCellValue($ranges[$i++] . 1, $column);
         }
 
         // Starting from A2
@@ -279,7 +279,7 @@ trait Output
         foreach ($result as $row) {
             $k = 0;
             foreach ($selectedColumns as $column) {
-                $sheet->setCellValue($ranges[$k++].$j, $row->$column);
+                $sheet->setCellValue($ranges[$k++] . $j, strip_tags($row->$column));
             }
             $j++;
         }
@@ -295,8 +295,8 @@ trait Output
             $writer = new Xlsx($spreadsheet);
         }
 
-        $filename = ($this->downloadFileName ?? 'Report-').now().$ext;
-        header('Content-Disposition: attachment; filename='.$filename);
+        $filename = ($this->downloadFileName ?? 'Report-') . now() . $ext;
+        header('Content-Disposition: attachment; filename=' . $filename);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         $writer->save('php://output');
     }
@@ -317,7 +317,7 @@ trait Output
             foreach ($letters as $ii => $letter) {
                 $position++;
                 if ($position <= $no_of_columns) {
-                    $range[] = ($position > 26 ? $range[$i - 1] : '').$letter;
+                    $range[] = ($position > 26 ? $range[$i - 1] : '') . $letter;
                 }
             }
         }
@@ -360,7 +360,7 @@ trait Output
      *
      * @param $row
      * @param $column
-     * @param  null  $val
+     * @param null $val
      */
     public function mutate($row, $column, $val = null)
     {
@@ -399,9 +399,9 @@ trait Output
         }
 
         $paths = [
-            $this->path.'.filters',
-            $this->path.'.includes.filters',
-            projectResources().'.layouts.report.includes.filter',
+            $this->path . '.filters',
+            $this->path . '.includes.filters',
+            projectResources() . '.layouts.report.includes.filter',
         ];
 
         foreach ($paths as $path) {
@@ -425,9 +425,9 @@ trait Output
         }
 
         $paths = [
-            $this->path.'.init-functions',
-            $this->path.'.includes.init-functions',
-            projectResources().'.layouts.report.includes.init-functions',
+            $this->path . '.init-functions',
+            $this->path . '.includes.init-functions',
+            projectResources() . '.layouts.report.includes.init-functions',
         ];
 
         foreach ($paths as $path) {
@@ -451,9 +451,9 @@ trait Output
         }
 
         $paths = [
-            $this->path.'.cta',
-            $this->path.'.includes.cta',
-            projectResources().'.layouts.report.includes.cta',
+            $this->path . '.cta',
+            $this->path . '.includes.cta',
+            projectResources() . '.layouts.report.includes.cta',
         ];
 
         foreach ($paths as $path) {
@@ -477,9 +477,9 @@ trait Output
         }
 
         $paths = [
-            $this->path.'.advanced',
-            $this->path.'.includes.advanced',
-            projectResources().'.layouts.report.includes.advanced',
+            $this->path . '.advanced',
+            $this->path . '.includes.advanced',
+            projectResources() . '.layouts.report.includes.advanced',
         ];
 
         foreach ($paths as $path) {
@@ -494,10 +494,10 @@ trait Output
     /**
      * Transforms the values of a cell. This is useful for creating links, changing colors etc.
      *
-     * @param  string  $column
-     * @param  \Illuminate\Database\Eloquent\Model|object|array  $row
-     * @param  string  $value
-     * @param  string|null  $moduleName
+     * @param string $column
+     * @param \Illuminate\Database\Eloquent\Model|object|array $row
+     * @param string $value
+     * @param string|null $moduleName
      * @return string|null
      * @deprecated use cell()
      */
@@ -508,7 +508,7 @@ trait Output
 
         if (in_array($column, ['id', 'name'])) {
             if (isset($row->id) && $moduleName) {
-                $newValue = "<a href='".route($moduleName.'.edit', $row->id)."'>".$value."</a>";
+                $newValue = "<a href='" . route($moduleName . '.edit', $row->id) . "'>" . $value . "</a>";
             }
         }
 
@@ -537,9 +537,9 @@ trait Output
     /**
      * Transforms the values of a cell. This is useful for creating links, changing colors etc.
      *
-     * @param  string  $column
-     * @param  \Illuminate\Database\Eloquent\Model|object|array  $row
-     * @param  string  $route
+     * @param string $column
+     * @param \Illuminate\Database\Eloquent\Model|object|array $row
+     * @param string $route
      * @return string
      */
     public function cell($column, $row, $route = null)
@@ -578,7 +578,7 @@ trait Output
 
         // Add link
         if ($route) {
-            return "<a href='{$route}'>".$row->$column."</a>";
+            return "<a href='{$route}'>" . $row->$column . "</a>";
         }
 
         return $row->$column;
@@ -601,7 +601,7 @@ trait Output
             return null;
         }
 
-        return route($this->module->name.'.show', $row->id);
+        return route($this->module->name . '.show', $row->id);
     }
 
     /**
@@ -652,7 +652,7 @@ trait Output
             'parameters' => urlencode(str_replace(route('home'), '', \URL::full())),
         ];
 
-        return $url.'?'.http_build_query($params);
+        return $url . '?' . http_build_query($params);
     }
 
     /**
@@ -680,22 +680,22 @@ trait Output
         $linkCss = '';
 
         if ($orderBy) {
-            if (\Str::startsWith($orderBy, $column.' ASC')) {
-                $orderBy = str_replace($column.' ASC', $column.' DESC', $orderBy);
+            if (\Str::startsWith($orderBy, $column . ' ASC')) {
+                $orderBy = str_replace($column . ' ASC', $column . ' DESC', $orderBy);
                 $icon = $this->sortAscIcon();
                 $linkCss = 'btn btn-xs bg-red sort-btn';
-            } elseif (\Str::startsWith($orderBy, $column.' DESC')) {
-                $orderBy = str_replace($column.' DESC', $column.' ASC', $orderBy);
+            } elseif (\Str::startsWith($orderBy, $column . ' DESC')) {
+                $orderBy = str_replace($column . ' DESC', $column . ' ASC', $orderBy);
                 $icon = $this->sortDescIcon();
                 $linkCss = 'btn btn-xs bg-red sort-btn';
             } else {
                 // $orderBy .= ','.$column.' DESC'; // For multiple sorting
-                $orderBy = $column.' ASC';
+                $orderBy = $column . ' ASC';
                 // $icon = $this->sortDefaultIcon();
                 $icon = '';
             }
         } else {
-            $orderBy = $column.' ASC';
+            $orderBy = $column . ' ASC';
             // $icon = $this->sortDefaultIcon();
             $icon = '';
         }
@@ -740,12 +740,12 @@ trait Output
     /**
      * Construct the full report url from request params
      *
-     * @param  array  $params
+     * @param array $params
      * @return string
      */
     public function buildUrl($params = [])
     {
-        return \URL::current().'?'.http_build_query($params);
+        return \URL::current() . '?' . http_build_query($params);
     }
 
 }

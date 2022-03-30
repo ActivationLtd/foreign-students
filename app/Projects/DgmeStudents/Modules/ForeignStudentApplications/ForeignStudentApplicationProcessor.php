@@ -70,7 +70,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
                 'applicant_mother_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
                 'communication_address' => 'required',
-                'dob' => 'required|after:2000-01-01',
+                'dob' => 'required|after:1995-01-01',
                 'dob_country_id' => 'required',
                 'dob_address' => 'required',
                 'domicile_country_id' => 'required',

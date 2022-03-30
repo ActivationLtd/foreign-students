@@ -39,11 +39,11 @@ class MakeModule extends Command
     {
         $this->namespace = $this->setNamespace($this->argument('namespace'));
         $this->model = $this->model();
-        $this->info($this->model.'Creating ..');
+        $this->info($this->model.' Creating ..');
         $this->createClasses();
         $this->createViewFiles();
         $this->createMigration();
-        $this->info($this->model.'... Done');
+        $this->info($this->model.' ... Done');
 
     }
 
@@ -53,7 +53,7 @@ class MakeModule extends Command
             return $str;
         }
 
-        return '\\'.projectNamespace().'\Modules'.Str::start($str, '\\');
+        return '\\'.projectNamespace().'\Modules'.Str::start(Str::studly($str), '\\');
     }
 
     public function isMainframeModule()
@@ -103,7 +103,7 @@ class MakeModule extends Command
         File::put($migration, $code);
 
         // Console output
-        $this->info('Migration Created');
+        $this->info('... Migration created');
     }
 
     /**
@@ -126,12 +126,19 @@ class MakeModule extends Command
             $sourceRoot.'SuperHeroViewProcessor.php' => $destination.'ViewProcessor.php',
         ];
 
-        File::makeDirectory($this->classDirectory(), 755, true);
+        $this->info($this->classDirectory().'... Creating directory');
 
+        File::makeDirectory($this->classDirectory(), 755, true);
+        // dd();
+        $this->info('... Done');
+
+        $this->info('Creating Classes');
         foreach ($maps as $from => $to) {
+            $this->info($to);
             $code = $this->replace(File::get($from));
             File::put($to, $code);
         }
+        
     }
 
     /**
@@ -151,7 +158,9 @@ class MakeModule extends Command
 
         ];
 
+        $this->info('Creating views');
         foreach ($maps as $from => $to) {
+            $this->info($to);
             $code = $this->replace(File::get($from));
             File::put($to, $code);
         }
@@ -190,7 +199,7 @@ class MakeModule extends Command
 
         if (!$this->isMainframeModule()) {
             $replaces = array_merge($replaces, [
-                'App\Mainframe\Features' => Mf::projectNamespace().'\Features',
+                'App\Mainframe\Features' => trim(Mf::projectNamespace().'\Features', '\\'),
                 '{project-name}' => $this->projectViewDirName(),
             ]);
         } else {
@@ -251,11 +260,13 @@ class MakeModule extends Command
      */
     private function classDirectory()
     {
-        return str_replace(
-            ['\\App', '\\'],
-            ['app', '/'],
+        $str = str_replace(
+            ['\\App\\', '\\\\'],
+            ['app/', '/'],
             $this->namespace
         );
+
+        return trim($str, '\\/');
     }
 
     // /**
@@ -286,7 +297,7 @@ class MakeModule extends Command
 
     private function viewDirectory()
     {
-        $str = str_replace('\\App', '', $this->namespace);
+        $str = str_replace('\\App\\', '\\', $this->namespace);
         $directories = explode('\\', $str);
 
         $arr = [];

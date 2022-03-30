@@ -108,7 +108,7 @@ class RegisterController extends BaseController
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -168,7 +168,7 @@ class RegisterController extends BaseController
     /**
      * Create a new user instance after a valid registration.
      *
-     * @return \App\User
+     * @return User
      */
     protected function createUser()
     {
@@ -187,14 +187,14 @@ class RegisterController extends BaseController
     /**
      * The user has been successfully registered.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  User  $user
      * @return mixed
      */
     protected function registered(Request $request, $user)
     {
         event(new Registered($user));
-        $user->notifyNow(new VerifyEmail());
+        $user->sendEmailVerificationNotification();
     }
 
     /**

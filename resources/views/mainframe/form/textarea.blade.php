@@ -23,6 +23,7 @@
  * @var \App\Mainframe\Features\Modular\BaseModule\BaseModule $element
  * @var bool $editable
  * @var array $immutables
+ * @var array $var
  */
 
 

@@ -26,7 +26,7 @@
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
         @include('form.is-active')
         {{--    Form inputs: ends    --}}
-
+        
         @include('form.action-buttons')
 
         {{ Form::close() }}
