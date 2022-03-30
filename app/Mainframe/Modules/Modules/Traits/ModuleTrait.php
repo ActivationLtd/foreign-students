@@ -12,14 +12,16 @@ trait ModuleTrait
     /**
      * @return \Illuminate\Support\Collection
      */
-    public static function getActiveList()
+    public static function getActiveList($orderBy = 'title')
     {
-        return Module::whereIsActive(1)->remember(timer('long'))->get();
+        return Module::whereIsActive(1)
+            ->orderBy($orderBy)
+            ->remember(timer('long'))->get();
     }
 
     /**
      * @param $name
-     * @return mixed|\App\Module
+     * @return mixed|Module
      */
     public static function byName($name)
     {
@@ -152,7 +154,7 @@ trait ModuleTrait
 
     /**
      * @param $table
-     * @return \App\Module|null
+     * @return Module|null
      */
     public static function fromTable($table)
     {

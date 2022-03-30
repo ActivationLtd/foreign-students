@@ -50,7 +50,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $result->setPath(URL::full())->links() ?? '' }}
+                {{ $result->appends(request()->except(['page']))->links() ?? '' }}
             @endif
         </div>
     @endif

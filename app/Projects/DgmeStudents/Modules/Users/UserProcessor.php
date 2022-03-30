@@ -19,13 +19,13 @@ class UserProcessor extends ModelProcessor
     /** @var User */
     public $element;
 
-    public $immutables = ['email'];
+    // public $immutables = ['email'];
     // public $transitions;
     // public $trackedFields;
     public function immutables()
     {
         if(user()->isApplicant()){
-            $this->immutables=array_merge( $this->immutables,['group_ids','is_active','email_verified_at']);
+            $this->immutables=array_merge( $this->immutables,['email','group_ids','is_active','email_verified_at']);
         }
         return $this->immutables;
     }

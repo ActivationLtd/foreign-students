@@ -50,6 +50,8 @@ Route::prefix("core/{$version}")->middleware($middlewares)->group(function () us
                 'show' => "{$namePrefix}.{$moduleName}.show",
                 'update' => "{$namePrefix}.{$moduleName}.update",
                 'destroy' => "{$namePrefix}.{$moduleName}.destroy",
+            ])->parameters([
+                $moduleName => 'element', // In case of param name larger than 32 chars
             ]);
         }
     });

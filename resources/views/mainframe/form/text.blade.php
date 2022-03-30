@@ -23,10 +23,13 @@
  * @var \App\Mainframe\Features\Modular\BaseModule\BaseModule $element
  * @var bool $editable
  * @var array $immutables
+ * @var array $var
  */
 
+use App\Mainframe\Features\Form\Text\InputText;
+
 $var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
-$input = new \App\Mainframe\Features\Form\Text\InputText($var);
+$input = new InputText($var);
 ?>
 
 @if($input->isHidden)
@@ -41,6 +44,26 @@ $input = new \App\Mainframe\Features\Form\Text\InputText($var);
                 {{ Form::password($input->name, $input->params) }}
             @elseif(($input->type == 'number'))
                 {{ Form::number($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'email'))
+                {{ Form::email($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'tel'))
+                {{ Form::tel($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'date'))
+                {{ Form::date($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'time'))
+                {{ Form::time($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'week'))
+                {{ Form::week($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'month'))
+                {{ Form::month($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'year'))
+                {{ Form::year($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'url'))
+                {{ Form::url($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'color'))
+                {{ Form::color($input->name, $input->value(), $input->params) }}
+            @elseif(($input->type == 'range'))
+                {{ Form::range($input->name, $input->value(), $input->params) }}
             @else
                 {{ Form::text($input->name, $input->value(), $input->params) }}
             @endif
