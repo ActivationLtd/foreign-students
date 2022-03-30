@@ -9,17 +9,11 @@ use App\Upload;
 trait UploadTrait
 {
 
-    public static $types = [
-        self::TYPE_GENERIC,
-        self::TYPE_PROFILE_PIC,
-        self::TYPE_LOGO,
-    ];
-
     /**
      * get all uploads under a module
      *
-     * @param  array  $entry_uuid
-     * @param  string  $filter
+     * @param array $entry_uuid
+     * @param string $filter
      * @return mixed
      */
     public static function getList($entry_uuid, $filter = '')
@@ -52,7 +46,7 @@ trait UploadTrait
      */
     public function absPath()
     {
-        return public_path().$this->path;
+        return public_path() . $this->path;
     }
 
     /**
@@ -93,7 +87,7 @@ trait UploadTrait
     public function extIconPath()
     {
         $ext = strtolower($this->ext); // get full lower case extension
-        $icon_path = 'mainframe/images/file_type_icons/'.$ext.'.png';
+        $icon_path = 'mainframe/images/file_type_icons/' . $ext . '.png';
 
         if (!\File::exists($icon_path)) {
             $icon_path = 'mainframe/images/file_type_icons/noimage.png';
@@ -105,7 +99,7 @@ trait UploadTrait
     /**
      * Generate masked and plain url of the uploaded file.
      *
-     * @param  bool  $auth  set false to generate plain url.
+     * @param bool $auth set false to generate plain url.
      * @return string
      */
     public function downloadUrl($auth = true)
@@ -136,7 +130,7 @@ trait UploadTrait
 
     public function fileNameWithoutExt()
     {
-        return basename($this->path, '.'.$this->ext);
+        return basename($this->path, '.' . $this->ext);
     }
 
     public function directory()
@@ -154,12 +148,12 @@ trait UploadTrait
     /**
      * Rename with full name and extension
      *
-     * @param  string  $newNameWithExt  some-file.mp3
+     * @param string $newNameWithExt some-file.mp3
      * @return bool
      */
     public function rename($newNameWithExt)
     {
-        $newPath = $this->directory().\Str::start($newNameWithExt, '/');
+        $newPath = $this->directory() . \Str::start($newNameWithExt, '/');
         \File::move(trim($this->path, '/\\'), trim($newPath, '/\\'));
 
         return $this->update(['path' => $newPath]);
@@ -168,12 +162,12 @@ trait UploadTrait
     /**
      * Rename only name part
      *
-     * @param  string  $newName  some-file-name-without-ext
+     * @param string $newName some-file-name-without-ext
      * @return bool
      */
     public function renameName($newName)
     {
-        $newNameWithExt = $newName.\Str::start($this->ext, '.'); // Add extension
+        $newNameWithExt = $newName . \Str::start($this->ext, '.'); // Add extension
 
         return $this->rename($newNameWithExt);
 
@@ -192,7 +186,7 @@ trait UploadTrait
         $path_parts = pathinfo($to);
         $toDirectory = $path_parts['dirname'];
 
-        \File::makeDirectory(public_path().'/'.$toDirectory, 0777, true, true);
+        \File::makeDirectory(public_path() . '/' . $toDirectory, 0777, true, true);
 
         return \File::copy(trim($this->path, '/\\'), $to);
     }
@@ -221,16 +215,25 @@ trait UploadTrait
     | Section: Attributes
     |--------------------------------------------------------------------------
     */
-    public function getUrlAttribute() { return asset($this->path); }
+    public function getUrlAttribute()
+    {
+        return asset($this->path);
+    }
 
-    public function getDirAttribute() { return public_path().$this->path; }
+    public function getDirAttribute()
+    {
+        return public_path() . $this->path;
+    }
 
     /*
     |--------------------------------------------------------------------------
     | Section: Relations
     |--------------------------------------------------------------------------
     */
-    public function uploadable() { return $this->morphTo(); }
+    public function uploadable()
+    {
+        return $this->morphTo();
+    }
 
     /*
     |--------------------------------------------------------------------------
