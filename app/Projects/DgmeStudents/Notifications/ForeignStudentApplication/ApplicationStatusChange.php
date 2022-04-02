@@ -52,7 +52,7 @@ class ApplicationStatusChange extends Notification implements ShouldQueue
         // }
         //$cc_emails = $this->order->reseller->ccEmailsOfPartner();
         return (new MailMessage)
-            ->view('projects.dgme-students.emails.foreignApplication.application-status-change', ['application' => $this->foreignStudentApplication])
+            ->view('projects.dgme-students.emails.foreign-applications.application-status-change', ['application' => $this->foreignStudentApplication])
             ->subject(__("Foreign Student Application | Your Application Status has been changed to ". $this->foreignStudentApplication->status));
     }
 
