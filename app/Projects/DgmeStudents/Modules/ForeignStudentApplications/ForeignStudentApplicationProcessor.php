@@ -161,7 +161,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
      */
     public function saved($element)
     {
-        $element->sendApplicationStatusChangeEmail();
+        // $element->sendApplicationStatusChangeEmail();
         $element->refresh(); // Get the updated model(and relations) before using.
         if($this->hasTransition('status',ForeignStudentApplication::STATUS_DRAFT,ForeignStudentApplication::STATUS_SUBMITTED)){
             $element->sendApplicationStatusChangeEmail();

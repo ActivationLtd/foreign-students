@@ -16,9 +16,9 @@ class ApplicationStatusChange extends Notification implements ShouldQueue
     /**
      * Order cancelled notification to reseller
      *
-     * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication
+     * @var ForeignStudentApplication
      */
-    public $foreignStudentApplication;
+    public ForeignStudentApplication $foreignStudentApplication;
 
     /**
      * Create a new notification instance.
@@ -43,7 +43,7 @@ class ApplicationStatusChange extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable) {
         $cc_emails = User::adminEmails();
