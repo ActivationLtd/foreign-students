@@ -506,7 +506,7 @@ input, textarea {
 
 .select2-container-multi .select2-choices .select2-search-choice {
     padding: 4px 10px 4px 24px;
-    margin: 3px 5px 3px 0;
+    margin: 3px 5px 3px 5px;
     line-height: 16px;
     background-image: none;
     border: 0;
@@ -514,7 +514,7 @@ input, textarea {
 }
 
 .select2-container-multi .select2-choices {
-    padding-top: 3px;
+    /*padding-top: 3px;*/
     background-image: none;
     border: 0;
 }
@@ -675,6 +675,10 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
 
 .modal-open .modal {
     z-index: 9999;
+}
+
+.modal-content {
+    border-radius: 5px;
 }
 
 .pagination {
@@ -845,26 +849,72 @@ textarea.json {
     background-color: rgb(63, 94, 251);
 }
 
-.print-btn {margin: 10px 0;}
+.print-btn {
+    margin: 10px 0;
+}
 
 /**************************
  * Font sizes
  *************************/
-.f-8 { font-size: 8px; }
-.f-9 { font-size: 9px; }
-.f-10 { font-size: 10px; }
-.f-11 { font-size: 11px; }
-.f-11 { font-size: 11px; }
-.f-12 { font-size: 12px; }
-.f-13 { font-size: 13px; }
-.f-14 { font-size: 14px; }
-.f-16 { font-size: 16px; }
-.f-18 { font-size: 18px; }
-.f-20 { font-size: 20px; }
-.f-24 { font-size: 24px; }
-.f-24 { font-size: 24px; }
-.f-36 { font-size: 36px; }
-.f-48 { font-size: 48px; }
+.f-8 {
+    font-size: 8px;
+}
+
+.f-9 {
+    font-size: 9px;
+}
+
+.f-10 {
+    font-size: 10px;
+}
+
+.f-11 {
+    font-size: 11px;
+}
+
+.f-11 {
+    font-size: 11px;
+}
+
+.f-12 {
+    font-size: 12px;
+}
+
+.f-13 {
+    font-size: 13px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.f-16 {
+    font-size: 16px;
+}
+
+.f-18 {
+    font-size: 18px;
+}
+
+.f-20 {
+    font-size: 20px;
+}
+
+.f-24 {
+    font-size: 24px;
+}
+
+.f-24 {
+    font-size: 24px;
+}
+
+.f-36 {
+    font-size: 36px;
+}
+
+.f-48 {
+    font-size: 48px;
+}
 
 /**************************
  * Module quick finder
