@@ -144,7 +144,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     // public function updating($element) { return $this; }
 
     /**
-     * @param $element
+     * @param ForeignStudentApplication $element
      * @return $this|ForeignStudentApplicationProcessor
      */
     public function created($element)
