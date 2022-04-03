@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Mainframe\Superadmin;
+namespace App\Mainframe\Helpers\Test;
 
 use Tests\TestCase;
 use App\User;
@@ -19,3 +19,5 @@ class SuperadminTestCase extends TestCase
     }
 
 }
+
+

@@ -3,7 +3,7 @@
 namespace Tests\Feature\Mainframe\Auth;
 
 use App\Group;
-use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
+use App\Projects\MyProject\Notifications\Auth\VerifyEmail;
 use App\User;
 use Tests\TestCase;
 
@@ -70,7 +70,7 @@ class UserRegistrationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'email_verified_at' => null,
-            'group_ids' => "[\"5\"]",
+            'group_ids' => "[\"26\"]",
         ]);
 
         echo "User #{$user->id} : {$user->email} created";
@@ -127,7 +127,6 @@ class UserRegistrationTest extends TestCase
 
     public function test_verified_user_can_see_dashboard_upon_login()
     {
-        $this->markTestSkipped('test has to be updated');
 
         $user = $this->newlyRegisteredUser();
         $user->update(['email_verified_at' => now()]); // Force verify
@@ -139,8 +138,6 @@ class UserRegistrationTest extends TestCase
 
     public function test_verified_user_can_login_and_see_dashboard()
     {
-        $this->markTestSkipped('test has to be updated');
-
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->followingRedirects()
@@ -154,8 +151,6 @@ class UserRegistrationTest extends TestCase
 
     public function test_user_can_access_data_block_variable()
     {
-        $this->markTestSkipped('test has to be updated');
-
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->be($user);
