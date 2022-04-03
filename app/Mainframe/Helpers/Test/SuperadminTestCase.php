@@ -7,7 +7,20 @@ use App\User;
 
 class SuperadminTestCase extends TestCase
 {
+    /**
+     * Logged in user
+     *
+     * @var User
+     */
     public $user;
+
+    /**
+     * A prefix to add in the DB fields to indicate test entries.
+     * They will be later deleted.
+     *
+     * @var string
+     */
+    public $testPrefix = 'TEST--';
 
     protected function setUp(): void
     {

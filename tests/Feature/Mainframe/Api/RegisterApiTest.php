@@ -44,7 +44,7 @@ class RegisterApiTest extends ApiTestCase
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
         //\Mail::assertSent( VerifyEmail::class); // This is a mailable class
-        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)

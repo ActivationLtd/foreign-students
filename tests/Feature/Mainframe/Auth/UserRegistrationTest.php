@@ -3,7 +3,6 @@
 namespace Tests\Feature\Mainframe\Auth;
 
 use App\Group;
-use App\Projects\MyProject\Notifications\Auth\VerifyEmail;
 use App\User;
 use Tests\TestCase;
 
@@ -60,7 +59,7 @@ class UserRegistrationTest extends TestCase
 
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
-        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)
@@ -78,7 +77,7 @@ class UserRegistrationTest extends TestCase
 
     public function test_unverified_user_can_login_but_see_verification_prompt()
     {
-        sleep(2);
+        sleep(1);
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->followingRedirects()
@@ -104,7 +103,7 @@ class UserRegistrationTest extends TestCase
         \Mail::fake();
         \Notification::fake();
 
-        sleep(2);
+        sleep(1);
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->be($user);
@@ -117,7 +116,7 @@ class UserRegistrationTest extends TestCase
         // Note: In above I couldn't capture session('resent') which conditionally renders a
         //  Different message in the HTML.
 
-        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)
