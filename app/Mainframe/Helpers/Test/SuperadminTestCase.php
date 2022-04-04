@@ -2,11 +2,12 @@
 
 namespace App\Mainframe\Helpers\Test;
 
-use Tests\TestCase;
 use App\User;
+use Tests\TestCase;
 
 class SuperadminTestCase extends TestCase
 {
+
     /**
      * Logged in user
      *

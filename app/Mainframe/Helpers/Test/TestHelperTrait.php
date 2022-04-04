@@ -2,6 +2,7 @@
 
 namespace App\Mainframe\Helpers\Test;
 
+use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\User;
 
 trait TestHelperTrait
@@ -30,6 +31,11 @@ trait TestHelperTrait
      */
     public function errors($response)
     {
+        return $this->getErrorsFromResponse($response);
+    }
+
+    public function getErrorsFromResponse($response)
+    {
         return json_decode($response->getContent(), true)['errors'] ?? [];
     }
 
@@ -40,6 +46,11 @@ trait TestHelperTrait
      * @return mixed|null
      */
     public function payload($response)
+    {
+        return $this->getPayloadFromResponse($response);
+    }
+
+    public function getPayloadFromResponse($response)
     {
         return json_decode($response->getContent(), true)['data'] ?? null;
     }
@@ -60,13 +71,18 @@ trait TestHelperTrait
      * @param  $class
      * @return \App\Mainframe\Features\Modular\BaseModule\BaseModule|null
      */
-    public function latest($class = null)
+    public function latest($class = null, $print = true)
     {
         if (!$class && isset($this->module)) {
             $class = $this->module->modelInstance();
         }
 
-        return $class::latest()->first();
+        /** @var BaseModule $latest */
+        $latest = $class::latest()->first();
+        if ($print) {
+            $this->print(self::MSG_FETCHED_FROM_DB, [$latest->toArray()]);
+        }
+        return $latest;
     }
 
     /**
@@ -78,5 +94,47 @@ trait TestHelperTrait
     public function lastUpdate($class)
     {
         return $class::orderBy('updated_at', 'DESC')->first();
+    }
+
+    public function print($str = '', $values = null)
+    {
+        // 📥 🧰 🟥 🟩
+        $values = \Arr::wrap($values);
+        fwrite(STDOUT, "----------------------------------------------------- \n");
+        fwrite(STDOUT, $str."\n\n");
+
+        foreach ($values as $value) {
+            fwrite(STDOUT, "🟩	");
+            if (is_array($value)) {
+                fwrite(STDOUT, print_r($value, true));
+            } elseif (isJson($value)) {
+                fwrite(STDOUT, print_r(json_decode($value, true), true));
+
+            } else {
+                fwrite(STDOUT, $value);
+            }
+            fwrite(STDOUT, "\n\n");
+        }
+        // fwrite(STDOUT, "----------------------------------------------------- \n\n");
+    }
+
+    public function printLn($str = '', $values = null)
+    {
+        // 📥 🧰 🟥 🟩
+        $values = \Arr::wrap($values);
+        fwrite(STDOUT, $str." ");
+
+        foreach ($values as $value) {
+            fwrite(STDOUT, "🟩	");
+            if (is_array($value)) {
+                fwrite(STDOUT, print_r($value, true));
+            } elseif (isJson($value)) {
+                fwrite(STDOUT, print_r(json_decode($value, true), true));
+
+            } else {
+                fwrite(STDOUT, $value);
+            }
+            fwrite(STDOUT, "\n");
+        }
     }
 }
