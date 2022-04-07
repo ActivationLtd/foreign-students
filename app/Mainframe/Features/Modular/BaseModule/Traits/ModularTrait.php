@@ -32,7 +32,10 @@ trait ModularTrait
      * @param $query
      * @return Builder
      */
-    public function scopeActive($query) { return $query->where($this->getTable().'.is_active', 1); }
+    public function scopeActive($query)
+    {
+        return $query->where($this->getTable().'.is_active', 1);
+    }
 
 
     /*
@@ -116,6 +119,25 @@ trait ModularTrait
         return Mf::tableColumns($this->getTable());
     }
 
+    /**
+     * Get the $append value
+     *
+     * @return array
+     */
+    public function getAppends()
+    {
+        return $this->appends;
+    }
+
+    /**
+     * Get the $with value
+     *
+     * @return array
+     */
+    public function getWith()
+    {
+        return $this->with;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -366,7 +388,10 @@ trait ModularTrait
      * @return bool
      * @internal param $name
      */
-    public function hasTenantContext() { return $this->hasColumn('tenant_id') && $this->tenantEnabled; }
+    public function hasTenantContext()
+    {
+        return $this->hasColumn('tenant_id') && $this->tenantEnabled;
+    }
 
     /**
      * Check if the element is compatible with the user's tenant
@@ -863,13 +888,25 @@ trait ModularTrait
     |
     */
 
-    public function tenant() { return $this->belongsTo(Tenant::class); }
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
-    public function project() { return $this->belongsTo(Project::class); }
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 
-    public function creator() { return $this->belongsTo(User::class, 'created_by'); }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
-    public function updater() { return $this->belongsTo(User::class, 'updated_by'); }
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 
     public function linkedModule()
     {

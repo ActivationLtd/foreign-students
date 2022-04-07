@@ -80,7 +80,7 @@ trait TestHelperTrait
         /** @var BaseModule $latest */
         $latest = $class::latest()->first();
         if ($print) {
-            $this->print(self::MSG_FETCHED_FROM_DB, [$latest->toArray()]);
+            $this->print(self::MSG_FETCHED_FROM_DB, [get_class($latest), $latest->toArray()]);
         }
         return $latest;
     }
@@ -94,6 +94,16 @@ trait TestHelperTrait
     public function lastUpdate($class)
     {
         return $class::orderBy('updated_at', 'DESC')->first();
+    }
+
+    public function markAsTest($response)
+    {
+        $payload = $this->payload($response);
+        if (isset($payload['id'])) {
+            $this->module->modelInstance()->find($payload['id'])
+                ->update(['name' => 'TEST-- '.now()]);
+        }
+        return $this;
     }
 
     public function print($str = '', $values = null)
@@ -118,6 +128,17 @@ trait TestHelperTrait
         // fwrite(STDOUT, "----------------------------------------------------- \n\n");
     }
 
+    /**
+     * Print fetched data
+     *
+     * @param $data
+     * @return void
+     */
+    public function printFetched($data)
+    {
+        $this->print(self::MSG_FETCHED_FROM_DB, [get_class($data), $data->toArray()]);
+    }
+
     public function printLn($str = '', $values = null)
     {
         // 📥 🧰 🟥 🟩
@@ -136,5 +157,6 @@ trait TestHelperTrait
             }
             fwrite(STDOUT, "\n");
         }
+        fwrite(STDOUT, "\n");
     }
 }

@@ -46,7 +46,7 @@ class SuperHeroProcessor extends ModelProcessor
     public static function rules($element, $merge = [])
     {
         $rules = [
-            // 'name' => 'required|between:1,100|'.'unique:super_heroes,name,'.($element->id ?? 'null').',id,deleted_at,NULL',
+            'name' => 'required|between:1,100|'.'unique:super_heroes,name,'.($element->id ?? 'null').',id,deleted_at,NULL',
             'is_active' => 'in:1,0',
         ];
 
@@ -75,10 +75,9 @@ class SuperHeroProcessor extends ModelProcessor
 
         // Todo: Then do further processing
         // ----------------------------------
-        // if($this->isValid()){
-        //     $element->fillSomeData();
-        //
-        // }
+        if ($this->isValid()) {
+            $element->setNameExt();
+        }
 
         return $this;
     }
@@ -94,7 +93,8 @@ class SuperHeroProcessor extends ModelProcessor
      */
     public function saved($element)
     {
-        $element->refresh(); // Get the updated model(and relations) before using.
+        // $element->refresh(); // Get the updated model(and relations) before using.
+        // The refresh method will re-hydrate the existing model using fresh data from the database.
 
         return $this;
     }

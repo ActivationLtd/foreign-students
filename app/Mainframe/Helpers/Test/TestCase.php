@@ -38,4 +38,21 @@ abstract class TestCase extends BaseTestCase
         // usleep(100000);
     }
 
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Memory optimization
+        |--------------------------------------------------------------------------
+        */
+        foreach ((new \ReflectionObject($this))->getProperties() as $property) {
+            if (!$property->isStatic() && __CLASS__ === $property->getDeclaringClass()->getName()) {
+                unset($this->{$property->getName()});
+            }
+        }
+        gc_collect_cycles();
+    }
+
 }

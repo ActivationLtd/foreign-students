@@ -10,7 +10,7 @@ class SuperHero extends BaseModule
     use SuperHeroHelper;
 
     protected $moduleName = 'super-heroes';
-    protected $table      = 'super_heroes';
+    protected $table = 'super_heroes';
     /*
     |--------------------------------------------------------------------------
     | Properties
@@ -27,8 +27,8 @@ class SuperHero extends BaseModule
     // protected $guarded = [];
     // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
     // protected $casts = [];
-    // protected $with = [];
-    // protected $appends = [];
+    // protected $with = []; // Note: Should be left empty! and used only when needed : $model->append(...)!
+    // protected $appends = []; // Note: Should be left empty! and used only when needed : $model->load(...)!
 
     /*
     |--------------------------------------------------------------------------

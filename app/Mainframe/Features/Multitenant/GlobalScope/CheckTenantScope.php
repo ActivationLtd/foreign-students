@@ -15,12 +15,20 @@ class CheckTenantScope implements Scope
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
+     * @noinspection UnknownColumnInspection
      */
     public function apply(Builder $builder, Model $model)
     {
         /** @var \App\Mainframe\Features\Modular\BaseModule\BaseModule $model */
         if ($model->hasTenantContext()) {
-            $builder->where($model->module()->tableName().'.tenant_id', user()->tenant_id);
+            $builder->where(function (Builder $q) use ($model) {
+
+                $column = $model->getTable().'.tenant_id';
+                
+                $q->where($column, user()->tenant_id)
+                    ->orWhereNull($column);
+            });
+
         }
     }
 }

@@ -119,7 +119,10 @@ class SelectModel extends SelectArray
 
         // Inject tenant context.
         if ($this->inTenantContext()) {
-            $q->where('tenant_id', user()->tenant_id);
+            $q->where(function ($q) {
+                /** @var Builder $q */
+                $q->where('tenant_id', user()->tenant_id)->orWhereNull('tenant_id');
+            });
         }
 
         $q->orderBy($this->orderBy);

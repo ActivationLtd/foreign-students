@@ -28,6 +28,7 @@ class CreateSuperHeroesTable extends Migration
                 $table->unsignedInteger('project_id')->nullable()->default(null)->index();
                 $table->unsignedInteger('tenant_id')->nullable()->default(null)->index();
                 $table->string('name', 255)->nullable()->default(null)->index();
+                $table->text('name_ext')->nullable()->default(null)->index()->comment('This field store name with additional information to make the information more meaningful.');
 
                 /******* Custom columns **********/
                 // Todo: Add module specific fields and denormalized fields. In computing, denormalization is the process of
