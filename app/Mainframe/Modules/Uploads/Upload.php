@@ -112,7 +112,7 @@ class Upload extends BaseModule
     // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
     // protected $casts = [];
     // protected $with = [];
-    protected $appends = ['url', 'dir'];
+    // protected $appends = ['url', 'dir'];
     protected $hidden = ['linked_module'];
 
     /*

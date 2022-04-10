@@ -3,7 +3,6 @@
 namespace Tests\Feature\Mainframe\Auth;
 
 use App\Group;
-use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
 use App\User;
 use Tests\TestCase;
 
@@ -60,7 +59,7 @@ class UserRegistrationTest extends TestCase
 
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
-        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)
@@ -70,7 +69,7 @@ class UserRegistrationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'email_verified_at' => null,
-            'group_ids' => "[\"5\"]",
+            'group_ids' => "[\"26\"]",
         ]);
 
         echo "User #{$user->id} : {$user->email} created";
@@ -78,7 +77,7 @@ class UserRegistrationTest extends TestCase
 
     public function test_unverified_user_can_login_but_see_verification_prompt()
     {
-        sleep(2);
+        sleep(1);
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->followingRedirects()
@@ -104,7 +103,7 @@ class UserRegistrationTest extends TestCase
         \Mail::fake();
         \Notification::fake();
 
-        sleep(2);
+        sleep(1);
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->be($user);
@@ -117,7 +116,7 @@ class UserRegistrationTest extends TestCase
         // Note: In above I couldn't capture session('resent') which conditionally renders a
         //  Different message in the HTML.
 
-        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)
@@ -127,7 +126,6 @@ class UserRegistrationTest extends TestCase
 
     public function test_verified_user_can_see_dashboard_upon_login()
     {
-        $this->markTestSkipped('test has to be updated');
 
         $user = $this->newlyRegisteredUser();
         $user->update(['email_verified_at' => now()]); // Force verify
@@ -139,8 +137,6 @@ class UserRegistrationTest extends TestCase
 
     public function test_verified_user_can_login_and_see_dashboard()
     {
-        $this->markTestSkipped('test has to be updated');
-
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->followingRedirects()
@@ -154,8 +150,6 @@ class UserRegistrationTest extends TestCase
 
     public function test_user_can_access_data_block_variable()
     {
-        $this->markTestSkipped('test has to be updated');
-
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->be($user);

@@ -148,7 +148,15 @@ trait DatatableTrait
      */
     public function datatable()
     {
-        $this->dt = datatables($this->query());
+
+        $query = $this->query();
+
+        // Set a default limit if not in set in request
+        if (!request('length')) {
+            $query->limit(10);
+        }
+
+        $this->dt = datatables($query);
 
         return $this;
     }

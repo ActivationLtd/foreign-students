@@ -28,12 +28,13 @@
 
 use App\Mainframe\Features\Form\Text\InputText;
 
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null,
+    $immutables ?? null, $hiddenFields ?? null);
 $input = new InputText($var);
 ?>
 
 @if($input->isHidden)
-    {{ Form::hidden($input->name, $input->value()) }}
+    {{ Form::hidden($input->name, $input->value(), $input->params) }}
 @else
     <div class="{{$input->containerClasses()}}" id="{{$input->uid}}">
         {{-- label --}}

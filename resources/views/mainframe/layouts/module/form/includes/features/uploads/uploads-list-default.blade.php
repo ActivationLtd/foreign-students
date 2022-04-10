@@ -8,7 +8,11 @@
  */
 
 $uploads = $uploads ?: [];
-// dd($input->containerClass);
+if (!isset($input)) {
+    $var = \App\Mainframe\Features\Form\Form::setUpVar($var ?? [], $errors ?? null, $element ?? null, $editable ?? null,
+        $immutables ?? null, $hiddenFields ?? null);
+    $input = $input ?? new App\Mainframe\Features\Form\Upload($var);
+}
 
 ?>
 
@@ -54,7 +58,8 @@ $uploads = $uploads ?: [];
         </div>
     @endforeach
     <div class="col-md-12">
-        <button id="{{$input->uid}}-SaveSortBtn" class="btn-save-upload-order btn btn-danger" type="button" style="display: none">Save new order
+        <button id="{{$input->uid}}-SaveSortBtn" class="btn-save-upload-order btn btn-danger" type="button"
+                style="display: none">Save new order
         </button>
     </div>
 </div>
