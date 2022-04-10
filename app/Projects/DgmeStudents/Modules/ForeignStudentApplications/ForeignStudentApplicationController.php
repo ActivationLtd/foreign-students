@@ -49,7 +49,17 @@ class ForeignStudentApplicationController extends ModularController
         return (new ModuleList($this->module))->json();
     }
 
-    // public function report() { }
+    /**
+     * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\Support\Collection|\Illuminate\View\View|mixed|void
+     */
+    public function report() {
+        if (!user()->can('view-report', $this->model)) {
+            return $this->permissionDenied();
+        }
+
+        return (new ForeignStudentApplicationReport($this->module))->output();
+
+    }
     // public function storeRequestValidator() { }
     // public function updateRequestValidator() { }
     // public function saveRequestValidator() { }
