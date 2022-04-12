@@ -17,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
         \App\Mainframe\Commands\CleanDeletedUploads::Class,
         \App\Mainframe\Commands\FixPolymorphicType::class,
         \App\Mainframe\Commands\FixContentKey::class,
+        \App\Mainframe\Commands\RefreshGroupPermission::class,
+        \App\Mainframe\Commands\RefreshModules::class,
     ];
 
     protected $providers = [
@@ -106,8 +108,12 @@ class AppServiceProvider extends ServiceProvider
     public function registerSingletons()
     {
 
-        $this->app->singleton(MessageBag::class, function () { return new MessageBag(); });
-        $this->app->singleton(Response::class, function () { return new Response(); });
+        $this->app->singleton(MessageBag::class, function () {
+            return new MessageBag();
+        });
+        $this->app->singleton(Response::class, function () {
+            return new Response();
+        });
     }
 
 }

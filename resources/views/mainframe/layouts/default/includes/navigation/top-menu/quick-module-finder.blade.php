@@ -4,7 +4,6 @@
  * @var \App\User $user
  */
 $modules = \App\Module::getActiveList();
-$user = user();
 ?>
 <li class="dropdown quick-modules-menu f-12">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -13,13 +12,14 @@ $user = user();
     </a>
     <ul class="dropdown-menu">
         <li class="dropdown-item">
-            <input id="moduleSearchBox" name="module" class="form-control module-finder pull-right padding" type="text" placeholder="Search a module"/>
+            <input id="moduleSearchBox" name="module" class="form-control module-finder pull-right padding" type="text"
+                   placeholder="Search a module"/>
             <div class="clearfix"></div>
         </li>
         <li class="dropdown-item">
             <ul id="moduleSearchBoxData" class="menu quick-module-list">
                 @foreach($modules as $module)
-                    @if($user->can('view-any', $module->modelInstance()))
+                    @if(user()->hasAccess([$module->name.'-view-any']))
                         <li class="list-inline-item pull-left" style="width: 50%">
                             <a href="{{route($module->name.".index")}}">
                                 {{$module->title}}

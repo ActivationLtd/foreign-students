@@ -152,7 +152,7 @@ class SelectModel extends SelectArray
 
         // $options[0] = null; // Zero fill empty selection
         if (!$this->isMultiple()) {
-            $options[null] = '-';  // Null fill empty selection
+            $options[null] = $this->nullOptionText;  // Null fill empty selection
         }
 
         return Arr::sort($options);

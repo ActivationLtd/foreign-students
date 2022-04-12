@@ -69,7 +69,7 @@ class Content extends BaseModule
     use ContentTrait;
 
     protected $moduleName = 'contents';
-    protected $table      = 'contents';
+    protected $table = 'contents';
     /*
     |--------------------------------------------------------------------------
     | Properties
@@ -96,7 +96,7 @@ class Content extends BaseModule
     ];
     // protected $with = [];
     protected $appends = ['parts_array'];
-    protected $tagAttributes = ['tags'];
+    protected $tagFields = ['tags'];
 
     /*
     |--------------------------------------------------------------------------
@@ -124,7 +124,5 @@ class Content extends BaseModule
         // static::deleting(function (Content $element) { });
         // static::deleted(function (Content $element) { });
     }
-
-
 
 }

@@ -92,12 +92,17 @@ class Input extends Form
      */
     public function value()
     {
-        if ($this->value) {
-            return $this->value;
+        // if ($this->value) { // didn't work for 0 or null value
+        //     return $this->value;
+        // }
+
+        if (array_key_exists('value', $this->var)) {
+            return $this->var['value'];
         }
+
         // Retain null input.
         if (array_key_exists($this->name, request()->old())) {
-            return $this->old();
+            return $this->old(); // Also takes request() in consideration
         }
 
         // Retain 0 input

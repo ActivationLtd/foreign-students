@@ -14,7 +14,6 @@ use App\Setting;
  */
 
 $types = Setting::$types;
-
 ?>
 
 @section('content-top')
@@ -47,18 +46,19 @@ $types = Setting::$types;
         <div class="clearfix"></div>
 
         <div class="clearfix"></div>
-        <a class="btn btn-default pull-right" href="https://jsoneditoronline.org/#right=local.zelija&left=cloud.2c8cda9906ed4a7fa776b6674ab1bcda">
+        <a class="btn btn-default pull-right"
+           href="https://jsoneditoronline.org/#right=local.zelija&left=cloud.2c8cda9906ed4a7fa776b6674ab1bcda">
             Use online JSON Formatter
         </a>
         <div class="clearfix"></div>
 
         <div class="col-md-6 no-padding">
             @include('form.textarea',['var'=>['name'=>'value','label'=>'Value(For array type put JSON)','div'=>'col-md-12']])
-{{--            @if($element->isCreated())--}}
-{{--                <div class="col-md-12 no-padding-l">--}}
-{{--                    @dump($element->getValue())--}}
-{{--                </div>--}}
-{{--            @endif--}}
+            {{--            @if($element->isCreated())--}}
+            {{--                <div class="col-md-12 no-padding-l">--}}
+            {{--                    @dump($element->getValue())--}}
+            {{--                </div>--}}
+            {{--            @endif--}}
         </div>
 
         <label class="control-label ">

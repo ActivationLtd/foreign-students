@@ -10,6 +10,9 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () {
     Route::get('data/{key}', 'DataBlockController@show')->name('data-block.show');
     Route::get('report/{key}', 'ReportController@show')->name('report');
     Route::get('datatable/{key}', 'DatatableController@show')->name('datatable.json');
+    Route::get('config/modules', 'HomeController@moduleConfig')->name('module-config');
+    Route::get('config/module-names', 'HomeController@moduleNamesConfig')->name('module-names-config');
+    Route::get('config/module-groups', 'HomeController@moduleGroupConfig')->name('module-group-config');
 
     // Route::get('phpinfo', 'HomeController@phpinfo')->name('phpinfo');
 });

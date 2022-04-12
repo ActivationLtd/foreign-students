@@ -2,10 +2,10 @@
 
 namespace App\Mainframe\Features\Multitenant\GlobalScope;
 
-use App\Mainframe\Helpers\Mf;
+use App\Tenant;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Builder;
 
 class CheckTenantScope implements Scope
 {
@@ -24,9 +24,18 @@ class CheckTenantScope implements Scope
             $builder->where(function (Builder $q) use ($model) {
 
                 $column = $model->getTable().'.tenant_id';
-                
-                $q->where($column, user()->tenant_id)
-                    ->orWhereNull($column);
+
+                $q->where($column, user()->tenant_id);
+
+                // Include global tenant elements
+                if ($model->showGlobalTenantElements()) {
+                    $q->orWhere($column, Tenant::globalTenantId());
+                }
+
+                // Include null tenant elements
+                if ($model->showNonTenantElements()) {
+                    $q->orWhereNull($column);
+                }
             });
 
         }

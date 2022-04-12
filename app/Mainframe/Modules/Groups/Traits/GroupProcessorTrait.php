@@ -53,10 +53,8 @@ trait GroupProcessorTrait
         $permissions = [];
         // revoke existing group permissions
         $existing_permissions = $element->getPermissions();
-        if (count($existing_permissions)) {
-            foreach ($existing_permissions as $k => $v) {
-                $permissions[$k] = 0;
-            }
+        foreach ($existing_permissions as $k => $v) {
+            $permissions[$k] = 0;
         }
 
         // include new group permissions from form input
@@ -72,14 +70,14 @@ trait GroupProcessorTrait
     // public function updating($element) { return $this; }
     // public function created($element) { return $this; }
     /**
-     * @param \App\Group $element
+     * @param  \App\Group  $element
      * @return $this
      */
-    public function updated($element) {
-        if($this->fieldHasChanged('permissions')){
+    public function updated($element)
+    {
+        if ($this->fieldHasChanged('permissions')) {
             $this->addMessage('Permission changed');
             Artisan::call('cache:clear');
-
         }
         return $this;
     }

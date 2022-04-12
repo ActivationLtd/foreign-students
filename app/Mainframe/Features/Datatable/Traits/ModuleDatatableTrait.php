@@ -40,10 +40,10 @@ trait ModuleDatatableTrait
     {
         $query = $this->source()->select($this->selects());
 
-        // Inject tenant context.
-        if (user()->ofTenant() && $this->module->tenantEnabled()) {
-            $query->where($this->module->tableName().'.tenant_id', user()->tenant_id);
-        }
+        // Note: If you are not using model based query you need to manually inject tenant context.
+        // if (user()->ofTenant() && $this->module->tenantEnabled()) {
+        //     $query->where($this->module->tableName().'.tenant_id', user()->tenant_id);
+        // }
 
         // Exclude deleted rows
         $query->whereNull($this->table.'.deleted_at');

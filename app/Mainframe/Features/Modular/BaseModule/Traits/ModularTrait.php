@@ -22,6 +22,41 @@ trait ModularTrait
 
     /*
     |--------------------------------------------------------------------------
+    | Section: Default getters
+    |--------------------------------------------------------------------------
+    */
+    public function moduleName()
+    {
+        return $this->moduleName ?? null;
+    }
+
+    public function tenantEnabled()
+    {
+        return $this->tenantEnabled ?? false;
+    }
+
+    public function spreadFields()
+    {
+        return $this->spreadFields ?? [];
+    }
+
+    public function tagFields()
+    {
+        return $this->tagFields ?? [];
+    }
+
+    public function showGlobalTenantElements()
+    {
+        return $this->showGlobalTenantElements ?? false;
+    }
+
+    public function showNonTenantElements()
+    {
+        return $this->showNonTenantElements ?? false;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | Query scopes + Dynamic scopes
     |--------------------------------------------------------------------------
     |
@@ -101,12 +136,30 @@ trait ModularTrait
     /**
      * Check if a model table has a given column
      *
-     * @param $column
+     * @param  string  $column
      * @return bool
      */
     public function hasColumn($column)
     {
         return in_array($column, $this->tableColumns());
+    }
+
+    /**
+     * Get an array of columns that ends with the given string
+     *
+     * @param $str
+     * @return array
+     */
+    public function getColumnsThatEndsWith($str)
+    {
+        $found = [];
+        $columns = $this->tableColumns();
+        foreach ($columns as $column) {
+            if (\Str::endsWith($str, $column)) {
+                $found[] = $column;
+            }
+        }
+        return $found;
     }
 
     /**
@@ -407,7 +460,12 @@ trait ModularTrait
             return true;
         }
 
-        if ($user->tenant_id && ($this->tenant_id != $user->tenant_id)) {
+        // If the element has null tenant then it is a global element and should be accessible by all tenant
+        if ($this->tenant_id == null) {
+            return true;
+        }
+
+        if (($user->tenant_id) && ($this->tenant_id != $user->tenant_id)) {
             return false;
         }
 
@@ -556,11 +614,8 @@ trait ModularTrait
      */
     public function syncSpreadKeys()
     {
-        if (!isset($this->spreadAttributes)) {
-            return;
-        }
 
-        foreach ($this->spreadAttributes as $field => $relatedTo) {
+        foreach ($this->spreadFields() as $field => $relatedTo) {
 
             $ids = toArray($this->$field);
 
@@ -604,11 +659,8 @@ trait ModularTrait
      */
     public function syncSpreadTags()
     {
-        if (!isset($this->tagAttributes)) {
-            return;
-        }
 
-        foreach ($this->tagAttributes as $field) {
+        foreach ($this->tagFields() as $field) {
 
             $tags = cleanArray(toArray($this->$field));
 
@@ -662,6 +714,8 @@ trait ModularTrait
         $this->updated_by = $this->updated_by ?? user()->id;
         $this->updated_at = now();
         $this->autoFillTenant();
+
+        return $this;
     }
 
     /**
@@ -674,6 +728,8 @@ trait ModularTrait
             $this->tenant_id = $this->tenant_id ?: user()->tenant_id;
             // $this->project_id = $this->project_id ?: $this->tenant->project_id; // Excluded project_id injection because settings table had no project_id
         }
+
+        return $this;
     }
 
     /**
@@ -937,7 +993,8 @@ trait ModularTrait
         if (!\Str::endsWith($slug, '_ids')) {
             $key = \Str::singular($slug).'_ids';
         }
-        $class = $this->spreadAttributes[$key];
+
+        $class = $this->spreadFields[$key];
 
         return $this->belongsToMany($class, 'spreads', 'spreadable_id', 'related_id')
             ->where('key', $key);
@@ -1003,7 +1060,7 @@ trait ModularTrait
      * for example if in the same module based on client_id it fills other fields
      * like client_name, client_address etc. use setters to set values
      *
-     * @return \App\Mainframe\Modules\Users\User|\App\Projects\MyProject\Modules\Users\User|BaseModule
+     * @return $this
      */
     public function denormalize()
     {
@@ -1011,4 +1068,42 @@ trait ModularTrait
         return $this;
 
     }
+
+    /**
+     * Set name_ext values
+     *
+     * @return $this
+     */
+    public function setNameExt()
+    {
+        if (!$this->hasColumn('name_ext')) {
+            return $this;
+        }
+
+        if ($this->hasColumn('name') && $this->hasColumn('name_ext')) {
+            $this->name_ext = $this->name;
+        }
+
+        if ($this->hasTenantContext() && $this->tenant) {
+            $this->name_ext .= ' ('.$this->tenant->name.')';
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set a slug
+     *
+     * @return $this
+     */
+    public function setSlug()
+    {
+
+        if ($this->hasColumn('name') && $this->hasColumn('slug')) {
+            $this->slug = \Str::slug($this->name);
+        }
+
+        return $this;
+    }
+
 }

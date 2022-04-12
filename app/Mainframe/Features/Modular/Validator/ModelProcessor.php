@@ -8,6 +8,7 @@ namespace App\Mainframe\Features\Modular\Validator;
 use App\Mainframe\Features\Core\Traits\Validable;
 use App\Mainframe\Jobs\JobSyncData;
 use App\Module;
+use App\Tenant;
 use App\User;
 use Illuminate\Support\Str;
 use Validator;
@@ -256,7 +257,8 @@ class ModelProcessor
                 $change = $this->element->transition($field);
 
                 if ($change && !$this->transitionIsAllowed($field, $change['old'], $change['new'])) {
-                    $this->fieldError($field, $field.' - can not be updated from '.$change['old'].' to '.$change['new']);
+                    $this->fieldError($field,
+                        $field.' - can not be updated from '.$change['old'].' to '.$change['new']);
                 }
             }
         }
@@ -1046,5 +1048,44 @@ class ModelProcessor
         // echo 'In Processor restored(). ';
 
         return $this;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Section: Tenant validations
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    /**
+     * Check if name is duplicate
+     *
+     * @return $this
+     */
+    public function checkCrossTenantNameDuplication()
+    {
+        $element = $this->element;
+
+        $query = $element->where('name', $element->name);
+
+        if ($element->tenant_id) {
+            $query->where(function ($q) use ($element) {
+                /** @var \Illuminate\Database\Query\Builder $q */
+                $q->whereNull('tenant_id')
+                    ->orWhere('tenant_id', Tenant::globalTenantId())
+                    ->orWhere('tenant_id', $element->tenant_id);
+            });
+        }
+
+        if ($element->isEditing()) {
+            $query->where('id', '!=', $element->id);
+        }
+
+        if ($exists = $query->exists()) {
+            $this->error('The name already exists', 'name');
+        }
+
+        return $this;
+
     }
 }

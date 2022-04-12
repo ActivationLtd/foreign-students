@@ -121,7 +121,7 @@ function renderTree($tree)
                         var arr = [];
                         if (hasNestedKey(ret, 'data', 'permissions')) {
                             $.each(ret.data.permissions, function (k, v) {
-                                arr.push(k)
+                                if (v == 1) arr.push(k)
                             });
                         }
                         v.permission = arr;

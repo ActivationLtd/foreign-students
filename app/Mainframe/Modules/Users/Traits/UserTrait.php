@@ -128,9 +128,15 @@ trait UserTrait
     | Relations
     |--------------------------------------------------------------------------
     */
-    public function groups() { return $this->belongsToMany(Group::class, 'user_group'); }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'user_group');
+    }
 
-    public function country() { return $this->belongsTo(Country::class); }
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 
     public function inAppNotifications()
     {
@@ -315,7 +321,7 @@ trait UserTrait
      */
     public function ofTenant()
     {
-        return $this->tenant_id && $this->inAnyGroup([User::TENANT_ADMIN_GROUP, User::TENANT_USER_GROUP]);
+        return $this->tenant_id;
     }
 
     /*-----------------------------------------
@@ -564,7 +570,8 @@ trait UserTrait
 
                     // We will make sure that the merged permission does not
                     // exactly match our permission, but starts with it.
-                    if ($checkPermission != $mergedPermission && Str::startsWith($mergedPermission, $checkPermission) and $value == 1) {
+                    if ($checkPermission != $mergedPermission && Str::startsWith($mergedPermission,
+                            $checkPermission) and $value == 1) {
                         $matched = true;
                         break;
                     }
@@ -579,7 +586,8 @@ trait UserTrait
 
                         // We will make sure that the merged permission does not
                         // exactly match our permission, but ends with it.
-                        if ($checkPermission != $mergedPermission && Str::endsWith($mergedPermission, $checkPermission) and $value == 1) {
+                        if ($checkPermission != $mergedPermission && Str::endsWith($mergedPermission,
+                                $checkPermission) and $value == 1) {
                             $matched = true;
                             break;
                         }
@@ -597,7 +605,8 @@ trait UserTrait
 
                             // We will make sure that the merged permission does not
                             // exactly match our permission, but starts with it.
-                            if ($checkMergedPermission != $permission && Str::startsWith($permission, $checkMergedPermission) && $value == 1) {
+                            if ($checkMergedPermission != $permission && Str::startsWith($permission,
+                                    $checkMergedPermission) && $value == 1) {
                                 $matched = true;
                                 break;
                             }
