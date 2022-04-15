@@ -68,6 +68,10 @@ use App\Mainframe\Modules\ModuleGroups\Traits\ModuleGroupTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereSlug($value)
  */
 class ModuleGroup extends BaseModule
 {

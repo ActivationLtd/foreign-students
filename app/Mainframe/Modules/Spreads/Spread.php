@@ -69,6 +69,10 @@ use App\Mainframe\Modules\Spreads\Traits\SpreadTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Spread whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Spread whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Spread whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Spread whereSlug($value)
  */
 class Spread extends BaseModule
 {

@@ -65,6 +65,10 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|Setting whereTenantId($value)
  * @property int|null $tenant_editable Some settings are not allowed to be edited by tenant
  * @method static Builder|Setting whereTenantEditable($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static Builder|Setting whereNameExt($value)
+ * @method static Builder|Setting whereSlug($value)
  */
 class Setting extends BaseModule
 {

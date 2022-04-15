@@ -138,6 +138,10 @@ use Watson\Rememberable\Rememberable;
  * @property-read mixed $group
  * @property string|null $date_of_birth
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDateOfBirth($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSlug($value)
  */
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {

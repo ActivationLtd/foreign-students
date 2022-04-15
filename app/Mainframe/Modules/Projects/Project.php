@@ -60,6 +60,10 @@ use App\Mainframe\Modules\Projects\Traits\ProjectTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereViewDirectory($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereSlug($value)
  */
 class Project extends BaseModule
 {

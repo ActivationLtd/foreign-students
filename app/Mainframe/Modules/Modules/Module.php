@@ -90,6 +90,10 @@ use App\Mainframe\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereViewDirectory($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Module whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Module whereSlug($value)
  */
 class Module extends BaseModule
 {

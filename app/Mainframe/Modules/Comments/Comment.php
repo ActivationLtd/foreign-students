@@ -65,6 +65,10 @@ use App\Mainframe\Modules\Comments\Traits\CommentTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereSlug($value)
  */
 class Comment extends BaseModule
 {

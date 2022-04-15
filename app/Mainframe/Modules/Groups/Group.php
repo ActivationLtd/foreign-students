@@ -58,6 +58,10 @@ use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
  * @method static Builder|Group whereUpdatedBy($value)
  * @method static Builder|Group whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static Builder|Group whereNameExt($value)
+ * @method static Builder|Group whereSlug($value)
  */
 class Group extends BaseModule
 {

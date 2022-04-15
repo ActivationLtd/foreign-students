@@ -56,6 +56,10 @@ use App\Mainframe\Modules\Subscriptions\Traits\SubscriptionTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereValidFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereValidTill($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereSlug($value)
  */
 class Subscription extends BaseModule
 {

@@ -63,6 +63,10 @@ use App\Mainframe\Modules\Contents\Traits\ContentTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereSlug($value)
  */
 class Content extends BaseModule
 {

@@ -5,6 +5,7 @@ namespace App\Mainframe\Providers;
 use App\Mainframe\Features\Responder\Response;
 use App\Mainframe\Macros\QueryBuilderMacros;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ServiceProvider;
 
@@ -54,7 +55,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         // Builder::macro('searchIn', function ($attributes, $needle) {
         //     return $this->where(function (Builder $query) use ($attributes, $needle) {
         //         foreach (\Arr:wrap($attributes) as $attribute) {

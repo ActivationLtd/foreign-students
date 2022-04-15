@@ -70,6 +70,10 @@ use App\Mainframe\Modules\Reports\Traits\ReportTrait;
  * @mixin \Eloquent
  * @property int|null $is_tenant_editable Some settings are not allowed to be edited by tenant
  * @method static \Illuminate\Database\Eloquent\Builder|Report whereIsTenantEditable($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Report whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Report whereSlug($value)
  */
 class Report extends BaseModule
 {

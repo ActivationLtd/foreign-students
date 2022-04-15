@@ -75,6 +75,10 @@ use App\Mainframe\Modules\Uploads\Traits\UploadTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUploadableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Upload whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Upload whereSlug($value)
  */
 class Upload extends BaseModule
 {

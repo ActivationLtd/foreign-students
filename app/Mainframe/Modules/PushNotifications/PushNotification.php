@@ -80,6 +80,10 @@ use App\Mainframe\Modules\PushNotifications\Traits\PushNotificationTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereUuid($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $notifiable
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereSlug($value)
  */
 class PushNotification extends BaseModule
 {

@@ -56,6 +56,10 @@ use App\Mainframe\Modules\Packages\Traits\PackageTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereYearlyPrice($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Package whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Package whereSlug($value)
  */
 class Package extends BaseModule
 {

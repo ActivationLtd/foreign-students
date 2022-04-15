@@ -65,6 +65,10 @@ use App\Mainframe\Modules\Notifications\Traits\NotificationTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUuid($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $notifiable
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereSlug($value)
  */
 class Notification extends BaseModule
 {

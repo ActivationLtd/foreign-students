@@ -69,6 +69,10 @@ use App\Mainframe\Modules\Changes\Traits\ChangeTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Change whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Change whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Change whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Change whereSlug($value)
  */
 class Change extends BaseModule
 {

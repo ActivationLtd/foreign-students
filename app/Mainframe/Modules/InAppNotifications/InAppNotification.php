@@ -96,6 +96,10 @@ use App\Mainframe\Modules\InAppNotifications\Traits\InAppNotificationTrait;
  * @mixin \Eloquent
  * @property string|null $element_uuid
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereElementUuid($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereSlug($value)
  */
 class InAppNotification extends BaseModule
 {
