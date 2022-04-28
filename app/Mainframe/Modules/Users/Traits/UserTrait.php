@@ -34,7 +34,10 @@ trait UserTrait
      */
     public function getProfilePicAttribute()
     {
-        if ($upload = $this->uploads()->remember(timer('very-short'))->where('type', 'profile-pic')->first()) {
+        $upload = $this->uploads()->remember(timer('very-short'))
+            ->where('type', 'profile-pic')->first();
+
+        if ($upload) {
             return $upload->url;
         }
 
@@ -476,7 +479,7 @@ trait UserTrait
      */
     public function isSuperUser()
     {
-        return $this->hasPermission('superuser') || $this->inGroupId(Group::superadmin()->id);
+        return $this->inGroupId(Group::superadmin()->id) || $this->hasPermission('superuser');
     }
 
     /**
@@ -487,7 +490,7 @@ trait UserTrait
      */
     public function isApiUser()
     {
-        return $this->hasPermission('api') || $this->inGroupId(Group::api()->id);
+        return $this->inGroupId(Group::api()->id);
     }
 
 
@@ -509,7 +512,8 @@ trait UserTrait
             $permissions = array_merge($permissions, $group->permissions);
         }
 
-        return array_merge($permissions, $this->permissions);
+        $permissions = array_merge($permissions, $this->permissions);
+        return $permissions;
     }
 
     /**
@@ -524,13 +528,10 @@ trait UserTrait
      * @param  string|array  $permissions
      * @param  bool  $all
      * @return bool
+     * @alias hasPermission($permissions, $all = true)
      */
     public function hasAccess($permissions, $all = true)
     {
-        if ($this->isSuperUser()) {
-            return true;
-        }
-
         return $this->hasPermission($permissions, $all);
     }
 
@@ -551,6 +552,10 @@ trait UserTrait
      */
     public function hasPermission($permissions, $all = true)
     {
+        if ($this->inGroupId(Group::superadmin()->id)) { // Note - Need to keep this
+            return true;
+        }
+
         $mergedPermissions = $this->getMergedPermissions();
 
         foreach ((array) $permissions as $permission) {

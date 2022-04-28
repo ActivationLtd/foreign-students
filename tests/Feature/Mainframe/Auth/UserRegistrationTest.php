@@ -59,7 +59,8 @@ class UserRegistrationTest extends TestCase
 
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
-        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
+        \Notification::assertSentTo([$user],
+            'App\Projects\\'.env('PROJECT').'\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)
@@ -69,7 +70,7 @@ class UserRegistrationTest extends TestCase
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'email_verified_at' => null,
-            'group_ids' => "[\"26\"]",
+            'group_ids' => "[\"".User::USER_GROUP_ID."\"]",
         ]);
 
         echo "User #{$user->id} : {$user->email} created";
@@ -116,7 +117,8 @@ class UserRegistrationTest extends TestCase
         // Note: In above I couldn't capture session('resent') which conditionally renders a
         //  Different message in the HTML.
 
-        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
+        \Notification::assertSentTo([$user],
+            'App\Projects\\'.env('PROJECT').'\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)

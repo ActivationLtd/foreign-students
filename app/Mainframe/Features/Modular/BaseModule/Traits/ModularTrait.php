@@ -850,14 +850,178 @@ trait ModularTrait
     }
 
     /**
-     * Edit link
+     * Index page url
      *
+     * @param  array  $params  Pass additional url params
      * @return string
      */
-    public function editUrl()
+    public function indexUrl($params = [])
+    {
+        return route($this->module()->route_name.'.index', $params);
+    }
+
+    /**
+     * Create page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function createUrl($params = [])
+    {
+        return route($this->module()->route_name.'.create', $params);
+    }
+
+    /**
+     * Store request url. Note: This URL is used for form POST
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function storeUrl($params = [])
+    {
+        return route($this->module()->route_name.'.store', $params);
+    }
+
+    /**
+     * Show details page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function showUrl($params = [])
     {
         if ($this->isCreated()) {
-            return route($this->module()->route_name.'.edit', $this->id);
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.show', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Edit page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function editUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.edit', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * update request url. Note: This URL is used for form POST
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function updateUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.update', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Delete/Destroy request url. Note: This URL is used for form POST
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function destroyUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.destroy', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Datatable JSON url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function datatableJsonUrl($params = [])
+    {
+        return route($this->module()->route_name.'.datatable-json', $params);
+    }
+
+    /**
+     * List JSON url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function listJsonUrl($params = [])
+    {
+        return route($this->module()->route_name.'.list-json', $params);
+    }
+
+    /**
+     * Report page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function reportUrl($params = [])
+    {
+        return route($this->module()->route_name.'.report', $params);
+    }
+
+    /**
+     * Uploads page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function uploadsUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['id' => $this], $params);
+            return route($this->module()->route_name.'.uploads', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Index page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function changesUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['id' => $this], $params);
+            return route($this->module()->route_name.'.changes', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Index page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function cloneUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['id' => $this], $params);
+            return route($this->module()->route_name.'.clone', $params);
         }
 
         return null;
@@ -867,11 +1031,12 @@ trait ModularTrait
      * HTML link
      *
      * @param  string  $field
+     * @param  array  $params
      * @return string
      */
-    public function editLink($field = 'id')
+    public function editLink($field = 'id', $params = [])
     {
-        return "<a href='".$this->editUrl()."'>{$this->$field}</a>";
+        return "<a href='".$this->editUrl($params)."'>{$this->$field}</a>";
     }
 
 
@@ -881,14 +1046,14 @@ trait ModularTrait
     | Ability to create, edit, delete or restore
     |--------------------------------------------------------------------------
     |
-    | An element can be editable or non-editable based on it's internal status
+    | An element can be editable or non-editable based on its internal status
     | This is not related to any user, rather it is a model's individual sate
     | For example - A confirmed quotation should not be editable regardless
     | Of who is attempting to edit it.
     |
     */
     /**
-     * Check if the model can be viewed based on it's values.
+     * Check if the model can be viewed based on its values.
      *
      * @return bool
      */
@@ -898,7 +1063,7 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be created based on it's values.
+     * Check if the model can be created based on its values.
      *
      * @return bool
      */
@@ -908,7 +1073,7 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be edited based on it's values.
+     * Check if the model can be edited based on its values.
      *
      * @return bool
      */
@@ -918,7 +1083,7 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be deleted based on it's values.
+     * Check if the model can be deleted based on its values.
      *
      * @return bool
      */
@@ -928,13 +1093,23 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be created based on it's values.
+     * Check if the model can be restored based on its values.
      *
      * @return bool
      */
     public function isRestorable()
     {
         return true;
+    }
+
+    /**
+     * Check if the model can be clones based on its values.
+     *
+     * @return bool
+     */
+    public function isCloneable()
+    {
+        return false;
     }
 
     /*
@@ -1069,41 +1244,85 @@ trait ModularTrait
 
     }
 
+    // /**
+    //  * Set name_ext values
+    //  *
+    //  * @return $this
+    //  */
+    // public function setNameExt()
+    // {
+    //     if (!$this->hasColumn('name_ext')) {
+    //         return $this;
+    //     }
+    //
+    //     if ($this->hasColumn('name') && $this->hasColumn('name_ext')) {
+    //         $this->name_ext = $this->name;
+    //     }
+    //
+    //     if ($this->hasTenantContext() && $this->tenant) {
+    //         $this->name_ext .= ' ('.$this->tenant->name.')';
+    //     }
+    //
+    //     return $this;
+    // }
+    //
+    // /**
+    //  * Set a slug
+    //  *
+    //  * @return $this
+    //  */
+    // public function setSlug()
+    // {
+    //
+    //     if ($this->hasColumn('name') && $this->hasColumn('slug')) {
+    //         $this->slug = \Str::slug($this->name);
+    //     }
+    //
+    //     return $this;
+    // }
+
     /**
-     * Set name_ext values
+     * Find by name
      *
-     * @return $this
+     * @param $name
+     * @return mixed|Module
      */
-    public function setNameExt()
+    public static function byName($name)
     {
-        if (!$this->hasColumn('name_ext')) {
-            return $this;
-        }
-
-        if ($this->hasColumn('name') && $this->hasColumn('name_ext')) {
-            $this->name_ext = $this->name;
-        }
-
-        if ($this->hasTenantContext() && $this->tenant) {
-            $this->name_ext .= ' ('.$this->tenant->name.')';
-        }
-
-        return $this;
+        return self::where('name', $name)->first();
     }
 
     /**
-     * Set a slug
+     * Find by uuid
      *
-     * @return $this
+     * @param $uuid
+     * @return mixed|Module
      */
-    public function setSlug()
+    public static function byUuid($uuid)
     {
+        return self::where('uuid', $uuid)->first();
+    }
 
-        if ($this->hasColumn('name') && $this->hasColumn('slug')) {
-            $this->slug = \Str::slug($this->name);
-        }
+    /**
+     * Find by slug
+     *
+     * @param $slug
+     * @return mixed|Module
+     */
+    public static function bySlug($slug)
+    {
+        return self::where('slug', $slug)->first();
+    }
 
-        return $this;
+    /**
+     * Find by code
+     *
+     * @param $code
+     * @return mixed|Module
+     */
+    public static function byCode($code)
+    {
+        return self::where('code', $code)->first();
     }
 
 }

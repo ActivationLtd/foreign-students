@@ -184,3 +184,12 @@ function showAlert(msg, timeout = null) {
         }, timeout);
     }
 }
+
+/**
+ * Auto close message modal after 5 seconds
+ */
+function autoCloseMsgModal() {
+    setTimeout(() => {
+        $('#msgModal').modal('hide');
+    }, 4000);
+}

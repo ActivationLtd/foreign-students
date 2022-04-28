@@ -37,8 +37,13 @@ class CleanDeletedUploads extends MakeModule
             foreach ($uploads as $upload) {
                 $path = public_path($upload->path);
                 if (File::exists($path)) {
+                    // Note: Delete from /public/...
                     $this->info("Exists [{$upload->id}]".$path);
                     File::delete($path);
+                } elseif (\Storage::exists($upload->path)) {
+                    // Note: Delete from /storage/app/file/...
+                    $this->info("Exists [{$upload->id}]".$path);
+                    \Storage::delete($upload->path);
                 } else {
                     $this->info("Does not exist [{$upload->id}]".$path);
                 }

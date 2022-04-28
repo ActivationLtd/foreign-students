@@ -81,11 +81,12 @@ class ModelProcessor
      */
     public function __construct($element)
     {
-        $this->user = user();
-        if ($element->isUpdating()) {
-            $this->oldElement = (clone $element)->refresh();
-        }
         $this->element = $element;
+        $this->user = user();
+        // if ($element->isUpdating()) {
+        //     $this->oldElement = $this->oldElement ?: (clone $element)->refresh();
+        // }
+
         $this->original = $element->getOriginal();
         $this->module = $element->module();
     }
@@ -799,6 +800,7 @@ class ModelProcessor
      */
     public function preUpdating()
     {
+        $this->oldElement = $this->oldElement ?: (clone $this->element)->refresh();
         $this->validateImmutables();
         $this->validateTransitions();
 
@@ -860,13 +862,13 @@ class ModelProcessor
 
         }
 
-        $this->element->saveQuietly(); // Set deleted by field
-
         if (!$this->element->delete()) {
-            $this->error('Error: Can not be deleted for some reason.');
+            $this->error('Error: This action is restricted. You can not delete');
 
             return $this;
         }
+        
+        $this->element->saveQuietly(); // Set deleted by field
 
         $this->deleted($this->element);
 
@@ -1088,4 +1090,5 @@ class ModelProcessor
         return $this;
 
     }
+
 }

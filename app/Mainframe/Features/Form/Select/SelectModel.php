@@ -41,7 +41,7 @@ class SelectModel extends SelectArray
         $this->model = $this->var['model'] ?? null; // Must have table
         $this->setModel();
 
-        $this->query = $this->var['query'] ?? $this->getQuery(); // DB::table($this->table);
+        $this->query = $this->getQuery(); // DB::table($this->table);
         $this->showInactive = $this->var['show_inactive'] ?? false;
         $this->cache = $this->var['cache'] ?? $this->cache;
         $this->dataAttributes = $this->var['data_attributes'] ?? [];
@@ -74,7 +74,7 @@ class SelectModel extends SelectArray
      */
     public function getQuery()
     {
-        return $this->model;
+        return $this->var['query'] ?? $this->model;
     }
 
     /**

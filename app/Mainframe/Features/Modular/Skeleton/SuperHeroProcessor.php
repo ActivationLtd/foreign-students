@@ -103,20 +103,21 @@ class SuperHeroProcessor extends ModelProcessor
 
     /*
     |--------------------------------------------------------------------------
-    | Functions for deriving immutables & allowed transitions
+    | Section: Functions for deriving immutables & allowed transitions
     |--------------------------------------------------------------------------
     */
+    //
 
     /*
     |--------------------------------------------------------------------------
-    | Other helper functions
+    | Section: Other helper functions
     |--------------------------------------------------------------------------
     */
     // Todo: Other helper functions
 
     /*
     |--------------------------------------------------------------------------
-    | Validation helper functions
+    | Section: Validation helper functions
     |--------------------------------------------------------------------------
     */
 

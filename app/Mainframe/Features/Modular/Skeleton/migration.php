@@ -73,6 +73,7 @@ class CreateSuperHeroesTable extends Migration
         $module->controller = '{controller}';
         $module->view_directory = '{view_directory}';
         $module->icon_css = 'fa fa-ellipsis-v';
+        $module->color_css = 'white';
         $module->is_visible = 1;
         $module->is_active = 1;
         $module->created_by = 1;

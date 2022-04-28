@@ -218,6 +218,27 @@ class BaseModulePolicy
     }
 
     /**
+     * Clone
+     * Determine whether the user can clone the item.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Mainframe\Features\Modular\BaseModule\BaseModule|mixed  $element
+     * @return mixed
+     */
+    public function clone($user, $element)
+    {
+        if (!$user->can('create', $element)) {
+            return false;
+        }
+
+        if (!$element->isCloneable()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * force-delete
      * Determine whether the user can permanently delete the item.
      *

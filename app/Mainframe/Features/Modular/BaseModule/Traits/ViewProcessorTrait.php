@@ -130,6 +130,23 @@ trait ViewProcessorTrait
         return $this;
     }
 
+    public function editable()
+    {
+        if ($this->editable === false) {
+            return false;
+        }
+
+        if ($this->isCreating()) {
+            return true;
+        }
+
+        if ($this->isEditing()) {
+            return $this->user->can('update', $this->element);
+        }
+
+        return $this->editable;
+    }
+
     /*---------------------------------
     |  Immutables
     |---------------------------------*/
@@ -322,7 +339,7 @@ trait ViewProcessorTrait
                 'name' => $this->module->name,
                 'files' => true,
             ],
-            'editable' => true,
+            'editable' => $this->editable(),
             'immutables' => $this->immutables(),
             'hiddenFields' => $this->hiddenFields(),
         ]);
@@ -348,7 +365,7 @@ trait ViewProcessorTrait
                 'method' => 'patch',
                 'id' => $this->module->name.'Form',
             ],
-            'editable' => $this->user->can('update', $this->element),
+            'editable' => $this->editable(),
             'immutables' => $this->immutables(),
             'hiddenFields' => $this->hiddenFields(),
         ]);
@@ -498,6 +515,7 @@ trait ViewProcessorTrait
      */
     public function showCloneBtn()
     {
+
         $cloneable = [
             'settings',
         ];

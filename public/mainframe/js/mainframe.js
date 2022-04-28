@@ -4,9 +4,7 @@
  * @type json
  */
 var editor_config_basic = {
-    toolbarGroups: [
-        {"name": "basicstyles", "groups": ["basicstyles"]}
-    ],
+    toolbarGroups: [{"name": "basicstyles", "groups": ["basicstyles"]}],
     removeButtons: 'CreateDiv,Styles,Format,Font',
     enterMode: CKEDITOR.ENTER_BR,
     shiftEnterMode: CKEDITOR.ENTER_P,
@@ -16,18 +14,15 @@ var editor_config_basic = {
 var editor_config_extended = {
     // readOnly: true, // make editor readonly
     // Define the toolbar groups as it is a more accessible solution.
-    toolbarGroups: [
-        {"name": "basicstyles", "groups": ["basicstyles"]},
-        {"name": "links", "groups": ["links"]},
-        {"name": "paragraph", "groups": ["list", "blocks"]},
-        {"name": "document", "groups": ["mode"]},
-        {"name": "insert", "groups": ["insert"]},
-        {"name": "styles", "groups": ["styles"]},
-        //{"name": "about", "groups": ["about"]}
-    ],
-    // Remove the redundant buttons from toolbar groups defined above.
-    removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar',
-    // width
+    toolbarGroups: [{"name": "basicstyles", "groups": ["basicstyles"]}, {
+        "name": "links",
+        "groups": ["links"]
+    }, {"name": "paragraph", "groups": ["list", "blocks"]}, {"name": "document", "groups": ["mode"]}, {
+        "name": "insert",
+        "groups": ["insert"]
+    }, {"name": "styles", "groups": ["styles"]}, //{"name": "about", "groups": ["about"]}
+    ], // Remove the redundant buttons from toolbar groups defined above.
+    removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar', // width
     //width: 730,
     // extra plugins
     //extraPlugins: 'autogrow',
@@ -40,18 +35,16 @@ var editor_config_extended = {
 var editor_config_minimal = {
     // readOnly: true, // make editor readonly
     // Define the toolbar groups as it is a more accessible solution.
-    toolbarGroups: [
-        {"name": "basicstyles", "groups": ["basicstyles"]},
-        {"name": "links", "groups": ["links"]},
-        {"name": "paragraph", "groups": ["list", "blocks"]},
-        //{"name": "document", "groups": ["mode"]},
-        {"name": "insert", "groups": ["insert"]},
-        {"name": "styles", "groups": ["styles"]},
-        //{"name": "about", "groups": ["about"]}
-    ],
-    // Remove the redundant buttons from toolbar groups defined above.
-    removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar,Image,Flash,Smiley,HorizontalRule,SpecialChar,Format,Font,Iframe,PageBreak',
-    // width
+    toolbarGroups: [{"name": "basicstyles", "groups": ["basicstyles"]}, {
+        "name": "links",
+        "groups": ["links"]
+    }, {"name": "paragraph", "groups": ["list", "blocks"]}, //{"name": "document", "groups": ["mode"]},
+        {"name": "insert", "groups": ["insert"]}, {
+            "name": "styles",
+            "groups": ["styles"]
+        }, //{"name": "about", "groups": ["about"]}
+    ], // Remove the redundant buttons from toolbar groups defined above.
+    removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar,Image,Flash,Smiley,HorizontalRule,SpecialChar,Format,Font,Iframe,PageBreak', // width
     //width: 730,
     // extra plugins
     //extraPlugins: 'autogrow',
@@ -103,12 +96,19 @@ jQuery.fn.outerHTML = function (s) {
 /**
  * Get selected values as array from a multi-select select
  * @param selector
+ * @param attr
  * @returns {Array}
  */
-function getMultiSelectAsArray(selector) {
+function getMultiSelectAsArray(selector, attr = null) {
     var arr = [];
     $(selector + ' :selected').each(function (i, selected) {
-        arr[i] = $(selected).val();
+        if (attr) {
+            val = $(selected).attr(attr);
+        } else {
+            val = $(selected).val();
+        }
+
+        arr[i] = val;
     });
     return arr;
 }
@@ -246,14 +246,12 @@ function initUploader(id, url) {
     $("#" + id + " .file-uploader").uploadFile({
         dragDropStr: "<span style='margin-left: 5px'> -OR- Drop files here</span>",
         url: url,
-        method: "POST",
-        //allowedTypes: "",
+        method: "POST", //allowedTypes: "",
         fileName: "file",
         showStatusAfterSuccess: true,
         autoSubmit: true,
         dragDrop: true,
-        dragdropWidth: '100%',
-        //maxFileSize: 8,
+        dragdropWidth: '100%', //maxFileSize: 8,
         //maxFileCount: 1,
         //acceptFiles: "audio/*",
         multiple: true,
@@ -262,8 +260,7 @@ function initUploader(id, url) {
         returnType: 'json',
         showPreview: true,
         showDone: true,
-        doneStr: 'Done',
-        // dynamicFormData: function () {                   // old implementation
+        doneStr: 'Done', // dynamicFormData: function () {                   // old implementation
         //     return {
         //         "ret": "json",
         //         "_token": $("#" + id + " input[name=_token]").val(),
@@ -277,8 +274,7 @@ function initUploader(id, url) {
         dynamicFormData: function () {                      // New implementation using serialization
             // return $('#' + id + ' form').serialize();
             return $('div#' + id).find("select, textarea, input").serialize();
-        },
-        //onSuccess: function (files, ret, xhr){};
+        }, //onSuccess: function (files, ret, xhr){};
         onSuccess: function (files, ret) {
             showResponseModal(parseJson(ret), 3000);
 
@@ -287,8 +283,7 @@ function initUploader(id, url) {
                 $('div.ajax-file-upload-green').hide();
             }
             // var path = ret.message.path;
-        },
-        //onError: function (files, status, errMsg) {};
+        }, //onError: function (files, status, errMsg) {};
         onError: function () {
             $("#status").html("<span style='color: green;'>Something Wrong</span>");
         }
@@ -331,9 +326,7 @@ if (!$.fn.bootstrapDatepicker && $.fn.datepicker && $.fn.datepicker.noConflict) 
  */
 function initBootstrapDatepicker(selector, format = 'dd-mm-yyyy') {
     return $(selector + '_formatted').bootstrapDatepicker({
-        format: format,
-        autoclose: true,
-        clearBtn: true,
+        format: format, autoclose: true, clearBtn: true,
     }).on('clearDate', function (ev) {
         $(selector).val(null);
     }).on('changeDate', function (ev) {
@@ -372,11 +365,8 @@ function initBootstrapDatepicker(selector, format = 'dd-mm-yyyy') {
  */
 function initJQueryDatePicker(selector, format = 'dd-mm-yy') {
     return $(selector + '_formatted').datepicker({
-        dateFormat: format,
-        altFormat: "yy-mm-dd", // Standard datetime format
-        altField: selector,
-        changeMonth: true,
-        changeYear: true
+        dateFormat: format, altFormat: "yy-mm-dd", // Standard datetime format
+        altField: selector, changeMonth: true, changeYear: true
     });
 }
 
