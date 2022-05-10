@@ -66,7 +66,7 @@ if (user()->isAdmin()) {
         ];
         if (user()->isApplicant()) {
             $var['query'] = DB::table('application_sessions')
-                ->where('status', \App\ApplicationSession::SESSION_STATUS_OPEN);
+                ->where('status', \App\ApplicationSession::SESSION_STATUS_OPEN)->latest();
         } else {
             $var['query'] = DB::table('application_sessions')
                 ->whereIn('status', [\App\ApplicationSession::SESSION_STATUS_OPEN, \App\ApplicationSession::SESSION_STATUS_CLOSED]);
