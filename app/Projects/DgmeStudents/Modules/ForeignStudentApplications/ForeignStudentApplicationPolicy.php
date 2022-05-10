@@ -5,6 +5,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModulePolicy;
 use App\ForeignStudentApplication;
 use App\Projects\DgmeStudents\Helpers\Time;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 
 class ForeignStudentApplicationPolicy extends BaseModulePolicy
 {
@@ -42,7 +43,10 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
         if (!parent::create($user, $element)) {
             return false;
         }
-
+        //checking if session is open
+        if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
+            return false;
+        }
         if ($user->isApplicant()) {
             $govermentMbbsOngoingApplication = $user->applications()->where('course_id', 1)->where('application_category', 'Government')
                 ->whereNotIn('status', ['Declined'])->count();
@@ -65,6 +69,14 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
     public function update($user, $element)
     {
         if (!parent::update($user, $element)) {
+            return false;
+        }
+        //checking if session is open
+        if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
+            return false;
+        }
+        //if application session id and open session id does not match
+        if ($user->isApplicant() && ApplicationSession::latestOpenSession()->application_session_id != $element->application_session_id) {
             return false;
         }
         if ($user->isApplicant() && $user->id != $element->user_id) {
