@@ -38,7 +38,6 @@ use App\Mainframe\Modules\Projects\Traits\ProjectTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Project newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Project newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Project query()
@@ -76,7 +75,7 @@ class Project extends BaseModule
     |
     */
     protected $moduleName = 'projects';
-    protected $table      = 'projects';
+    protected $table = 'projects';
     /*
     |--------------------------------------------------------------------------
     | Fillable attributes

@@ -56,7 +56,7 @@ class RefreshModules extends MakeModule
         $this->info('Loading modules from config to database...');
         $this->info('------------------------------------------');
 
-        $config = 'projects.'.projectKey().'.modules.modules';
+        $config = 'projects.'.projectKey().'.modules';
 
         $items = config($config);
 

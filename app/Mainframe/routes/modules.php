@@ -16,8 +16,8 @@ Route::middleware(['auth', 'verified', 'tenant'])->group(function () use ($modul
     foreach ($modules as $module) {
         $path = $module->route_path;
         $controller = $module->controller;
-        $moduleName = $module->name;
-        $routeName = $module->route_name; // Note: route name should be same as module name
+        // $routeName = $module->route_name;
+        $routeName = $module->name; // Note: route name should be same as module name
 
         Route::get($path.'/{id}/restore', $controller.'@restore')->name($routeName.'.restore');
         Route::get($path.'/datatable/json', $controller.'@datatableJson')->name($routeName.'.datatable-json');

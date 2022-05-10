@@ -36,7 +36,6 @@ use App\Mainframe\Modules\Packages\Traits\PackageTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Package newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Package newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Package query()
@@ -64,6 +63,7 @@ use App\Mainframe\Modules\Packages\Traits\PackageTrait;
 class Package extends BaseModule
 {
     use PackageTrait;
+
     /*
     |--------------------------------------------------------------------------
     | Module definitions
@@ -71,7 +71,7 @@ class Package extends BaseModule
     |
     */
     protected $moduleName = 'packages';
-    protected $table      = 'packages';
+    protected $table = 'packages';
     /*
     |--------------------------------------------------------------------------
     | Fillable attributes

@@ -43,7 +43,6 @@ use App\Mainframe\Modules\Changes\Traits\ChangeTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Change newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Change newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Change query()
@@ -79,7 +78,7 @@ class Change extends BaseModule
     use ChangeTrait;
 
     protected $moduleName = 'changes';
-    protected $table      = 'changes';
+    protected $table = 'changes';
 
     /*
     |--------------------------------------------------------------------------
