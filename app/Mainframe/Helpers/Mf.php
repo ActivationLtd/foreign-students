@@ -102,7 +102,7 @@ class Mf
     }
 
     /**
-     * Get project directory app/Projects/MyProject
+     * Get project directory app/Projects/DefaultProject
      *
      * @return array|\Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed|string|string[]
      */
@@ -312,7 +312,8 @@ class Mf
     {
 
         $url = trim($url, "&?=");
-        $base = preg_replace('/\?.*/', '', $url); //https://stackoverflow.com/questions/4270677/removing-query-string-in-php-sometimes-based-on-referrer
+        $base = preg_replace('/\?.*/', '',
+            $url); //https://stackoverflow.com/questions/4270677/removing-query-string-in-php-sometimes-based-on-referrer
 
         $oldQueryStr = parse_url($url, PHP_URL_QUERY); //
 

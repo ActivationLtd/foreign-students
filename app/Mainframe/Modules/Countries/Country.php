@@ -82,6 +82,10 @@ use App\Mainframe\Modules\Countries\Traits\CountryTrait;
  * @property int|null $tenant_id
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereTenantId($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereSlug($value)
  */
 class Country extends BaseModule
 {

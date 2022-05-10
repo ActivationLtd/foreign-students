@@ -14,8 +14,7 @@ trait DatatableTrait
      */
     public function source()
     {
-        return \DB::table($this->table)
-            ->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by');
+        return \DB::table($this->table)->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by');
     }
 
     /**
@@ -26,10 +25,8 @@ trait DatatableTrait
     public function columns()
     {
         return [
-            [$this->table.'.id', 'id', 'ID'],
-            [$this->table.'.name', 'name', 'Name'],
-            ['updater.name', 'user_name', 'Updater'],
-            [$this->table.'.updated_at', 'updated_at', 'Updated at'],
+            [$this->table.'.id', 'id', 'ID'], [$this->table.'.name', 'name', 'Name'],
+            ['updater.name', 'user_name', 'Updater'], [$this->table.'.updated_at', 'updated_at', 'Updated at'],
             [$this->table.'.is_active', 'is_active', 'Active'],
         ];
     }
@@ -98,12 +95,115 @@ trait DatatableTrait
      */
     public function modify($dt)
     {
+        // Handle binary columns
+
         // if ($this->hasColumn('name')) {
         //     // $dt = $dt->editColumn('name', '<a href="{{ route(\''.$this->module->name.'.edit\', $id) }}">{{$name}}</a>');
         //     $dt = $dt->editColumn('name', function ($row) {
         //         return '<a href="'.route($this->module->name.'.edit', $row->id).'">'.$row->name.'</a>';
         //     });
         // }
+
+        return $dt;
+    }
+
+    /**
+     * Modify date fields
+     *
+     * @return mixed
+     * @var $dt \Yajra\DataTables\DataTableAbstract
+     */
+    public function transformValues($dt)
+    {
+        $transforms = \Arr::wrap($this->transforms());
+
+        foreach ($transforms as $field => $value) {
+            if ($this->hasColumn($field)) {
+                $dt->editColumn($field, function ($row) use ($field, $value) {
+                    return $value[(string) $row->$field] ?? $row->$field;
+                });
+            }
+        }
+
+        return $dt;
+    }
+
+    /**
+     * Modify date fields
+     *
+     * @return mixed
+     * @var $dt \Yajra\DataTables\DataTableAbstract
+     */
+    public function transformBooleans($dt)
+    {
+        $booleans = \Arr::wrap($this->booleans());
+
+        foreach ($booleans as $field) {
+            if ($this->hasColumn($field)) {
+                $dt->editColumn($field, function ($row) use ($field) {
+
+                    if ($row->$field == 1) {
+                        return 'Yes';
+                    }
+                    if ($row->$field == 0) {
+                        return '<span class="text-red">No</span>';
+                    }
+                    return $row->$field;
+                });
+            }
+        }
+
+        return $dt;
+    }
+
+    /**
+     * Modify date fields
+     *
+     * @return mixed
+     * @var $dt \Yajra\DataTables\DataTableAbstract
+     */
+    public function transformDatetimes($dt)
+    {
+        $datetimes = \Arr::wrap($this->datetimes());
+
+        foreach ($datetimes as $field) {
+            if ($this->hasColumn($field)) {
+                $dt->editColumn($field, function ($row) use ($field) {
+
+                    if ($row->$field) {
+                        return formatDateTime($row->$field);
+                    }
+
+                    return $row->$field;
+                });
+            }
+        }
+
+        return $dt;
+    }
+
+    /**
+     * Modify boolean fields
+     *
+     * @return mixed
+     * @var $dt \Yajra\DataTables\DataTableAbstract
+     */
+    public function transformDates($dt)
+    {
+        $dates = \Arr::wrap($this->dates());
+
+        foreach ($dates as $field) {
+            if ($this->hasColumn($field)) {
+                $dt->editColumn($field, function ($row) use ($field) {
+
+                    if ($row->$field) {
+                        return formatDate($row->$field);
+                    }
+
+                    return $row->$field;
+                });
+            }
+        }
 
         return $dt;
     }
@@ -123,6 +223,11 @@ trait DatatableTrait
         }
 
         $dt->rawColumns(array_merge($this->rawColumns, $this->columnKeys()));
+
+        $dt = $this->transformBooleans($dt);
+        $dt = $this->transformDateTimes($dt);
+        $dt = $this->transformDates($dt);
+        $dt = $this->transformValues($dt);
 
         return $dt;
     }
@@ -148,7 +253,15 @@ trait DatatableTrait
      */
     public function datatable()
     {
-        $this->dt = datatables($this->query());
+
+        $query = $this->query();
+
+        // Set a default limit if not in set in request
+        if (!request('length')) {
+            $query->limit(10);
+        }
+
+        $this->dt = datatables($query);
 
         return $this;
     }

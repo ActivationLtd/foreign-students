@@ -4,6 +4,9 @@ namespace App\Mainframe\Modules\Uploads\Traits;
 
 use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Upload;
+use File;
+use Storage;
+use Str;
 
 /** @mixin Upload */
 trait UploadTrait
@@ -12,8 +15,8 @@ trait UploadTrait
     /**
      * get all uploads under a module
      *
-     * @param array $entry_uuid
-     * @param string $filter
+     * @param  array  $entry_uuid
+     * @param  string  $filter
      * @return mixed
      */
     public static function getList($entry_uuid, $filter = '')
@@ -46,7 +49,7 @@ trait UploadTrait
      */
     public function absPath()
     {
-        return public_path() . $this->path;
+        return public_path().$this->path;
     }
 
     /**
@@ -54,15 +57,13 @@ trait UploadTrait
      *
      * @return string
      */
-    public function thumbSrc()
+    public function thumbnail()
     {
         if ($this->isImage()) {
-            $src = route('download', $this->uuid);
-        } else {
-            $src = $this->extIconPath();
+            return $this->url;
         }
+        return $this->extIconPath();
 
-        return $src;
     }
 
     /**
@@ -79,6 +80,11 @@ trait UploadTrait
         return false;
     }
 
+    public function isPublic()
+    {
+        return Str::startsWith(trim($this->path, '/'), 'public');
+    }
+
     /**
      * 'file_type_icons' contains number of file type icons.
      *
@@ -87,7 +93,7 @@ trait UploadTrait
     public function extIconPath()
     {
         $ext = strtolower($this->ext); // get full lower case extension
-        $icon_path = 'mainframe/images/file_type_icons/' . $ext . '.png';
+        $icon_path = 'mainframe/images/file_type_icons/'.$ext.'.png';
 
         if (!\File::exists($icon_path)) {
             $icon_path = 'mainframe/images/file_type_icons/noimage.png';
@@ -99,16 +105,12 @@ trait UploadTrait
     /**
      * Generate masked and plain url of the uploaded file.
      *
-     * @param bool $auth set false to generate plain url.
+     * @param  bool  $auth  set false to generate plain url.
      * @return string
      */
-    public function downloadUrl($auth = true)
+    public function downloadUrl()
     {
-        if ($auth) {
-            return route('download', $this->uuid);
-        }
-
-        return asset($this->path);
+        return route('download', $this->uuid);
     }
 
     /**
@@ -130,7 +132,7 @@ trait UploadTrait
 
     public function fileNameWithoutExt()
     {
-        return basename($this->path, '.' . $this->ext);
+        return basename($this->path, '.'.$this->ext);
     }
 
     public function directory()
@@ -148,12 +150,12 @@ trait UploadTrait
     /**
      * Rename with full name and extension
      *
-     * @param string $newNameWithExt some-file.mp3
+     * @param  string  $newNameWithExt  some-file.mp3
      * @return bool
      */
     public function rename($newNameWithExt)
     {
-        $newPath = $this->directory() . \Str::start($newNameWithExt, '/');
+        $newPath = $this->directory().\Str::start($newNameWithExt, '/');
         \File::move(trim($this->path, '/\\'), trim($newPath, '/\\'));
 
         return $this->update(['path' => $newPath]);
@@ -162,12 +164,12 @@ trait UploadTrait
     /**
      * Rename only name part
      *
-     * @param string $newName some-file-name-without-ext
+     * @param  string  $newName  some-file-name-without-ext
      * @return bool
      */
     public function renameName($newName)
     {
-        $newNameWithExt = $newName . \Str::start($this->ext, '.'); // Add extension
+        $newNameWithExt = $newName.\Str::start($this->ext, '.'); // Add extension
 
         return $this->rename($newNameWithExt);
 
@@ -186,7 +188,7 @@ trait UploadTrait
         $path_parts = pathinfo($to);
         $toDirectory = $path_parts['dirname'];
 
-        \File::makeDirectory(public_path() . '/' . $toDirectory, 0777, true, true);
+        \File::makeDirectory(public_path().'/'.$toDirectory, 0777, true, true);
 
         return \File::copy(trim($this->path, '/\\'), $to);
     }
@@ -215,14 +217,41 @@ trait UploadTrait
     | Section: Attributes
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * Creates a URL to a file
+     *
+     * @return string
+     */
     public function getUrlAttribute()
     {
-        return asset($this->path);
+        // First check if file exists in storage/app/files
+        if (Storage::exists($this->path)) {
+
+            // 1- Check if storage is public. If public share the public URL
+            if ($this->isPublic()) {
+                return url(Storage::url($this->path));
+            }
+
+            // No! no direct access
+            if ($this->isImage()) {
+                return route('show.image', $this->id);
+            }
+
+            return $this->downloadUrl();
+        }
+
+        // Check if file exists in public/files
+        if (File::exists(public_path($this->path))) {
+            return asset($this->path);
+        }
+
+        return asset('mainframe/images/noimage.png');
     }
 
     public function getDirAttribute()
     {
-        return public_path() . $this->path;
+        return public_path().$this->path;
     }
 
     /*

@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Mainframe\Superadmin;
 
-use App\Module;
 use App\Mainframe\Features\Responder\Response;
+use App\Mainframe\Helpers\Test\SuperadminTestCase;
+use App\Module;
 use App\Setting;
 
 class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
@@ -37,7 +38,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
     public function test_user_can_not_store_invalid_element()
     {
         $name = $this->faker->slug;
-        $response = $this->post("/{$this->module->name}?ret=json",
+        $response = $this->post("/{$this->module->route_path}?ret=json",
             [
                 'name' => $name,
             ]);
@@ -60,7 +61,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
     public function test_user_can_store_valid_element()
     {
         $name = $this->faker->slug;
-        $this->post("/{$this->module->name}?ret=json",
+        $this->post("/{$this->module->route_path}?ret=json",
             [
                 'name' => $name,
                 'title' => strtoupper($name),
@@ -86,7 +87,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
     {
         $latest = $this->latest(Setting::class);
 
-        $this->post("/{$this->module->name}?ret=json",
+        $this->post("/{$this->module->route_path}?ret=json",
             [
                 'name' => $latest->name,
                 'title' => strtoupper($latest->name),
@@ -116,7 +117,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
     {
         $latest = $this->latest(Setting::class);
 
-        $this->get("/{$this->module->name}/list/json")
+        $this->get("/{$this->module->route_path}/list/json")
             ->assertStatus(200)
             ->assertSee($latest->name);
     }
@@ -128,7 +129,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
     {
         $latest = $this->latest(Setting::class);
 
-        $this->get("/{$this->module->name}/{$latest->id}?ret=json")
+        $this->get("/{$this->module->route_path}/{$latest->id}?ret=json")
             ->assertStatus(200)
             ->assertSee($latest->name);
     }
@@ -142,7 +143,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
         $newValue = $this->faker->sentence;
 
         $this->followingRedirects()
-            ->patch("/{$this->module->name}/{$latest->id}?ret=json",
+            ->patch("/{$this->module->route_path}/{$latest->id}?ret=json",
                 [
                     'value' => $newValue,
                 ])
@@ -171,7 +172,7 @@ class SettingsModuleRestFeatureJsonTest extends SuperadminTestCase
 
         // delete with redirect=success to index route.
         $this->followingRedirects()
-            ->delete("/{$this->module->name}/{$latest->id}?ret=json&redirect_success=".route($this->module->name.'.index'))
+            ->delete("/{$this->module->route_path}/{$latest->id}?ret=json&redirect_success=" . route($this->module->name . '.index'))
             ->assertJson([
                 'code' => 200,
                 'status' => 'success',

@@ -53,7 +53,6 @@ use App\Mainframe\Features\Modular\BaseModule\BaseModule;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Module newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Module newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Module query()
@@ -90,13 +89,17 @@ use App\Mainframe\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereViewDirectory($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Module whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Module whereSlug($value)
  */
 class Module extends BaseModule
 {
     use ModuleTrait;
 
     protected $moduleName = 'modules';
-    protected $table      = 'modules';
+    protected $table = 'modules';
 
     /*
     |--------------------------------------------------------------------------
@@ -157,13 +160,13 @@ class Module extends BaseModule
 
         static::saving(function (Module $element) {
             // Fill default values
-            $element->parent_id = (! $element->parent_id) ? 0 : $element->parent_id;
-            $element->module_group_id = (! $element->module_group_id) ? 0 : $element->module_group_id;
-            $element->level = (! $element->level) ? 0 : $element->level;
-            $element->order = (! $element->order) ? 0 : $element->order;
-            $element->default_route = (! $element->default_route) ? $element->name.'.index' : $element->default_route;
-            $element->color_css = (! $element->color_css) ? 'aqua' : $element->color_css;
-            $element->icon_css = (! $element->icon_css) ? 'fa fa-plus' : $element->icon_css;
+            $element->parent_id = (!$element->parent_id) ? 0 : $element->parent_id;
+            $element->module_group_id = (!$element->module_group_id) ? 0 : $element->module_group_id;
+            $element->level = (!$element->level) ? 0 : $element->level;
+            $element->order = (!$element->order) ? 0 : $element->order;
+            $element->default_route = (!$element->default_route) ? $element->name.'.index' : $element->default_route;
+            $element->color_css = (!$element->color_css) ? 'aqua' : $element->color_css;
+            $element->icon_css = (!$element->icon_css) ? 'fa fa-plus' : $element->icon_css;
         });
     }
 

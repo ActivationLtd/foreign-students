@@ -42,7 +42,6 @@ use App\Mainframe\Modules\Reports\Traits\ReportTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Report newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Report newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Report query()
@@ -70,6 +69,10 @@ use App\Mainframe\Modules\Reports\Traits\ReportTrait;
  * @mixin \Eloquent
  * @property int|null $is_tenant_editable Some settings are not allowed to be edited by tenant
  * @method static \Illuminate\Database\Eloquent\Builder|Report whereIsTenantEditable($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Report whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Report whereSlug($value)
  */
 class Report extends BaseModule
 {
@@ -82,7 +85,7 @@ class Report extends BaseModule
     |
     */
     protected $moduleName = 'reports';
-    protected $table      = 'reports';
+    protected $table = 'reports';
     /*
     |--------------------------------------------------------------------------
     | Fillable attributes

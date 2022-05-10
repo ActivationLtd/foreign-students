@@ -1,4 +1,5 @@
 <?php
+use App\Mainframe\Features\Form\Form as MfForm;use App\Mainframe\Features\Form\Select\SelectModel;
 /*
 |--------------------------------------------------------------------------
 | Vars
@@ -26,10 +27,10 @@
  * @var array $immutables
  */
 
-use App\Mainframe\Features\Form\Form as MfForm;
-use App\Mainframe\Features\Form\Select\SelectModel;
 
-$var = MfForm::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
+
+$var = MfForm::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null,
+    $hiddenFields ?? null);
 $input = new SelectModel($var);
 ?>
 
@@ -51,12 +52,31 @@ $input = new SelectModel($var);
             $attributes .= " $attr='$val' ";
         }
 
+
         ?>
 
         <select name="{!! $input->name  !!}" id="{!! $input->id  !!}" {!! $attributes !!}>
 
-            @if(!$input->isMultiple())
-                <option value="">-</option>
+
+            @if($input->showNullOption())
+                <?php
+                $selected = "";
+                if (in_array(null, Arr::wrap($input->value()))) {
+                    $selected = "selected";
+                }
+                ?>
+                <option value="" {!! $selected  !!}>{{$input->nullOptionText}}</option>
+            @endif
+
+            @if($input->showZeroOption())
+                <?php
+
+                $selected = "";
+                if (in_array(0, Arr::wrap($input->value()))) {
+                    $selected = "selected";
+                }
+                ?>
+                <option value="0" {!! $selected  !!}>{{$input->zeroOptionText}}</option>
             @endif
 
             @foreach($input->result() as $option)

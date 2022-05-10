@@ -23,11 +23,16 @@ class CreateSuperHeroesTable extends Migration
         if (!Schema::hasTable('{table}')) {
 
             Schema::create('{table}', function (Blueprint $table) {
+
+                /******* Default framework fields **********/
                 $table->bigIncrements('id');
                 $table->string('uuid', 64)->nullable()->default(null)->index();
                 $table->unsignedInteger('project_id')->nullable()->default(null)->index();
                 $table->unsignedInteger('tenant_id')->nullable()->default(null)->index();
-                $table->string('name', 255)->nullable()->default(null)->index();
+                $table->unsignedInteger('tenant_sl')->nullable()->default(null)->index();
+                $table->string('name', 250)->nullable()->default(null)->index();
+                $table->string('name_ext', 500)->nullable()->default(null)->index();
+                $table->string('slug', 50)->nullable()->default(null)->index();
 
                 /******* Custom columns **********/
                 // Todo: Add module specific fields and denormalized fields. In computing, denormalization is the process of
@@ -39,11 +44,11 @@ class CreateSuperHeroesTable extends Migration
                 /*********************************/
 
                 $table->tinyInteger('is_active')->nullable()->default(1);
-                $table->unsignedInteger('created_by')->nullable()->default(null);
-                $table->unsignedInteger('updated_by')->nullable()->default(null);
+                $table->unsignedInteger('created_by')->nullable()->default(null)->index();
+                $table->unsignedInteger('updated_by')->nullable()->default(null)->index();
                 $table->timestamps();
                 $table->softDeletes();
-                $table->unsignedInteger('deleted_by')->nullable()->default(null);
+                $table->unsignedInteger('deleted_by')->nullable()->default(null)->index();
             });
         }
 
@@ -68,6 +73,7 @@ class CreateSuperHeroesTable extends Migration
         $module->controller = '{controller}';
         $module->view_directory = '{view_directory}';
         $module->icon_css = 'fa fa-ellipsis-v';
+        $module->color_css = 'white';
         $module->is_visible = 1;
         $module->is_active = 1;
         $module->created_by = 1;

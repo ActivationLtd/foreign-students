@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Mainframe\Api;
 
-use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
+use App\Projects\MyProject\Notifications\Auth\VerifyEmail;
 use App\User;
+use Tests\ApiTestCase;
 
 class RegisterApiTest extends ApiTestCase
 {
@@ -43,7 +44,7 @@ class RegisterApiTest extends ApiTestCase
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
         //\Mail::assertSent( VerifyEmail::class); // This is a mailable class
-        \Notification::assertSentTo([$user], VerifyEmail::class); // This is a mailable class
+        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)
@@ -114,8 +115,6 @@ class RegisterApiTest extends ApiTestCase
 
     public function test_user_can_see_data_for_dashboard()
     {
-        $this->markTestSkipped('test has to be updated');
-
         $user = $this->newlyRegisteredUser(); // Get this newly created user from database
 
         $this->be($user);

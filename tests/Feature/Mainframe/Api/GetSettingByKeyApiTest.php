@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Mainframe\Api;
 
+use Tests\ApiTestCase;
+
 class GetSettingByKeyApiTest extends ApiTestCase
 {
     protected function setUp(): void

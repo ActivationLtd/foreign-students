@@ -2,6 +2,8 @@
 
 namespace App\Mainframe\Modules\Modules\Traits;
 
+use App\Tenant;
+
 trait ModuleProcessorTrait
 {
     /**

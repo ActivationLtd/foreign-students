@@ -21,7 +21,7 @@
      * Assigns validation rules during saving (both creating and updating)
      */
     addValidationRules(); // Assign validation classes/rules
-    //enableValidation('{{$module->name}}'); // Enable Ajax based form validation.
+    enableValidation('{{$module->name}}'); // Enable Ajax based form validation.
 
     /*
     |--------------------------------------------------------------------------
@@ -53,6 +53,6 @@
      * Add CSS for validation rules
      */
     function addValidationRules() {
-        $("input[name=name]").addClass('validate[required]');
+        $("input[name=email]").addClass('validate[required]');
     }
 </script>

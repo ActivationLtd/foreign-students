@@ -244,11 +244,11 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     // protected $with = [];
     protected $appends = ['type', 'profile_pic'];
 
-    protected $spreadAttributes = [
+    protected $spreadFields = [
         'group_ids' => Group::class,
     ];
 
-    protected $tagAttributes = [
+    protected $tagFields = [
         // 'first_name',
         // 'group_ids',
     ];

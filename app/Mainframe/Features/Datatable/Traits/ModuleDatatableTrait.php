@@ -3,6 +3,7 @@
 namespace App\Mainframe\Features\Datatable\Traits;
 
 use App\Mainframe\Features\Datatable\ModuleDatatable;
+use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Module;
 
 /** @mixin ModuleDatatable */
@@ -27,8 +28,7 @@ trait ModuleDatatableTrait
 
     public function source()
     {
-        return $this->model
-            ->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by');
+        return $this->model->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by');
     }
 
     /**
@@ -40,10 +40,10 @@ trait ModuleDatatableTrait
     {
         $query = $this->source()->select($this->selects());
 
-        // Inject tenant context.
-        if (user()->ofTenant() && $this->module->tenantEnabled()) {
-            $query->where($this->module->tableName().'.tenant_id', user()->tenant_id);
-        }
+        // Note: If you are not using model based query you need to manually inject tenant context.
+        // if (user()->ofTenant() && $this->module->tenantEnabled()) {
+        //     $query->where($this->module->tableName().'.tenant_id', user()->tenant_id);
+        // }
 
         // Exclude deleted rows
         $query->whereNull($this->table.'.deleted_at');
@@ -69,16 +69,6 @@ trait ModuleDatatableTrait
 
         if ($this->hasColumn('id')) {
             $dt = $dt->editColumn('id', '<a href="{{ route(\''.$this->module->name.'.edit\', $id) }}">{{$id}}</a>');
-        }
-
-        if ($this->hasColumn('is_active')) {
-            $dt = $dt->editColumn('is_active', '@if($is_active) Yes @else <span class="text-red">No</span> @endif');
-        }
-
-        if ($this->hasColumn('updated_at')) {
-            $dt = $dt->editColumn('updated_at', function ($row) {
-                return formatDateTime($row->updated_at);
-            });
         }
 
         if ($this->hasColumn('updated_by')) {
@@ -125,4 +115,27 @@ trait ModuleDatatableTrait
 
         return parent::setModule($module);
     }
+
+    /**
+     * Automatically make is_active field as boolean
+     *
+     * @return array|string[]
+     */
+    public function booleans()
+    {
+        return array_merge($this->booleans, ['is_active']);
+    }
+
+    /**
+     * Get all the date fields defined in the model and set them as datetime
+     *
+     * @return array
+     */
+    public function datetimes()
+    {
+        /** @var BaseModule $this */
+        $model = $this->module->modelInstance();
+        return array_merge($this->datetimes, $model->getDates());
+    }
+
 }

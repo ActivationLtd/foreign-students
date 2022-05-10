@@ -47,7 +47,6 @@ use App\Mainframe\Modules\Uploads\Traits\UploadTrait;
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $uploadable
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Upload newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Upload newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Upload query()
@@ -75,6 +74,10 @@ use App\Mainframe\Modules\Uploads\Traits\UploadTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUploadableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Upload whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Upload whereSlug($value)
  */
 class Upload extends BaseModule
 {
@@ -112,7 +115,7 @@ class Upload extends BaseModule
     // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
     // protected $casts = [];
     // protected $with = [];
-    protected $appends = ['url', 'dir'];
+    // protected $appends = ['url', 'dir'];
     protected $hidden = ['linked_module'];
 
     /*

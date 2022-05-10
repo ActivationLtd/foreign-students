@@ -50,17 +50,23 @@ trait Query
 
         # Apply filters
         $query = $this->filter($query);
+        # Inject tenant
+        $query = $this->injecTenantQuery($query);
 
+        # Group-by
+        $query = $this->groupBy($query);
+        # Order-by
+        $query = $this->orderBy($query);
+
+        return $query;
+    }
+
+    public function injecTenantQuery($query)
+    {
         # Inject tenant context
         if ($this->user->ofTenant() && $this->hasTenantContext()) {
             $query->where('tenant_id', $this->user->tenant_id);
         }
-
-        # Group-by
-        $query = $this->groupBy($query);
-
-        # Order-by
-        $query = $this->orderBy($query);
 
         return $query;
     }

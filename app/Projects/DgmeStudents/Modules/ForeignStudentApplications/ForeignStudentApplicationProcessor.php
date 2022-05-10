@@ -27,6 +27,9 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         if (user()->isAdmin() && $this->element->status == 'Submitted') {
             $this->immutables = array_merge($this->immutables, $this->element->fields(['status']));
         }
+        if(user()->isApplicant() && $this->element){
+            $this->immutables = array_merge($this->immutables, ['application_session_id']);
+        }
 
         return $this->immutables;
     }
@@ -62,6 +65,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'course_id' => 'required',
             'application_category' => 'required',
             'is_saarc' => 'required',
+            'application_session_id' => 'required',
             'is_active' => 'in:1,0',
         ];
         if ($element->id && $element->status== ForeignStudentApplication::STATUS_SUBMITTED) {
@@ -144,7 +148,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     // public function updating($element) { return $this; }
 
     /**
-     * @param $element
+     * @param ForeignStudentApplication $element
      * @return $this|ForeignStudentApplicationProcessor
      */
     public function created($element)
@@ -161,7 +165,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
      */
     public function saved($element)
     {
-        $element->sendApplicationStatusChangeEmail();
+        // $element->sendApplicationStatusChangeEmail();
         $element->refresh(); // Get the updated model(and relations) before using.
         if($this->hasTransition('status',ForeignStudentApplication::STATUS_DRAFT,ForeignStudentApplication::STATUS_SUBMITTED)){
             $element->sendApplicationStatusChangeEmail();
