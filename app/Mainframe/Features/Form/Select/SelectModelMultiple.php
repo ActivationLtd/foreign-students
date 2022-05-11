@@ -19,6 +19,9 @@ class SelectModelMultiple extends SelectModel
         parent::__construct($var, $element);
         $this->params['multiple'] = 'multiple';
         $this->dataParent = $this->name.'_data_parent';
+        // Do not allow null/zero option for multiselect
+        $this->nullOption = false;
+        $this->zeroOption = false;
 
     }
 

@@ -41,7 +41,6 @@ use App\Mainframe\Modules\Comments\Traits\CommentTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
@@ -65,13 +64,17 @@ use App\Mainframe\Modules\Comments\Traits\CommentTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereSlug($value)
  */
 class Comment extends BaseModule
 {
     use CommentTrait;
 
     protected $moduleName = 'comments';
-    protected $table      = 'comments';
+    protected $table = 'comments';
 
     /*
     |--------------------------------------------------------------------------

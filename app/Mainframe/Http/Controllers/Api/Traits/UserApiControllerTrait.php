@@ -4,9 +4,10 @@ namespace App\Mainframe\Http\Controllers\Api\Traits;
 
 use App\Mainframe\Http\Controllers\Api\UserApiController;
 use App\Mainframe\Modules\InAppNotifications\InAppNotificationController;
-use App\Module;
 use App\Mainframe\Modules\Uploads\UploadController;
 use App\Mainframe\Modules\Users\UserController;
+use App\Module;
+use App\Upload;
 
 /** @mixin UserApiController $this */
 trait UserApiControllerTrait
@@ -61,7 +62,7 @@ trait UserApiControllerTrait
         request()->merge([
             'module_id' => Module::byName('users')->id,
             'element_id' => $this->user->id,
-            'type' => 'profile-pic',
+            'type' => Upload::TYPE_PROFILE_PIC,
         ]);
 
         return app(UploadController::class)->store(request());

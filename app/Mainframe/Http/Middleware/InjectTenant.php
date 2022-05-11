@@ -2,9 +2,9 @@
 
 namespace App\Mainframe\Http\Middleware;
 
+use App\Mainframe\Features\Core\Traits\SendResponse;
 use Auth;
 use Closure;
-use App\Mainframe\Features\Core\Traits\SendResponse;
 
 class InjectTenant
 {
@@ -23,7 +23,11 @@ class InjectTenant
             /** @var \App\User $user */
             $user = Auth::user();
             if ($user->ofTenant()) {
-                request()->merge(['tenant_id' => $user->tenant_id]);
+                $tenantId = $user->tenant_id;
+
+                if (!$request->has('tenant_id')) {
+                    request()->merge(['tenant_id' => $tenantId]);
+                }
             }
         }
 

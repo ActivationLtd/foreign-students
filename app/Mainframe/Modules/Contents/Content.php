@@ -40,7 +40,6 @@ use App\Mainframe\Modules\Contents\Traits\ContentTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Content newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Content newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Content query()
@@ -63,13 +62,17 @@ use App\Mainframe\Modules\Contents\Traits\ContentTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Content whereSlug($value)
  */
 class Content extends BaseModule
 {
     use ContentTrait;
 
     protected $moduleName = 'contents';
-    protected $table      = 'contents';
+    protected $table = 'contents';
     /*
     |--------------------------------------------------------------------------
     | Properties
@@ -96,7 +99,7 @@ class Content extends BaseModule
     ];
     // protected $with = [];
     protected $appends = ['parts_array'];
-    protected $tagAttributes = ['tags'];
+    protected $tagFields = ['tags'];
 
     /*
     |--------------------------------------------------------------------------
@@ -124,7 +127,5 @@ class Content extends BaseModule
         // static::deleting(function (Content $element) { });
         // static::deleted(function (Content $element) { });
     }
-
-
 
 }

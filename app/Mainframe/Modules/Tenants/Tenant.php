@@ -38,7 +38,6 @@ use App\Mainframe\Modules\Tenants\Traits\TenantTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()
@@ -60,11 +59,14 @@ use App\Mainframe\Modules\Tenants\Traits\TenantTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant whereViewDirectory($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Tenant whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tenant whereSlug($value)
  */
 class Tenant extends BaseModule
 {
     use TenantTrait;
-
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +75,7 @@ class Tenant extends BaseModule
     |
     */
     protected $moduleName = 'tenants';
-    protected $table      = 'tenants';
+    protected $table = 'tenants';
 
     /*
     |--------------------------------------------------------------------------

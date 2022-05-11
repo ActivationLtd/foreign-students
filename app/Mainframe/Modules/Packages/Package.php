@@ -36,7 +36,6 @@ use App\Mainframe\Modules\Packages\Traits\PackageTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Package newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Package newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Package query()
@@ -56,10 +55,15 @@ use App\Mainframe\Modules\Packages\Traits\PackageTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Package whereYearlyPrice($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Package whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Package whereSlug($value)
  */
 class Package extends BaseModule
 {
     use PackageTrait;
+
     /*
     |--------------------------------------------------------------------------
     | Module definitions
@@ -67,7 +71,7 @@ class Package extends BaseModule
     |
     */
     protected $moduleName = 'packages';
-    protected $table      = 'packages';
+    protected $table = 'packages';
     /*
     |--------------------------------------------------------------------------
     | Fillable attributes

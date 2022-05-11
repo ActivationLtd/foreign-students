@@ -38,23 +38,25 @@ $emptyValue = $emptyValue ?? '';
     @foreach($levels as $level)
 
         <?php
-        //continue;
+
         /** @var array $level */
         /** @var $loop */
         /** @var \App\Division $currentModel */
 
-        $currentSelect = 'select_' . $level['name']; // select_division_id
+        $currentSelect = 'select_'.$level['name']; // select_division_id
         $currentModel = new ($level['model']);
         ?>
         @if(!$loop->last)
             <?php
             $childLevel = $levels[$loop->index + 1];
-            $childSelect = 'select_' . $childLevel['name']; // select_district_id
-            $childOldValue = 'old_' . $childSelect; // select_district_id
+            $childSelect = 'select_'.$childLevel['name']; // select_district_id
+            $childOldValue = 'old_'.$childSelect; // select_district_id
 
             /** @var \App\District $currentModel */
             $childModel = new ($childLevel['model']);
-            $url = $childLevel['url'] ?? route($childModel->module()->name . '.list-json', ['is_active' => '1', 'force_all_data' => 'yes', 'columns' => 'id,name']);
+            $url = $childLevel['url'] ?? route($childModel->module()->name.'.list-json',
+                    ['is_active' => '1', 'force_all_data' => 'yes', 'columns' => 'id,name']);
+            $url_param = $level['url_param'] ?? $level['name'];
 
             $currentSelectId = $level['id'] ?? $level['name'];
             $childSelectId = $childLevel['id'] ?? $childLevel['name'];
@@ -62,6 +64,7 @@ $emptyValue = $emptyValue ?? '';
             ?>
 
             <script>
+                /* Chained dropdown for level: {{$level['name'] }} */
 
                 var {{$currentSelect}} = $('select[id={{$currentSelectId}}]');
                 var {{$childSelect}} = $("select[id={{$childSelectId}}]");
@@ -73,6 +76,7 @@ $emptyValue = $emptyValue ?? '';
 
                     var val = $(this).select2('val');
 
+
                     if (!val || val == 0) {
                         {{$childSelect}}.select2("val", "").empty().select2('enable', false);
                         {{$childSelect}}.trigger('change');
@@ -83,7 +87,7 @@ $emptyValue = $emptyValue ?? '';
 
                     axios.get('{!! $url !!}', {
                         params: {
-                            {{$level['name']}}: $(this).select2('val')
+                            {{$url_param}}: $(this).select2('val')
                         }
                     }).then((response) => {
 

@@ -74,4 +74,14 @@ class SelectAjax extends SelectModel
         return null;
     }
 
+    /**
+     * Select options
+     *
+     * @return array
+     */
+    public function options()
+    {
+        return []; // No option should be loaded initially
+    }
+
 }

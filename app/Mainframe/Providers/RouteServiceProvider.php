@@ -27,7 +27,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $webRoutes = [];
+    protected $webRoutes = [
+        'app/Mainframe/routes/system.php'
+    ];
 
     /**
      * API routes

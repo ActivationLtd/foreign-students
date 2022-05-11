@@ -85,8 +85,8 @@ trait Validable
     /**
      * Add a field specific error message
      *
-     * @param  null  $key
-     * @param  null  $message
+     * @param  string  $key
+     * @param  string|null  $message
      * @return $this
      */
     public function fieldError($key, $message = null)

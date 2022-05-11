@@ -11,6 +11,9 @@ class SelectArrayMultiple extends SelectArray
         parent::__construct($var, $element);
         $this->params['multiple'] = 'multiple';
         $this->dataParent = $this->name.'_data_parent';
+        // Do not allow null/zero option for multiselect
+        $this->nullOption = false;
+        $this->zeroOption = false;
     }
 
     /**
@@ -21,7 +24,7 @@ class SelectArrayMultiple extends SelectArray
     public function print()
     {
 
-        if (! is_array($this->value())) {
+        if (!is_array($this->value())) {
             return '';
         }
 

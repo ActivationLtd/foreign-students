@@ -138,6 +138,10 @@ use Watson\Rememberable\Rememberable;
  * @property-read mixed $group
  * @property string|null $date_of_birth
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDateOfBirth($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSlug($value)
  */
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
@@ -153,26 +157,24 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     /**
      * Constants
      */
-    public const PASSWORD_VALIDATION_RULE = 'required|confirmed|min:6|regex:/[a-zA-Z]/|regex:/[0-9]/';
-    public const SUPERADMIN_GROUP_ID      = 1;
-    public const API_GROUP_ID             = 2;
-    public const TENANT_ADMIN_GROUP_ID    = 3;
-    public const PROJECT_ADMIN_GROUP_ID   = 4;
-    public const USER_GROUP_ID            = 26;
-    public const TENANT_USER_GROUP_ID     = 27;
-    public const CUSTOMER_ADMIN_GROUP_ID  = 28;
-    public const CUSTOMER_USER_GROUP_ID   = 29;
+    /*
+    |--------------------------------------------------------------------------
+    | User group definitions
+    |--------------------------------------------------------------------------
+    */
+    public const SUPERUSER_GROUP_ID = 1;
+    public const API_GROUP_ID = 2;
+    public const TENANT_ADMIN_GROUP_ID = 3;
+    public const PROJECT_ADMIN_GROUP_ID = 4;
+    public const USER_GROUP_ID = 5;
 
-    public const SUPERADMIN_GROUP     = 'superuser';
-    public const API_GROUP            = 'api';
-    public const TENANT_ADMIN_GROUP   = 'tenant-admin';
-    public const PROJECT_ADMIN_GROUP  = 'project-admin';
-    public const USER_GROUP           = 'user';
-    public const TENANT_USER_GROUP    = 'tenant-user';
-    public const CUSTOMER_ADMIN_GROUP = 'customer-admin';
-    public const CUSTOMER_USER_GROUP  = 'customer-user';
+    public const SUPERUSER_GROUP = 'superuser';
+    public const API_GROUP = 'api';
+    public const TENANT_ADMIN_GROUP = 'tenant-admin';
+    public const PROJECT_ADMIN_GROUP = 'project-admin';
+    public const USER_GROUP = 'user';
 
-    public const GENDER_MALE   = 'Male';
+    public const GENDER_MALE = 'Male';
     public const GENDER_FEMALE = 'Female';
 
     /*
@@ -181,7 +183,7 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     |--------------------------------------------------------------------------
     */
     protected $moduleName = 'users';
-    protected $table      = 'users';
+    protected $table = 'users';
 
     protected $tenantEnabled = true;
 
@@ -227,8 +229,8 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     ];
 
     protected $hidden = ['password', 'remember_token',];
-    protected $dates  = ['created_at', 'updated_at', 'deleted_at', 'first_login_at', 'last_login_at',];
-    protected $casts  = ['group_ids' => 'array',];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'first_login_at', 'last_login_at',];
+    protected $casts = ['group_ids' => 'array',];
     // protected $with = [];
     protected $appends = [
         // 'type',

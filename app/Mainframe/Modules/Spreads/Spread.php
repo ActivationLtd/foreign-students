@@ -43,7 +43,6 @@ use App\Mainframe\Modules\Spreads\Traits\SpreadTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Spread newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Spread newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Spread query()
@@ -69,13 +68,17 @@ use App\Mainframe\Modules\Spreads\Traits\SpreadTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Spread whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Spread whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Spread whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Spread whereSlug($value)
  */
 class Spread extends BaseModule
 {
     use SpreadTrait;
 
     protected $moduleName = 'spreads';
-    protected $table      = 'spreads';
+    protected $table = 'spreads';
     /*
     |--------------------------------------------------------------------------
     | Properties

@@ -50,17 +50,23 @@ trait Query
 
         # Apply filters
         $query = $this->filter($query);
+        # Inject tenant
+        $query = $this->injecTenantQuery($query);
 
+        # Group-by
+        $query = $this->groupBy($query);
+        # Order-by
+        $query = $this->orderBy($query);
+
+        return $query;
+    }
+
+    public function injecTenantQuery($query)
+    {
         # Inject tenant context
         if ($this->user->ofTenant() && $this->hasTenantContext()) {
             $query->where('tenant_id', $this->user->tenant_id);
         }
-
-        # Group-by
-        $query = $this->groupBy($query);
-
-        # Order-by
-        $query = $this->orderBy($query);
 
         return $query;
     }
@@ -82,22 +88,24 @@ trait Query
     {
         $this->result = $this->result ?: $this->resultQuery()->paginate($this->rowsPerPage());
 
+        // return $this->result;
+        try {
+            if ($this->result) {
+                return $this->result;
+            }
+
+            $key = __CLASS__.'-'.Mf::httpRequestSignature();
+
+            $this->result = Cache::remember($key, $this->cache, function () {
+                return $this->resultQuery()->paginate($this->rowsPerPage());
+            });
+
+            return $this->result;
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
         return $this->result;
-        // try {
-        //     if ($this->result) {
-        //         return $this->result;
-        //     }
-        //
-        //     $key = base64_encode('report-'.__CLASS__).'-'.Mf::httpRequestSignature(($this->resultQuery()->toSql()));
-        //
-        //     $this->result = Cache::remember($key, $this->cache, function () {
-        //         return $this->resultQuery()->paginate($this->rowsPerPage());
-        //     });
-        //
-        //     return $this->result;
-        // } catch (Exception $e) {
-        //     $this->fail($e->getMessage());
-        // }
 
     }
 
