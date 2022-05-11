@@ -60,6 +60,12 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
     Route::get('data/{key}', [DataBlockController::class, 'show'])->name('data-block.show'); // Data-block
     Route::get('report/{key}', [ReportController::class, 'show'])->name('report'); // Report
     Route::get('datatable/{key}', [DatatableController::class, 'show'])->name('datatable.json'); // Datatable
+    # Reorder files
+    Route::post('update-upload-order', [UploadController::class, 'reorder'])->name('uploads.reorder');
+    # Show image from storage directory
+    Route::get('show-image/{id}', [UploadController::class, 'showImage'])->name('show.image');
+    # Download
+    Route::get('download-zip', [UploadController::class, 'downloadZip'])->name('download.zip');
 
     /*---------------------------------
     | Project specific routs

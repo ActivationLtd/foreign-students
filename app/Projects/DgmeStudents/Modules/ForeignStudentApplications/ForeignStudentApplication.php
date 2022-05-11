@@ -202,6 +202,8 @@ class ForeignStudentApplication extends BaseModule
         'financing_mode',
         'finance_mode_other',
         'status',
+        'application_session_id',
+        //'application_session_name',
         //'submitted_at',
         'payment_transaction_id',
         'is_active',
@@ -329,6 +331,10 @@ class ForeignStudentApplication extends BaseModule
     public function applicationLanguageProfiencies()
     {
         return $this->hasMany(\App\ForeignAppLangProficiency::class, 'foreign_student_application_id');
+    }
+    public function applicationSession()
+    {
+        return $this->belongsTo(\App\ApplicationSession::class);
     }
     /*
     |--------------------------------------------------------------------------

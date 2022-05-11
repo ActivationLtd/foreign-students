@@ -5,6 +5,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModulePolicy;
 use App\ForeignStudentApplication;
 use App\Projects\DgmeStudents\Helpers\Time;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 
 class ForeignStudentApplicationPolicy extends BaseModulePolicy
 {
@@ -42,15 +43,27 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
         if (!parent::create($user, $element)) {
             return false;
         }
-
+        //checking if session is open
+        if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
+            return false;
+        }
         if ($user->isApplicant()) {
-            $govermentMbbsOngoingApplication = $user->applications()->where('course_id', 1)->where('application_category', 'Government')
+            $currentSession = ApplicationSession::latestOpenSession();
+            $govermentMbbsOngoingApplication = $user->applications()->where('course_id', 1)
+                ->where('application_category', 'Government')
+                ->where('application_session_id', $currentSession->id)
                 ->whereNotIn('status', ['Declined'])->count();
-            $privatembbsOngoingApplication = $user->applications()->where('course_id', 1)->where('application_category', 'Private')
+            $privatembbsOngoingApplication = $user->applications()->where('course_id', 1)
+                ->where('application_category', 'Private')
+                ->where('application_session_id', $currentSession->id)
                 ->whereNotIn('status', ['Declined'])->count();
-            $govermentbdsOngoingApplication = $user->applications()->where('course_id', 2)->where('application_category', 'Government')
+            $govermentbdsOngoingApplication = $user->applications()->where('course_id', 2)
+                ->where('application_category', 'Government')
+                ->where('application_session_id', $currentSession->id)
                 ->whereNotIn('status', ['Declined'])->count();
-            $privatebdsOngoingApplication = $user->applications()->where('course_id', 2)->where('application_category', 'Private')
+            $privatebdsOngoingApplication = $user->applications()->where('course_id', 2)
+                ->where('application_category', 'Private')
+                ->where('application_session_id', $currentSession->id)
                 ->whereNotIn('status', ['Declined'])->count();
             if ($govermentMbbsOngoingApplication == 1 && $privatembbsOngoingApplication == 1 &&
                 $govermentbdsOngoingApplication == 1 && $privatebdsOngoingApplication == 1) {
@@ -65,6 +78,15 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
     public function update($user, $element)
     {
         if (!parent::update($user, $element)) {
+            return false;
+        }
+
+        //checking if session is open
+        if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
+            return false;
+        }
+        //if application session id and open session id does not match
+        if ($user->isApplicant() && ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
             return false;
         }
         if ($user->isApplicant() && $user->id != $element->user_id) {

@@ -55,13 +55,44 @@ if (user()->isAdmin()) {
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
         @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
         @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+        <?php
+        $var = [
+            'name' => 'application_session_id',
+            'label' => 'Session',
+            'table' => 'application_sessions',
+            'model' => \App\ApplicationSession::class,
+            'div' => 'col-sm-3',
+            'null_option' => false,
+        ];
+        //for created only show the existing value
+        if ($element->application_session_id) {
+            $var ['value'] = $element->application_session_id;
+            $var ['show_inactive'] = true;
+        } else {
+            //new application should show active sessions
+            if (user()->isApplicant()) {
+                $var['query'] = DB::table('application_sessions')
+                    ->where('status', \App\ApplicationSession::SESSION_STATUS_OPEN)->latest();
 
+            }
+        }
+        //for admins show all values
+        if (user()->isAdmin()) {
+            $var['query'] = DB::table('application_sessions')
+                ->whereIn('status', [\App\ApplicationSession::SESSION_STATUS_OPEN, \App\ApplicationSession::SESSION_STATUS_CLOSED]);
+            $var ['show_inactive'] = true;
+        }
+
+
+        ?>
+        @include('form.select-model',['var'=>$var])
         <div class="clearfix"></div>
 
         <h4>Applicant Info</h4>
 
         @if($view->showProfilePic())
-            <div class="col-md-3 no-padding-l" style="padding-right: 20px"><img class="img-thumbnail" style="height:120px!important;" src="{{$view->profilePicPath()}}" alt="alt text"></div>
+            <div class="col-md-3 no-padding-l" style="padding-right: 20px"><img class="img-thumbnail" style="height:120px!important;"
+                                                                                src="{{$view->profilePicPath()}}" alt="alt text"></div>
         @endif
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','div'=>'col-md-6']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-3']])
