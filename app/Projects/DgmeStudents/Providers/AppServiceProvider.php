@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected $commands = [
         \App\Projects\DgmeStudents\Commands\DoSomething::Class,
+        \App\Projects\DgmeStudents\Commands\PopulateSessionIdInApplication::Class,
 
     ];
 
