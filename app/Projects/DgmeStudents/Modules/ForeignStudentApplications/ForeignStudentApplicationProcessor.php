@@ -25,7 +25,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     {
 
         if (user()->isAdmin() && $this->element->status == 'Submitted') {
-            $this->immutables = array_merge($this->immutables, $this->element->fields(['status']));
+            $this->immutables = array_merge($this->immutables, $this->element->fields(['status','application_session_id']));
         }
         if(user()->isApplicant() && $this->element){
             $this->immutables = array_merge($this->immutables, ['application_session_id']);
