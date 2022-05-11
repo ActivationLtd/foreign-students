@@ -26,7 +26,8 @@
  * @var array $var
  */
 
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null,
+    $immutables ?? null, $hiddenFields ?? null);
 $input = new App\Mainframe\Features\Form\Upload($var);
 
 $uploads = [];
@@ -43,6 +44,17 @@ if ($input->moduleId && $input->elementId) {
 
 ?>
 
+<div class="clearfix"></div>
+<div class="col-md-12" style="margin-top: 10px">
+    @if(user()->isSuperUser())
+        @if($input->bucket()!='public')
+            Files will not be uploaded in publicly accessible directory.
+        @else
+            Files will be uploaded in <span class="badge bg-red">public</span> directory.
+        @endif
+    @endif
+</div>
+
 {{-- upload div + form --}}
 <div class="{{$input->containerClass}} {{$input->uid}}" id="{{$input->uid}}">
     @if($input->isEditable)
@@ -53,6 +65,7 @@ if ($input->moduleId && $input->elementId) {
             <input type="hidden" name="module_id" value="{{$input->moduleId}}"/>
             <input type="hidden" name="element_id" value="{{$input->elementId}}"/>
             <input type="hidden" name="element_uuid" value="{{$input->elementUuid}}"/>
+            <input type="hidden" name="bucket" value="{{$input->bucket()}}"/>
             {{-- <input type="hidden" name="uploadable_id" value="{{$input->elementId}}"/>--}}
             {{-- <input type="hidden" name="uploadable_type" value="{{$input->uploadableType}}"/>--}}
             @if($input->type)
@@ -68,13 +81,18 @@ if ($input->moduleId && $input->elementId) {
     @endif
 </div>
 
+@if(count($uploads) && $element->isUpdating())
+    <a href="{{$input->zipDownloadUrl()}}" class="btn btn-default bg-white"><i class="fa fa-download"></i> Download all
+        as zip</a>
+@endif
+
 {{-- js --}}
 @section('js')
 
     @if($input->isEditable)
         <script>
             {{--initUploader("{{$input->uploadBoxId}}", "{{ route($module->name.'.uploads.store', $element->id)}}");--}}
-            initUploader("{{$input->uploadBoxId}}", "{{ route('uploads.store')}}");
+            initUploader("{{$input->uploadBoxId}}", "{!! $input->postUrl() !!}");
         </script>
     @endif
 

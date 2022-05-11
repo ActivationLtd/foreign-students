@@ -3,8 +3,19 @@
  * @var \App\Mainframe\Modules\Modules\Module $module
  * @var \App\Mainframe\Modules\SuperHeroes\SuperHero $element
  */
-
+$float = $float ?? true;
 ?>
+
+@section('css')
+    @parent
+    @if(!$float)
+        <style>
+            .delete-cta {margin-right: 0;}
+
+            .cta-block {position: relative;border-top: none;}
+        </style>
+    @endif
+@endsection
 
 <div class="clearfix"></div>
 
@@ -25,7 +36,8 @@
                id="{{$module->name}}-ret"
                value="{{Request::get('ret')}}"/>
 
-        <button id="{{$module->name}}SubmitBtn" type="submit" class="submit btn btn-success {{$module->name}}-SubmitBtn">
+        <button id="{{$module->name}}SubmitBtn" type="submit"
+                class="submit btn btn-success {{$module->name}}-SubmitBtn">
             <i class="fa fa-check"></i> &nbsp;&nbsp;&nbsp;Save
         </button>
 
@@ -36,8 +48,8 @@
         <div class="pull-right delete-cta no-padding">
             <?php
             $var = [
-                'route'            => route($module->name.".destroy", $element->id),
-                'redirect_success' => route($module->name.".index"),
+                'route' => route($module->name . ".destroy", $element->id),
+                'redirect_success' => route($module->name . ".index"),
             ];
             ?>
             @include('form.delete-button',['var'=>$var])

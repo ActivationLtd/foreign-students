@@ -2,7 +2,6 @@
 
 namespace App\Mainframe\Modules\Groups\Traits;
 
-use App\Mainframe\Modules\Groups\GroupProcessor;
 use Artisan;
 
 trait GroupProcessorTrait
@@ -51,17 +50,17 @@ trait GroupProcessorTrait
     public function saving($element)
     {
         $permissions = [];
-        // revoke existing group permissions
-        $existing_permissions = $element->getPermissions();
-        if (count($existing_permissions)) {
+
+        // include new group permissions from form input
+        if (request('permission')) {
+            // revoke existing group permissions
+            $existing_permissions = $element->getPermissions();
             foreach ($existing_permissions as $k => $v) {
                 $permissions[$k] = 0;
             }
-        }
-
-        // include new group permissions from form input
-        foreach (request('permission', []) as $k) {
-            $permissions[$k] = 1;
+            foreach (request('permission') as $k) {
+                $permissions[$k] = 1;
+            }
         }
 
         $element->permissions = array_merge($element->permissions, $permissions);
@@ -72,14 +71,14 @@ trait GroupProcessorTrait
     // public function updating($element) { return $this; }
     // public function created($element) { return $this; }
     /**
-     * @param \App\Group $element
+     * @param  \App\Group  $element
      * @return $this
      */
-    public function updated($element) {
-        if($this->fieldHasChanged('permissions')){
+    public function updated($element)
+    {
+        if ($this->fieldHasChanged('permissions')) {
             $this->addMessage('Permission changed');
             Artisan::call('cache:clear');
-
         }
         return $this;
     }

@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Karla:400,700|Montserrat:300,400,500,600,700,800|Roboto:400,500,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Karla:400,700|Montserrat:300,400,500,600,700,800|Roboto:400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
 
 /***********************************************************************
 * Global font settings
@@ -15,7 +15,7 @@
 body, html, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
 .content-header h4,
 .main-header, input, textarea {
-    font-family: 'Inter', 'Karla', 'Roboto', 'Arial', sans-serif;
+    font-family: "Inter", "Karla", "Roboto", "Arial", sans-serif;
 !important;
     color: #333;
     font-weight: normal;
@@ -31,7 +31,7 @@ body, .form-control, .btn, table, tr, th, td, thead, tbody, .dropdown-menu {
 }
 
 .main-header .logo, .logo, .logo-mini, .logo-lg, .login-logo, .register-logo, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', 'Inter', 'Karla', 'Roboto', 'Arial', sans-serif;
+    font-family: "Poppins", "Inter", "Karla", "Roboto", "Arial", sans-serif;
     font-weight: 100;
 }
 
@@ -81,7 +81,7 @@ a:focus {
 }
 
 .login-page {
-    background-image: url('../images/login-bg1.jpg');
+    background-image: url("../images/login-bg1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-color: white;
@@ -117,7 +117,7 @@ a:focus {
 }
 
 .login-logo, .register-logo {
-    font-family: 'Poppins', 'Quicksand', sans-serif;
+    font-family: "Poppins", "Quicksand", sans-serif;
     padding-top: 20px;
     margin-bottom: 5px;
     font-weight: 100;
@@ -187,7 +187,7 @@ table, tr, th, td, thead, tbody {
 }
 
 .main-header {
-    background-image: url('../images/top-strip-1.png');
+    background-image: url("../images/top-strip-1.png");
     background-repeat: no-repeat;
     background-size: 100%;
     /*background-color: black;*/
@@ -212,7 +212,7 @@ table, tr, th, td, thead, tbody {
 /* Fix CTA position for all module base form */
 .cta-block {
     position: fixed;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     bottom: 0;
     padding: 10px 0 10px 0;
     z-index: 999;
@@ -238,6 +238,19 @@ table, tr, th, td, thead, tbody {
 
 .content-header a {
     color: #fc466b;
+}
+
+div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 60px;
+    margin-left: -50%;
+    margin-top: -25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 /* datatable */
@@ -282,8 +295,9 @@ label {
     /*font-weight: bold;*/
     /*font-size: 0.9em;*/
     /*text-transform: uppercase;*/
-    color: #666666;
+    color: #777777;
     margin-bottom: 0;
+    font-weight: normal;
 
 }
 
@@ -306,12 +320,12 @@ label {
     padding-top: 0;
     padding-bottom: 150px;
     min-height: 600px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 !important;
 }
 
 .content-wrapper, .right-side, .wrapper {
-    background-color: #FFFFFF; /*make background white*/
+    background-color: #ffffff; /*make background white*/
 }
 
 /* class for removing padding from all direction */
@@ -368,6 +382,20 @@ div.filecard .info-box-icon img {
     background-color: white;
     font-size: 10px;
     overflow: hidden;
+}
+
+.info-box-icon .download-overlay {
+    position: absolute;
+    left: 50px;
+    top: 33px;
+    font-size: 24px;
+    color: #d0d0d6;
+    opacity: .5
+}
+
+.info-box-content .file-info {
+    overflow: hidden;
+    text-overflow: ellipsis
 }
 
 div.filecard .info-box-icon {
@@ -506,7 +534,7 @@ input, textarea {
 
 .select2-container-multi .select2-choices .select2-search-choice {
     padding: 4px 10px 4px 24px;
-    margin: 3px 5px 3px 0;
+    margin: 3px 5px 3px 5px;
     line-height: 16px;
     background-image: none;
     border: 0;
@@ -514,7 +542,7 @@ input, textarea {
 }
 
 .select2-container-multi .select2-choices {
-    padding-top: 3px;
+    /*padding-top: 3px;*/
     background-image: none;
     border: 0;
 }
@@ -570,6 +598,7 @@ input, textarea {
 
 select, .form-control {
     border-color: #f0f0f0;
+    color: #333333;
     /*padding-left: 0;*/
     /*border-top: 0;*/
     /*border-left: 0;*/
@@ -650,8 +679,24 @@ textarea.form-control {
 }
 
 /* Remove border bottom from datatable rows_per_page selector */
+.dataTables_length {
+    float: left;
+}
+
+.dt-buttons {
+    float: right;
+}
+
 .div.dataTables_length select {
     border-bottom: 0;
+}
+
+div.dataTables_length label {
+    float: right;
+}
+
+.dt-refresh-btn {
+    margin-right: 5px;
 }
 
 .sidebar-menu > li > a > .fa, .sidebar-menu > li > a > .glyphicon, .sidebar-menu > li > a > .ion {
@@ -675,6 +720,10 @@ pre.sf-dump, pre.sf-dump .sf-dump-default {
 
 .modal-open .modal {
     z-index: 9999;
+}
+
+.modal-content {
+    border-radius: 5px;
 }
 
 .pagination {
@@ -744,14 +793,15 @@ a i {
 }
 
 .ajax-upload-dragdrop {
-    border: 2px dotted #A5A5C7;
+    border: 2px dotted #a5a5c7;
     width: 420px;
-    color: #DADCE3;
+    color: #dadce3;
     text-align: left;
     vertical-align: middle;
     padding: 10px 10px 10px 10px;
 }
 
+/* Text and background colours*/
 .text-smart-blue {
     color: rgb(63, 94, 251);
 }
@@ -760,8 +810,12 @@ a i {
     color: rgb(252, 70, 107);
 }
 
+.text-dark-gray {
+    color: #777777;
+}
+
 .bg-smart-blue, .bg-smart-blue:hover {
-    background-color: rgb(63, 94, 251);
+    background-color: #3f5efb;
     color: white;
 }
 
@@ -802,7 +856,7 @@ a i {
 }
 
 .dropdown-menu button {
-    background-color: transparent;
+    /*background-color: transparent;*/
 }
 
 .column-sort {
@@ -845,26 +899,72 @@ textarea.json {
     background-color: rgb(63, 94, 251);
 }
 
-.print-btn {margin: 10px 0;}
+.print-btn {
+    margin: 10px 0;
+}
 
 /**************************
  * Font sizes
  *************************/
-.f-8 { font-size: 8px; }
-.f-9 { font-size: 9px; }
-.f-10 { font-size: 10px; }
-.f-11 { font-size: 11px; }
-.f-11 { font-size: 11px; }
-.f-12 { font-size: 12px; }
-.f-13 { font-size: 13px; }
-.f-14 { font-size: 14px; }
-.f-16 { font-size: 16px; }
-.f-18 { font-size: 18px; }
-.f-20 { font-size: 20px; }
-.f-24 { font-size: 24px; }
-.f-24 { font-size: 24px; }
-.f-36 { font-size: 36px; }
-.f-48 { font-size: 48px; }
+.f-8 {
+    font-size: 8px;
+}
+
+.f-9 {
+    font-size: 9px;
+}
+
+.f-10 {
+    font-size: 10px;
+}
+
+.f-11 {
+    font-size: 11px;
+}
+
+.f-11 {
+    font-size: 11px;
+}
+
+.f-12 {
+    font-size: 12px;
+}
+
+.f-13 {
+    font-size: 13px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.f-16 {
+    font-size: 16px;
+}
+
+.f-18 {
+    font-size: 18px;
+}
+
+.f-20 {
+    font-size: 20px;
+}
+
+.f-24 {
+    font-size: 24px;
+}
+
+.f-24 {
+    font-size: 24px;
+}
+
+.f-36 {
+    font-size: 36px;
+}
+
+.f-48 {
+    font-size: 48px;
+}
 
 /**************************
  * Module quick finder
@@ -889,4 +989,21 @@ ul.quick-module-list {
 ul.quick-module-list li {
     padding: 5px 5px 5px 0;
     font-size: inherit;
+}
+
+.module-base-form {
+    margin-top: 20px;
+}
+
+.report-filter-tabs {
+    box-shadow: none;
+}
+
+/** Datatable buttons */
+.dt-button {
+
+}
+
+.text-overflow-hide {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }

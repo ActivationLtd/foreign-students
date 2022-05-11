@@ -22,6 +22,41 @@ trait ModularTrait
 
     /*
     |--------------------------------------------------------------------------
+    | Section: Default getters
+    |--------------------------------------------------------------------------
+    */
+    public function moduleName()
+    {
+        return $this->moduleName ?? null;
+    }
+
+    public function tenantEnabled()
+    {
+        return $this->tenantEnabled ?? false;
+    }
+
+    public function spreadFields()
+    {
+        return $this->spreadFields ?? [];
+    }
+
+    public function getTagFields()
+    {
+        return $this->tagFields ?? [];
+    }
+
+    public function showGlobalTenantElements()
+    {
+        return $this->showGlobalTenantElements ?? false;
+    }
+
+    public function showNonTenantElements()
+    {
+        return $this->showNonTenantElements ?? false;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | Query scopes + Dynamic scopes
     |--------------------------------------------------------------------------
     |
@@ -32,7 +67,10 @@ trait ModularTrait
      * @param $query
      * @return Builder
      */
-    public function scopeActive($query) { return $query->where($this->getTable().'.is_active', 1); }
+    public function scopeActive($query)
+    {
+        return $query->where($this->getTable().'.is_active', 1);
+    }
 
 
     /*
@@ -98,12 +136,30 @@ trait ModularTrait
     /**
      * Check if a model table has a given column
      *
-     * @param $column
+     * @param  string  $column
      * @return bool
      */
     public function hasColumn($column)
     {
         return in_array($column, $this->tableColumns());
+    }
+
+    /**
+     * Get an array of columns that ends with the given string
+     *
+     * @param $str
+     * @return array
+     */
+    public function getColumnsThatEndsWith($str)
+    {
+        $found = [];
+        $columns = $this->tableColumns();
+        foreach ($columns as $column) {
+            if (\Str::endsWith($str, $column)) {
+                $found[] = $column;
+            }
+        }
+        return $found;
     }
 
     /**
@@ -116,6 +172,25 @@ trait ModularTrait
         return Mf::tableColumns($this->getTable());
     }
 
+    /**
+     * Get the $append value
+     *
+     * @return array
+     */
+    public function getAppends()
+    {
+        return $this->appends;
+    }
+
+    /**
+     * Get the $with value
+     *
+     * @return array
+     */
+    public function getWith()
+    {
+        return $this->with;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -366,7 +441,10 @@ trait ModularTrait
      * @return bool
      * @internal param $name
      */
-    public function hasTenantContext() { return $this->hasColumn('tenant_id') && $this->tenantEnabled; }
+    public function hasTenantContext()
+    {
+        return $this->hasColumn('tenant_id') && $this->tenantEnabled;
+    }
 
     /**
      * Check if the element is compatible with the user's tenant
@@ -382,7 +460,12 @@ trait ModularTrait
             return true;
         }
 
-        if ($user->tenant_id && ($this->tenant_id != $user->tenant_id)) {
+        // If the element has null tenant then it is a global element and should be accessible by all tenant
+        if ($this->tenant_id == null) {
+            return true;
+        }
+
+        if (($user->tenant_id) && ($this->tenant_id != $user->tenant_id)) {
             return false;
         }
 
@@ -531,11 +614,8 @@ trait ModularTrait
      */
     public function syncSpreadKeys()
     {
-        if (!isset($this->spreadAttributes)) {
-            return;
-        }
 
-        foreach ($this->spreadAttributes as $field => $relatedTo) {
+        foreach ($this->spreadFields() as $field => $relatedTo) {
 
             $ids = toArray($this->$field);
 
@@ -579,11 +659,8 @@ trait ModularTrait
      */
     public function syncSpreadTags()
     {
-        if (!isset($this->tagAttributes)) {
-            return;
-        }
 
-        foreach ($this->tagAttributes as $field) {
+        foreach ($this->getTagFields() as $field) {
 
             $tags = cleanArray(toArray($this->$field));
 
@@ -637,6 +714,8 @@ trait ModularTrait
         $this->updated_by = $this->updated_by ?? user()->id;
         $this->updated_at = now();
         $this->autoFillTenant();
+
+        return $this;
     }
 
     /**
@@ -649,6 +728,8 @@ trait ModularTrait
             $this->tenant_id = $this->tenant_id ?: user()->tenant_id;
             // $this->project_id = $this->project_id ?: $this->tenant->project_id; // Excluded project_id injection because settings table had no project_id
         }
+
+        return $this;
     }
 
     /**
@@ -769,14 +850,178 @@ trait ModularTrait
     }
 
     /**
-     * Edit link
+     * Index page url
      *
+     * @param  array  $params  Pass additional url params
      * @return string
      */
-    public function editUrl()
+    public function indexUrl($params = [])
+    {
+        return route($this->module()->route_name.'.index', $params);
+    }
+
+    /**
+     * Create page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function createUrl($params = [])
+    {
+        return route($this->module()->route_name.'.create', $params);
+    }
+
+    /**
+     * Store request url. Note: This URL is used for form POST
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function storeUrl($params = [])
+    {
+        return route($this->module()->route_name.'.store', $params);
+    }
+
+    /**
+     * Show details page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function showUrl($params = [])
     {
         if ($this->isCreated()) {
-            return route($this->module()->route_name.'.edit', $this->id);
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.show', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Edit page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function editUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.edit', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * update request url. Note: This URL is used for form POST
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function updateUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.update', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Delete/Destroy request url. Note: This URL is used for form POST
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function destroyUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['element' => $this], $params);
+            return route($this->module()->route_name.'.destroy', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Datatable JSON url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function datatableJsonUrl($params = [])
+    {
+        return route($this->module()->route_name.'.datatable-json', $params);
+    }
+
+    /**
+     * List JSON url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function listJsonUrl($params = [])
+    {
+        return route($this->module()->route_name.'.list-json', $params);
+    }
+
+    /**
+     * Report page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function reportUrl($params = [])
+    {
+        return route($this->module()->route_name.'.report', $params);
+    }
+
+    /**
+     * Uploads page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function uploadsUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['id' => $this], $params);
+            return route($this->module()->route_name.'.uploads', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Index page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function changesUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['id' => $this], $params);
+            return route($this->module()->route_name.'.changes', $params);
+        }
+
+        return null;
+    }
+
+    /**
+     * Index page url
+     *
+     * @param  array  $params  Pass additional url params
+     * @return string
+     */
+    public function cloneUrl($params = [])
+    {
+        if ($this->isCreated()) {
+            $params = array_merge(['id' => $this], $params);
+            return route($this->module()->route_name.'.clone', $params);
         }
 
         return null;
@@ -786,11 +1031,12 @@ trait ModularTrait
      * HTML link
      *
      * @param  string  $field
+     * @param  array  $params
      * @return string
      */
-    public function editLink($field = 'id')
+    public function editLink($field = 'id', $params = [])
     {
-        return "<a href='".$this->editUrl()."'>{$this->$field}</a>";
+        return "<a href='".$this->editUrl($params)."'>{$this->$field}</a>";
     }
 
 
@@ -800,14 +1046,14 @@ trait ModularTrait
     | Ability to create, edit, delete or restore
     |--------------------------------------------------------------------------
     |
-    | An element can be editable or non-editable based on it's internal status
+    | An element can be editable or non-editable based on its internal status
     | This is not related to any user, rather it is a model's individual sate
     | For example - A confirmed quotation should not be editable regardless
     | Of who is attempting to edit it.
     |
     */
     /**
-     * Check if the model can be viewed based on it's values.
+     * Check if the model can be viewed based on its values.
      *
      * @return bool
      */
@@ -817,7 +1063,7 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be created based on it's values.
+     * Check if the model can be created based on its values.
      *
      * @return bool
      */
@@ -827,7 +1073,7 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be edited based on it's values.
+     * Check if the model can be edited based on its values.
      *
      * @return bool
      */
@@ -837,7 +1083,7 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be deleted based on it's values.
+     * Check if the model can be deleted based on its values.
      *
      * @return bool
      */
@@ -847,13 +1093,23 @@ trait ModularTrait
     }
 
     /**
-     * Check if the model can be created based on it's values.
+     * Check if the model can be restored based on its values.
      *
      * @return bool
      */
     public function isRestorable()
     {
         return true;
+    }
+
+    /**
+     * Check if the model can be clones based on its values.
+     *
+     * @return bool
+     */
+    public function isCloneable()
+    {
+        return false;
     }
 
     /*
@@ -863,13 +1119,25 @@ trait ModularTrait
     |
     */
 
-    public function tenant() { return $this->belongsTo(Tenant::class); }
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
-    public function project() { return $this->belongsTo(Project::class); }
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 
-    public function creator() { return $this->belongsTo(User::class, 'created_by'); }
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
-    public function updater() { return $this->belongsTo(User::class, 'updated_by'); }
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 
     public function linkedModule()
     {
@@ -900,7 +1168,8 @@ trait ModularTrait
         if (!\Str::endsWith($slug, '_ids')) {
             $key = \Str::singular($slug).'_ids';
         }
-        $class = $this->spreadAttributes[$key];
+
+        $class = $this->spreadFields[$key];
 
         return $this->belongsToMany($class, 'spreads', 'spreadable_id', 'related_id')
             ->where('key', $key);
@@ -966,7 +1235,7 @@ trait ModularTrait
      * for example if in the same module based on client_id it fills other fields
      * like client_name, client_address etc. use setters to set values
      *
-     * @return \App\Mainframe\Modules\Users\User|\App\Projects\MyProject\Modules\Users\User|BaseModule
+     * @return $this
      */
     public function denormalize()
     {
@@ -974,4 +1243,86 @@ trait ModularTrait
         return $this;
 
     }
+
+    // /**
+    //  * Set name_ext values
+    //  *
+    //  * @return $this
+    //  */
+    // public function setNameExt()
+    // {
+    //     if (!$this->hasColumn('name_ext')) {
+    //         return $this;
+    //     }
+    //
+    //     if ($this->hasColumn('name') && $this->hasColumn('name_ext')) {
+    //         $this->name_ext = $this->name;
+    //     }
+    //
+    //     if ($this->hasTenantContext() && $this->tenant) {
+    //         $this->name_ext .= ' ('.$this->tenant->name.')';
+    //     }
+    //
+    //     return $this;
+    // }
+    //
+    // /**
+    //  * Set a slug
+    //  *
+    //  * @return $this
+    //  */
+    // public function setSlug()
+    // {
+    //
+    //     if ($this->hasColumn('name') && $this->hasColumn('slug')) {
+    //         $this->slug = \Str::slug($this->name);
+    //     }
+    //
+    //     return $this;
+    // }
+
+    /**
+     * Find by name
+     *
+     * @param $name
+     * @return mixed|Module
+     */
+    public static function byName($name)
+    {
+        return self::where('name', $name)->first();
+    }
+
+    /**
+     * Find by uuid
+     *
+     * @param $uuid
+     * @return mixed|Module
+     */
+    public static function byUuid($uuid)
+    {
+        return self::where('uuid', $uuid)->first();
+    }
+
+    /**
+     * Find by slug
+     *
+     * @param $slug
+     * @return mixed|Module
+     */
+    public static function bySlug($slug)
+    {
+        return self::where('slug', $slug)->first();
+    }
+
+    /**
+     * Find by code
+     *
+     * @param $code
+     * @return mixed|Module
+     */
+    public static function byCode($code)
+    {
+        return self::where('code', $code)->first();
+    }
+
 }

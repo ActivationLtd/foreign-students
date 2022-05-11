@@ -261,12 +261,12 @@ trait ModuleTrait
      */
     public function modelInstance()
     {
-
         $classPath = $this->rootModelClassPath();
 
+        if (class_exists($classPath)) {
+            return (new $classPath);
+        }
         // $classPath = $this->modelClassPath(); // Note: Now points to \App\Model.
-
-        return (new $classPath);
     }
 
     public function rootModelClassPath()

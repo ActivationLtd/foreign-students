@@ -4,12 +4,10 @@ namespace App\Mainframe\Features\Modular\BaseModule;
 
 use App\Mainframe\Features\Core\Traits\Validable;
 use App\Mainframe\Features\Modular\BaseModule\Traits\ModularTrait;
-use App\Mainframe\Features\Multitenant\GlobalScope\CheckTenantScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use OwenIt\Auditing\Contracts\Auditable;
-use OwenIt\Auditing\Models\Audit;
 use Watson\Rememberable\Rememberable;
 
 /**
@@ -73,15 +71,13 @@ class BaseModule extends Model implements Auditable
     | Module definitions
     |--------------------------------------------------------------------------
     */
-    protected $moduleName = 'projects'; // Note: demo module name to create ide-helper doc block
+    protected $moduleName = ''; // Note: demo module name to create ide-helper doc block
 
-    /**
-     * Enable tenant context
-     *
-     * @var bool
-     */
-    protected $tenantEnabled = false;
-
+    /*
+    |--------------------------------------------------------------------------
+    | Attributes
+    |--------------------------------------------------------------------------
+    */
     /**
      * Date fields
      *
@@ -89,7 +85,12 @@ class BaseModule extends Model implements Auditable
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-    protected $hidden = ['project_id', 'tenant_id', 'deleted_by', 'deleted_at'];
+    /**
+     * Hidden in serialized output/json
+     *
+     * @var string[]
+     */
+    protected $hidden = ['project_id', 'tenant_id', 'slug', 'deleted_by', 'deleted_at'];
 
     /**
      * Attributes to exclude from the Audit.
@@ -98,13 +99,19 @@ class BaseModule extends Model implements Auditable
      */
     protected $auditExclude = ['updated_at',];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Code: Spread configs
+    |--------------------------------------------------------------------------
+    */
+
     /**
      * Define the spread attribute mapping that link to a another model.
      * Note: Table field must follow *_model_ids, i.e. visited_country_ids, active_group_ids
      *
      * @var array
      */
-    protected $spreadAttributes = [
+    protected $spreadFields = [
         // 'group_ids' => Group::class,
     ];
 
@@ -113,30 +120,57 @@ class BaseModule extends Model implements Auditable
      *
      * @var array
      */
-    protected $tagAttributes = [
+    protected $tagFields = [
         // 'first_name',
         // 'group_ids',
     ];
 
     /*
     |--------------------------------------------------------------------------
-    | Boot method and model events.
+    | Code: Tenant configs
     |--------------------------------------------------------------------------
     */
-    protected static function boot()
-    {
-        parent::boot();
+    /**
+     * Enable tenant context
+     *
+     * @var bool
+     */
+    protected $tenantEnabled = false;
 
-        // Skip audit log if there is no change
-        Audit::creating(function (Audit $model) {
-            if (empty($model->old_values) && empty($model->new_values)) {
-                return false;
-            }
-        });
+    /**
+     * If true then tenants will be able to see items where tenant_id=0
+     *
+     * @var bool
+     */
+    protected $showGlobalTenantElements = true;
 
-        // Add tenant scope to model if current user() belongs to a tenant
-        if (user()->ofTenant()) {
-            static::addGlobalScope(new CheckTenantScope);
-        }
-    }
+    /**
+     * If true then tenants will be able to see items where tenant_id=null
+     *
+     * @var bool
+     */
+    protected $showNonTenantElements = true;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Boot method and model events.
+    | Note: Do not run the boot method here. Write your boot method in project's BaseModule
+    |--------------------------------------------------------------------------
+    */
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //
+    //     // Skip audit log if there is no change
+    //     Audit::creating(function (Audit $model) {
+    //         if (empty($model->old_values) && empty($model->new_values)) {
+    //             return false;
+    //         }
+    //     });
+    //
+    //     // Add tenant scope to model if current user() belongs to a tenant
+    //     if (user()->ofTenant()) {
+    //         static::addGlobalScope(new CheckTenantScope);
+    //     }
+    // }
 }

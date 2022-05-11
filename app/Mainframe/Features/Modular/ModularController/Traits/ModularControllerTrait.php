@@ -236,7 +236,7 @@ trait ModularControllerTrait
      */
     public function clone($id)
     {
-        if (!$this->user->can('create', $this->model)) {
+        if (!$this->user->can('clone', $this->model)) {
             return $this->permissionDenied();
         }
 

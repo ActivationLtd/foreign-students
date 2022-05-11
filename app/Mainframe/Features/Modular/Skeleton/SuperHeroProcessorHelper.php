@@ -7,7 +7,7 @@ trait SuperHeroProcessorHelper
 {
     /*
     |--------------------------------------------------------------------------
-    | Functions for deriving immutables & allowed transitions
+    | Section: Functions for deriving immutables & allowed transitions
     |--------------------------------------------------------------------------
     */
     /* Further customize immutables and allowed value transitions*/
@@ -16,14 +16,14 @@ trait SuperHeroProcessorHelper
 
     /*
     |--------------------------------------------------------------------------
-    | Other helper functions
+    | Section: Other helper functions
     |--------------------------------------------------------------------------
     */
     // Todo: Other helper functions
 
     /*
     |--------------------------------------------------------------------------
-    | Validation helper functions
+    | Section: Validation helper functions
     |--------------------------------------------------------------------------
     */
 

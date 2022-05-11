@@ -25,6 +25,9 @@ class Form
     /** @var array */
     public $hiddenFields;
 
+    /** @var int */
+    public $cache = 0;
+
     public function __construct($var = [], $element = null)
     {
         $this->var = $var;
@@ -48,8 +51,14 @@ class Form
      * @param  null  $hiddenFields
      * @return mixed
      */
-    public static function setUpVar($var, $errors = null, $element = null, $editable = null, $immutables = null, $hiddenFields = null)
-    {
+    public static function setUpVar(
+        $var,
+        $errors = null,
+        $element = null,
+        $editable = null,
+        $immutables = null,
+        $hiddenFields = null
+    ) {
         // Get the module element
         if (!array_key_exists('element', $var)) {
             $var['element'] = $element ?? null;

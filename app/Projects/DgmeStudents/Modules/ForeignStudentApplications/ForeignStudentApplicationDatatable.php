@@ -34,6 +34,7 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
             // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
             [$this->table.'.applicant_name', 'applicant_name', 'Name'],
+            [$this->table.'.domicile_country_name', 'domicile_country_name', 'Domicile Country'],
             [$this->table.'.applicant_passport_no', 'applicant_passport_no', 'Passport No'],
             [$this->table.'.is_saarc', 'is_saarc', 'Saarc Country'],
             [$this->table.'.course_name', 'course_name', 'Course'],

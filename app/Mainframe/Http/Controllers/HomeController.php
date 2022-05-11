@@ -31,12 +31,4 @@ class HomeController extends BaseController
             ->send();
     }
 
-    /**
-     * @return bool
-     */
-    public function phpinfo()
-    {
-        return phpinfo();
-
-    }
 }

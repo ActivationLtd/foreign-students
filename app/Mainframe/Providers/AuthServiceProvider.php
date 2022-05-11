@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Mainframe\Features\Resolvers\PolicyResolver;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -61,7 +62,7 @@ class AuthServiceProvider extends ServiceProvider
         foreach ($customPermissions as $category => $permissions) {
             foreach ($permissions as $key => $label) {
                 Gate::define($key, function (User $user) use ($key) {
-                    return $user->hasAccess($key);
+                    return $user->hasPermission($key);
                 });
             }
         }
@@ -75,14 +76,14 @@ class AuthServiceProvider extends ServiceProvider
         /**
          * Derive x-auth
          */
-        Auth::viaRequest('x-auth', function (\Illuminate\Http\Request $request) {
+        Auth::viaRequest('x-auth', function (Request $request) {
             return User::apiAuthenticator();
         });
 
         /**
          * Derive bearer
          */
-        Auth::viaRequest('bearer', function (\Illuminate\Http\Request $request) {
+        Auth::viaRequest('bearer', function (Request $request) {
             return User::bearer();
         });
     }
