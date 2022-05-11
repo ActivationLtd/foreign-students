@@ -3,6 +3,8 @@
  */
 function enableValidation(form_name, successHandlerFunction = false) {
 
+    showRequiredIcons();
+
     var form = $('form[name=' + form_name + '] ');
     var btn = form.find(' button[type=submit]');
 
@@ -192,4 +194,17 @@ function autoCloseMsgModal() {
     setTimeout(() => {
         $('#msgModal').modal('hide');
     }, 4000);
+}
+
+/**
+ * Add span to show required icons
+ */
+function showRequiredIcons() {
+    collection = document.getElementsByClassName("validate[required]");
+    for (let i = 0; i < collection.length; i++) {
+        var e = $(collection[i]);
+        var name = e.attr('name');
+        var label_for = name;
+        e.siblings('label[for=' + label_for + ']').append('<span class=\'text-red\'>*</span>');
+    }
 }

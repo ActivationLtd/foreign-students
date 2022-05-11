@@ -58,7 +58,6 @@ use App\Mainframe\Modules\InAppNotifications\Traits\InAppNotificationTrait;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
  * @property-read \App\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification query()
@@ -106,7 +105,7 @@ class InAppNotification extends BaseModule
     use  InAppNotificationTrait;
 
     protected $moduleName = 'in-app-notifications';
-    protected $table      = 'in_app_notifications';
+    protected $table = 'in_app_notifications';
     /*
     |--------------------------------------------------------------------------
     | Properties

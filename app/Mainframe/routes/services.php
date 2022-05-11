@@ -1,8 +1,8 @@
 <?php
 /*---------------------------------------------------------------------------------
-| Section: Service routes
+| Section: Services routes
 |----------------------------------------------------------------------------------
-| Service routes are created to be used in your ajax calls. Inside your application.
+| Services routes are created to be used in your ajax calls. Inside your application.
 | Often for vue or axios call you will need custom responses to best handle the situation
 |---------------------------------------------------------------------------------*/
 // Todo : Write your service(json responses routes here)

@@ -42,7 +42,6 @@ use App\Mainframe\Modules\Reports\Traits\ReportTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Report newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Report newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Report query()
@@ -86,7 +85,7 @@ class Report extends BaseModule
     |
     */
     protected $moduleName = 'reports';
-    protected $table      = 'reports';
+    protected $table = 'reports';
     /*
     |--------------------------------------------------------------------------
     | Fillable attributes
