@@ -220,12 +220,12 @@ class Mf
      */
     public static function httpRequestSignature($append = null)
     {
-        $signature = \URL::full().json_encode(request()->all()).$append;
+        $signature = json_encode(\Arr::dot(request()->all()));
         if (user()) {
             $signature .= user()->uuid;
         }
 
-        return base64_encode($signature);
+        return $signature.$append;
     }
 
     /*
