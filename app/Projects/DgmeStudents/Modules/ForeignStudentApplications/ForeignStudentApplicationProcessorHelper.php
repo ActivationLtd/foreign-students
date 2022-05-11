@@ -32,6 +32,9 @@ trait ForeignStudentApplicationProcessorHelper
         if ($element->course_id) {
             $element->course_name = $element->course->name;
         }
+        if ($element->application_session_id) {
+            $element->application_session_name = $element->applicationSession->name;
+        }
 
         return $this;
     }

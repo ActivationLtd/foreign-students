@@ -64,13 +64,22 @@ if (user()->isAdmin()) {
             'div' => 'col-sm-3',
             'null_option' => false,
         ];
-        if (user()->isApplicant()) {
-            $var['query'] = DB::table('application_sessions')
-                ->where('status', \App\ApplicationSession::SESSION_STATUS_OPEN)->latest();
+        //for created only show the existing value
+        if ($element->application_session_id) {
+            $var ['value'] = $element->application_session_id;
+            $var ['show_inactive'] = true;
         } else {
+            //new application should show active sessions
+            if (user()->isApplicant()) {
+                $var['query'] = DB::table('application_sessions')
+                    ->where('status', \App\ApplicationSession::SESSION_STATUS_OPEN)->latest();
+
+            }
+        }
+        //for admins show all values
+        if (user()->isAdmin()) {
             $var['query'] = DB::table('application_sessions')
                 ->whereIn('status', [\App\ApplicationSession::SESSION_STATUS_OPEN, \App\ApplicationSession::SESSION_STATUS_CLOSED]);
-
             $var ['show_inactive'] = true;
         }
 
