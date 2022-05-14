@@ -19,7 +19,7 @@ trait ReportDatatableTrait
             [$this->table.'.id', 'id', 'ID'],
             [$this->table.'.name', 'name', 'Name'],
             [$this->table.'.description', 'description', 'Description'],
-            [$this->table.'.parameters', 'parameters', 'Parameters'],
+            // [$this->table.'.parameters', 'parameters', 'Parameters'],
             [$this->table.'.updated_by', 'updated_by', 'Updater'],
             [$this->table.'.updated_at', 'updated_at', 'Updated at'],
             [$this->table.'.is_active', 'is_active', 'Active'],
@@ -31,7 +31,6 @@ trait ReportDatatableTrait
     {
         return $this->hidden ?? ['parameters'];
     }
-
 
     /*---------------------------------
     | Section : Modify row-columns
