@@ -23,7 +23,7 @@
      */
     addValidationRules(); // Assign validation classes/rules
 
-    // enableValidation('{{$module->name}}'); // Enable Ajax based form validation.
+    enableValidation('{{$module->name}}'); // Enable Ajax based form validation.
 
     @if($element->isCreating())
     /*

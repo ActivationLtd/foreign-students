@@ -2,8 +2,14 @@
 
 namespace App\Projects\DgmeStudents\Modules\Uploads;
 
-class UploadProcessor extends \App\Mainframe\Modules\Uploads\UploadProcessor
+use App\Mainframe\Modules\Uploads\Traits\UploadProcessorTrait;
+use App\Projects\DgmeStudents\Features\Modular\Validator\ModelProcessor;
+
+class UploadProcessor extends ModelProcessor
 {
+    use UploadProcessorTrait, UploadProcessorHelper;
+
+    // public $immutables = ['name'];
     /*
     |--------------------------------------------------------------------------
     | Fill model .
@@ -47,7 +53,7 @@ class UploadProcessor extends \App\Mainframe\Modules\Uploads\UploadProcessor
     public static function rules($element, $merge = [])
     {
         $rules = [
-            'type' => 'in:'.implode(',', Upload::$types),
+            // 'type' => 'in:'.implode(',', Upload::$types),
         ];
 
         return array_merge($rules, $merge);

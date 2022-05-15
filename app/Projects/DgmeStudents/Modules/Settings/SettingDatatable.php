@@ -1,7 +1,4 @@
 <?php
-/** @noinspection UnknownInspectionInspection */
-/** @noinspection DuplicatedCode */
-/** @noinspection SenselessMethodDuplicationInspection */
 
 namespace App\Projects\DgmeStudents\Modules\Settings;
 
@@ -12,6 +9,8 @@ class SettingDatatable extends ModuleDatatable
 {
 
     use SettingDatatableTrait;
+
+    public $moduleName = 'settings';
 
     // public $rawColumns = ['id', 'name', 'is_active'];
 
