@@ -1,14 +1,23 @@
 @extends('projects.dgme-students.layouts.pdf-print.template')
 
+@section('css')
+    @parent
+    <style>
+        .container {width: 700px;}
+    </style>
+@endsection
+
+
 
 @section('content')
 
-    <h3>Summary of Foreign Student Application</h3>
+    <h3 style="text-align: center">Summary of Foreign Student Application</h3>
     <table class="table table-bordered no-padding">
         <tr>
             <td width="50%">
                 @if($profilePic)
-                    <img class="img-thumbnail" style="height:150px!important;" src="{{$profilePic->path}}" alt="alt text">
+                    <img class="img-thumbnail" style="height:150px!important;" src="{{$profilePic->thumbnail()}}"
+                         alt="alt text">
                 @endif
             </td>
             <td>
