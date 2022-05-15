@@ -62,7 +62,8 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
             return true;
         }
 
-        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at,
+                now()) >= 24) {
             return false;
         }
 
@@ -85,7 +86,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
         if ($this->user->isAdmin()) {
             return true;
         }
-        
+
         if ($this->element->status == 'Draft' && user()->isApplicant()) {
             return true;
         }
@@ -99,9 +100,9 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     public function profilePicPath()
     {
         $element = $this->element;
-        $profilePic = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
-        if ($profilePic) {
-            return $profilePic->path;
+        $upload = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
+        if ($upload) {
+            return $upload->thumbnail();
         }
 
         return null;

@@ -79,7 +79,8 @@ if (user()->isAdmin()) {
         //for admins show all values
         if (user()->isAdmin()) {
             $var['query'] = DB::table('application_sessions')
-                ->whereIn('status', [\App\ApplicationSession::SESSION_STATUS_OPEN, \App\ApplicationSession::SESSION_STATUS_CLOSED]);
+                ->whereIn('status',
+                    [\App\ApplicationSession::SESSION_STATUS_OPEN, \App\ApplicationSession::SESSION_STATUS_CLOSED]);
             $var ['show_inactive'] = true;
         }
 
@@ -91,8 +92,11 @@ if (user()->isAdmin()) {
         <h4>Applicant Info</h4>
 
         @if($view->showProfilePic())
-            <div class="col-md-3 no-padding-l" style="padding-right: 20px"><img class="img-thumbnail" style="height:120px!important;"
-                                                                                src="{{$view->profilePicPath()}}" alt="alt text"></div>
+            <div class="col-md-3 no-padding-l" style="padding-right: 20px">
+                <img class="img-thumbnail" style="width:150px!important;"
+                     src="{{$view->profilePicPath()}}"
+                     alt="alt text">
+            </div>
         @endif
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','div'=>'col-md-6']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-3']])
@@ -112,7 +116,10 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
 
             <?php
-            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'table' => 'countries', 'div' => 'col-md-4'];
+            $var = [
+                'name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'table' => 'countries',
+                'div' => 'col-md-4'
+            ];
             if ($element->is_saarc == 1) {
                 $var['query'] = DB::table('countries')->where('is_saarc', '1');
             } else {
@@ -177,7 +184,8 @@ if (user()->isAdmin()) {
                 <h4>Proficiency Of Language</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
                 @if($view->showLanguageProficiencyCreateButton())
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#languageProficiencyModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#languageProficiencyModal">
                         Add Language Proficiency
                     </button>
                 @endif
@@ -194,9 +202,12 @@ if (user()->isAdmin()) {
                 <h5>Declaration</h5>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
-                <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the best of my knowledge.<br>
-                    I also declare that I shall fully abide by the rules and regulations of the institutions, country and any decisions of Authority of the<br>
-                    institution to which I may be admitted. I furthermore declare that if any of the submitted documents found false <br>
+                <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the
+                    best of my knowledge.<br>
+                    I also declare that I shall fully abide by the rules and regulations of the institutions, country
+                    and any decisions of Authority of the<br>
+                    institution to which I may be admitted. I furthermore declare that if any of the submitted documents
+                    found false <br>
                     or tempered, the application will be cancelled</p>
             </div>
 
@@ -233,21 +244,25 @@ if (user()->isAdmin()) {
         <div class="col-md-6 no-padding-l">
             <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
-            <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or more files</small>
+            <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or more
+                files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
             <h5>Applicant's A Level Or Equivalent Certificate</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
         </div>
     @endif
     @if($element->id && $view->showExaminationCreateButton())
-        <div class="modal fade" id="examinationModal" tabindex="-1" role="dialog" aria-labelledby="examinationModalLabel" aria-hidden="true">
+        <div class="modal fade" id="examinationModal" tabindex="-1" role="dialog"
+             aria-labelledby="examinationModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form id="applicationExaminationForm" name="applicationExaminationForm" action="{{route('foreign-application-examinations.store')}}"
+                    <form id="applicationExaminationForm" name="applicationExaminationForm"
+                          action="{{route('foreign-application-examinations.store')}}"
                           method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add Examination</h5>
-                            <button id="applicationExaminationModalCloseButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button id="applicationExaminationModalCloseButton" type="button" class="close"
+                                    data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -261,13 +276,16 @@ if (user()->isAdmin()) {
                             @include('form.number',['var'=>['name'=>'passing_year','label'=>'Passing Year','div'=>'col-md-6']])
                             @include('form.textarea',['var'=>['name'=>'subjects','label'=>'Subjects Taken','div'=>'col-md-12']])
                             @include('form.text',['var'=>['name'=>'certificate_name','label'=>'Certificate','div'=>'col-md-12']])
-                            <input name="redirect_success" type="hidden" value="{{route('foreign-student-applications.edit',$element->id)}}"/>
-                            <input name="redirect_fail" type="hidden" value="{{route('foreign-student-applications.edit',$element->id)}}"/>
+                            <input name="redirect_success" type="hidden"
+                                   value="{{route('foreign-student-applications.edit',$element->id)}}"/>
+                            <input name="redirect_fail" type="hidden"
+                                   value="{{route('foreign-student-applications.edit',$element->id)}}"/>
                             {{--<input name="redirect_fail" type="hidden" value="{{URL::full()}}"/>--}}
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
-                            <button id="applicationExaminationFormButton" name="applicationExaminationFormButton" type="submit" class="btn btn-primary">Add
+                            <button id="applicationExaminationFormButton" name="applicationExaminationFormButton"
+                                    type="submit" class="btn btn-primary">Add
                                 Examination
                             </button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -278,13 +296,16 @@ if (user()->isAdmin()) {
         </div>
     @endif
     @if($element->id && $view->showLanguageProficiencyCreateButton())
-        <div class="modal fade" id="languageProficiencyModal" tabindex="-1" role="dialog" aria-labelledby="languageProficiencyModalLabel" aria-hidden="true">
+        <div class="modal fade" id="languageProficiencyModal" tabindex="-1" role="dialog"
+             aria-labelledby="languageProficiencyModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form id="languageProficiencyForm" name="languageProficiencyForm" action="{{route('foreign-app-lang-proficiencies.store')}}" method="POST">
+                    <form id="languageProficiencyForm" name="languageProficiencyForm"
+                          action="{{route('foreign-app-lang-proficiencies.store')}}" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add Language Proficiency </h5>
-                            <button type="button" id="languageProficiencyFormModalCloseButton" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" id="languageProficiencyFormModalCloseButton" class="close"
+                                    data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -297,14 +318,18 @@ if (user()->isAdmin()) {
                             @include('form.select-array',['var'=>['name'=>'reading_proficiency','label'=>'Reading', 'options'=>kv($proficiencyLevels)]])
                             @include('form.select-array',['var'=>['name'=>'writing_proficiency','label'=>'Writing', 'options'=>kv($proficiencyLevels)]])
                             @include('form.select-array',['var'=>['name'=>'speaking_proficiency','label'=>'Speaking', 'options'=>kv($proficiencyLevels)]])
-                            <input name="redirect_success" type="hidden" value="{{route('foreign-student-applications.edit',$element->id)}}"/>
-                            <input name="redirect_fail" type="hidden" value="{{route('foreign-student-applications.edit',$element->id)}}"/>
+                            <input name="redirect_success" type="hidden"
+                                   value="{{route('foreign-student-applications.edit',$element->id)}}"/>
+                            <input name="redirect_fail" type="hidden"
+                                   value="{{route('foreign-student-applications.edit',$element->id)}}"/>
                             {{--<input name="redirect_fail" type="hidden" value="{{URL::full()}}"/>--}}
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Add Language Proficiency</button>
-                            <button id="languageProficiencyFormButtonClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="languageProficiencyFormButtonClose" type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">Close
+                            </button>
                         </div>
                     </form>
                 </div>
