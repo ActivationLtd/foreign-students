@@ -242,7 +242,9 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     protected $dates  = ['created_at', 'updated_at', 'deleted_at', 'first_login_at', 'last_login_at',];
     protected $casts  = ['group_ids' => 'array',];
     // protected $with = [];
-    protected $appends = ['type', 'profile_pic'];
+    protected $appends = [
+        // 'type', 'profile_pic'
+    ];
 
     protected $spreadFields = [
         'group_ids' => Group::class,

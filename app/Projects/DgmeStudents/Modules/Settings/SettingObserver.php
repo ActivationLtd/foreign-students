@@ -2,10 +2,13 @@
 
 namespace App\Projects\DgmeStudents\Modules\Settings;
 
+use App\Mainframe\Modules\Settings\Traits\SettingObserverTrait;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleObserver;
 
 class SettingObserver extends BaseModuleObserver
 {
+    use SettingObserverTrait;
+
     /**
      * @param  Setting  $element
      * @return void|bool

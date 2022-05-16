@@ -13,6 +13,7 @@ use App\Projects\DgmeStudents\Features\Report\ModuleList;
 class SettingController extends ModularController
 {
     use SettingControllerTrait;
+
     /*
     |--------------------------------------------------------------------------
     | Module definitions
@@ -28,6 +29,7 @@ class SettingController extends ModularController
     */
     /**
      * Setting Datatable
+     *
      * @return SettingDatatable
      */
     public function datatable()

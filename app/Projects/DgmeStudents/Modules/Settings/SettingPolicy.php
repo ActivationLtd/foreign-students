@@ -3,12 +3,16 @@
 
 namespace App\Projects\DgmeStudents\Modules\Settings;
 
+use App\Mainframe\Modules\Settings\Traits\SettingPolicyTrait;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModulePolicy;
 
 class SettingPolicy extends BaseModulePolicy
 {
+    use SettingPolicyTrait;
+
     /**
      * view-any
+     *
      * @param  \App\User  $user
      * @return mixed
      */

@@ -13,6 +13,7 @@ class UploadController extends ModularController
 {
 
     use UploadControllerTrait;
+
     /*
     |--------------------------------------------------------------------------
     | Module definitions

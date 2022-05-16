@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Mainframe\Commands\FixContentKey::class,
         \App\Mainframe\Commands\RefreshGroupPermission::class,
         \App\Mainframe\Commands\RefreshModules::class,
+        \App\Mainframe\Commands\CleanTempDirectory::class,
     ];
 
     protected $providers = [

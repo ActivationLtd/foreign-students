@@ -54,7 +54,9 @@ trait SettingHelper
     // public function isViewable() { return true; }
     // public function isCreatable() { return true; }
     // public function isEditable() { return true; }
-    // public function isDeletable() { return true; }
+    // public function isDeletable() { return false; }
+
+    public function isCloneable() { return true; }
 
     /*
     |--------------------------------------------------------------------------

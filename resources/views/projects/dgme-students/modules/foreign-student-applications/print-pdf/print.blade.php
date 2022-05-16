@@ -7,8 +7,8 @@
     <table class="table table-bordered no-padding">
         <tr>
             <td width="50%">
-                @if($profilePic)
-                    <img class="img-thumbnail" style="height:150px!important;" src="{{$profilePic->path}}" alt="alt text">
+                @if($application->profilePic())
+                    <img class="img-thumbnail" style="height:150px!important;" src="{{$application->profilePic()->thumbnail()}}" alt="alt text">
                 @endif
             </td>
             <td>

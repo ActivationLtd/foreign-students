@@ -13,7 +13,10 @@
  * @var \App\Tenant $tenant
  * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor $view
  */
-use App\ForeignAppLangProficiency;use App\ForeignApplicationExamination;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;
+use App\ForeignAppLangProficiency;
+use App\ForeignApplicationExamination;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
+use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;
 $foreignStudentApplication = $element;
 
 
@@ -24,22 +27,24 @@ $fundingModes = ForeignStudentApplication::$fundingModes;
 $statuses = ForeignStudentApplication::$statuses;
 $examinationTypes = ForeignApplicationExamination::$examinationTypes;
 if (user()->isApplicant()) {
-    unset($statuses['2']);
-    unset($statuses['3']);
-    unset($statuses['4']);
+    $statuses = ForeignStudentApplication::$applicantStatuses;
 }
 if (user()->isAdmin()) {
-    unset($statuses['0']);
+    $statuses = ForeignStudentApplication::$adminStatuses;
 }
 ?>
-@if($element->id && $element->status=="Submitted")
+
 @section('content-top')
-    <div class="pull-left">
-        <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
-    </div>
-    <div class="clearfix"></div>
+    @parent
+    @include('mainframe.form.back-link',['var'=>['element'=>$element->user,'class'=>'pull-left']])
+    @if($view->showPrintButton())
+
+            <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
+ 
+        <div class="clearfix"></div>
+    @endif
 @endsection
-@endif
+
 @section('content')
     <div class="col-md-10 no-padding">
         @if(($formState == 'create'))
@@ -59,11 +64,14 @@ if (user()->isAdmin()) {
         $var = [
             'name' => 'application_session_id',
             'label' => 'Session',
-            'table' => 'application_sessions',
-            'model' => \App\ApplicationSession::class,
             'div' => 'col-sm-3',
             'null_option' => false,
         ];
+        //for admins show all values
+
+        $var['model'] = \App\ApplicationSession::class::whereIn('status', [ApplicationSession::SESSION_STATUS_OPEN, ApplicationSession::SESSION_STATUS_CLOSED]);
+        $var ['show_inactive'] = true;
+
         //for created only show the existing value
         if ($element->application_session_id) {
             $var ['value'] = $element->application_session_id;
@@ -71,17 +79,11 @@ if (user()->isAdmin()) {
         } else {
             //new application should show active sessions
             if (user()->isApplicant()) {
-                $var['query'] = DB::table('application_sessions')
-                    ->where('status', \App\ApplicationSession::SESSION_STATUS_OPEN)->latest();
+                $var['model'] = ApplicationSession::class::where('status', ApplicationSession::SESSION_STATUS_OPEN)->latest();
 
             }
         }
-        //for admins show all values
-        if (user()->isAdmin()) {
-            $var['query'] = DB::table('application_sessions')
-                ->whereIn('status', [\App\ApplicationSession::SESSION_STATUS_OPEN, \App\ApplicationSession::SESSION_STATUS_CLOSED]);
-            $var ['show_inactive'] = true;
-        }
+
 
 
         ?>
@@ -112,11 +114,10 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
 
             <?php
-            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'table' => 'countries', 'div' => 'col-md-4'];
+            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'div' => 'col-md-4'];
+            $var['model'] = \App\Country::whereNull('is_saarc');
             if ($element->is_saarc == 1) {
-                $var['query'] = DB::table('countries')->where('is_saarc', '1');
-            } else {
-                $var['query'] = DB::table('countries')->whereNull('is_saarc');
+                $var['model'] = \App\Country::where('is_saarc', '1');
             }
             ?>
 
@@ -158,6 +159,7 @@ if (user()->isAdmin()) {
                 <?php
                 $datatable = new \App\Projects\DgmeStudents\Datatables\ApplicationExaminationDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
+                $datatable->bLengthChange=false;
                 ?>
                 <h4>Beginning with Matriculation/O Level or equivalent examinations list your examinations</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
@@ -173,6 +175,7 @@ if (user()->isAdmin()) {
                 <?php
                 $datatable = new \App\Projects\DgmeStudents\Datatables\AppLanguageProficiencyDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
+                $datatable->bLengthChange=false;
                 ?>
                 <h4>Proficiency Of Language</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
@@ -185,6 +188,10 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
             <h4>Payment Info</h4>
             @include('form.text',['var'=>['name'=>'payment_transaction_id','label'=>'Payment Transaction Id','div'=>'col-md-6']])
+
+            <div class="clearfix"></div>
+            @include('form.checkbox',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified']])
+            @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
             <div class="clearfix"></div>
             @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
