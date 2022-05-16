@@ -95,6 +95,10 @@ trait ApplicationSessionHelper
     {
         return ApplicationSession::where('status',self::SESSION_STATUS_OPEN)->latest()->first();
     }
+    public static function latestSession(): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|null
+    {
+        return ApplicationSession::latest()->first();
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Ability to create, edit, delete or restore

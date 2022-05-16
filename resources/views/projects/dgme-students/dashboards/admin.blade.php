@@ -22,11 +22,11 @@
                     <table style="width: 100%">
                         <tr>
                             <td>Draft:</td>
-                            <td>{{$adminData['applications']['ongoing']}}</td>
+                            <td>{{$adminData['applications']['draft']}}</td>
                         </tr>
                         <tr>
                             <td>Submitted :</td>
-                            <td>{{$adminData['applications']['ongoing']}}</td>
+                            <td>{{$adminData['applications']['submitted']}}</td>
                         </tr>
                         <tr>
                             <td>Total :</td>
@@ -49,12 +49,12 @@
                     <table style="width: 100%">
                         <tr>
                             <td>Session:</td>
-                            <td>{Session name} <span class="badge bg-green">{status}</span></td>
+                            <td>{{$adminData['applications']['latestSession']->name}} <span class="badge bg-green">{{$adminData['applications']['latestSession']->status}}</span></td>
                         </tr>
                         <tr>
                             <td style="vertical-align:top">Timeline:</td>
                             <td style="vertical-align:top">
-                                {{formatDate(now())}} - {{formatDate(now())}}<br>
+                                {{formatDate($adminData['applications']['latestSession']->starts_on)}} - {{formatDate($adminData['applications']['latestSession']->ends_on)}}<br>
 
                             </td>
                         </tr>
@@ -74,7 +74,7 @@
                     <table style="width: 100%">
                         <tr>
                             <td>Total:</td>
-                            <td>{99999}</td>
+                            <td>{{$adminData['applications']['totalUsers']}}</td>
                         </tr>
                     </table>
                     <a href="{{route('users.index')}}" style="color:white">Manage</a> <i class="fa fa-angle-right"></i>

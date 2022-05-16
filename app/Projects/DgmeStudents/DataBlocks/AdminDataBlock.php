@@ -3,7 +3,9 @@
 namespace App\Projects\DgmeStudents\DataBlocks;
 
 use App\Projects\DgmeStudents\Features\DataBlocks\DataBlock;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;
+use App\User;
 
 class AdminDataBlock extends DataBlock
 {
@@ -27,15 +29,25 @@ class AdminDataBlock extends DataBlock
     public function process()
     {
         $user=user();
-        $totalApplications=ForeignStudentApplication::count();
-        $inProgressApplications=ForeignStudentApplication::whereNotIn('status',['Declined'])->count();
-        //$inProgressApplication=$user->applications()->whereNotIn('status',['Declined'])->first();
-        // Todo: Prepare and load data
+        $draft=$submitted=null;
+        $draft=ForeignStudentApplication::where('status',ForeignStudentApplication::STATUS_DRAFT)->count();
+        $submitted=ForeignStudentApplication::where('status',ForeignStudentApplication::STATUS_SUBMITTED)->count();
+        $total=$draft+$submitted;
+        // Session
+        $latestSession=ApplicationSession::latestSession();
+
+        //User
+        $totalUsers=User::count();
+
+
 
         $this->data = [
             'applications' => [
-                'total' => $totalApplications,
-                'ongoing' => $inProgressApplications,
+                'total' => $total,
+                'draft' => $draft,
+                'submitted' => $submitted,
+                'latestSession'=>$latestSession,
+                'totalUsers'=>$totalUsers,
             ],
         ];
     }

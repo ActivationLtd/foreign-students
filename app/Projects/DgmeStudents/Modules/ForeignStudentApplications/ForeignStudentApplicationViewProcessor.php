@@ -101,7 +101,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
         $element = $this->element;
         if ($element->profilePic()) {
-            return $element->profilePic()->path;
+            return $element->profilePic()->url;
         }
 
         return null;
@@ -113,7 +113,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     public function showProfilePic(): bool
     {
         $element = $this->element;
-        $profilePic = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
+        $profilePic = $element->profilePic();
 
         return (isset($element->id) && $profilePic);
     }
