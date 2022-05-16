@@ -253,6 +253,10 @@ div.dataTables_processing {
     text-align: center;
 }
 
+div.dataTables_info {
+    float: left;
+}
+
 /* datatable */
 table.dataTable {
     margin-top: 5px !important;
