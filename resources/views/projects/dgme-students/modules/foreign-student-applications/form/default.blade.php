@@ -35,10 +35,12 @@ if (user()->isAdmin()) {
 ?>
 
 @section('content-top')
+    @parent
+    @include('mainframe.form.back-link',['var'=>['element'=>$element->user,'class'=>'pull-left']])
     @if($view->showPrintButton())
-        <div class="pull-left">
-            <a class="btn btn-primary" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
-        </div>
+
+            <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
+ 
         <div class="clearfix"></div>
     @endif
 @endsection
@@ -157,6 +159,7 @@ if (user()->isAdmin()) {
                 <?php
                 $datatable = new \App\Projects\DgmeStudents\Datatables\ApplicationExaminationDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
+                $datatable->bLengthChange=false;
                 ?>
                 <h4>Beginning with Matriculation/O Level or equivalent examinations list your examinations</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
@@ -172,6 +175,7 @@ if (user()->isAdmin()) {
                 <?php
                 $datatable = new \App\Projects\DgmeStudents\Datatables\AppLanguageProficiencyDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
+                $datatable->bLengthChange=false;
                 ?>
                 <h4>Proficiency Of Language</h4>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
@@ -187,7 +191,7 @@ if (user()->isAdmin()) {
 
             <div class="clearfix"></div>
             @include('form.checkbox',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified']])
-            @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Payment Verified']])
+            @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
             <div class="clearfix"></div>
             @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])

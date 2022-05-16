@@ -8,7 +8,7 @@
         <tr>
             <td width="50%">
                 @if($application->profilePic())
-                    <img class="img-thumbnail" style="height:150px!important;" src="{{$application->profilePic()->url}}" alt="alt text">
+                    <img class="img-thumbnail" style="height:150px!important;" src="{{$application->profilePic()->thumbnail()}}" alt="alt text">
                 @endif
             </td>
             <td>

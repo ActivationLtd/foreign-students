@@ -56,13 +56,12 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      * @return bool
      */
 
-    public function showExaminationCreateButton()
+    public function showExaminationCreateButton(): bool
     {
-        if ($this->user->isAdmin()) {
-            return true;
-        }
-
-        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+        // if ($this->user->isAdmin()) {
+        //     return true;
+        // }
+        if ($this->user->isApplicant() && $this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
             return false;
         }
 
@@ -72,7 +71,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
-    public function showLanguageProficiencyCreateButton()
+    public function showLanguageProficiencyCreateButton(): bool
     {
         return $this->showExaminationCreateButton();
     }
@@ -82,15 +81,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showSubmitButton(): bool
     {
-        if ($this->user->isAdmin()) {
-            return true;
-        }
-
-        if ($this->element->status == 'Draft' && user()->isApplicant()) {
-            return true;
-        }
-
-        return false;
+        return ($this->element->status == 'Draft');
     }
 
     /**
@@ -101,7 +92,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
         $element = $this->element;
         if ($element->profilePic()) {
-            return $element->profilePic()->url;
+            return $element->profilePic()->thumbnail();
         }
 
         return null;
@@ -122,7 +113,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     {
         $element = $this->element;
 
-        return ($element->id && $element->status == "Submitted");
+        return (isset($element->id));
     }
     /*
     |--------------------------------------------------------------------------
