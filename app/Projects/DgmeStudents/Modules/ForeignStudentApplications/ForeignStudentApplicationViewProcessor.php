@@ -62,8 +62,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
             return true;
         }
 
-        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at,
-                now()) >= 24) {
+        if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
             return false;
         }
 
@@ -81,7 +80,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
-    public function showSubmitButton()
+    public function showSubmitButton(): bool
     {
         if ($this->user->isAdmin()) {
             return true;
@@ -97,12 +96,12 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed|null
      */
-    public function profilePicPath()
+    public function profilePicPath(): mixed
     {
+
         $element = $this->element;
-        $upload = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
-        if ($upload) {
-            return $upload->thumbnail();
+        if ($element->profilePic()) {
+            return $element->profilePic()->path;
         }
 
         return null;
@@ -111,15 +110,19 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
-    public function showProfilePic()
+    public function showProfilePic(): bool
     {
         $element = $this->element;
         $profilePic = $element->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
-        if (isset($element->id) && $profilePic) {
-            return true;
-        }
 
-        return false;
+        return (isset($element->id) && $profilePic);
+    }
+
+    public function showPrintButton(): bool
+    {
+        $element = $this->element;
+
+        return ($element->id && $element->status == "Submitted");
     }
     /*
     |--------------------------------------------------------------------------
