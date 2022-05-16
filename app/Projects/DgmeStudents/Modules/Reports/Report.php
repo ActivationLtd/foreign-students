@@ -3,7 +3,7 @@
 namespace App\Projects\DgmeStudents\Modules\Reports;
 
 use App\Mainframe\Modules\Reports\Traits\ReportTrait;
-use \App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
+use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
 
 /**
  * App\Projects\DgmeStudents\Modules\Reports\Report
@@ -91,6 +91,14 @@ class Report extends BaseModule
         'tenant_id',
         'uuid',
         'name',
+        'title',
+        'description',
+        'parameters',
+        'type',
+        'version',
+        'module_id',
+        'is_module_default',
+        'tags',
         'is_active',
     ];
 
