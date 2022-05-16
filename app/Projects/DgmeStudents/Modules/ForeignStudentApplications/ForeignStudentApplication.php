@@ -143,9 +143,8 @@ class ForeignStudentApplication extends BaseModule
 
     public const STATUS_DRAFT                 = 'Draft';
     public const STATUS_SUBMITTED             = 'Submitted';
-    public const STATUS_PAYMENT_VERIFICATION  = 'Payment Verified';
-    public const STATUS_DOCUMENT_VERIFICATION = 'Document Verified';
     public const STATUS_DECLINED              = 'Declined';
+    public const STATUS_ACCEPTED              = 'Accepted';
 
     public const FINANCE_MODE_OWN_FUND        = 'Own funds';
     public const FINANCE_MODE_CANDIDATE_GOVT  = 'Scholarship awarded by candidates\'s own Government';
@@ -205,6 +204,8 @@ class ForeignStudentApplication extends BaseModule
         'application_session_id',
         //'application_session_name',
         //'submitted_at',
+        'is_payment_verified',
+        'is_document_verified',
         'payment_transaction_id',
         'is_active',
     ];
@@ -224,8 +225,6 @@ class ForeignStudentApplication extends BaseModule
     public static $statuses                = [
         ForeignStudentApplication::STATUS_DRAFT,
         ForeignStudentApplication::STATUS_SUBMITTED,
-        ForeignStudentApplication::STATUS_PAYMENT_VERIFICATION,
-        ForeignStudentApplication::STATUS_DOCUMENT_VERIFICATION,
         ForeignStudentApplication::STATUS_DECLINED,
     ];
     public static $applicantStatuses       = [
@@ -235,8 +234,7 @@ class ForeignStudentApplication extends BaseModule
     ];
     public static $adminStatuses           = [
         ForeignStudentApplication::STATUS_SUBMITTED,
-        ForeignStudentApplication::STATUS_PAYMENT_VERIFICATION,
-        ForeignStudentApplication::STATUS_DOCUMENT_VERIFICATION,
+        ForeignStudentApplication::STATUS_ACCEPTED,
         ForeignStudentApplication::STATUS_DECLINED,
     ];
     public static $fundingModes            = [

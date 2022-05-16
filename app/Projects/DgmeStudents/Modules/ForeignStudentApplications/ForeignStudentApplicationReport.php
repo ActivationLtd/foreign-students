@@ -85,6 +85,12 @@ class ForeignStudentApplicationReport extends ReportBuilder
         if (request('is_saarc')) {
             $query->where('is_saarc',request('is_saarc'));
         }
+        if (request('is_payment_verified')) {
+            $query->where('is_payment_verified',request('is_payment_verified'));
+        }
+        if (request('is_document_verified')) {
+            $query->where('is_document_verified',request('is_document_verified'));
+        }
         if (request('financing_mode')) {
             $query->whereIn('financing_mode',request('financing_mode'));
         }

@@ -184,6 +184,10 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
             <h4>Payment Info</h4>
             @include('form.text',['var'=>['name'=>'payment_transaction_id','label'=>'Payment Transaction Id','div'=>'col-md-6']])
+
+            <div class="clearfix"></div>
+            @include('form.checkbox',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified']])
+            @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Payment Verified']])
             <div class="clearfix"></div>
             @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])

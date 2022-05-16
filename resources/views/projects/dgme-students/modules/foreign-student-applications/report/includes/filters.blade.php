@@ -62,12 +62,16 @@ $statuses = ForeignStudentApplication::$statuses;
                 @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
                 @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
                 @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+
                 <div class="clearfix"></div>
-                @include('form.select-array-multiple',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-6']])
-                @include('form.select-array-multiple',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
-                <div class="clearfix"></div>
-                @include('form.select-model-multiple',['var'=>['name'=>'domicile_country_id','label'=>'Domicile Country','table'=>'countries', 'div'=>'col-md-6']])
+                @include('form.select-array-multiple',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-3']])
+                @include('form.select-model-multiple',['var'=>['name'=>'domicile_country_id','label'=>'Domicile Country','table'=>'countries', 'div'=>'col-md-3']])
                 @include('form.select-model-multiple',['var'=>['name'=>'dob_country_id','label'=>'DOB Country','table'=>'countries', 'div'=>'col-md-3']])
+
+                <div class="clearfix"></div>
+                @include('form.select-array-multiple',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-3']])
+                @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+                @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
 
             </div>
 
