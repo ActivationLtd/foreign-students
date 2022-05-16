@@ -17,10 +17,6 @@
 </head>
 <body class="hold-transition login-page lb-bg">
 
-
-
-
-
 <div class="clearfix"></div>
 <div class="login-box shadow">
     <div class="row">
@@ -30,8 +26,8 @@
 
             </div>
             <div class="col-xs-6 text-center">
-                <h3 class="no-margin">Directorate General of Medical Education (DGME)</h3>
-                <h5>Government of the People's Republic of Bangladesh</h5>
+                <h3 class="no-margin">{{__('common.agency_full_name')}}</h3>
+                <h5>{{__('common.gov_of_bangladesh')}}</h5>
             </div>
             <div class="col-xs-3">
                 <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="" alt="" style="width: 100%">
