@@ -2,7 +2,6 @@
 
 namespace App\Mainframe\Http\Controllers\Auth;
 
-use App\ApplicationSession;
 use App\Group;
 use App\Tenant;
 use App\User;
@@ -33,10 +32,7 @@ class RegisterTenantController extends RegisterController
      */
     public function showRegistrationForm()
     {
-        if(ApplicationSession::latestOpenSession()){
-            return view($this->form);
-        }
-        return view('projects.dgme-students.auth.session-close');
+        return view($this->form);
     }
 
     /**
