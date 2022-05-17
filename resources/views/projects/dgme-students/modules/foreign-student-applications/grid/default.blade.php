@@ -20,7 +20,7 @@ $titles = $datatable->titles();
 $columnsJson = $datatable->columnsJson();
 $ajaxUrl = $datatable->ajaxUrl();
 $datatableName = $datatable->name();
-$yesNoOptions = ForeignStudentApplication::$optionsYesNo;
+$yesNoOptions = [0 => 'No', 1 => 'Yes'];
 $optionsGovernmentPublic = ForeignStudentApplication::$optionsGovernmentPublic;
 $fundingModes = ForeignStudentApplication::$fundingModes;
 $statuses = ForeignStudentApplication::$statuses;
@@ -48,7 +48,7 @@ $statuses = ForeignStudentApplication::$statuses;
 
             @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
             @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
-            @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+            @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
 
 
             @include('form.select-array-multiple',['var'=>['name'=>'financing_modes','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-3']])
@@ -57,8 +57,8 @@ $statuses = ForeignStudentApplication::$statuses;
 
 
             @include('form.select-array-multiple',['var'=>['name'=>'statuses','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-3']])
-            @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
-            @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+            @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
+            @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
         </div>
 
         <table id="{{$datatableName}}"
@@ -79,7 +79,8 @@ $statuses = ForeignStudentApplication::$statuses;
     @parent
     <script type="text/javascript">
         // Init UI elements
-        $('#dob_country_ids,#dob_country_ids,#domicile_country_ids,#financing_modes,#statuses').select2();
+        $('#dob_country_ids,#dob_country_ids,#domicile_country_ids,#financing_modes,#statuses,#statuses').select2();
+
 
         // Init datatable
         var {{$datatableName}} = $('#{{$datatableName}}').DataTable({
@@ -130,6 +131,9 @@ $statuses = ForeignStudentApplication::$statuses;
 
         // Respond to change
         $('#application_session_id,#course_id,#application_category,#is_saarc,#dob_country_ids,#domicile_country_ids,#financing_modes, #statuses,#is_payment_verified,#is_document_verified,#created_at_from,#created_at_till').on('change', function () {
+            console.log($('#is_saarc').val());
+            console.log($('#is_payment_verified').val());
+            console.log($('#is_document_verified').val());
             {{$datatableName}}.draw();
         });
         $("#created_at_from").bootstrapDatepicker({
