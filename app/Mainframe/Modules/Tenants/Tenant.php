@@ -38,7 +38,6 @@ use App\Mainframe\Modules\Tenants\Traits\TenantTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant query()
@@ -69,7 +68,6 @@ class Tenant extends BaseModule
 {
     use TenantTrait;
 
-
     /*
     |--------------------------------------------------------------------------
     | Module definitions
@@ -77,7 +75,7 @@ class Tenant extends BaseModule
     |
     */
     protected $moduleName = 'tenants';
-    protected $table      = 'tenants';
+    protected $table = 'tenants';
 
     /*
     |--------------------------------------------------------------------------

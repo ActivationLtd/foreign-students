@@ -143,9 +143,8 @@ class ForeignStudentApplication extends BaseModule
 
     public const STATUS_DRAFT                 = 'Draft';
     public const STATUS_SUBMITTED             = 'Submitted';
-    public const STATUS_PAYMENT_VERIFICATION  = 'Payment Verified';
-    public const STATUS_DOCUMENT_VERIFICATION = 'Document Verified';
     public const STATUS_DECLINED              = 'Declined';
+    public const STATUS_ACCEPTED              = 'Accepted';
 
     public const FINANCE_MODE_OWN_FUND        = 'Own funds';
     public const FINANCE_MODE_CANDIDATE_GOVT  = 'Scholarship awarded by candidates\'s own Government';
@@ -202,7 +201,11 @@ class ForeignStudentApplication extends BaseModule
         'financing_mode',
         'finance_mode_other',
         'status',
+        'application_session_id',
+        //'application_session_name',
         //'submitted_at',
+        'is_payment_verified',
+        'is_document_verified',
         'payment_transaction_id',
         'is_active',
     ];
@@ -222,8 +225,16 @@ class ForeignStudentApplication extends BaseModule
     public static $statuses                = [
         ForeignStudentApplication::STATUS_DRAFT,
         ForeignStudentApplication::STATUS_SUBMITTED,
-        ForeignStudentApplication::STATUS_PAYMENT_VERIFICATION,
-        ForeignStudentApplication::STATUS_DOCUMENT_VERIFICATION,
+        ForeignStudentApplication::STATUS_DECLINED,
+    ];
+    public static $applicantStatuses       = [
+        ForeignStudentApplication::STATUS_DRAFT,
+        ForeignStudentApplication::STATUS_SUBMITTED,
+
+    ];
+    public static $adminStatuses           = [
+        ForeignStudentApplication::STATUS_SUBMITTED,
+        ForeignStudentApplication::STATUS_ACCEPTED,
         ForeignStudentApplication::STATUS_DECLINED,
     ];
     public static $fundingModes            = [
@@ -298,37 +309,44 @@ class ForeignStudentApplication extends BaseModule
     |--------------------------------------------------------------------------
     */
     // public function updater() { return $this->belongsTo(\App\User::class, 'updated_by'); }
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\User::class, 'user_id');
     }
 
-    public function dobCountry()
+    public function dobCountry(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Country::class, 'dob_country_id');
     }
 
-    public function domicileCountry()
+    public function domicileCountry(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Country::class, 'domicile_country_id');
     }
 
-    public function course()
+    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\ForeignApplicationCourse::class, 'course_id');
     }
 
-    public function applicationExaminations()
+    public function applicationExaminations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\ForeignApplicationExamination::class, 'foreign_student_application_id');
     }
 
-    public function applicationLanguageProfiencies()
+    public function applicationLanguageProfiencies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\ForeignAppLangProficiency::class, 'foreign_student_application_id');
+    }
+
+    public function applicationSession(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\ApplicationSession::class);
+    }
+    public function profilePic()
+    {
+        return $this->uploads()->where('type',\App\Upload::TYPE_PROFILE_PIC)->first();
     }
     /*
     |--------------------------------------------------------------------------

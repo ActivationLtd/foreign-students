@@ -88,22 +88,24 @@ trait Query
     {
         $this->result = $this->result ?: $this->resultQuery()->paginate($this->rowsPerPage());
 
+        // return $this->result;
+        try {
+            if ($this->result) {
+                return $this->result;
+            }
+
+            $key = __CLASS__.'-'.Mf::httpRequestSignature();
+
+            $this->result = Cache::remember($key, $this->cache, function () {
+                return $this->resultQuery()->paginate($this->rowsPerPage());
+            });
+
+            return $this->result;
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
         return $this->result;
-        // try {
-        //     if ($this->result) {
-        //         return $this->result;
-        //     }
-        //
-        //     $key = base64_encode('report-'.__CLASS__).'-'.Mf::httpRequestSignature(($this->resultQuery()->toSql()));
-        //
-        //     $this->result = Cache::remember($key, $this->cache, function () {
-        //         return $this->resultQuery()->paginate($this->rowsPerPage());
-        //     });
-        //
-        //     return $this->result;
-        // } catch (Exception $e) {
-        //     $this->fail($e->getMessage());
-        // }
 
     }
 
@@ -136,8 +138,7 @@ trait Query
             if ($this->total && is_int($this->total)) {
                 return $this->total;
             }
-
-            $key = base64_encode('report-'.__CLASS__).'-total-'.Mf::httpRequestSignature(($this->resultQuery()->toSql()));
+            $key = __CLASS__.'-total-'.Mf::httpRequestSignature();
 
             $this->total = Cache::remember($key, $this->cache, function () {
                 return $this->totalQuery()->count();

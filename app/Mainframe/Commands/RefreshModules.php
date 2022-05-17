@@ -32,7 +32,7 @@ class RefreshModules extends MakeModule
         $this->info('------------------------------------------');
 
         Artisan::call('config:clear');
-        $config = 'projects.'.projectKey().'.modules.module_groups';
+        $config = 'projects.'.projectKey().'.module-groups';
 
         $items = config($config);
 
@@ -56,7 +56,7 @@ class RefreshModules extends MakeModule
         $this->info('Loading modules from config to database...');
         $this->info('------------------------------------------');
 
-        $config = 'projects.'.projectKey().'.modules.modules';
+        $config = 'projects.'.projectKey().'.modules';
 
         $items = config($config);
 

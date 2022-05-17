@@ -40,7 +40,6 @@ use App\Mainframe\Modules\Notifications\Traits\NotificationTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Notification newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Notification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Notification query()
@@ -81,7 +80,7 @@ class Notification extends BaseModule
     |
     */
     protected $moduleName = 'notifications';
-    protected $table      = 'notifications';
+    protected $table = 'notifications';
 
     /*
    |--------------------------------------------------------------------------

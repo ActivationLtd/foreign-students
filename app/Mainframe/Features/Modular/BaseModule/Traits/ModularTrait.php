@@ -40,7 +40,7 @@ trait ModularTrait
         return $this->spreadFields ?? [];
     }
 
-    public function tagFields()
+    public function getTagFields()
     {
         return $this->tagFields ?? [];
     }
@@ -660,7 +660,7 @@ trait ModularTrait
     public function syncSpreadTags()
     {
 
-        foreach ($this->tagFields() as $field) {
+        foreach ($this->getTagFields() as $field) {
 
             $tags = cleanArray(toArray($this->$field));
 

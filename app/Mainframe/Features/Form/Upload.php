@@ -28,6 +28,8 @@ class Upload extends Input
     public $postUrl;
     /** * @var string */
     public $bucket;
+    /** * @var string */
+    public $zipDownload = true;
 
     /**
      * Input constructor.
@@ -58,6 +60,7 @@ class Upload extends Input
         $this->tenantId = $this->var['tenant_id'] ?? $this->tenantId;
         $this->bucket = $this->var['bucket'] ?? trim(config('mainframe.config.upload_root'), "\\/ ");;
 
+        $this->zipDownload = $this->var['zip_download'] ?? $this->zipDownload;
         $this->type = $this->var['type'] ?? null;
         $this->limit = $this->var['limit'] ?? 999;
         $this->postUrl = $this->var['url'] ?? route('uploads.store');

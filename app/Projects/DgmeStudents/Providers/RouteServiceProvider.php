@@ -24,6 +24,11 @@ class RouteServiceProvider extends ServiceProvider
     protected $webRoutes = [
         'app/Projects/DgmeStudents/routes/auth.php',
         'app/Projects/DgmeStudents/routes/web.php',
+        'app/Projects/DgmeStudents/routes/modules.php',
+        'app/Projects/DgmeStudents/routes/partials.php',
+        'app/Projects/DgmeStudents/routes/services.php',
+        'app/Projects/DgmeStudents/routes/superuser.php',
+        'app/Projects/DgmeStudents/routes/test.php',
     ];
 
     protected $apiRoutes = [

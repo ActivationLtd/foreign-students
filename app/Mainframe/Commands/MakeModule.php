@@ -24,7 +24,7 @@ class MakeModule extends Command
      */
     protected $description = 'Create a mainframe module';
 
-    /** @var string  \App\Projects\MyProject\Modules\ */
+    /** @var string  \App\Projects\DefaultProject\Modules\ */
     private $namespace;
 
     /** * @var string */
@@ -138,7 +138,7 @@ class MakeModule extends Command
             $code = $this->replace(File::get($from));
             File::put($to, $code);
         }
-        
+
     }
 
     /**
@@ -256,7 +256,7 @@ class MakeModule extends Command
     }
 
     /**
-     * @return array|string|string[] app\Projects\MyProject\SuperHeroes
+     * @return array|string|string[] app\Projects\DefaultProject\SuperHeroes
      */
     private function classDirectory()
     {
@@ -270,7 +270,7 @@ class MakeModule extends Command
     }
 
     // /**
-    //  * @return string \App\Projects\MyProject\Modules\SuperHeroes
+    //  * @return string \App\Projects\DefaultProject\Modules\SuperHeroes
     //  */
     // private function namespace()
     // {

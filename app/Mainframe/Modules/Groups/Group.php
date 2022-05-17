@@ -39,7 +39,6 @@ use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
  * @property-read int|null $uploads_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static Builder|Group newModelQuery()
  * @method static Builder|Group newQuery()
  * @method static Builder|Group query()
@@ -74,7 +73,7 @@ class Group extends BaseModule
     |
     */
     protected $moduleName = 'groups';
-    protected $table      = 'groups';
+    protected $table = 'groups';
 
     /*
     |--------------------------------------------------------------------------

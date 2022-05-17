@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Mainframe\Api;
 
-use App\Projects\MyProject\Notifications\Auth\VerifyEmail;
+use App\Projects\DefaultProject\Notifications\Auth\VerifyEmail;
 use App\User;
 use Tests\ApiTestCase;
 
@@ -44,7 +44,8 @@ class RegisterApiTest extends ApiTestCase
         $user = User::where('email', $email)->first(); // Get this newly created user from database
 
         //\Mail::assertSent( VerifyEmail::class); // This is a mailable class
-        \Notification::assertSentTo([$user], 'App\Projects\\' . env('PROJECT') . '\Notifications\Auth\VerifyEmail'); // This is a mailable class
+        \Notification::assertSentTo([$user],
+            'App\Projects\\'.env('PROJECT').'\Notifications\Auth\VerifyEmail'); // This is a mailable class
 
         // $this->seeEmailWasSent()
         //     ->seeEmailCountEquals(1)

@@ -17,7 +17,7 @@
 function kv($array = [])
 {
     $temp = [];
-    if (count($array)) {
+    if (is_array($array) && count($array)) {
         foreach ($array as $a) {
             $temp[$a] = $a;
         }
@@ -131,6 +131,20 @@ function randomString($length = 8)
 {
     $str = '';
     $characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
+    //$characters = array_merge(range('A', 'Z'), range('0', '9'));
+    $max = count($characters) - 1;
+    for ($i = 0; $i < $length; $i++) {
+        $rand = random_int(0, $max);
+        $str .= $characters[$rand];
+    }
+
+    return $str;
+}
+
+function randomChar($length = 8)
+{
+    $str = '';
+    $characters = array_merge(range('A', 'Z'), range('a', 'z'));
     //$characters = array_merge(range('A', 'Z'), range('0', '9'));
     $max = count($characters) - 1;
     for ($i = 0; $i < $length; $i++) {

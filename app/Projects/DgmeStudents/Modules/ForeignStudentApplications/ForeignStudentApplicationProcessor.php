@@ -25,7 +25,10 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     {
 
         if (user()->isAdmin() && $this->element->status == 'Submitted') {
-            $this->immutables = array_merge($this->immutables, $this->element->fields(['status']));
+            $this->immutables = array_merge($this->immutables, $this->element->fields(['status','application_session_id']));
+        }
+        if(user()->isApplicant() && $this->element){
+            $this->immutables = array_merge($this->immutables, ['application_session_id']);
         }
 
         return $this->immutables;
@@ -62,6 +65,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'course_id' => 'required',
             'application_category' => 'required',
             'is_saarc' => 'required',
+            'application_session_id' => 'required',
             'is_active' => 'in:1,0',
         ];
         if ($element->id && $element->status== ForeignStudentApplication::STATUS_SUBMITTED) {
