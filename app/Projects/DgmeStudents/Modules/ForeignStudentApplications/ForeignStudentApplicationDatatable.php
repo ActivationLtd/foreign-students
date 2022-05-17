@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
 use App\Projects\DgmeStudents\Features\Datatable\ModuleDatatable;
 use Illuminate\Support\Arr;
+use function PHPUnit\Framework\isNull;
 
 class ForeignStudentApplicationDatatable extends ModuleDatatable
 {
@@ -67,6 +68,8 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
             [$this->table.'.application_session_id', 'application_session_id'],
             [$this->table.'.application_session_name', 'application_session_name'],
             [$this->table.'.is_saarc', 'is_saarc'],
+            [$this->table.'.is_payment_verified', 'is_payment_verified'],
+            [$this->table.'.is_document_verified', 'is_document_verified'],
             [$this->table.'.course_name', 'course_name'],
             [$this->table.'.status', 'status'],
             [$this->table.'.updated_by', 'updated_by'],
@@ -92,6 +95,7 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         //     $query->where('id', request('id'));
         // }
         $user = user();
+        //dd(request()->all());
         if ($user->isApplicant()) {
             $query->where('user_id', $user->id);
         }
@@ -104,7 +108,7 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         if (request('application_category')) {
             $query->where('application_category', request('application_category'));
         }
-        if (request('is_saarc')) {
+        if (!is_null(request('is_saarc'))) { // Example code
             $query->where('is_saarc', request('is_saarc'));
         }
         if (request('financing_modes')) {
@@ -119,10 +123,10 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         if (request('statuses')) {
             $query->whereIn('status', Arr::wrap(request('statuses')));
         }
-        if (request('is_payment_verified')) {
+        if (!is_null(request('is_payment_verified'))) {
             $query->where('is_payment_verified', request('is_payment_verified'));
         }
-        if (request('is_document_verified')) {
+        if (!is_null(request('is_document_verified'))) {
             $query->where('is_document_verified', request('is_document_verified'));
         }
         if (request('created_at_from')) {
