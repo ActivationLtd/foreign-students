@@ -81,7 +81,14 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showSubmitButton(): bool
     {
-        return ($this->element->status == 'Draft');
+        return ($this->user->isApplicant() && $this->element->status == 'Draft');
+    }
+    /**
+     * @return bool
+     */
+    public function showRemark(): bool
+    {
+        return ($this->user->isAdmin());
     }
 
     /**

@@ -194,6 +194,10 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
             @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
+            <div class="clearfix"></div>
+            @if($view->showRemark())
+                @include('form.textarea',['var'=>['name'=>'remarks','label'=>'Remark']])
+            @endif
 
             <div class="clearfix"></div>
             <div id="declaration">
