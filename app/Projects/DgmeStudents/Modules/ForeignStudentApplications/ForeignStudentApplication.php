@@ -202,6 +202,7 @@ class ForeignStudentApplication extends BaseModule
         'finance_mode_other',
         'status',
         'application_session_id',
+        'remarks',
         //'application_session_name',
         //'submitted_at',
         'is_payment_verified',
@@ -225,6 +226,7 @@ class ForeignStudentApplication extends BaseModule
     public static $statuses                = [
         ForeignStudentApplication::STATUS_DRAFT,
         ForeignStudentApplication::STATUS_SUBMITTED,
+        ForeignStudentApplication::STATUS_ACCEPTED,
         ForeignStudentApplication::STATUS_DECLINED,
     ];
     public static $applicantStatuses       = [
