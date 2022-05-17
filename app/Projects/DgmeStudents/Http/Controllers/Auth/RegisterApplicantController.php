@@ -5,6 +5,7 @@ namespace App\Projects\DgmeStudents\Http\Controllers\Auth;
 use App\Group;
 
 use App\Projects\DgmeStudents\Http\Controllers\Auth\RegisterTenantController as MfRegisterTenantController;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rule;
@@ -106,6 +107,20 @@ class RegisterApplicantController extends MfRegisterTenantController
         return Tenant::create([
             'name' => request('tenant_name'),
         ]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        if (ApplicationSession::latestOpenSession()) {
+            return view($this->form);
+        }
+
+        return view('projects.dgme-students.auth.session-close');
     }
 
     /**
