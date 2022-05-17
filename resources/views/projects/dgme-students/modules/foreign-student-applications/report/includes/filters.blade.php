@@ -8,7 +8,7 @@
 
 use App\ForeignStudentApplication;
 
-$yesNoOptions = ForeignStudentApplication::$optionsYesNo;
+$yesNoOptions = [0 => 'No', 1 => 'Yes'];
 $optionsGovernmentPublic = ForeignStudentApplication::$optionsGovernmentPublic;
 $fundingModes = ForeignStudentApplication::$fundingModes;
 $statuses = ForeignStudentApplication::$statuses;
