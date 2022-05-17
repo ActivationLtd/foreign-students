@@ -118,7 +118,7 @@ $statuses = ForeignStudentApplication::$statuses;
 
     </div>
     <div class="clearfix"></div>
-    <div class="row">
+    <div class="col-md-12 no-padding-l">
         <h3>Latest Applications</h3>
         <div class="{{$datatableName}}-container datatable-container">
             <div class="filters col-md-12 no-padding">
