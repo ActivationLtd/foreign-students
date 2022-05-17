@@ -30,7 +30,6 @@ $statuses = ForeignStudentApplication::$statuses;
 @endsection
 @section('content')
     <div class="{{$datatableName}}-container datatable-container">
-
         <div class="filters col-md-12 no-padding">
             @include('form.text',['var'=>['name'=>'created_at_from','label'=>'Created(from)', 'div'=>'col-md-3']])
             @include('form.text',['var'=>['name'=>'created_at_till','label'=>'Created(till)', 'div'=>'col-md-3']])
