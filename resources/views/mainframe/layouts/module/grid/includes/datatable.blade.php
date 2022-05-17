@@ -67,7 +67,7 @@ Section: Data table JS
             mark: true // Mark/highlight the search results (in yellow)
         });
 
-        {{$datatableName}}.buttons().container().appendTo('.dataTables_length');
+        {{-- {{$datatableName}}.buttons().container().appendTo('.dataTables_length');--}}
     </script>
     @parent
 @endsection

@@ -138,8 +138,7 @@ trait Query
             if ($this->total && is_int($this->total)) {
                 return $this->total;
             }
-
-            $key = base64_encode('report-'.__CLASS__).'-total-'.Mf::httpRequestSignature(($this->resultQuery()->toSql()));
+            $key = __CLASS__.'-total-'.Mf::httpRequestSignature();
 
             $this->total = Cache::remember($key, $this->cache, function () {
                 return $this->totalQuery()->count();

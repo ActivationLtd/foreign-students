@@ -17,7 +17,7 @@
 function kv($array = [])
 {
     $temp = [];
-    if (count($array)) {
+    if (is_array($array) && count($array)) {
         foreach ($array as $a) {
             $temp[$a] = $a;
         }

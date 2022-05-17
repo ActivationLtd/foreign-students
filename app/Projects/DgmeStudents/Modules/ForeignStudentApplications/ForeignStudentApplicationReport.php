@@ -24,6 +24,7 @@ class ForeignStudentApplicationReport extends ReportBuilder
         // $this->dataSource =$this->module->module_table;
 
         $this->setModule(Module::byName('foreign-student-applications')); // <-- Module set. This automatically sets the data source as well
+        $this->enableAutoRun();
         parent::__construct();
 
 
@@ -75,11 +76,20 @@ class ForeignStudentApplicationReport extends ReportBuilder
         if (request('course_id')) {
             $query->where('course_id',request('course_id'));
         }
+        if (request('session_id')) {
+            $query->where('session_id',request('session_id'));
+        }
         if (request('application_category')) {
             $query->where('application_category',request('application_category'));
         }
         if (request('is_saarc')) {
             $query->where('is_saarc',request('is_saarc'));
+        }
+        if (request('is_payment_verified')) {
+            $query->where('is_payment_verified',request('is_payment_verified'));
+        }
+        if (request('is_document_verified')) {
+            $query->where('is_document_verified',request('is_document_verified'));
         }
         if (request('financing_mode')) {
             $query->whereIn('financing_mode',request('financing_mode'));
@@ -199,7 +209,7 @@ class ForeignStudentApplicationReport extends ReportBuilder
      * @return mixed|null|string
      */
 
-    public function examinationsNameYear($row)
+    public function examinationsNameYear($row): mixed
     {
         if (!$row->applicationExaminations) {
             return null;
@@ -217,17 +227,17 @@ class ForeignStudentApplicationReport extends ReportBuilder
      * @return mixed|null|string
      */
 
-    public function languageProficiencies($row)
+    public function languageProficiencies($row): mixed
     {
         if (!$row->applicationLanguageProfiencies) {
             return null;
         }
         $languageProficiencyInfo = null;
-        foreach ($row->applicationLanguageProfiencies as $profiency) {
-            $languageProficiencyInfo = $profiency->language_name."<br>".$profiency->reading_proficiency."<br>".$profiency->writting_proficiency."<br>".$profiency->speaking_proficiency;
+        foreach ($row->applicationLanguageProfiencies as $proficiency) {
+            $languageProficiencyInfo = $proficiency->language_name."<br>".$proficiency->reading_proficiency."<br>".$proficiency->writting_proficiency."<br>".$proficiency->speaking_proficiency;
         }
 
-        return $examinationInfo;
+        return $languageProficiencyInfo;
 
     }
 

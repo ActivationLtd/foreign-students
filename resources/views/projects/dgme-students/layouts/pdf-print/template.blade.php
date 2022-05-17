@@ -46,26 +46,19 @@
     <div class="row">
         <div class="col-md-12" align="center">
             <div class="header-line-up"></div>
-            <table class="no-border no-padding" width="80%">
+            <table class="no-border no-padding" width="100%">
                 <tr>
-                    <td width="20%" align="left">
-                        @section('title-left')
-                            <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="img-thumbnail"
-                                 style="border:none!important; height: 110px;">
-                        @show
+                    <td>
+                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
+                             style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
-                    <td width="60%" align="center" style="vertical-align: middle">
-                        @section('title')
-                            <h3 align="center">Directorate General of Medical Education (DGME)</h3>
-                            <h4 align="center">Government of the People's Republic of Bangladesh</h4>
-                        @show
-
+                    <td>
+                        <h2 style="text-align: center">{{__('common.agency_full_name')}}</h2>
+                        <h4 style="text-align: center">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>
-                    <td width="20%" align="right">
-                        @section('title-right')
-                            <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="img-thumbnail pull-right"
-                                 style="margin-top: 2%; border:none!important;height: 120px;">
-                        @show
+                    <td>
+                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
+                             style="margin-top: 2%; border:none!important;width: 120px;" alt="">
                     </td>
                 </tr>
             </table>

@@ -150,7 +150,7 @@ class UserModularTestCase extends UserTestCase
         $mapper = $mapper ?: \Str::studly($this->module->name).'Mapper';
         // Load existing data
         fwrite(STDOUT, "📦 Load existing data using mapper ... ");
-        \Artisan::call('hris:migrate-legacy-data '.$mapper);
+        \Artisan::call('project:migrate-legacy-data '.$mapper);
         fwrite(STDOUT, "Done \n");
 
         return $this;

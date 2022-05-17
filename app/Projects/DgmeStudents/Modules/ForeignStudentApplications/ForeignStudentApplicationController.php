@@ -2,8 +2,10 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
+use App\Projects\DgmeStudents\Features\Core\ViewProcessor;
 use App\Projects\DgmeStudents\Features\Modular\ModularController\ModularController;
 use App\Projects\DgmeStudents\Features\Report\ModuleList;
+use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor;
 
 /**
  * @group  ForeignStudentApplication
@@ -33,7 +35,7 @@ class ForeignStudentApplicationController extends ModularController
      *
      * @return ForeignStudentApplicationDatatable
      */
-    public function datatable()
+    public function datatable(): ForeignStudentApplicationDatatable
     {
         return new ForeignStudentApplicationDatatable($this->module);
     }
@@ -44,7 +46,7 @@ class ForeignStudentApplicationController extends ModularController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function listJson()
+    public function listJson(): \Illuminate\Http\JsonResponse
     {
         return (new ModuleList($this->module))->json();
     }
@@ -77,23 +79,17 @@ class ForeignStudentApplicationController extends ModularController
     |--------------------------------------------------------------------------
     | Write down additional controller functions that might be required for your project to handle bu
     */
-    public function printView($id)
+    /**
+     * @param  \App\ForeignStudentApplication  $foreignStudentApplication
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View|void
+     */
+    public function printView(\App\ForeignStudentApplication $foreignStudentApplication)
     {
-        $application = ForeignStudentApplication::find($id);
-
-        if (!$this->user->can('view', $application)) {
+        if (!$this->user->can('view', $foreignStudentApplication)) {
             return $this->permissionDenied();
         }
-        $profilePic=null;
-        if($application->uploads()->where('type',\App\Upload::TYPE_PROFILE_PIC)->first()){
-            $profilePic=$application->uploads()->where('type',\App\Upload::TYPE_PROFILE_PIC)->first();
-        }
-        // Resolve blade view
-        $view = 'projects.dgme-students.modules.foreign-student-applications.print-pdf.print';
-
-        return $this->view($view)->with([
-            'application' => $application,
-            'profilePic' => $profilePic,
+        return $this->view('projects.dgme-students.modules.foreign-student-applications.print-pdf.print')->with([
+            'application' => $foreignStudentApplication,
         ]);
     }
 }

@@ -2,11 +2,14 @@
 
 namespace App\Projects\DgmeStudents\Modules\Settings;
 
-use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
+use App\Mainframe\Modules\Settings\Traits\SettingViewProcessorTrait;
 use App\Module;
+use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
 
 class SettingViewProcessor extends BaseModuleViewProcessor
 {
+    use SettingViewProcessorTrait;
+
     /**
      * @var Module $module
      * @var \Illuminate\Database\Eloquent\Builder $model test

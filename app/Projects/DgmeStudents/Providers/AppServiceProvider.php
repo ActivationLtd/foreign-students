@@ -2,6 +2,7 @@
 
 namespace App\Projects\DgmeStudents\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected $commands = [
         \App\Projects\DgmeStudents\Commands\DoSomething::Class,
+        \App\Projects\DgmeStudents\Commands\PopulateSessionIdInApplication::Class,
 
     ];
 
@@ -57,6 +59,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Paginator::defaultView('vendor.pagination.bootstrap-4');
     }
 
     /**

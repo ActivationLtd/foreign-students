@@ -29,9 +29,8 @@ trait ReportDatatableTrait
 
     public function hidden()
     {
-        return $this->hidden ?? ['parameters'];
+        return ['parameters'];
     }
-
 
     /*---------------------------------
     | Section : Modify row-columns
@@ -45,7 +44,7 @@ trait ReportDatatableTrait
             $dt->editColumn('action', function ($row) {
 
                 /** @var Report $row */
-                return "<a class='btn btn-default bg-smart-blue' href={$row->url()}>Run</a>";
+                return "<a class='btn btn-default bg-smart-blue' href='".$row->url()."'>Run</a>";
             });
         }
 

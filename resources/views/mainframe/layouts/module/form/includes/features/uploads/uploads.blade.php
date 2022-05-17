@@ -81,9 +81,10 @@ if ($input->moduleId && $input->elementId) {
     @endif
 </div>
 
-@if(count($uploads) && $element->isUpdating())
-    <a href="{{$input->zipDownloadUrl()}}" class="btn btn-default bg-white"><i class="fa fa-download"></i> Download all
-        as zip</a>
+@if($input->zipDownload && count($uploads) && $element->isUpdating())
+    <a href="{{$input->zipDownloadUrl()}}" class="btn btn-default bg-white">
+        <i class="fa fa-file-zip-o"></i>
+        Download Zip</a>
 @endif
 
 {{-- js --}}

@@ -88,7 +88,6 @@ a:focus {
 }
 
 .login-page input {
-    font-size: 18px;
     padding: 10px;
 }
 
@@ -253,6 +252,10 @@ div.dataTables_processing {
     text-align: center;
 }
 
+div.dataTables_info {
+    float: left;
+}
+
 /* datatable */
 table.dataTable {
     margin-top: 5px !important;
@@ -293,7 +296,7 @@ textarea {
 /* made label font weight bold*/
 label {
     /*font-weight: bold;*/
-    font-size: 0.9em;
+    /*font-size: 0.9em;*/
     /*text-transform: uppercase;*/
     color: #777777;
     margin-bottom: 0;

@@ -9,53 +9,117 @@
 @endsection
 @section('content')
     <div class="clearfix"></div>
-    <div class="col-md-4 col-sm-8 col-xs-12">
-        <div class="info-box bg-green-active">
-            <a href="{{route('foreign-student-applications.index')}}" style="color:white">
+    <div class="row">
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-smart-blue">
+                <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
                    <ion-icon name="newspaper-outline"></ion-icon>
                 </span>
-            </a>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Foreign Applications</span>
-                <span class="info-box-number">Total : {{$adminData['applications']['total']}}</span>
-                <span class="info-box-number">In Progress : {{$adminData['applications']['ongoing']}}</span>
-
-                {{--                <div class="progress">--}}
-                {{--                    <div class="progress-bar" style="width: 50%"></div>--}}
-                {{--                </div>--}}
-                {{--                <span class="progress-description">--}}
-                {{--                    50% Increase in 30 Days--}}
-                {{--                  </span>--}}
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-number">Applications</span>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>Draft:</td>
+                            <td>{{$adminData['applications']['draft']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Submitted :</td>
+                            <td>{{$adminData['applications']['submitted']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total :</td>
+                            <td>{{$adminData['applications']['total']}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-navy">
+                <a href="{{route('application-sessions.index')}}" style="color:white">
+                <span class="info-box-icon">
+                   <i class="fa fa-calendar-check-o"></i>
+                </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-number"> <span
+                                class="badge badge-success bg-green">Latest</span> Session</span>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>Session:</td>
+                            <td>{{$adminData['applications']['latestSession']->name}} <span class="badge bg-green">{{$adminData['applications']['latestSession']->status}}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align:top">Timeline:</td>
+                            <td style="vertical-align:top">
+                                {{formatDate($adminData['applications']['latestSession']->starts_on)}} - {{formatDate($adminData['applications']['latestSession']->ends_on)}}<br>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-smart-red">
+                <a href="{{route('users.index')}}" style="color:white">
+                <span class="info-box-icon">
+                   <i class="fa fa-user"></i>
+                </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-number"> Users</span>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>Total:</td>
+                            <td>{{$adminData['applications']['totalUsers']}}</td>
+                        </tr>
+                    </table>
+                    <a href="{{route('users.index')}}" style="color:white">Manage</a> <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-gray">
+                <a href="{{route('reports.index')}}" style="color:white">
+                <span class="info-box-icon">
+                   <i class="fa fa fa-file-text-o"></i>
+                </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-number"> Reports</span>
+
+                    <span>
+                        <a href="{{route('foreign-student-applications.report')}}">Application default report</a>
+                        <br>
+                        <a href="{{route('reports.index')}}">View all report</a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="clearfix"></div>
 
     <?php
-    use App\Projects\DgmeStudents\Datatables\SampleDatatable;
-    $datatable = new SampleDatatable();
-
-
-    // echo classKey($datatable). "<br>";
-    // echo classKey('MyClass'). "<br>";
-    // echo classKey('\MyClass'). "<br>";
-    // echo classKey('\Some\Path\MyClass'). "<br>";
-    //
-    // echo classVar($datatable). "<br>";
-    // echo classVar('MyClass'). "<br>";
-    // echo classVar('\MyClass'). "<br>";
-    // echo classVar('\Some\Path\MyClass'). "<br>";
-    //
-    // echo classSnakeKey($datatable). "<br>";
-    // echo classSnakeKey('MyClass'). "<br>";
-    // echo classSnakeKey('\MyClass'). "<br>";
-    // echo classSnakeKey('\Some\Path\MyClass'). "<br>";
-
+    $datatable = new \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationDatatable();
     ?>
-    @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
+    <div class="row">
+
+        <div class="col-md-12">
+            <h3>
+                Latest Applications
+            </h3>
+        </div>
+        <div class="col-md-12">
+            @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
+        </div>
+    </div>
     <div class="clearfix"></div>
+
 
     <?php
     // $datatable = new \App\Projects\DgmeStudents\Modules\Orders\OrderDatatable('orders');
