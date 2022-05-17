@@ -131,9 +131,6 @@ $statuses = ForeignStudentApplication::$statuses;
 
         // Respond to change
         $('#application_session_id,#course_id,#application_category,#is_saarc,#dob_country_ids,#domicile_country_ids,#financing_modes, #statuses,#is_payment_verified,#is_document_verified,#created_at_from,#created_at_till').on('change', function () {
-            console.log($('#is_saarc').val());
-            console.log($('#is_payment_verified').val());
-            console.log($('#is_document_verified').val());
             {{$datatableName}}.draw();
         });
         $("#created_at_from").bootstrapDatepicker({
