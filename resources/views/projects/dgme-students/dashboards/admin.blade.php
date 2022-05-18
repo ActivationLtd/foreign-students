@@ -62,15 +62,14 @@ $statuses = ForeignStudentApplication::$statuses;
                     <table style="width: 100%">
                         <tr>
                             <td>Session:</td>
-                            <td>{{$adminData['applications']['latestSession']->name}} <span
-                                        class="badge bg-green">{{$adminData['applications']['latestSession']->status}}</span></td>
+                            <td>{{$adminData['applications']['latestSession']->name}}
+                                {{-- <span class="badge bg-green">{{$adminData['applications']['latestSession']->status}}</span>--}}
+                            </td>
                         </tr>
                         <tr>
-                            <td style="vertical-align:top">Timeline:</td>
+                            <td style="vertical-align:top">Ends:</td>
                             <td style="vertical-align:top">
-                                {{formatDate($adminData['applications']['latestSession']->starts_on)}}
-                                - {{formatDate($adminData['applications']['latestSession']->ends_on)}}<br>
-
+                                {{formatDate($adminData['applications']['latestSession']->ends_on)}}<br>
                             </td>
                         </tr>
                     </table>
