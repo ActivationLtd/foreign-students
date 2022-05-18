@@ -76,6 +76,10 @@ a:focus {
     font-weight: 100;
 }
 
+.login-box, .register-box {
+    border-radius: 5px;
+}
+
 .login-box, .login-box-body, .register-box-body {
     background-color: white;
 }
@@ -134,6 +138,7 @@ a:focus {
 
 .login-box-body {
     padding-top: 0;
+    border-radius: 5px;
 }
 
 .login-box-body h4 {

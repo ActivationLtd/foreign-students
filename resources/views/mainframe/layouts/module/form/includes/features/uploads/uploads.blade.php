@@ -69,7 +69,7 @@ if ($input->moduleId && $input->elementId) {
             {{-- <input type="hidden" name="uploadable_id" value="{{$input->elementId}}"/>--}}
             {{-- <input type="hidden" name="uploadable_type" value="{{$input->uploadableType}}"/>--}}
             @if($input->type)
-                <input type="hidden" name="type" value="{{$input->type}}"/>
+                <input type="hidden" name="upload_type" value="{{$input->type}}"/>
             @endif
             <div class="file-uploader">Upload file</div>
         </div>
