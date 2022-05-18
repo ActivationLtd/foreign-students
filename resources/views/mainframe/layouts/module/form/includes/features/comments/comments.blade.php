@@ -18,7 +18,7 @@ $input = new App\Mainframe\Features\Form\Comment($var, $element ?? null);
                 <input type="hidden" name="element_uuid" value="{{$input->elementUuid}}"/>
                 {{-- <input type="hidden" name="commentable_id" value="{{$input->elementId}}"/>--}}
                 {{-- <input type="hidden" name="commentable_type" value="{{$input->commentableType}}"/>--}}
-                <input type="hidden" name="type" value="{{$input->type}}"/>
+                <input type="hidden" name="comment_type" value="{{$input->type}}"/>
                 <input type="hidden" name="redirect_success" value="{{URL::full()}}"/>
                 <input type="hidden" name="redirect_fail" value="{{URL::full()}}"/>
                 @include('form.textarea',['var'=>['name'=>'body','div'=>'col-md-12']])
@@ -47,7 +47,8 @@ $input = new App\Mainframe\Features\Form\Comment($var, $element ?? null);
 
                 <p class="message">
                     <a href="#" class="name">
-                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> {{$comment->created_at->format('H:i')}}</small>
+                        <small class="text-muted pull-right"><i
+                                    class="fa fa-clock-o"></i> {{$comment->created_at->format('H:i')}}</small>
                         {{$comment->creator->name}}
                     </a>
                     {{$comment->body}}
