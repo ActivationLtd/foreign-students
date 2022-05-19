@@ -32,8 +32,9 @@ $applicationSession = $element;
         @include('form.textarea',['var'=>['name'=>'description','label'=>'Description']])
 
         <div class="clearfix"></div>
-        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status','options'=>kv($view->statusTypes())]])
-{{--        @include('form.is-active')--}}
+        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status','options'=>\App\ApplicationSession::$statuses)
+        ]])
+        {{-- @include('form.is-active')--}}
         {{---------------|  Form input start |-----------------------}}
 
         @include('form.action-buttons')

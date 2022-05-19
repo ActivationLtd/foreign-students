@@ -6,6 +6,6 @@ use App\Mainframe\Features\Datatable\Datatable as MainframeDatatable;
 
 class Datatable extends MainframeDatatable
 {
-    public $pageLength = 10;
+    public $pageLength = 25;
 
 }
