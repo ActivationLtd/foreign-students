@@ -80,6 +80,6 @@ class Upload extends Input
 
     public function zipDownloadUrl()
     {
-        return route('download.zip', ['module_id' => $this->moduleId, 'element_id' => $this->elementId]);
+        return route('download.zip', ['module_id' => $this->moduleId, 'element_id' => $this->elementId, 'type' => $this->type]);
     }
 }

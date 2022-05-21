@@ -2,6 +2,7 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
+use App\Projects\DgmeStudents\Features\ApplicantScope\GlobalScope\CheckApplicantScope;
 use App\Projects\DgmeStudents\Features\Datatable\ModuleDatatable;
 use Illuminate\Support\Arr;
 use function PHPUnit\Framework\isNull;
@@ -94,11 +95,13 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         // if (request('id')) { // Example code
         //     $query->where('id', request('id'));
         // }
-        $user = user();
-        //dd(request()->all());
-        if ($user->isApplicant()) {
-            $query->where('user_id', $user->id);
-        }
+
+
+        //Removing this because of adding Applicant Scope
+        //$user = user();
+        // if ($user->isApplicant()) {
+        //     $query->where('user_id', $user->id);
+        // }
         if (request('application_session_id')) {
             $query->where('application_session_id', request('application_session_id'));
         }

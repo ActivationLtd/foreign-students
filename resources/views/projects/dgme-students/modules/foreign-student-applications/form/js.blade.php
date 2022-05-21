@@ -185,6 +185,8 @@
         if ($('select[name=status]').val() == "Submitted") {
             $('#declaration').show();
             $('input[id=declaration_check]').prop('checked', true);
+            //make the button read Only after application is submitted
+            $('input[id=declaration_check]').prop('readonly', true);
 
         } else {
             $('#declaration').hide();

@@ -36,6 +36,8 @@ if ($input->moduleId && $input->elementId) {
     $query = $element->uploads();
     if ($input->type) {
         $query->where('type', $input->type);
+    } else {
+        $query->whereNull('type');
     }
     $uploads = $query->orderBy('order', 'ASC')->orderBy('created_at', 'DESC')
         ->offset(0)->take($input->limit)
@@ -69,7 +71,7 @@ if ($input->moduleId && $input->elementId) {
             {{-- <input type="hidden" name="uploadable_id" value="{{$input->elementId}}"/>--}}
             {{-- <input type="hidden" name="uploadable_type" value="{{$input->uploadableType}}"/>--}}
             @if($input->type)
-                <input type="hidden" name="type" value="{{$input->type}}"/>
+                <input type="hidden" name="upload_type" value="{{$input->type}}"/>
             @endif
             <div class="file-uploader">Upload file</div>
         </div>

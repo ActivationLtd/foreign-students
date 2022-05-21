@@ -31,6 +31,13 @@ trait UploadControllerTrait
         }
 
         $this->element = $this->model; // Create an empty model to be stored.
+
+        # type is too common and can interfere with an existing type field in form.
+        # So, we shall take input from upload_type files instead.
+        if ($type = $request->get('upload_type')) {
+            $request->merge(['type' => $type]);
+        }
+
         $this->fill();
         $this->element->fillModuleAndElement('uploadable');
         $this->element->name = $this->file->getClientOriginalName();
@@ -378,6 +385,8 @@ trait UploadControllerTrait
         }
         if ($type = \request('type')) {
             $query->where('type', $type);
+        } else {
+            // Download all. No query param needs to be added
         }
 
         $uploads = $query->where('is_active', 1)->get();
