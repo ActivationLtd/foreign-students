@@ -53,6 +53,7 @@
     validationForExaminations();
     ajaxForProficiencies();
     validationForProficiencies();
+    limitDomicileCountryBySaarc();
     // Todo: write codes here.
     // Redirection after saving
     // $('#{{$module->name}}-redirect-success').val('#'); //  # Stops redirection
@@ -247,5 +248,31 @@
     function showApplicationFinanceOther() {
         showApplicationFinanceOtherLogic();
         $('select[name=financing_mode]').change(showApplicationFinanceOtherLogic);
+    }
+
+    function limitDomicileCountryBySaarc(){
+        $('select[name=is_saarc]').change(loadDomicileCountry);
+    }
+    function loadDomicileCountry(){
+        var isSaarc = $('select[name=is_saarc]').val();
+
+        //clearing the data , empty the options , enable it with current options
+        $("select[name=domicile_country_id]").select2("val", "").empty().attr('disabled', false);// Remove the existing options
+        $.ajax({
+            type: "get",
+            datatype: 'json',
+            url: '{{route('countries.list-json')}}',
+            data: {
+                is_saarc: isSaarc,
+                force_all_data:'yes'
+            },
+            success: function (response) {
+                //console.log(response.data.items);
+                $("select[name=domicile_country_id]").append("<option value=0>" + " " + "</option>");
+                $.each(response.data.items, function (i, obj) {
+                    $("select[name=domicile_country_id]").append("<option value=" + obj.id + ">" + obj.name + "</option>");
+                });
+            },
+        });
     }
 </script>
