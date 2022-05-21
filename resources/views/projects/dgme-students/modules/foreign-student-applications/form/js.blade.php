@@ -53,7 +53,7 @@
     validationForExaminations();
     ajaxForProficiencies();
     validationForProficiencies();
-    limitDomicileCountryBySaarc();
+    loadDomicileCountry();
     // Todo: write codes here.
     // Redirection after saving
     // $('#{{$module->name}}-redirect-success').val('#'); //  # Stops redirection
@@ -116,7 +116,7 @@
 
         });
     }
-    
+
     /**
      * Validation For Examination
      */
@@ -250,30 +250,31 @@
         $('select[name=financing_mode]').change(showApplicationFinanceOtherLogic);
     }
 
-    function limitDomicileCountryBySaarc(){
-        loadDomicileCountry();
-        $('select[name=is_saarc]').change(loadDomicileCountry);
-    }
-    function loadDomicileCountry(){
-        var isSaarc = $('select[name=is_saarc]').val();
 
-        //clearing the data , empty the options , enable it with current options
-        $("select[name=domicile_country_id]").select2("val", "").empty().attr('disabled', false);// Remove the existing options
-        $.ajax({
-            type: "get",
-            datatype: 'json',
-            url: '{{route('countries.list-json')}}',
-            data: {
-                is_saarc: isSaarc,
-                force_all_data:'yes'
-            },
-            success: function (response) {
-                //console.log(response.data.items);
-                $("select[name=domicile_country_id]").append("<option value=0>" + " " + "</option>");
-                $.each(response.data.items, function (i, obj) {
-                    $("select[name=domicile_country_id]").append("<option value=" + obj.id + ">" + obj.name + "</option>");
+    function loadDomicileCountry() {
+        let url = '{{route('countries.list-json',['is_active'=>'1','force_all_data'=>'yes'])}}';
+        
+        $('select[name=is_saarc]').on('change', function () {
+            let isSaarc=$('select[name=is_saarc]').val();
+            var childOldValue = $("select[name=domicile_country_id]").select2('val'); // Temprarily store value to assign after ajax loading
+            $("select[name=domicile_country_id]").select2("val", "").empty().select2('enable', false); // Clear and disable child
+            /*----------------------------------------
+            | Options 1 : Axios based implementations
+            |----------------------------------------*/
+            axios.get(url, {
+                params: {
+                    is_saarc: isSaarc,
+                    force_all_data: 'yes',
+                }
+            }).then((response) => {
+                $($("select[name=domicile_country_id]")).append("<option value=0>" + "-" + "</option>"); // Add empty selection
+                $.each(response.data.data.items, function (i, obj) { // Load options
+                    $($("select[name=domicile_country_id]")).append("<option value=" + obj.id + ">" + obj.name + "</option>");
                 });
-            },
+                $("select[name=domicile_country_id]").select2('enable', true); // Enable back child after the ajax call
+                $("select[name=domicile_country_id]").val(childOldValue).select2(); // Assign backold value
+            });
         });
+
     }
 </script>
