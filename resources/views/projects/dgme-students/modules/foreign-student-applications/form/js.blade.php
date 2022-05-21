@@ -251,6 +251,7 @@
     }
 
     function limitDomicileCountryBySaarc(){
+        loadDomicileCountry();
         $('select[name=is_saarc]').change(loadDomicileCountry);
     }
     function loadDomicileCountry(){
