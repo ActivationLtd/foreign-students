@@ -36,6 +36,8 @@ if ($input->moduleId && $input->elementId) {
     $query = $element->uploads();
     if ($input->type) {
         $query->where('type', $input->type);
+    } else {
+        $query->whereNull('type');
     }
     $uploads = $query->orderBy('order', 'ASC')->orderBy('created_at', 'DESC')
         ->offset(0)->take($input->limit)
