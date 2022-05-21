@@ -86,7 +86,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
-    public function showRemark(): bool
+    public function showDecisionFields(): bool
     {
         return ($this->user->isAdmin());
     }

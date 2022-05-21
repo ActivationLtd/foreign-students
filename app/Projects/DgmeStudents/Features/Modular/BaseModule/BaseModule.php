@@ -5,6 +5,7 @@ namespace App\Projects\DgmeStudents\Features\Modular\BaseModule;
 use App\Mainframe\Features\Core\Traits\Validable;
 use App\Mainframe\Features\Modular\BaseModule\Traits\ModularTrait;
 use App\Mainframe\Features\Multitenant\GlobalScope\CheckTenantScope;
+use App\Projects\DgmeStudents\Features\QueryScope\GlobalScope\CheckApplicantScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -154,6 +155,9 @@ class BaseModule extends Model implements Auditable
         // Add tenant scope to model if current user() belongs to a tenant
         if (user()->ofTenant()) {
             static::addGlobalScope(new CheckTenantScope);
+        }
+        if (user()->isApplicant()) {
+            static::addGlobalScope(new CheckApplicantScope());
         }
     }
 }

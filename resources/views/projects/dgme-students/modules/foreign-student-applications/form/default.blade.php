@@ -35,9 +35,7 @@ if (user()->isAdmin()) {
     @parent
     @include('mainframe.form.back-link',['var'=>['element'=>$element->user,'class'=>'pull-left']])
     @if($view->showPrintButton())
-
         <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
-
         <div class="clearfix"></div>
     @endif
 @endsection
@@ -52,7 +50,7 @@ if (user()->isAdmin()) {
 
 
         {{---------------|  Form input start |-----------------------}}
-        <h4>Name of the course to which admission is sought</h4>
+        <h3>1. Name of the course to which admission is sought</h3>
 
         @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
         @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
@@ -89,13 +87,13 @@ if (user()->isAdmin()) {
         @include('form.select-model',['var'=>$var])
         <div class="clearfix"></div>
 
-        <h4>Applicant Info</h4>
+        <h3>2. Applicant Info</h3>
 
         @if($view->showProfilePic())
-            <div class="col-md-3 no-padding-l" style="padding-right: 20px"><img class="img-thumbnail"
-                                                                                style="height:120px!important;"
-                                                                                src="{{$view->profilePicPath()}}"
-                                                                                alt="alt text"></div>
+            <div class="col-md-3 no-padding-l" style="padding-right: 20px">
+                <img class="img-thumbnail" style="height:120px!important;" src="{{$view->profilePicPath()}}"
+                     alt="Profile Pic">
+            </div>
         @endif
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','div'=>'col-md-6']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-3']])
@@ -116,7 +114,7 @@ if (user()->isAdmin()) {
 
             <?php
             $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'div' => 'col-md-4'];
-            $var['model'] = \App\Country::whereNull('is_saarc');
+            $var['model'] = \App\Country::where('is_saarc', '0');
             if ($element->is_saarc == 1) {
                 $var['model'] = \App\Country::where('is_saarc', '1');
             }
@@ -134,7 +132,7 @@ if (user()->isAdmin()) {
             @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'legal_guardian_address','label'=>'Address of Legal Guardian','div'=>'col-md-12']])
             <div class="clearfix"></div>
-            <h4>Name and Address of person to be notified in case of emergency</h4>
+            <h3>3. Name and Address of person to be notified in case of emergency</h3>
             @include('form.text',['var'=>['name'=>'emergency_contact_bangladesh_name','label'=>'Emergency Contact Name (Bangladesh)','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'emergency_contact_bangladesh_address','label'=>'Emergency Contact Address (Bangladesh)','div'=>'col-md-12']])
             <div class="clearfix"></div>
@@ -142,13 +140,13 @@ if (user()->isAdmin()) {
             @include('form.text',['var'=>['name'=>'emergency_contact_domicile_address','label'=>'Emergency Contact Address (Domicile)','div'=>'col-md-12']])
             <div class="clearfix"></div>
 
-            <h4>Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h4>
+            <h3>4. Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h3>
             @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions), 'div'=>'col-md-6']])
             <div id="previousApplicationFeedback">
                 @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
             </div>
             <div class="clearfix"></div>
-            <h4>Proposed Mode Of Financing Study</h4>
+            <h3>5. Proposed Mode Of Financing Study</h3>
             @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-6']])
             <div id="applicationFinanceOther">
                 @include('form.textarea',['var'=>['name'=>'finance_mode_other','label'=>'Details of Finance Other']])
@@ -160,12 +158,14 @@ if (user()->isAdmin()) {
                 <?php
                 $datatable = new \App\Projects\DgmeStudents\Datatables\ApplicationExaminationDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
+                $datatable->bPaginate = false;
                 ?>
-                <h4>Beginning with Matriculation/O Level or equivalent examinations list your examinations</h4>
+                <h3>6. Beginning with Matriculation/O Level or equivalent examinations list your examinations</h3>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
+                <div class="clearfix"></div>
                 @if($view->showExaminationCreateButton())
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#examinationModal">
-                        Add Examinations
+                        Add
                     </button>
                 @endif
             </div>
@@ -174,34 +174,39 @@ if (user()->isAdmin()) {
                 <?php
                 $datatable = new \App\Projects\DgmeStudents\Datatables\AppLanguageProficiencyDatatable();
                 $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
+                $datatable->bPaginate = false;
                 ?>
-                <h4>Proficiency Of Language</h4>
+                <h3>7. Proficiency Of Language</h3>
                 @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
+
+                <div class="clearfix"></div>
                 @if($view->showLanguageProficiencyCreateButton())
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#languageProficiencyModal">
-                        Add Language Proficiency
+                        Add
                     </button>
                 @endif
             </div>
             <div class="clearfix"></div>
-            <h4>Payment Info</h4>
+            <h3>8. Payment Info</h3>
             @include('form.text',['var'=>['name'=>'payment_transaction_id','label'=>'Payment Transaction Id','div'=>'col-md-6']])
 
             <div class="clearfix"></div>
-            @include('form.checkbox',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified']])
-            @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
+            @if($view->showDecisionFields())
+                @include('form.checkbox',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified']])
+                @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
+            @endif
             <div class="clearfix"></div>
             @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
             <div class="clearfix"></div>
-            @if($view->showRemark())
+            @if($view->showDecisionFields())
                 @include('form.textarea',['var'=>['name'=>'remarks','label'=>'Remark']])
             @endif
 
             <div class="clearfix"></div>
             <div id="declaration">
-                <h5>Declaration</h5>
+                <h5>9. Declaration</h5>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
                 <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the
@@ -232,20 +237,21 @@ if (user()->isAdmin()) {
         <div class="col-md-12 no-padding-l">
             <h3>Upload Documents</h3>
         </div>
-        <div class="col-md-6 no-padding-l">
+        <div class="col-md-4 no-padding-l">
             <h5>Applicant's Picture</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
             <h5>Applicant's Signature</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
-            {{--            <h5>Guardian Signature</h5><small>Upload one or more files</small>--}}
-            {{--            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_GUARDIAN_SIGNATURE]])--}}
-            <h5>Applicant's Passport</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
+
 
         </div>
-        <div class="col-md-6 no-padding-l">
+        <div class="col-md-4 no-padding-l">
+            <h5>Applicant's Passport</h5><small>Upload one or more files</small>
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
             <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
+        </div>
+        <div class="col-md-4 no-padding-l">
             <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or more
                 files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
