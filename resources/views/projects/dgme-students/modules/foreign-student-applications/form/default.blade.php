@@ -116,7 +116,7 @@ if (user()->isAdmin()) {
 
             <?php
             $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'div' => 'col-md-4'];
-            $var['model'] = \App\Country::whereNull('is_saarc');
+            $var['model'] = \App\Country::where('is_saarc','0');
             if ($element->is_saarc == 1) {
                 $var['model'] = \App\Country::where('is_saarc', '1');
             }
