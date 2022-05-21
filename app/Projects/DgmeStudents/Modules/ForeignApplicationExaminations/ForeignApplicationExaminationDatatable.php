@@ -71,10 +71,12 @@ class ForeignApplicationExaminationDatatable extends ModuleDatatable
         // if (request('id')) { // Example code
         //     $query->where('id', request('id'));
         // }
-        $user=user();
-        if($user->isApplicant()){
-            $query->where('user_id', $user->id);
-        }
+
+        //Removing this because of adding Applicant Scope
+        // $user=user();
+        // if($user->isApplicant()){
+        //     $query->where('user_id', $user->id);
+        // }
 
         return $query;
     }

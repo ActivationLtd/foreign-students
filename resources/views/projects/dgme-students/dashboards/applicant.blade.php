@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
+
         <div class="col-md-4 col-sm-8 col-xs-12">
             <div class="info-box bg-aqua-active">
                 <a href="{{route('foreign-student-applications.index')}}" style="color:white">
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
+
         <div class="col-md-4 col-sm-8 col-xs-12">
             <div class="info-box bg-light-blue-active">
                 <a href="{{route('foreign-student-applications.index')}}" style="color:white">
@@ -113,9 +113,9 @@
 
     <div class="clearfix"></div>
 
-    {{--<?php--}}
-    {{--$datatable = new SampleDatatable();--}}
-    {{--?>--}}
-    {{--@include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))--}}
+    <?php
+    $datatable = new \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationDatatable();
+    ?>
+    @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
     <div class="clearfix"></div>
 @endsection
