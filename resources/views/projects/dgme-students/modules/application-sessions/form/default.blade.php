@@ -27,13 +27,16 @@ $applicationSession = $element;
 
         {{---------------|  Form input start |-----------------------}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
+        @include('form.text',['var'=>['name'=>'code','label'=>'Code']])
         @include('form.date',['var'=>['name'=>'starts_on','label'=>'Start','tooltip'=>'Session Start Date']])
         @include('form.date',['var'=>['name'=>'ends_on','label'=>'End','tooltip'=>'Session End Date']])
         @include('form.textarea',['var'=>['name'=>'description','label'=>'Description']])
 
         <div class="clearfix"></div>
-        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status','options'=>\App\ApplicationSession::$statuses)
-        ]])
+        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status','options'=>kv(\App\ApplicationSession::$statuses)]])
+        @include('form.select-array',['var'=>['name'=>'selection_completed','label'=>'Selection Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
+        @include('form.select-array',['var'=>['name'=>'admission_completed','label'=>'Admission Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
+
         {{-- @include('form.is-active')--}}
         {{---------------|  Form input start |-----------------------}}
 
