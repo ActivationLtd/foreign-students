@@ -11,6 +11,11 @@
 @section('content')
 
     <h3>Summary of Foreign Student Application</h3>
+    <div class="col-md-12 no-padding no-margin" style="width: 200px; vertical-align: center">
+        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
+             alt="{{$content}}">
+    </div>
+
     <table class="table table-bordered no-padding">
         <tr>
             <td width="50%">
