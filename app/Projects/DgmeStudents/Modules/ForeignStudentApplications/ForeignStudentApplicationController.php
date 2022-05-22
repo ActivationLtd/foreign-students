@@ -93,5 +93,6 @@ class ForeignStudentApplicationController extends ModularController
             'application' => $foreignStudentApplication,
             'content' => $contentQrCode,
         ]);
+
     }
 }
