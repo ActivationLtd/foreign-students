@@ -36,6 +36,10 @@ if (user()->isAdmin()) {
     @include('mainframe.form.back-link',['var'=>['element'=>$element->user,'class'=>'pull-left']])
     @if($view->showPrintButton())
         <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element->id)}}" target="_blank">Print</a>
+    @endif
+    @if($view->showDownloadAllButton())
+
+        @include('mainframe.form.download-all-btn')
         <div class="clearfix"></div>
     @endif
 @endsection
@@ -51,10 +55,6 @@ if (user()->isAdmin()) {
 
         {{---------------|  Form input start |-----------------------}}
         <h3>1. Name of the course to which admission is sought</h3>
-
-        @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
-        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
-        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
         <?php
         $var = [
             'name' => 'application_session_id',
@@ -62,6 +62,7 @@ if (user()->isAdmin()) {
             'div' => 'col-sm-3',
             'null_option' => false,
         ];
+
         //for admins show all values
 
         $var['model'] = \App\ApplicationSession::class::whereIn('status',
@@ -80,11 +81,13 @@ if (user()->isAdmin()) {
 
             }
         }
-
-
-
         ?>
         @include('form.select-model',['var'=>$var])
+        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+
+        @include('form.select-model',['var' => ['name' => 'course_id', 'label' => 'Course', 'table' => 'foreign_application_courses', 'div' => 'col-md-3']])
+
         <div class="clearfix"></div>
 
         <h3>2. Applicant Info</h3>
@@ -242,7 +245,6 @@ if (user()->isAdmin()) {
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
             <h5>Applicant's Signature</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
-
 
         </div>
         <div class="col-md-4 no-padding-l">
