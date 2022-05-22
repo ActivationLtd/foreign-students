@@ -27,7 +27,7 @@ $applicationSession = $element;
 
         {{---------------|  Form input start |-----------------------}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
-        @include('form.text',['var'=>['name'=>'code','label'=>'Code']])
+        @include('form.text',['var'=>['name'=>'code','label'=>'Code','editable'=>false]])
         @include('form.date',['var'=>['name'=>'starts_on','label'=>'Start','tooltip'=>'Session Start Date']])
         @include('form.date',['var'=>['name'=>'ends_on','label'=>'End','tooltip'=>'Session End Date']])
         @include('form.textarea',['var'=>['name'=>'description','label'=>'Description']])

@@ -25,7 +25,7 @@ class ApplicationSessionProcessor extends ModelProcessor
         if ($this->user->isApplicant()) {
             $this->immutables = array_merge($this->immutables, ['is_active']);
         }
-        $this->immutables=array_merge($this->immutables, ['code']);
+
 
         return $this->immutables;
     }
