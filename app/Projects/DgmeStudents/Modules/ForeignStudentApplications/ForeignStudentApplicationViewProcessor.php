@@ -62,12 +62,13 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
         // if ($this->user->isAdmin()) {
         //     return true;
         // }
-
-        if ($this->user->isApplicant() &&
-            $this->element->status == 'Submitted' &&
-            Time::differenceInHours($this->element->submitted_at, now()) >= 24
-            && !ApplicationSession::latestOpenSession()) {
-            return false;
+        if ($this->user->isApplicant()) {
+            if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+                return false;
+            }
+            if (!ApplicationSession::latestOpenSession()) {
+                return false;
+            }
         }
 
         return true;
