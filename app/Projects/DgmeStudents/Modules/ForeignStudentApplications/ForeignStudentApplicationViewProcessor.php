@@ -5,6 +5,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 use App\ForeignStudentApplication;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
 use App\Projects\DgmeStudents\Helpers\Time;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 
 class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 {
@@ -61,7 +62,11 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
         // if ($this->user->isAdmin()) {
         //     return true;
         // }
-        if ($this->user->isApplicant() && $this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+
+        if ($this->user->isApplicant() &&
+            $this->element->status == 'Submitted' &&
+            Time::differenceInHours($this->element->submitted_at, now()) >= 24
+            && !ApplicationSession::latestOpenSession()) {
             return false;
         }
 
@@ -81,8 +86,9 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showSubmitButton(): bool
     {
-        return ($this->user->isApplicant() && $this->element->status == 'Draft');
+        return ($this->user->isApplicant() && $this->element->status == 'Draft' && !ApplicationSession::latestOpenSession());
     }
+
     /**
      * @return bool
      */
