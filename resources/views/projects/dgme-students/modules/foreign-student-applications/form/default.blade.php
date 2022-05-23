@@ -322,6 +322,7 @@ if (user()->isAdmin()) {
                             <input name="foreign_student_application_id" type="hidden" value="{{$element->id}}">
                             <input name="user_id" type="hidden" value="{{$element->user_id}}">
                             <div class="clearfix"></div>
+                            @csrf
                             @include('form.text',['var'=>['name'=>'language_name','label'=>'Language','div'=>'col-md-12']])
                             @include('form.select-array',['var'=>['name'=>'reading_proficiency','label'=>'Reading', 'options'=>kv($proficiencyLevels)]])
                             @include('form.select-array',['var'=>['name'=>'writing_proficiency','label'=>'Writing', 'options'=>kv($proficiencyLevels)]])

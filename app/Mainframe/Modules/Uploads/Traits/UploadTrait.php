@@ -219,6 +219,25 @@ trait UploadTrait
     */
 
     /**
+     * The file can be stored under public/* or storage/*. Previously we stored files in public
+     * The function determines where the file actually is.
+     *
+     * @return string
+     */
+    public function resolvePath()
+    {
+        if (Storage::exists($this->path)) {
+            return storage_path($this->path);
+        }
+
+        if (File::exists(public_path($this->path))) {
+            return public_path($this->path);
+        }
+
+        return null;
+    }
+
+    /**
      * Creates a URL to a file
      *
      * @return string

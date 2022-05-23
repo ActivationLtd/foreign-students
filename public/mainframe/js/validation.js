@@ -1,7 +1,7 @@
 /**
  *   Function enables the js to run front-end validation.
  */
-function enableValidation(form_name, successHandlerFunction = false) {
+function enableValidation(form_name, successHandlerFunction = false, failHandlerFunction = false) {
 
     showRequiredIcons();
 
@@ -45,17 +45,27 @@ function enableValidation(form_name, successHandlerFunction = false) {
 
             // Load messages in modal and show.
             loadMsg(response);
-            $('.modal').modal('hide'); // Hide all open modals
-            $('#msgModal').modal('show');
+            // $('.modal').modal('hide'); // Hide all open modals
 
             // Handle success. Redirect or pass to successHandlerFunction.
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 if (successHandlerFunction) {
                     successHandlerFunction(response);
                 } else if (response.hasOwnProperty('redirect') && (response.redirect !== null && response.redirect.length > 0)) {
+                    $('#msgModal').modal('show');
                     window.location.replace(response.redirect);
                 }
             }
+
+            // Handle success. Redirect or pass to successHandlerFunction.
+            if (response.status === 'fail') {
+                if (failHandlerFunction) {
+                    failHandlerFunction(response);
+                } else if (response.hasOwnProperty('redirect') && (response.redirect !== null && response.redirect.length > 0)) {
+                    $('#msgModal').modal('show');
+                }
+            }
+
         }).error(function (response, textStatus, errorThrown) { // Gracefully handle 422, 400 error responses
             console.log(response.responseJSON.message);
             showAlert(response.responseJSON.message); //
@@ -92,7 +102,7 @@ function showFieldValidationPrompts(response, showAlert) {
  * @param response
  * @param timeout milliseconds
  */
-function showResponseModal(response, timeout = null) {
+function showResponseModal(response, timeout = 1000) {
     loadResponseInModal(response);
     $('#msgModal').modal('show');
 

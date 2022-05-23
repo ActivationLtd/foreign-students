@@ -21,8 +21,8 @@
     // $('select').select2(); // Make all select2
 
     // Redirection after delete
-    @if($element->some_id)
-    $('.delete-cta button[name=genericDeleteBtn]').attr('data-redirect_success', '{!! route('some-module.edit',$element->some_id) !!}')
+    @if($element->parent_id)
+    $('.delete-cta button[name=genericDeleteBtn]').attr('data-redirect_success', '{!! route('parent.edit',$element->parent_id) !!}')
     @endif
 
     // Validation
