@@ -41,15 +41,22 @@ trait UploadTrait
     }
 
     /**
-     * returns the absolute server path.
-     * This function is useful for plugins that needs the file
-     * location in the operating system
+     * The file can be stored under public/* or storage/*. Previously we stored files in public
+     * The function determines where the file actually is.
      *
      * @return string
      */
     public function absPath()
     {
-        return public_path().$this->path;
+        if (Storage::exists($this->path)) {
+            return storage_path($this->path);
+        }
+
+        if (File::exists(public_path($this->path))) {
+            return public_path($this->path);
+        }
+
+        return null;
     }
 
     /**
