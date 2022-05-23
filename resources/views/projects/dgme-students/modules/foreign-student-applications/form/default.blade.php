@@ -242,23 +242,23 @@ if (user()->isAdmin()) {
         </div>
         <div class="col-md-4 no-padding-l">
             <h5>Applicant's Picture</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC,'zip_download'=>false]])
             <h5>Applicant's Signature</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE,'zip_download'=>false]])
 
         </div>
         <div class="col-md-4 no-padding-l">
             <h5>Applicant's Passport</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT,'zip_download'=>false]])
             <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT,'zip_download'=>false]])
         </div>
         <div class="col-md-4 no-padding-l">
             <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or more
                 files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT,'zip_download'=>false]])
             <h5>Applicant's A Level Or Equivalent Certificate</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
+            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT,'zip_download'=>false]])
         </div>
     @endif
     @if($element->id && $view->showExaminationCreateButton())

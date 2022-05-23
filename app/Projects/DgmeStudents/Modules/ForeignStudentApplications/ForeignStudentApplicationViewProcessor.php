@@ -103,7 +103,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showDownloadAllButton(): bool
     {
-        return ($this->user->isAdmin());
+        return ($this->user->isAdmin() && $this->element->id);
     }
 
     /**
