@@ -397,7 +397,7 @@ trait UploadControllerTrait
 
         if (true === ($zip->open(public_path($tempPath), ZipArchive::CREATE | ZipArchive::OVERWRITE))) {
             foreach ($uploads as $upload) {
-                $zip->addFile(Storage::path($upload->path), $upload->name);
+                $zip->addFile(Storage::path($upload->resolvePath()), $upload->name);
             }
             $zip->close();
         } else {
