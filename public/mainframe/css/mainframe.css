@@ -475,6 +475,16 @@ div.form-control {
     -webkit-border-radius: 4px;
 }
 
+.select2-selections {
+    cursor: pointer;
+    list-style: none;
+    padding: 5px 0 5px 10px;
+}
+
+div.select2-result-label:hover {
+    background-color: lightgrey;
+}
+
 input, textarea {
     border-radius: 0;
 }

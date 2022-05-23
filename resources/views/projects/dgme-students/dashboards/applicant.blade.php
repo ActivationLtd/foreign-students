@@ -5,106 +5,71 @@
     Applicant Dashboard
 @endsection
 @section('title')
-    <h1>Foreign Medical(MBBS)/Dental(BDS) Student Applications</h1>
+    Foreign Medical(MBBS)/Dental(BDS) Student Applications
 @endsection
 @section('content')
-
     <div class="clearfix"></div>
-    <div class="row" style="margin-top:2%">
-        <div class="col-md-4 col-sm-8 col-xs-12">
-            <div class="info-box bg-green-active">
+    <div class="row">
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-smart-blue">
                 <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
-                  <ion-icon name="newspaper-outline"></ion-icon>
+                   <ion-icon name="newspaper-outline"></ion-icon>
                 </span>
                 </a>
                 <div class="info-box-content">
-                    <span class="info-box-text">Online Application</span>
-                    @if($applicantData['applications']['total']>0 )
-                        <a href="{{route('foreign-student-applications.index')}}" style="color:white">
-                            <span class="info-box-number">{{$applicantData['applications']['total']}} Current Applications</span>
-                        </a>
-                    @endif
-                    @if($applicantData['applications']['ongoingGovernmentMBBSNumber']==0 || $applicantData['applications']['ongoingGovernmentBDSNumber']==0
-                        ||$applicantData['applications']['ongoingPrivateMBBSNumber']==0 || $applicantData['applications']['ongoingPrivateBDSNumber']==0 )
-                        <a href="{{route('foreign-student-applications.create')}}" style="color:white">
-                            <span class="info-box-number">Apply Online</span>
-                        </a>
-                    @endif
-
+                    <span class="info-box-number">Applications</span>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>Total:</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Gov :</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Private :</td>
+                            <td>-</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="col-md-4 col-sm-8 col-xs-12">
-            <div class="info-box bg-aqua-active">
+
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-smart-red">
                 <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
-                  <ion-icon name="newspaper-outline"></ion-icon>
+                    <ion-icon name="add-outline"></ion-icon>
                 </span>
                 </a>
                 <div class="info-box-content">
-
-                    <span class="info-box-text">Government Medical College <br>Online Application</span>
-                    @if($applicantData['applications']['ongoingGovernmentMBBSNumber']>0 || $applicantData['applications']['ongoingGovernmentBDSNumber']>0 )
-                        <a href="{{route('foreign-student-applications.index')}}" style="color:white">
-                            <span class="info-box-number">{{$applicantData['applications']['ongoingGovernmentMBBSNumber']+$applicantData['applications']['ongoingGovernmentBDSNumber']}} Current Applications</span>
-                        </a>
-                        @if($applicantData['applications']['ongoingGovernmentMBBSNumber']>0)
-                            <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingGovernmentMBBSApplicationId'])}}"
-                               style="color:white">
-                                <span class="info-box-number">MBBS Application : {{$applicantData['applications']['ongoingGovernmentMBBSApplicationStatus']}} </span>
-                            </a>
-                        @endif
-                        @if($applicantData['applications']['ongoingGovernmentBDSNumber']>0)
-                            <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingGovernmentBDSApplicationId'])}}"
-                               style="color:white">
-                                <span class="info-box-number">BDS Application : {{$applicantData['applications']['ongoingGovernmentBDSApplicationStatus']}} </span>
-                            </a>
-                        @endif
-                    @endif
+                    <span class="">Government Medical College</span>
                     @if($applicantData['applications']['ongoingGovernmentMBBSNumber']==0 || $applicantData['applications']['ongoingGovernmentBDSNumber']==0)
                         <a href="{{route('foreign-student-applications.create')}}" style="color:white">
-                            <span class="info-box-number">Apply Online</span>
+                            <span class="info-box-number">APPLY <i class="fa fa-angle-right"></i></span>
                         </a>
                     @endif
 
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="col-md-4 col-sm-8 col-xs-12">
-            <div class="info-box bg-light-blue-active">
+
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-smart-red">
                 <a href="{{route('foreign-student-applications.index')}}" style="color:white">
                 <span class="info-box-icon">
-                  <ion-icon name="newspaper-outline"></ion-icon>
+                    <ion-icon name="add-outline"></ion-icon>
                 </span>
                 </a>
                 <div class="info-box-content">
-                    <span class="info-box-text">Private Medical College<br>Online Application</span>
-                    @if($applicantData['applications']['ongoingPrivateMBBSNumber']>0 || $applicantData['applications']['ongoingPrivateBDSNumber']>0 )
-                        <a href="{{route('foreign-student-applications.index')}}" style="color:white">
-                            <span class="info-box-number">{{$applicantData['applications']['ongoingPrivateMBBSNumber']+ $applicantData['applications']['ongoingPrivateBDSNumber']}} Current Applications</span>
-                        </a>
-                    @endif
-                    @if($applicantData['applications']['ongoingPrivateMBBSNumber']>0)
-                        <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingPrivateMBBSApplicationId'])}}"
-                           style="color:white">
-                            <span class="info-box-number">MBBS Application : {{$applicantData['applications']['ongoingPrivateMBBSApplicationStatus']}} </span>
-                        </a>
-                    @endif
-                    @if($applicantData['applications']['ongoingPrivateBDSNumber']>0)
-                        <a href="{{route('foreign-student-applications.edit',$applicantData['applications']['ongoingPrivateBDSApplicationId'])}}"
-                           style="color:white">
-                            <span class="info-box-number">BDS Application : {{$applicantData['applications']['ongoingPrivateBDSApplicationStatus']}} </span>
-                        </a>
-                    @endif
+                    <span class="">Private Medical College</span>
                     @if($applicantData['applications']['ongoingPrivateMBBSNumber']==0 || $applicantData['applications']['ongoingPrivateBDSNumber']==0)
                         <a href="{{route('foreign-student-applications.create')}}" style="color:white">
-                            <span class="info-box-number">Apply Online</span>
+                            <span class="info-box-number">APPLY <i class="fa fa-angle-right"></i></span>
                         </a>
                     @endif
-
                 </div>
             </div>
         </div>
@@ -112,10 +77,10 @@
 
 
     <div class="clearfix"></div>
-
-    {{--<?php--}}
-    {{--$datatable = new SampleDatatable();--}}
-    {{--?>--}}
-    {{--@include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))--}}
+    <h3>Your Applications</h3>
+    <?php
+    $datatable = new \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationDatatable();
+    ?>
+    @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
     <div class="clearfix"></div>
 @endsection

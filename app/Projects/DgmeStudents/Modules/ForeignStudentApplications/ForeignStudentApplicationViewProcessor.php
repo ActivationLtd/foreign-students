@@ -5,6 +5,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 use App\ForeignStudentApplication;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
 use App\Projects\DgmeStudents\Helpers\Time;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 
 class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 {
@@ -61,8 +62,13 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
         // if ($this->user->isAdmin()) {
         //     return true;
         // }
-        if ($this->user->isApplicant() && $this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
-            return false;
+        if ($this->user->isApplicant()) {
+            if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
+                return false;
+            }
+            if (!ApplicationSession::latestOpenSession()) {
+                return false;
+            }
         }
 
         return true;
@@ -81,12 +87,21 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showSubmitButton(): bool
     {
-        return ($this->user->isApplicant() && $this->element->status == 'Draft');
+
+        return ($this->user->isApplicant() && $this->element->status == \App\ForeignStudentApplication::STATUS_DRAFT && ApplicationSession::latestOpenSession());
+    }
+
+    /**
+     * @return bool
+     */
+    public function showDecisionFields(): bool
+    {
+        return ($this->user->isAdmin());
     }
     /**
      * @return bool
      */
-    public function showRemark(): bool
+    public function showDownloadAllButton(): bool
     {
         return ($this->user->isAdmin());
     }

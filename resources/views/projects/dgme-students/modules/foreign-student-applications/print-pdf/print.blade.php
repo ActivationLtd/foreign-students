@@ -11,6 +11,8 @@
 @section('content')
 
     <h3>Summary of Foreign Student Application</h3>
+
+
     <table class="table table-bordered no-padding">
         <tr>
             <td width="50%">
@@ -19,8 +21,11 @@
                          src="{{$application->profilePic()->thumbnail()}}" alt="alt text">
                 @endif
             </td>
-            <td>
-
+            <td width="50%">
+                <div class="col-md-12 no-padding no-margin" style="width: 150px!important; vertical-align: center">
+                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
+                         alt="{{$content}}">
+                </div>
             </td>
         </tr>
 

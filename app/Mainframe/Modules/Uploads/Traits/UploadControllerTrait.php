@@ -385,6 +385,8 @@ trait UploadControllerTrait
         }
         if ($type = \request('type')) {
             $query->where('type', $type);
+        } else {
+            // Download all. No query param needs to be added
         }
 
         $uploads = $query->where('is_active', 1)->get();

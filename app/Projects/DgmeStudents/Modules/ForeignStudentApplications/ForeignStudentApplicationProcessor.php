@@ -24,11 +24,26 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     public function immutables()
     {
 
-        if (user()->isAdmin() && $this->element->status == 'Submitted') {
-            $this->immutables = array_merge($this->immutables, $this->element->fields(['status','application_session_id']));
+        if (user()->isAdmin() && $this->element->status == \App\ForeignStudentApplication::STATUS_SUBMITTED) {
+            $this->immutables = array_merge($this->immutables, $this->element->fields(
+                [
+                    'status',
+                    'application_session_id',
+                    'is_payment_verified',
+                    'is_document_verified',
+                    'remarks',
+                ]
+            ));
         }
-        if(user()->isApplicant() && $this->element){
-            $this->immutables = array_merge($this->immutables, ['application_session_id']);
+        //after creation session can not be modified by applicant
+        if (user()->isApplicant()) {
+            if ($this->element->isCreated()) {
+                $this->immutables = array_merge($this->immutables, ['application_session_id']);
+            }
+            //applicant can not revert application to Draft after submission
+            if ($this->element->status == \App\ForeignStudentApplication::STATUS_SUBMITTED) {
+                $this->immutables = array_merge($this->immutables, ['status']);
+            }
         }
 
         return $this->immutables;
@@ -68,7 +83,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'application_session_id' => 'required',
             'is_active' => 'in:1,0',
         ];
-        if ($element->id && $element->status== ForeignStudentApplication::STATUS_SUBMITTED) {
+        if ($element->id && $element->status == ForeignStudentApplication::STATUS_SUBMITTED) {
             $rules = array_merge($rules, [
                 'payment_transaction_id' => 'required',
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
@@ -117,7 +132,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
      */
     public function saving($element)
     {
-        
+
         // Todo: First validate
         // --------------------
         // $this->checkSomething();
@@ -148,7 +163,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     // public function updating($element) { return $this; }
 
     /**
-     * @param ForeignStudentApplication $element
+     * @param  ForeignStudentApplication  $element
      * @return $this|ForeignStudentApplicationProcessor
      */
     public function created($element)
@@ -167,9 +182,10 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     {
         // $element->sendApplicationStatusChangeEmail();
         $element->refresh(); // Get the updated model(and relations) before using.
-        if($this->hasTransition('status',ForeignStudentApplication::STATUS_DRAFT,ForeignStudentApplication::STATUS_SUBMITTED)){
+        if ($this->hasTransition('status', ForeignStudentApplication::STATUS_DRAFT, ForeignStudentApplication::STATUS_SUBMITTED)) {
             $element->sendApplicationStatusChangeEmail();
         }
+
         return $this;
     }
     // public function deleting($element) { return $this; }

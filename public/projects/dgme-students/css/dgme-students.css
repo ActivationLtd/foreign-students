@@ -25,3 +25,7 @@
 .login-logo, .register-logo{
     font-size: 24px;
 }
+
+.main-header .logo, .logo, .logo-mini, .logo-lg{
+    font-size: 14px;
+}

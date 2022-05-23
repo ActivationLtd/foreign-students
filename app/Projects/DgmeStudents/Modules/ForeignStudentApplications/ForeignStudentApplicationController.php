@@ -88,8 +88,10 @@ class ForeignStudentApplicationController extends ModularController
         if (!$this->user->can('view', $foreignStudentApplication)) {
             return $this->permissionDenied();
         }
+        $contentQrCode="Application ID: ".$foreignStudentApplication->id."\nApplication UUID: ".$foreignStudentApplication->uuid."\nURL: ".route('foreign-student-applications.edit',$foreignStudentApplication->id);
         return $this->view('projects.dgme-students.modules.foreign-student-applications.print-pdf.print')->with([
             'application' => $foreignStudentApplication,
+            'content' => $contentQrCode,
         ]);
     }
 }
