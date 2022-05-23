@@ -395,12 +395,20 @@ trait UploadControllerTrait
         $zip = new ZipArchive;
 
         if (true === ($zip->open(public_path($tempPath), ZipArchive::CREATE | ZipArchive::OVERWRITE))) {
+            $count = 0;
             foreach ($uploads as $upload) {
-                $zip->addFile($upload->absPath(), $upload->name);
+                if ($upload->absPath()) {
+                    $zip->addFile($upload->absPath(), $upload->name);
+                    $count++;
+                }
             }
             $zip->close();
         } else {
             abort(400, 'Can not create zip.');
+        }
+
+        if (!$count) {
+            abort(400, 'No files found');
         }
 
         return response()->download(public_path($tempPath));
