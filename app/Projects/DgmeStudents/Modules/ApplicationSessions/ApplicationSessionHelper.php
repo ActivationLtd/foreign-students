@@ -2,6 +2,8 @@
 
 namespace App\Projects\DgmeStudents\Modules\ApplicationSessions;
 
+use Carbon\Carbon;
+
 /** @mixin ApplicationSession */
 trait ApplicationSessionHelper
 {
@@ -36,18 +38,33 @@ trait ApplicationSessionHelper
         return $this;
     }
 
+    public function setCode(): static
+    {
+        $this->code = Carbon::create($this->ends_on)->format('Y');
+
+        return $this;
+    }
+
+    public function formatDate(): static
+    {
+        $this->ends_on = Carbon::create($this->ends_on)->endOfDay();
+        $this->starts_on = Carbon::create($this->starts_on)->startOfDay();
+
+        return $this;
+    }
+
     /**
      * @return $this
      */
     public function setIsActive(): static
     {
-        if($this->status==ApplicationSession::SESSION_STATUS_CLOSED){
+        if ($this->status == ApplicationSession::SESSION_STATUS_CLOSED) {
             $this->is_active = 0;
         }
-        if($this->status==ApplicationSession::SESSION_STATUS_SCHEDULED){
+        if ($this->status == ApplicationSession::SESSION_STATUS_SCHEDULED) {
             $this->is_active = 0;
         }
-        if($this->status==ApplicationSession::SESSION_STATUS_OPEN){
+        if ($this->status == ApplicationSession::SESSION_STATUS_OPEN) {
             $this->is_active = 1;
         }
 
@@ -93,8 +110,9 @@ trait ApplicationSessionHelper
     // Todo: static helper functions
     public static function latestOpenSession(): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|null
     {
-        return ApplicationSession::where('status',self::SESSION_STATUS_OPEN)->latest()->first();
+        return ApplicationSession::where('status', self::SESSION_STATUS_OPEN)->latest()->first();
     }
+
     public static function latestSession(): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|null
     {
         return ApplicationSession::latest()->first();

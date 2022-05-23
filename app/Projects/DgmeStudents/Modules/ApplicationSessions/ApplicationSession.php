@@ -9,12 +9,15 @@ class ApplicationSession extends BaseModule
     // Note: Pull in necessary traits from relevant mainframe class
     use ApplicationSessionHelper;
 
-    public const SESSION_STATUS_OPEN ="Open";
-    public const SESSION_STATUS_SCHEDULED ="Scheduled";
-    public const SESSION_STATUS_CLOSED ="Closed";
+    public const YES = "Yes";
+    public const NO  = "No";
+
+    public const SESSION_STATUS_OPEN      = "Open";
+    public const SESSION_STATUS_SCHEDULED = "Scheduled";
+    public const SESSION_STATUS_CLOSED    = "Closed";
 
     protected $moduleName = 'application-sessions';
-    protected $table = 'application_sessions';
+    protected $table      = 'application_sessions';
     /*
     |--------------------------------------------------------------------------
     | Properties
@@ -25,10 +28,14 @@ class ApplicationSession extends BaseModule
         'tenant_id',
         'uuid',
         'name',
+        //'code',
         'description',
         'starts_on',
         'ends_on',
         'status',
+        'selection_completed',
+        'admission_completed',
+        'academic_session_id',
         'is_active',
     ];
 
@@ -49,10 +56,14 @@ class ApplicationSession extends BaseModule
     | Option values
     |--------------------------------------------------------------------------
     */
-    public static $statuses = [
+    public static $statuses    = [
         self::SESSION_STATUS_OPEN,
         self::SESSION_STATUS_SCHEDULED,
         self::SESSION_STATUS_CLOSED,
+    ];
+    public static $YesNoFields = [
+        self::YES,
+        self::NO,
     ];
 
     /*

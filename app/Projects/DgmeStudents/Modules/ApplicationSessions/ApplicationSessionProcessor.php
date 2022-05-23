@@ -26,6 +26,7 @@ class ApplicationSessionProcessor extends ModelProcessor
             $this->immutables = array_merge($this->immutables, ['is_active']);
         }
 
+
         return $this->immutables;
     }
     /*
@@ -87,7 +88,8 @@ class ApplicationSessionProcessor extends ModelProcessor
         // Todo: Then do further processing
         // ----------------------------------
         if ($this->isValid()) {
-            $element->setNameExt()->setIsActive();
+            $element->setNameExt()->setIsActive()
+            ->setCode()->formatDate();
         }
 
         return $this;
