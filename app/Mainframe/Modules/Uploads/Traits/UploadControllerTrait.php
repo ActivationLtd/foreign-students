@@ -7,7 +7,6 @@ use App\Upload;
 use File;
 use Illuminate\Http\Request;
 use Response;
-use Storage;
 use ZipArchive;
 
 /** @mixin UploadController $this */
@@ -397,7 +396,7 @@ trait UploadControllerTrait
 
         if (true === ($zip->open(public_path($tempPath), ZipArchive::CREATE | ZipArchive::OVERWRITE))) {
             foreach ($uploads as $upload) {
-                $zip->addFile(Storage::path($upload->resolvePath()), $upload->name);
+                $zip->addFile($upload->resolvePath(), $upload->name);
             }
             $zip->close();
         } else {
