@@ -15,8 +15,10 @@
 ?>
 @section('content-top')
     @parent
-    @include('mainframe.form.back-link',['var'=>['element'=>$element->uploadable]])
-    <div class="clearfix"></div>
+    @if($element->uploadable)
+        @include('mainframe.form.back-link',['var'=>['element'=>$element->uploadable]])
+        <div class="clearfix"></div>
+    @endif
 @endsection
 
 @section('content')
@@ -74,7 +76,9 @@
 @section('js')
     @parent
     @include('projects.dgme-students.modules.uploads.form.js')
-    <script>
-        $('.delete-btn').attr('data-redirect_success', '{!! $element->uploadable->editUrl() !!}')
-    </script>
+    @if($element->uploadable)
+        <script>
+            $('.delete-btn').attr('data-redirect_success', '{!! $element->uploadable->editUrl() !!}')
+        </script>
+    @endif
 @endsection
