@@ -30,9 +30,9 @@ class ForeignApplicationForApplicantDatatable extends ForeignStudentApplicationD
             [$this->table.'.application_session_name', 'application_session_name', 'Session'],
             [$this->table.'.course_name', 'course_name', 'Course'],
             [$this->table.'.status', 'status', 'Status'],
-            [$this->table.'.created_at', 'created_at', 'Created at'],
-            [$this->table.'.updated_at', 'updated_at', 'Updated at'],
-            [$this->table.'.updated_by', 'updated_by', 'Updater'],
+            //[$this->table.'.created_at', 'created_at', 'Created at'],
+            //[$this->table.'.updated_at', 'updated_at', 'Updated at'],
+            //[$this->table.'.updated_by', 'updated_by', 'Updater'],
             //[$this->table.'.is_active', 'is_active', 'Active'],
         ];
     }
