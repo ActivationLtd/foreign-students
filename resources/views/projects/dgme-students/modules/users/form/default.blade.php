@@ -43,28 +43,27 @@
             @include('form.text',['var'=>['name'=>'password','type'=>'password','label'=>'New password','value'=>'']])
             @include('form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm new password']])
         @endif
+        @if(!$view->viewAsApplicant())
+            <div class="clearfix"></div>
+            @include('form.datetime',['var'=>['name'=>'email_verified_at','label'=>'Email verified at']])
 
-        <div class="clearfix"></div>
-        @include('form.datetime',['var'=>['name'=>'email_verified_at','label'=>'Email verified at']])
+            <div class="clearfix"></div>
+            <?php
+            // myprint_r($element->group_ids);
+            $var = [
+                'name' => 'group_ids',
+                'label' => 'Group',
+                'value' => (isset($element)) ? $element->group_ids : [],
+                'query' => new \App\Group,
+                'name_field' => 'title',
+                'params' => ['multiple', 'id' => 'groups'],
+                'container_class' => 'col-sm-3'
+            ];
 
-        <div class="clearfix"></div>
-        <?php
-        // myprint_r($element->group_ids);
-        $var = [
-            'name' => 'group_ids',
-            'label' => 'Group',
-            'value' => (isset($element)) ? $element->group_ids : [],
-            'query' => new \App\Group,
-            'name_field' => 'title',
-            'params' => ['multiple', 'id' => 'groups'],
-            'container_class' => 'col-sm-3'
-        ];
-
-        //echo  $element->test->something;
-        ?>
-
-        @include('form.select-model-multiple', compact('var'))
-
+            //echo  $element->test->something;
+            ?>
+            @include('form.select-model-multiple', compact('var'))
+        @endif
         <div class='clearfix'></div>
         @if(!$view->viewAsApplicant())
             <div class="panel-group" id="accordion">
@@ -105,9 +104,17 @@
                 </div>
             </div>
         @endif
-        <div class="clearfix"></div>
 
-        @include('form.is-active')
+        <h3>Your Applications</h3>
+        <?php
+        $datatable = new \App\Projects\DgmeStudents\Datatables\ForeignApplicationForApplicantDatatable();
+        $datatable->addUrlParam(['user_id' => $element->id]);
+        ?>
+        @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
+        <div class="clearfix"></div>
+        @if(!$view->viewAsApplicant())
+            @include('form.is-active')
+        @endif
         {{--    Form inputs: ends    --}}
 
         @include('form.action-buttons')
