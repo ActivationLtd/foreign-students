@@ -27,45 +27,35 @@ class ApplicantDataBlock extends DataBlock
     {
         $user = user();
         $totalApplicationCount = $user->applications()->whereNotIn('status', ['Declined'])->count();
-        $mbbsQuery = $user->applications()->where('course_id', 1)->whereNotIn('status', ['Declined']);
-        $mbbsQueryGovernmentCount= clone $mbbsQuery;
-        $mbbsQueryGovernment= clone $mbbsQuery;
-        $mbbsQueryPrivateCount= clone $mbbsQuery;
-        $mbbsQueryPrivate= clone $mbbsQuery;
-        $bdsQuery = $user->applications()->where('course_id', 2)->whereNotIn('status', ['Declined']);
-        $bdsQueryGovernmentCount= clone $bdsQuery;
-        $bdsQueryGovernment= clone $bdsQuery;
-        $bdsQueryPrivateCount= clone $bdsQuery;
-        $bdsQueryPrivate= clone $bdsQuery;
-        $inProgressGovernmentMBBSApplicationCount = $mbbsQueryGovernmentCount->where('application_category', 'Government')->count();
-        $inProgressGovernmentMBBSApplication = $mbbsQueryGovernment->where('application_category', 'Government')->first();
-        $inProgressPrivateMBBSApplicationCount = $mbbsQueryPrivateCount->where('application_category', 'Private')->count();
-        $inProgressPrivateMBBSApplication = $mbbsQueryPrivate->where('application_category', 'Private')->first();
 
-        $inProgressGovermentBDSApplicationCount = $bdsQueryGovernmentCount->where('application_category', 'Government')->count();
-        $inProgressGovernmentBDSApplication = $bdsQueryGovernment->where('application_category', 'Government')->first();
 
-        $inProgressPrivateBDSApplicationCount = $bdsQueryPrivateCount->where('application_category', 'Private')->count();
+        $inProgressGovernmentMBBSApplicationCount = $user->applications()->where('course_id', 1)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Government')->count();
+        $inProgressGovermentBDSApplicationCount = $user->applications()->where('course_id', 2)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Government')->count();
 
-        $inProgressPrivateBDSApplication = $bdsQueryPrivate->where('application_category', 'Private')->first();
+        $inProgressPrivateMBBSApplicationCount = $user->applications()->where('course_id', 1)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Private')->count();
+        $inProgressPrivateBDSApplicationCount = $user->applications()->where('course_id', 2)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Private')->count();
 
+        $showGovernmentApplicationCreateButton = true;
+        if ($inProgressGovernmentMBBSApplicationCount == 1 && $inProgressGovermentBDSApplicationCount == 1) {
+            $showGovernmentApplicationCreateButton = false;
+        }
+        $showPvtApplicationCreateButton = true;
+        if ($inProgressPrivateMBBSApplicationCount == 1 && $inProgressPrivateBDSApplicationCount == 1) {
+            $showPvtApplicationCreateButton = false;
+        }
         // Todo: Prepare and load data
 
         $this->data = [
             'applications' => [
                 'total' => $totalApplicationCount,
-                'ongoingGovernmentMBBSNumber' => $inProgressGovernmentMBBSApplicationCount,
-                'ongoingPrivateMBBSNumber' => $inProgressPrivateMBBSApplicationCount,
-                'ongoingGovernmentMBBSApplicationId' => ($inProgressGovernmentMBBSApplication) ? $inProgressGovernmentMBBSApplication->id : null,
-                'ongoingGovernmentMBBSApplicationStatus' => ($inProgressGovernmentMBBSApplication) ? $inProgressGovernmentMBBSApplication->status : null,
-                'ongoingPrivateMBBSApplicationId' => ($inProgressPrivateMBBSApplication) ? $inProgressPrivateMBBSApplication->id : null,
-                'ongoingPrivateMBBSApplicationStatus' => ($inProgressPrivateMBBSApplication) ? $inProgressPrivateMBBSApplication->status : null,
-                'ongoingGovernmentBDSNumber' => $inProgressGovermentBDSApplicationCount,
-                'ongoingPrivateBDSNumber' => $inProgressPrivateBDSApplicationCount,
-                'ongoingGovernmentBDSApplicationId' => ($inProgressGovernmentBDSApplication) ? $inProgressGovernmentBDSApplication->id : null,
-                'ongoingGovernmentBDSApplicationStatus' => ($inProgressGovernmentBDSApplication) ? $inProgressGovernmentBDSApplication->status : null,
-                'ongoingPrivateBDSApplicationId' => ($inProgressPrivateBDSApplication) ? $inProgressPrivateBDSApplication->id : null,
-                'ongoingPrivateBDSApplicationStatus' => ($inProgressPrivateBDSApplication) ? $inProgressPrivateBDSApplication->status : null,
+                'gov' => $inProgressGovernmentMBBSApplicationCount + $inProgressGovermentBDSApplicationCount,
+                'private' => $inProgressPrivateMBBSApplicationCount + $inProgressPrivateBDSApplicationCount,
+                'showGovtApplicationCreateButton' => $showGovernmentApplicationCreateButton,
+                'showPvtApplicationCreateButton' => $showPvtApplicationCreateButton,
             ],
         ];
     }

@@ -31,7 +31,7 @@
     applicationSubmitButtonAction();
     showPreviousApplicationFeedback();
     showApplicationFinanceOther();
-    enableValidation('{{$module->name}}');
+
 
     /*
     |--------------------------------------------------------------------------
@@ -51,8 +51,8 @@
     @if($element->isUpdating())
     ajaxForExaminations();
     validationForExaminations();
-    ajaxForProficiencies();
-    validationForProficiencies();
+    // ajaxForProficiencies();
+    // validationForProficiencies();
     loadDomicileCountry();
     // Todo: write codes here.
     // Redirection after saving
@@ -73,32 +73,34 @@
         $("input[name=applicant_name]").addClass('validate[required]');
         $("input[name=applicant_email]").addClass('validate[required]');
         $("input[name=applicant_mobile_no]").addClass('validate[required]');
+
+        /**
+         *  Validation For Proficiencies
+         */
     }
 
-    /**
-     *  Validation For Proficiencies
-     */
+
     function validationForProficiencies() {
-        $('#languageProficiencyForm').validationEngine({
-            prettySelect: true,
-            promptPosition: "topLeft",
-            scroll: false
-        });
         $('#languageProficiencyForm #language_name').addClass('validate[required]');
         $('#languageProficiencyForm #reading_proficiency').addClass('validate[required]');
         $('#languageProficiencyForm #writing_proficiency').addClass('validate[required]');
         $('#languageProficiencyForm #speaking_proficiency').addClass('validate[required]');
     }
 
+    enableValidation('languageProficiencyForm');
+
+    function handleLanguageProficiencySuccess(response) {
+        $("#appLanguageProficiencyDatatableDt").DataTable().ajax.reload();
+        $("#languageProficiencyFormModalCloseButton").click();
+        $("#languageProficiencyForm").trigger("reset");
+        console.log(response);
+    }
+
     /**
      * Ajax For Examination
      */
     function ajaxForProficiencies() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
         $('#languageProficiencyForm').submit(function (e) {
             e.preventDefault();
             if ($('#languageProficiencyForm').validationEngine('validate')) {
@@ -253,9 +255,9 @@
 
     function loadDomicileCountry() {
         let url = '{{route('countries.list-json',['is_active'=>'1','force_all_data'=>'yes'])}}';
-        
+
         $('select[name=is_saarc]').on('change', function () {
-            let isSaarc=$('select[name=is_saarc]').val();
+            let isSaarc = $('select[name=is_saarc]').val();
             var childOldValue = $("select[name=domicile_country_id]").select2('val'); // Temprarily store value to assign after ajax loading
             $("select[name=domicile_country_id]").select2("val", "").empty().select2('enable', false); // Clear and disable child
             /*----------------------------------------

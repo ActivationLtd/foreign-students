@@ -7,7 +7,6 @@ use App\Upload;
 use File;
 use Illuminate\Http\Request;
 use Response;
-use Storage;
 use ZipArchive;
 
 /** @mixin UploadController $this */
@@ -396,12 +395,20 @@ trait UploadControllerTrait
         $zip = new ZipArchive;
 
         if (true === ($zip->open(public_path($tempPath), ZipArchive::CREATE | ZipArchive::OVERWRITE))) {
+            $count = 0;
             foreach ($uploads as $upload) {
-                $zip->addFile(Storage::path($upload->path), $upload->name);
+                if ($upload->absPath()) {
+                    $zip->addFile($upload->absPath(), $upload->name);
+                    $count++;
+                }
             }
             $zip->close();
         } else {
             abort(400, 'Can not create zip.');
+        }
+
+        if (!$count) {
+            abort(400, 'No files found');
         }
 
         return response()->download(public_path($tempPath));

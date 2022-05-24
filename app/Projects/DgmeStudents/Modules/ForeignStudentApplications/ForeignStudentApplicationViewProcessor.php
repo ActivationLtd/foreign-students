@@ -101,10 +101,18 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
+    public function showApplicationFilter(): bool
+    {
+        return ($this->user->isAdmin());
+    }
+    /**
+     * @return bool
+     */
     public function showDownloadAllButton(): bool
     {
         return ($this->user->isAdmin() && $this->element->id);
     }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed|null

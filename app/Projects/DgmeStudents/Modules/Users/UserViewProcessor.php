@@ -27,11 +27,8 @@ class UserViewProcessor extends BaseModuleViewProcessor
     /**
      * @return bool
      */
-    public function viewAsApplicant()
+    public function viewAsApplicant(): bool
     {
-        if(user()->isApplicant()){
-            return true;
-        }
-        return false;
+        return (user()->isApplicant());
     }
 }
