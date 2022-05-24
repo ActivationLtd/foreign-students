@@ -16,6 +16,7 @@
 @section('content-top')
     @parent
     @include('mainframe.form.back-link',['var'=>['element'=>$element->uploadable]])
+    <div class="clearfix"></div>
 @endsection
 
 @section('content')
