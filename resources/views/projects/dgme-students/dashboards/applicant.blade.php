@@ -46,8 +46,9 @@
                 </a>
                 <div class="info-box-content">
                     <span class="">Government Medical College</span>
-                    @if($applicantData['applications']['showGovtApplicationCreateButton'])
-                        <a href="{{route('foreign-student-applications.create',['application_category'=>\App\ForeignStudentApplication::OPTION_GOVERNMENT])}}" style="color:white">
+                    @if(user()->canApplyForGovMedical())
+                        <a href="{{route('foreign-student-applications.create',['application_category'=>\App\ForeignStudentApplication::OPTION_GOVERNMENT])}}"
+                           style="color:white">
                             <span class="info-box-number">APPLY <i class="fa fa-angle-right"></i></span>
                         </a>
                     @endif
@@ -65,8 +66,9 @@
                 </a>
                 <div class="info-box-content">
                     <span class="">Private Medical College</span>
-                    @if($applicantData['applications']['showPvtApplicationCreateButton'])
-                        <a href="{{route('foreign-student-applications.create',['application_category'=>\App\ForeignStudentApplication::OPTION_PRIVATE])}}" style="color:white">
+                    @if(user()->canApplyPvtMedical())
+                        <a href="{{route('foreign-student-applications.create',['application_category'=>\App\ForeignStudentApplication::OPTION_PRIVATE])}}"
+                           style="color:white">
                             <span class="info-box-number">APPLY <i class="fa fa-angle-right"></i></span>
                         </a>
                     @endif
