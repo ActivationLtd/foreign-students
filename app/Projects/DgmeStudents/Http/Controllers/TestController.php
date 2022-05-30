@@ -3,6 +3,7 @@
 namespace App\Projects\DgmeStudents\Http\Controllers;
 
 use App\Mainframe\Http\Controllers\TestController as MfTestController;
+use App\Projects\DgmeStudents\Mails\AdminUpdatesEmail;
 use App\Projects\DgmeStudents\Notifications\Auth\ResetPassword;
 use App\Projects\DgmeStudents\Notifications\Auth\VerifyEmail;
 use App\Projects\DgmeStudents\Notifications\ForeignStudentApplication\ApplicationStatusChange;
@@ -21,6 +22,7 @@ class TestController extends MfTestController
         return (new ApplicationStatusChange($application))
             ->toMail($application->user);
     }
+
     /**
      * @param $id
      * @return \Illuminate\Notifications\Messages\MailMessage
@@ -32,6 +34,7 @@ class TestController extends MfTestController
         return (new VerifyEmail($user))
             ->toMail($user);
     }
+
     /**
      * @param $id
      * @return \Illuminate\Notifications\Messages\MailMessage
@@ -42,6 +45,16 @@ class TestController extends MfTestController
 
         return (new ResetPassword($user))
             ->toMail($user);
+    }
+
+    /**
+     * @param $id
+     * @return AdminUpdatesEmail
+     */
+    public function previewDailyAdminUpdateEmail()
+    {
+
+        return (new AdminUpdatesEmail());
     }
 
 }
