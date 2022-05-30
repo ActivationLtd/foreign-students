@@ -28,7 +28,7 @@
                 <tr>
                     <td class="content-cell">
                         @section('content-header')
-                            <h1 style="text-align: center">{{env('APP_NAME')}}</h1>
+                            <h1 style="text-align: center">{{config('app.name')}}</h1>
                             {{-- section: content-header --}}
                         @show
 
