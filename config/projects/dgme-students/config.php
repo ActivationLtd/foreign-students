@@ -44,8 +44,8 @@ return [
     */
     'admin_update_emails' => [
         'raihan.act@gmail.com',
-        'sanjidhabib@gmail.com',
-        'rifatshara@gmail.com',
+        // 'sanjidhabib@gmail.com',
+        // 'rifatshara@gmail.com',
     ],
 
 ];
