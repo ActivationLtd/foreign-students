@@ -48,12 +48,15 @@ class TestController extends MfTestController
     }
 
     /**
-     * @param $id
      * @return ApplicationSummaryEmail
      */
     public function previewDailyAdminUpdateEmail()
     {
+
+        // Section: Test mail send
         // \Mail::to(project_config('admin_update_emails'))->send(new ApplicationSummaryEmail());
+
+        // Section: Show preview
         return (new ApplicationSummaryEmail());
     }
 
