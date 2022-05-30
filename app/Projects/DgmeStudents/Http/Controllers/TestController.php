@@ -53,7 +53,7 @@ class TestController extends MfTestController
      */
     public function previewDailyAdminUpdateEmail()
     {
-
+        // \Mail::to(project_config('admin_update_emails'))->send(new AdminUpdatesEmail());
         return (new AdminUpdatesEmail());
     }
 

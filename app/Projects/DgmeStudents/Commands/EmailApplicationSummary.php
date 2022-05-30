@@ -2,9 +2,10 @@
 
 namespace App\Projects\DgmeStudents\Commands;
 
+use App\Projects\DgmeStudents\Mails\AdminUpdatesEmail;
 use Illuminate\Console\Command;
 
-class DoSomething extends Command
+class EmailApplicationSummary extends Command
 {
     // Todo : Register this command in \App\Projects\DgmeStudents\Providers\AppServiceProvider::$commands
     /**
@@ -12,14 +13,14 @@ class DoSomething extends Command
      *
      * @var string
      */
-    protected $signature = 'command:do-something';
+    protected $signature = 'command:email-application-summary';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This is a dummy command';
+    protected $description = 'Send summary email to admins';
 
     /**
      * Create a new command instance.
@@ -39,6 +40,7 @@ class DoSomething extends Command
      */
     public function handle()
     {
-        // Execute some code
+        \Mail::to(project_config('admin_update_emails'))
+            ->send(new AdminUpdatesEmail());
     }
 }
