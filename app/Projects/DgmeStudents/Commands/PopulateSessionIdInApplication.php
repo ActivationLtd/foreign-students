@@ -14,7 +14,7 @@ class PopulateSessionIdInApplication extends Command
      *
      * @var string
      */
-    protected $signature = 'dgme-students:populate-session-id-applications';
+    protected $signature = 'command:populate-session-id-applications';
 
     /**
      * The console command description.

@@ -51,8 +51,6 @@
     @if($element->isUpdating())
     ajaxForExaminations();
     validationForExaminations();
-    // ajaxForProficiencies();
-    // validationForProficiencies();
     loadDomicileCountry();
     // Todo: write codes here.
     // Redirection after saving
@@ -73,21 +71,8 @@
         $("input[name=applicant_name]").addClass('validate[required]');
         $("input[name=applicant_email]").addClass('validate[required]');
         $("input[name=applicant_mobile_no]").addClass('validate[required]');
-
-        /**
-         *  Validation For Proficiencies
-         */
     }
 
-
-    function validationForProficiencies() {
-        $('#languageProficiencyForm #language_name').addClass('validate[required]');
-        $('#languageProficiencyForm #reading_proficiency').addClass('validate[required]');
-        $('#languageProficiencyForm #writing_proficiency').addClass('validate[required]');
-        $('#languageProficiencyForm #speaking_proficiency').addClass('validate[required]');
-    }
-
-    enableValidation('languageProficiencyForm');
 
     function handleLanguageProficiencySuccess(response) {
         $("#appLanguageProficiencyDatatableDt").DataTable().ajax.reload();
@@ -96,28 +81,6 @@
         console.log(response);
     }
 
-    /**
-     * Ajax For Examination
-     */
-    function ajaxForProficiencies() {
-
-        $('#languageProficiencyForm').submit(function (e) {
-            e.preventDefault();
-            if ($('#languageProficiencyForm').validationEngine('validate')) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{route('foreign-app-lang-proficiencies.store')}}",
-                    data: $('#languageProficiencyForm').serialize(),
-                    success: function (data) {
-                        $("#appLanguageProficiencyDatatableDt").DataTable().ajax.reload();
-                        $("#languageProficiencyFormModalCloseButton").click();
-                        $("#languageProficiencyForm").trigger("reset");
-                    }
-                });
-            }
-
-        });
-    }
 
     /**
      * Validation For Examination
