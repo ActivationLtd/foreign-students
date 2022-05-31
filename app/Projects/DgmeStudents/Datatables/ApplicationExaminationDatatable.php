@@ -84,7 +84,7 @@ class ApplicationExaminationDatatable extends Datatable
 
         if ($this->hasColumn('action')) {
             $dt = $dt->editColumn('action', function ($row) {
-                return "<a target='_blank' class='pull-right btn btn-sm btn-default' href=".route('foreign-application-examinations.edit', $row->id).">View</a>";
+                return "<a class='pull-right btn btn-sm btn-default' href=".route('foreign-application-examinations.edit', $row->id).">View</a>";
             });
         }
 
