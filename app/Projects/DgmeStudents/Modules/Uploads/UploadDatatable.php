@@ -65,14 +65,20 @@ class UploadDatatable extends ModuleDatatable
     //  * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixed  $query
     //  * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixed
     //  */
-    // public function filter($query)
-    // {
-    //     // if (request('id')) { // Example code
-    //     //     $query->where('id', request('id'));
-    //     // }
-    //
-    //     return $query;
-    // }
+    public function filter($query)
+    {
+        // if (request('id')) { // Example code
+        //     $query->where('id', request('id'));
+        // }
+        $user=user();
+        $applications=$user->applications()->pluck('id');
+        if (!$user->isAdmin()){
+            $query->where('module_id', '66')->whereIn('element_id',$applications);
+
+        }
+
+        return $query;
+    }
 
     /*---------------------------------
     | Section : Modify row-columns

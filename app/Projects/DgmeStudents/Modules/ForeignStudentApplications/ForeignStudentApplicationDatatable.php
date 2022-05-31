@@ -165,6 +165,10 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         if ($this->hasColumn('updated_by')) {
             $dt->editColumn('updated_by', function ($row) { return optional($row->updater)->name; });
         }
+        if ($this->hasColumn('id')) {
+            $dt = $dt->editColumn('id', '<a href="{{ route(\''.$this->module->name.'.edit\', $id) }}">{{pad($id)}}</a>');
+
+        }
         if ($this->hasColumn('is_saarc')) {
             $dt->editColumn('is_saarc', function ($row) {
                 if ($row->is_saarc) {
