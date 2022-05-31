@@ -22,23 +22,12 @@ class CheckApplicantScope implements Scope
 
         /** @var \App\Mainframe\Features\Modular\BaseModule\BaseModule $model */
 
-        if (in_array($model->getTable(),
-            ['foreign_student_applications', 'foreign_application_examinations', 'foreign_app_lang_proficiencies'])
-        ) {
+        $tables = ['foreign_student_applications', 'foreign_application_examinations', 'foreign_app_lang_proficiencies'];
+        if (in_array($model->getTable(), $tables)) {
             $builder->where(function (Builder $q) use ($model) {
-
                 $column = $model->getTable().'.user_id';
                 $q->where($column, user()->id);
 
-                // // Include global tenant elements
-                // if ($model->showGlobalTenantElements()) {
-                //     $q->orWhere($column, Tenant::globalTenantId());
-                // }
-                //
-                // // Include null tenant elements
-                // if ($model->showNonTenantElements()) {
-                //     $q->orWhereNull($column);
-                // }
             });
         }
 
