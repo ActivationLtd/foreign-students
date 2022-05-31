@@ -24,9 +24,10 @@ class UserProcessor extends ModelProcessor
     // public $trackedFields;
     public function immutables()
     {
-        if(user()->isApplicant()){
-            $this->immutables=array_merge( $this->immutables,['email','group_ids','is_active','email_verified_at']);
+        if (user()->isApplicant()) {
+            $this->immutables = array_merge($this->immutables, ['email', 'group_ids', 'is_active', 'email_verified_at', 'passport_no']);
         }
+
         return $this->immutables;
     }
     /* Further customize immutables and allowed value transitions*/
@@ -62,7 +63,7 @@ class UserProcessor extends ModelProcessor
             'email' => 'required|email:rfc,dns,filter,strict|'.Rule::unique('users', 'email')->ignore($element->id)->whereNull('deleted_at'),
             'first_name' => 'required|regex:/[a-zA-Z\s]+/ ',
             'last_name' => 'required|regex:/[a-zA-Z\s]+/ ',
-            'password'=>'min:6|regex:/[a-zA-Z]/|regex:/[0-9]/'
+            'password' => 'min:6|regex:/[a-zA-Z]/|regex:/[0-9]/',
         ];
         if (user()->isApplicant()) {
             $merge = array_merge($merge, [

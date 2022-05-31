@@ -10,6 +10,7 @@ Route::prefix('test')->middleware(['auth', 'verified', 'superuser'])->group(func
         Route::get('email/application-status-change/{id}', [TestController::class, 'previewApplicationStatusChangeEmail']);
         Route::get('email/user-email-verification/{id}', [TestController::class, 'previewUserVerifyEmail']);
         Route::get('email/user-reset-password/{id}', [TestController::class, 'previewUserResetPasswordEmail']);
+        Route::get('email/daily-admin-update', [TestController::class, 'previewDailyAdminUpdateEmail']);
         // Todo : add new test routes here
     });
 });

@@ -39,6 +39,7 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
             [$this->table.'.applicant_name', 'applicant_name', 'Name'],
             [$this->table.'.domicile_country_name', 'domicile_country_name', 'Domicile Country'],
             [$this->table.'.applicant_passport_no', 'applicant_passport_no', 'Passport No'],
+            [$this->table.'.application_category', 'application_category', 'Category'],
             [$this->table.'.is_saarc', 'is_saarc', 'Saarc Country'],
             [$this->table.'.application_session_name', 'application_session_name', 'Session'],
             [$this->table.'.course_name', 'course_name', 'Course'],
@@ -65,6 +66,7 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
             [$this->table.'.id', 'id', 'ID'],
             [$this->table.'.applicant_name', 'applicant_name'],
             [$this->table.'.domicile_country_name', 'domicile_country_name'],
+            [$this->table.'.application_category', 'application_category'],
             [$this->table.'.applicant_passport_no', 'applicant_passport_no'],
             [$this->table.'.application_session_id', 'application_session_id'],
             [$this->table.'.application_session_name', 'application_session_name'],
@@ -102,6 +104,10 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         // if ($user->isApplicant()) {
         //     $query->where('user_id', $user->id);
         // }
+        if (request('user_id')) {
+            return $query->where('user_id', request('user_id'));
+        }
+
         if (request('application_session_id')) {
             $query->where('application_session_id', request('application_session_id'));
         }

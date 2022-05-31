@@ -16,7 +16,7 @@
     }
 
     body, body *:not(html):not(style):not(br):not(tr):not(code) {
-        font-family: Avenir, Helvetica, sans-serif;
+        font-family: Inter, Helvetica, sans-serif;
         box-sizing: border-box;
     }
 
@@ -57,7 +57,7 @@
         color: #2F3133;
         font-size: 19px;
         font-weight: bold;
-        margin-top: 0;
+        margin: 20px 0;
         text-align: left;
     }
 
@@ -65,7 +65,7 @@
         color: #2F3133;
         font-size: 16px;
         font-weight: bold;
-        margin-top: 0;
+        margin: 20px 0;
         text-align: left;
     }
 
@@ -73,20 +73,20 @@
         color: #2F3133;
         font-size: 14px;
         font-weight: bold;
-        margin-top: 0;
+        margin: 20px 0;
         text-align: left;
     }
 
     p {
         color: #74787E;
-        font-size: 16px;
+        font-size: 13px;
         line-height: 1.5em;
         margin-top: 0;
         text-align: left;
     }
 
     p.sub {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     img {
@@ -185,12 +185,23 @@
 
     /* Tables */
 
+    table{
+        border-collapse: collapse;
+    }
+
+    .row-border-bottom{
+        border-bottom: 1px lightgrey solid ;
+    }
+
+
+
     .table table {
         margin: 30px auto;
         width: 100%;
         -premailer-cellpadding: 0;
         -premailer-cellspacing: 0;
         -premailer-width: 100%;
+
     }
 
     .table th {
@@ -201,7 +212,7 @@
 
     .table td {
         color: #74787E;
-        font-size: 15px;
+        font-size: 13px;
         line-height: 18px;
         padding: 10px 0;
         margin: 0;
