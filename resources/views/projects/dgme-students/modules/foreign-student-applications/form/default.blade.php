@@ -194,7 +194,7 @@ if (user()->isAdmin()) {
 
             <div class="clearfix"></div>
             <div id="declaration">
-                <h5>9. Declaration</h5>
+                <h3>9. Declaration</h3>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
                 <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the
