@@ -25,6 +25,12 @@
             <td><b>End Date</b></td>
             <td>12/12/12</td>
         </tr>
+        <tr>
+            <td><b>Selection Completed?</b></td>
+            <td>Yes</td>
+            <td><b>Admission Completed?</b></td>
+            <td>No</td>
+        </tr>
     </table>
 
 
