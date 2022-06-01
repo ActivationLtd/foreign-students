@@ -1,12 +1,13 @@
 @extends('projects.dgme-students.layouts.default.template')
 
-
 @section('head-title')
     {{config('app.name')}} | Applicant Dashboard
 @endsection
+
 @section('title')
     Foreign Medical(MBBS)/Dental(BDS) Student Applications
 @endsection
+
 @section('content')
     <div class="clearfix"></div>
     <div class="row">
