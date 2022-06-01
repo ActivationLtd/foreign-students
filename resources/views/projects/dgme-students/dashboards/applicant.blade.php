@@ -2,7 +2,7 @@
 
 
 @section('head-title')
-    Applicant Dashboard
+    {{config('app.name')}} | Applicant Dashboard
 @endsection
 @section('title')
     Foreign Medical(MBBS)/Dental(BDS) Student Applications

@@ -67,7 +67,7 @@
     <aside class="main-sidebar">
         <section class="sidebar">
             @section('sidebar-left')
-                @include('mainframe.layouts.default.includes.navigation.left-menu.menu-items')
+                @include('projects.dgme-students.layouts.default.includes.navigation.left-menu.menu-items')
             @show
         </section>
     </aside>

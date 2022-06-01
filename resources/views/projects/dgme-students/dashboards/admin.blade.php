@@ -15,7 +15,7 @@ $statuses = ForeignStudentApplication::$statuses;
 ?>
 
 @section('head-title')
-    Admin Dashboard
+    {{config('app.name')}} | Admin Dashboard
 @endsection
 @section('title')
     Foreign Medical/Dental Student Application

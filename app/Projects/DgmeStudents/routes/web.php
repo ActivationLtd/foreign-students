@@ -35,3 +35,5 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
 | Public routes
 |---------------------------------*/
 // Todo : Write any public routes for your project
+
+Route::get('faq', [HomeController::class, 'faq'])->name('faq');
