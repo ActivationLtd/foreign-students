@@ -8,12 +8,11 @@
     /*background-image: none;*/
 }
 
-.login-box, .register-box{
+.login-box, .register-box {
     width: 460px;
     margin: auto;
     margin-top: 20px;
 }
-
 
 .login-page {
     background-image: url(../images/login-bg-1.jpg);
@@ -22,10 +21,15 @@
     background-color: #ffffff;
 }
 
-.login-logo, .register-logo{
+.login-logo, .register-logo {
     font-size: 24px;
 }
 
-.main-header .logo, .logo, .logo-mini, .logo-lg{
+.main-header .logo, .logo, .logo-mini, .logo-lg {
     font-size: 14px;
+}
+
+.info-box-content a.apply {
+    float: right;
+    margin: 10px 10px 0 0;
 }

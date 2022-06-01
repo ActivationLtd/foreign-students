@@ -45,10 +45,10 @@
                 </span>
                 </a>
                 <div class="info-box-content">
-                    <span class="">Government Medical College</span>
+                    <span style="display: block">Government Medical College</span>
                     @if(user()->canApplyForGovMedical())
                         <a href="{{route('foreign-student-applications.create',['application_category'=>\App\ForeignStudentApplication::OPTION_GOVERNMENT])}}"
-                           style="color:white">
+                           class="apply" style="color:white">
                             <span class="info-box-number">APPLY <i class="fa fa-angle-right"></i></span>
                         </a>
                     @endif
@@ -65,13 +65,30 @@
                 </span>
                 </a>
                 <div class="info-box-content">
-                    <span class="">Private Medical College</span>
+                    <span style="display: block">Private Medical College</span>
                     @if(user()->canApplyPvtMedical())
                         <a href="{{route('foreign-student-applications.create',['application_category'=>\App\ForeignStudentApplication::OPTION_PRIVATE])}}"
-                           style="color:white">
+                           class="apply" style="color:white">
                             <span class="info-box-number">APPLY <i class="fa fa-angle-right"></i></span>
                         </a>
                     @endif
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-md-8">
+            <div class="info-box bg-white">
+                <a href="{{asset('projects/dgme-students/files/user manual.pdf')}}" style="color:white">
+                <span class="info-box-icon">
+                    <ion-icon name="help-circle-outline"></ion-icon>
+                </span>
+                </a>
+                <div class="info-box-content">
+                    <span style="display: block">Application Instruction</span>
+                    <a href="{{asset('projects/dgme-students/files/user manual.pdf')}}"
+                       class="apply" style="color:black">
+                        <span class="info-box-number">DOWNLOAD</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -80,9 +97,13 @@
 
     <div class="clearfix"></div>
     <h3>Your Applications</h3>
-    <?php
-    $datatable = new \App\Projects\DgmeStudents\Datatables\ForeignApplicationForApplicantDatatable();
-    ?>
-    @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
+    <div class="row ">
+        <div class="col-md-12">
+            <?php
+            $datatable = new \App\Projects\DgmeStudents\Datatables\ForeignApplicationForApplicantDatatable();
+            ?>
+            @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
+        </div>
+    </div>
     <div class="clearfix"></div>
 @endsection
