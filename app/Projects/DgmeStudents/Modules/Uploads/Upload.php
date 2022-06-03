@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\Uploads;
 
 use App\Mainframe\Modules\Uploads\Traits\UploadTrait;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * App\Projects\DgmeStudents\Modules\Uploads\Upload
@@ -196,7 +197,14 @@ class Upload extends BaseModule
         // static::deleting(function (Upload $element) { });
         // static::deleted(function (Upload $element) { });
     }
-
+    protected static function booted(){
+        static::addGlobalScope('ApplicantUploadScope',function(Builder $builder){
+                if(user()->isApplicant()){
+                    $builder->where('uploadable_type',\App\ForeignStudentApplication::class)
+                        ->whereIn('uploadable_id',user()->applications()->pluck('id'));
+                }
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Query scopes + Dynamic scopes
