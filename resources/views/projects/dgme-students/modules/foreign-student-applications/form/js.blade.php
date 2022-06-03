@@ -39,7 +39,7 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isCreating())
-    $('#foreign-student-applicationsSubmitBtn').html('<i class="fa fa-check"></i>Next');
+    $('#foreign-student-applicationsSubmitBtn').html(' Next');
     // Todo: write codes here.
     @endif
 

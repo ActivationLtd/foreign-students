@@ -194,7 +194,7 @@ if (user()->isAdmin()) {
 
             <div class="clearfix"></div>
             <div id="declaration">
-                <h5>9. Declaration</h5>
+                <h3>9. Declaration</h3>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
                 <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the
@@ -226,14 +226,13 @@ if (user()->isAdmin()) {
             <h3>Upload Documents</h3>
         </div>
         <div class="col-md-4 no-padding-l">
-            <h5>Applicant's Picture</h5><small>Upload one or more files</small>
+            <h5>Applicant's Picture</h5><small>Upload one or more files</small><br/><br/>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC,'zip_download'=>false]])
             <h5>Applicant's Signature</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE,'zip_download'=>false]])
-
         </div>
         <div class="col-md-4 no-padding-l">
-            <h5>Applicant's Passport</h5><small>Upload one or more files</small>
+            <h5>Applicant's Passport</h5><small>Upload one or more files</small><br/><br/>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT,'zip_download'=>false]])
             <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT,'zip_download'=>false]])
@@ -246,6 +245,7 @@ if (user()->isAdmin()) {
             @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT,'zip_download'=>false]])
         </div>
     @endif
+
     @if($element->id && $view->showExaminationCreateButton())
         <div class="modal fade" id="examinationModal" tabindex="-1" role="dialog"
              aria-labelledby="examinationModalLabel" aria-hidden="true">

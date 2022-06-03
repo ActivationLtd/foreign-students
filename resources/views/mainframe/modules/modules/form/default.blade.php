@@ -36,15 +36,6 @@
     </div>
 @endsection
 
-@section('content-bottom')
-    @parent
-    <div class="col-md-6 no-padding-l">
-        <h5>File upload</h5>
-        <small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['limit'=>99]])
-    </div>
-@endsection
-
 @section('js')
     @parent
     @include('mainframe.modules.modules.form.js')

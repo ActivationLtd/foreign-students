@@ -15,7 +15,7 @@ $statuses = ForeignStudentApplication::$statuses;
 ?>
 
 @section('head-title')
-    Admin Dashboard
+    {{config('app.name')}} | Admin Dashboard
 @endsection
 @section('title')
     Foreign Medical/Dental Student Application
@@ -116,44 +116,44 @@ $statuses = ForeignStudentApplication::$statuses;
         </div>
 
     </div>
-    <div class="clearfix"></div>
-    <div class="col-md-12 no-padding-l">
-        <h3>Latest Applications</h3>
-        <div class="{{$datatableName}}-container datatable-container">
-            <div class="filters col-md-12 no-padding">
-                <?php
-                $var = [
-                    'name' => 'application_session_id',
-                    'label' => 'Session',
-                    'div' => 'col-sm-3',
-                    'null_option' => true,
-                    'model' => \App\ApplicationSession::class,
-                    'show_inactive' => true
-                ];
-                ?>
-                @include('form.select-model',['var'=>$var])
 
-                @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
-                @include('form.select-model-multiple',['var'=>['name'=>'domicile_country_ids','label'=>'Domicile Country','table'=>'countries', 'div'=>'col-md-3']])
-                @include('form.select-array-multiple',['var'=>['name'=>'statuses','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-3']])
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Latest Applications</h3>
+            <div class="{{$datatableName}}-container datatable-container shadow" style="padding: 20px">
+                <div class="filters col-md-12 no-padding">
+                    <?php
+                    $var = [
+                        'name' => 'application_session_id',
+                        'label' => 'Session',
+                        'div' => 'col-sm-3',
+                        'null_option' => true,
+                        'model' => \App\ApplicationSession::class,
+                        'show_inactive' => true
+                    ];
+                    ?>
+                    @include('form.select-model',['var'=>$var])
+                    @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
+                    @include('form.select-model-multiple',['var'=>['name'=>'domicile_country_ids','label'=>'Domicile Country','table'=>'countries', 'div'=>'col-md-3']])
+                    @include('form.select-array-multiple',['var'=>['name'=>'statuses','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-3']])
+
+                </div>
+
+                <table id="{{$datatableName}}"
+                       class="table module-grid table-condensed {{$datatableName}} dataTable table-hover"
+                       style="width: 100%">
+                    <thead>
+                    <tr>
+                        @foreach($titles as $title)
+                            <th>{!! $title !!}</th>
+                        @endforeach
+                    </tr>
+                    </thead>
+                </table>
 
             </div>
-
-            <table id="{{$datatableName}}"
-                   class="table module-grid table-condensed {{$datatableName}} dataTable table-hover"
-                   style="width: 100%">
-                <thead>
-                <tr>
-                    @foreach($titles as $title)
-                        <th>{!! $title !!}</th>
-                    @endforeach
-                </tr>
-                </thead>
-            </table>
-
         </div>
     </div>
-    <div class="clearfix"></div>
 @endsection
 @section('js')
     @parent
