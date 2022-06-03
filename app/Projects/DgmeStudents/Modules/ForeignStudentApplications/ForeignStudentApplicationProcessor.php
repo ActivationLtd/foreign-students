@@ -189,7 +189,12 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         return $this;
     }
     // public function deleting($element) { return $this; }
-    // public function deleted($element) { return $this; }
+    public function deleted($element) {
+        $element->applicationExaminations()->delete();
+        $element->applicationLanguageProfiencies()->delete();
+        $element->uploads()->delete();
+        return $this;
+    }
 
     /*
     |--------------------------------------------------------------------------
