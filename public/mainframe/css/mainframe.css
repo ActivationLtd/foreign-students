@@ -191,7 +191,7 @@ table, tr, th, td, thead, tbody {
 }
 
 .main-header {
-    background-image: url("../images/top-strip-1.png");
+    /*background-image: url("../images/top-strip-1.png");*/
     background-repeat: no-repeat;
     background-size: 100%;
     /*background-color: black;*/
@@ -810,7 +810,7 @@ a i {
 }
 
 .ajax-file-upload-statusbar {
-    border: 0px solid lightgray;
+    border: 0 solid lightgray;
     width: 420px;
     margin: 0;
     padding: 0;

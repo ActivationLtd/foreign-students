@@ -29,7 +29,7 @@ class Upload extends Input
     /** * @var string */
     public $bucket;
     /** * @var string */
-    public $zipDownload = true;
+    public $zipDownload = false;
 
     /**
      * Input constructor.
