@@ -13,21 +13,7 @@ return new class extends Migration {
     public function up()
     {
         //
-        \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication::onlyTrashed()
-            ->chunk(100, function ($applications) {
-                foreach ($applications as $application) {
-                    if($application->applicationExaminations()->exists()){
-                        $application->applicationExaminations()->delete();
-                    }
-                    if($application->applicationLanguageProfiencies()->exists()){
-                        $application->applicationLanguageProfiencies()->delete();
-                    }
-                    if($application->uploads()->exists()){
-                        $application->uploads()->delete();
-                    }
-                    // write your email send code here
-                }
-            });
+        Artisan::call('command:delete-relations-applications');
     }
 
     /**
