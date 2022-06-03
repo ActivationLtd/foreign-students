@@ -70,12 +70,12 @@ class UploadDatatable extends ModuleDatatable
         // if (request('id')) { // Example code
         //     $query->where('id', request('id'));
         // }
-        $user=user();
-        $applications=$user->applications()->pluck('id');
-        if (!$user->isAdmin()){
-            $query->where('module_id', '66')->whereIn('element_id',$applications);
-
-        }
+        // $user=user();
+        // $applications=$user->applications()->pluck('id');
+        // if (!$user->isAdmin()){
+        //     $query->where('module_id', '66')->whereIn('element_id',$applications);
+        //
+        // }
 
         return $query;
     }
