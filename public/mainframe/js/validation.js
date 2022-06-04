@@ -1,7 +1,9 @@
 /**
  *   Function enables the js to run front-end validation.
  */
-function enableValidation(form_name, successHandlerFunction = false) {
+function enableValidation(form_name, successHandlerFunction = false, failHandlerFunction = false) {
+
+    showRequiredIcons();
 
     var form = $('form[name=' + form_name + '] ');
     var btn = form.find(' button[type=submit]');
@@ -42,18 +44,31 @@ function enableValidation(form_name, successHandlerFunction = false) {
             }
 
             // Load messages in modal and show.
-            loadMsg(response);
-            $('.modal').modal('hide'); // Hide all open modals
-            $('#msgModal').modal('show');
+
+            // $('.modal').modal('hide'); // Hide all open modals
 
             // Handle success. Redirect or pass to successHandlerFunction.
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 if (successHandlerFunction) {
                     successHandlerFunction(response);
-                } else if (response.hasOwnProperty('redirect') && (response.redirect !== null && response.redirect.length > 0)) {
-                    window.location.replace(response.redirect);
+                } else {
+                    $('.modal').modal('hide');       // 1. Hide all open modals
+                    showResponseModal(response);            // 2. Show response/status in the message modal
+                    if (v.count(response.redirect)) {       // 3. Redirect if a redirect_sccuess URL exits
+                        window.location.replace(response.redirect);
+                    }
                 }
             }
+
+            // Handle success. Redirect or pass to successHandlerFunction.
+            if (response.status === 'fail') {
+                if (failHandlerFunction) {
+                    failHandlerFunction(response);
+                } else {
+                    showResponseModal(response);        // 1. Show response/status in the message modal
+                }
+            }
+
         }).error(function (response, textStatus, errorThrown) { // Gracefully handle 422, 400 error responses
             console.log(response.responseJSON.message);
             showAlert(response.responseJSON.message); //
@@ -90,7 +105,7 @@ function showFieldValidationPrompts(response, showAlert) {
  * @param response
  * @param timeout milliseconds
  */
-function showResponseModal(response, timeout = null) {
+function showResponseModal(response, timeout) {
     loadResponseInModal(response);
     $('#msgModal').modal('show');
 
@@ -182,5 +197,27 @@ function showAlert(msg, timeout = null) {
         setTimeout(() => {
             $('#msgModal').modal('hide');
         }, timeout);
+    }
+}
+
+/**
+ * Auto close message modal after 5 seconds
+ */
+function autoCloseMsgModal() {
+    setTimeout(() => {
+        $('#msgModal').modal('hide');
+    }, 4000);
+}
+
+/**
+ * Add span to show required icons
+ */
+function showRequiredIcons() {
+    var collection = document.getElementsByClassName("validate[required]");
+    for (let i = 0; i < collection.length; i++) {
+        var e = $(collection[i]);
+        var name = e.attr('name');
+        var label_for = name;
+        e.siblings('label[for=' + label_for + ']').append('<span class=\'text-red\'>*</span>');
     }
 }

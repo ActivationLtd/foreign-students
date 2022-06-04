@@ -50,7 +50,6 @@ use App\Mainframe\Modules\PushNotifications\Traits\PushNotificationTrait;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
  * @property-read \App\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification query()
@@ -80,6 +79,10 @@ use App\Mainframe\Modules\PushNotifications\Traits\PushNotificationTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereUuid($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $notifiable
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereSlug($value)
  */
 class PushNotification extends BaseModule
 {
@@ -88,7 +91,7 @@ class PushNotification extends BaseModule
     use PushNotificationTrait;
 
     protected $moduleName = 'push-notifications';
-    protected $table      = 'push_notifications';
+    protected $table = 'push_notifications';
     /*
     |--------------------------------------------------------------------------
     | Properties

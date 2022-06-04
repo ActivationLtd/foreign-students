@@ -53,7 +53,7 @@ trait ReportControllerTrait
 
         // A project is setup
         if (project()) {
-            $path = '\App\Projects\\'.project().'\Reports\\'.$class;
+            $path = projectNamespace().'\Reports\\'.$class;
             if (class_exists($path)) {
                 return $path;
             }

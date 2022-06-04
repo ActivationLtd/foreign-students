@@ -2,12 +2,17 @@
 
 namespace App\Projects\DgmeStudents\Modules\Uploads;
 
+use App\Mainframe\Modules\Uploads\Traits\UploadControllerTrait;
+use App\Projects\DgmeStudents\Features\Modular\ModularController\ModularController;
+
 /**
  * @group  Uploads
  * APIs for managing uploads
  */
-class UploadController extends \App\Mainframe\Modules\Uploads\UploadController
+class UploadController extends ModularController
 {
+
+    use UploadControllerTrait;
 
     /*
     |--------------------------------------------------------------------------

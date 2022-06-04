@@ -10,14 +10,14 @@ use DB;
 use Exception;
 use Illuminate\Database\Query\Builder;
 
-/** @mixin \App\Mainframe\Features\Report\ReportBuilder $this */
+/** @mixin ReportBuilder $this */
 trait Query
 {
 
     /**
      * Set the table or model query as the primary data source
      *
-     * @param  \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Model|string  $dataSource
+     * @param  Builder|\Illuminate\Database\Eloquent\Model|string  $dataSource
      * @return $this
      */
     public function setDataSource($dataSource)
@@ -35,7 +35,7 @@ trait Query
     /**
      * Build query to get the data.
      *
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     public function resultQuery()
     {
@@ -50,17 +50,23 @@ trait Query
 
         # Apply filters
         $query = $this->filter($query);
+        # Inject tenant
+        $query = $this->injecTenantQuery($query);
 
+        # Group-by
+        $query = $this->groupBy($query);
+        # Order-by
+        $query = $this->orderBy($query);
+
+        return $query;
+    }
+
+    public function injecTenantQuery($query)
+    {
         # Inject tenant context
         if ($this->user->ofTenant() && $this->hasTenantContext()) {
             $query->where('tenant_id', $this->user->tenant_id);
         }
-
-        # Group-by
-        $query = $this->groupBy($query);
-
-        # Order-by
-        $query = $this->orderBy($query);
 
         return $query;
     }
@@ -82,22 +88,24 @@ trait Query
     {
         $this->result = $this->result ?: $this->resultQuery()->paginate($this->rowsPerPage());
 
+        // return $this->result;
+        try {
+            if ($this->result) {
+                return $this->result;
+            }
+
+            $key = __CLASS__.'-'.Mf::httpRequestSignature();
+
+            $this->result = Cache::remember($key, $this->cache, function () {
+                return $this->resultQuery()->paginate($this->rowsPerPage());
+            });
+
+            return $this->result;
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
         return $this->result;
-        // try {
-        //     if ($this->result) {
-        //         return $this->result;
-        //     }
-        //
-        //     $key = base64_encode('report-'.__CLASS__).'-'.Mf::httpRequestSignature(($this->resultQuery()->toSql()));
-        //
-        //     $this->result = Cache::remember($key, $this->cache, function () {
-        //         return $this->resultQuery()->paginate($this->rowsPerPage());
-        //     });
-        //
-        //     return $this->result;
-        // } catch (Exception $e) {
-        //     $this->fail($e->getMessage());
-        // }
 
     }
 
@@ -127,11 +135,10 @@ trait Query
     {
 
         try {
-            if ($this->total) {
+            if ($this->total && is_int($this->total)) {
                 return $this->total;
             }
-
-            $key = base64_encode('report-'.__CLASS__).'-total-'.Mf::httpRequestSignature(($this->resultQuery()->toSql()));
+            $key = __CLASS__.'-total-'.Mf::httpRequestSignature();
 
             $this->total = Cache::remember($key, $this->cache, function () {
                 return $this->totalQuery()->count();
@@ -147,7 +154,7 @@ trait Query
     /**
      * Query to get total number of rows
      *
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|mixed|string
+     * @return \Illuminate\Database\Eloquent\Model|Builder|mixed|string
      */
     public function totalQuery()
     {
@@ -313,7 +320,7 @@ trait Query
 
     /**
      * @param $query Builder|\Illuminate\Database\Eloquent\Builder
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     public function orderBy($query)
     {
@@ -451,7 +458,7 @@ trait Query
      * Add groupBy clause to the query builder.
      *
      * @param $query Builder
-     * @return \Illuminate\Database\Query\Builder
+     * @return Builder
      */
     public function groupBy($query)
     {

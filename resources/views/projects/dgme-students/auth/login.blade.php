@@ -46,11 +46,19 @@
                     <div class="clearfix"></div>
                     <a class="btn btn-default btn-block" target="_blank"
 
-                       href="{{route('register.tenant')}}">{{ __('Registration Business') }}
+                       href="{{route('register.applicant')}}">{{ __('Applicant Sign Up') }}
                     </a>
 
                 </div>
             </div>
         </form>
+
     </div>
+    <div class="clearfix"></div>
+    <a class="btn btn-block" target="_blank"
+       href="{{asset('projects/dgme-students/files/user manual.pdf')}}"> <i class="fa fa-download"></i> <b>Download User Manual For Application</b>
+    </a>
+    <p style="text-align: center">If you require any further information, please feel free to email us at <a href="mailto:supportforeignstudents@dgme.gov.bd">supportforeignstudents@dgme.gov.bd</a></p>
+
+
 @endsection

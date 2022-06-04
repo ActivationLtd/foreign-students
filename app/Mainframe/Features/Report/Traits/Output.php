@@ -134,12 +134,19 @@ trait Output
     }
 
     /**
+     * @param  string|null  $resource
      * @return array
+     * @throws \Exception
      */
-    public function jsonPayload()
+    public function jsonPayload($resource = null)
     {
+        if ($resource) {
+            $resourceCollection = (new $resource($this->mutateResult()));
+            $items = $resourceCollection->items();
+        }
+
         $result = $this->mutateResult()->toArray();
-        $result['items'] = $result['data'];
+        $result['items'] = $items ?? $result['data'];
         unset($result['data']);
 
         return $result;
@@ -148,10 +155,11 @@ trait Output
     /**
      * @return mixed|\Illuminate\Support\Collection
      */
-    public function json()
+    public function json($resource = null)
     {
         return $this->success('Request Processed')
-            ->load($this->jsonPayload())->json();
+            ->load($this->jsonPayload($resource))
+            ->json();
     }
 
     /**
@@ -279,7 +287,7 @@ trait Output
         foreach ($result as $row) {
             $k = 0;
             foreach ($selectedColumns as $column) {
-                $sheet->setCellValue($ranges[$k++].$j, $row->$column);
+                $sheet->setCellValue($ranges[$k++].$j, strip_tags($row->$column));
             }
             $j++;
         }

@@ -35,7 +35,6 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting query()
@@ -60,13 +59,17 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTenantId($value)
  * @property int|null $tenant_editable Some settings are not allowed to be edited by tenant
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTenantEditable($value)
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereSlug($value)
  */
 class Setting extends BaseModule
 {
     use SettingTrait, SettingHelper;
 
     protected $moduleName = 'settings';
-    protected $table      = 'settings';
+    protected $table = 'settings';
     /*
     |--------------------------------------------------------------------------
     | Properties

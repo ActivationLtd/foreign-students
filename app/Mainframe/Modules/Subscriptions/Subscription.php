@@ -36,7 +36,6 @@ use App\Mainframe\Modules\Subscriptions\Traits\SubscriptionTrait;
  * @property-read \App\User|null $updater
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription query()
@@ -56,10 +55,15 @@ use App\Mainframe\Modules\Subscriptions\Traits\SubscriptionTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereValidFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereValidTill($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereSlug($value)
  */
 class Subscription extends BaseModule
 {
     use SubscriptionTrait;
+
     /*
     |--------------------------------------------------------------------------
     | Module definitions
@@ -67,7 +71,7 @@ class Subscription extends BaseModule
     |
     */
     protected $moduleName = 'subscriptions';
-    protected $table      = 'subscriptions';
+    protected $table = 'subscriptions';
     /*
     |--------------------------------------------------------------------------
     | Fillable attributes

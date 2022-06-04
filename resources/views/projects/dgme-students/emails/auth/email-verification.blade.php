@@ -1,19 +1,21 @@
 @extends('projects.dgme-students.layouts.email.template')
 
-@section('title')
-    <a href="{{$url}}" style="color:#000; text-decoration:none;">Email Verification</a>
+@section('content-header')
+    @parent
+    <h2 style="text-align: center">Email Verification</h2>
 @endsection
 
 @section('content')
     Dear {{$user->first_name}}, <br><br>
 
-    Thank You for taking the time to register and join our eco system.
+    Thank You for taking the time to register.
     <br/><br/>
 
-    Please <a href="{{$url}}">click here</a> to verify your email id.
+    Please <a href="{{$url}}">click here</a> to verify your user email.
 
+    <a class="button button-blue action" href="{{$url}}"> {{__('Verify Email')}}</a>
+    <a href="{{$url}}">{{$url}}</a>
     <br/><br/>
-    <strong>Thank you</strong>
-
+    Thank you
 
 @endsection

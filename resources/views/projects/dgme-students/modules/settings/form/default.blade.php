@@ -14,12 +14,7 @@
  */
 $setting = $element;
 $types = \App\Setting::$types;
-
 ?>
-
-@section('content-top')
-    @include('mainframe.layouts.default.includes.navigation.clone')
-@endsection
 
 @section('content')
     <div class="col-md-12 col-lg-10 no-padding">
@@ -33,8 +28,6 @@ $types = \App\Setting::$types;
         {{-- --------------------    --}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
         @include('form.text',['var'=>['name'=>'title','label'=>'Title']])
-        <div class="clearfix"></div>
-
         @include('form.select-array',['var'=>['name'=>'type','label'=>'type', 'options'=>$types]])
         <div class="clearfix"></div>
 
@@ -42,7 +35,8 @@ $types = \App\Setting::$types;
         <div class="clearfix"></div>
 
         <div class="clearfix"></div>
-        <a class="btn btn-default pull-right" href="https://jsoneditoronline.org/#right=local.zelija&left=cloud.2c8cda9906ed4a7fa776b6674ab1bcda">
+        <a class="btn btn-default pull-right"
+           href="https://jsoneditoronline.org/#right=local.zelija&left=cloud.2c8cda9906ed4a7fa776b6674ab1bcda">
             Use online JSON Formatter
         </a>
         <div class="clearfix"></div>
@@ -75,7 +69,7 @@ $types = \App\Setting::$types;
         </pre>
 
         @include('form.textarea',['var'=>['name'=>'description','label'=>'Description', 'params'=>['class'=>'ckeditor']]])
-        @include('form.is-active',['var'=>['hidden'=>true]])
+        @include('form.is-active')
         {{-- Form inputs: ends --}}
 
         @include('form.action-buttons')
@@ -89,7 +83,7 @@ $types = \App\Setting::$types;
         <h5>File upload</h5>
         <small>Upload one or more files</small>
 
-        @include('form.uploads',['var'=>['limit'=>99]])
+        @include('form.uploads',['var'=>['limit'=>99, 'bucket'=>'public']])
     </div>
 @endsection
 
@@ -98,6 +92,5 @@ $types = \App\Setting::$types;
     @include('projects.dgme-students.modules.settings.form.js')
     <script>
         autosize(document.querySelectorAll('textarea'));
-        // showAlert('test');
     </script>
 @endsection

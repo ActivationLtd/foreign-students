@@ -23,8 +23,9 @@
  * @var \App\Mainframe\Features\Modular\BaseModule\BaseModule $element
  * @var bool $editable
  * @var array $immutables
+ * @var array $var
  */
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null, $hiddenFields ?? null);
 $input = new \App\Mainframe\Features\Form\Checkbox\Checkbox($var);
 ?>
 @if($input->isHidden)

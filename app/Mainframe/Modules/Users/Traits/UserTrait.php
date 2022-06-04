@@ -34,7 +34,10 @@ trait UserTrait
      */
     public function getProfilePicAttribute()
     {
-        if ($upload = $this->uploads()->remember(timer('very-short'))->where('type', 'profile-pic')->first()) {
+        $upload = $this->uploads()->remember(timer('very-short'))
+            ->where('type', 'profile-pic')->first();
+
+        if ($upload) {
             return $upload->url;
         }
 
@@ -128,9 +131,15 @@ trait UserTrait
     | Relations
     |--------------------------------------------------------------------------
     */
-    public function groups() { return $this->belongsToMany(Group::class, 'user_group'); }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'user_group');
+    }
 
-    public function country() { return $this->belongsTo(Country::class); }
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 
     public function inAppNotifications()
     {
@@ -315,7 +324,7 @@ trait UserTrait
      */
     public function ofTenant()
     {
-        return $this->tenant_id && $this->inAnyGroup([User::TENANT_ADMIN_GROUP, User::TENANT_USER_GROUP]);
+        return $this->tenant_id;
     }
 
     /*-----------------------------------------
@@ -470,7 +479,7 @@ trait UserTrait
      */
     public function isSuperUser()
     {
-        return $this->hasPermission('superuser') || $this->inGroupId(Group::superadmin()->id);
+        return $this->inGroupId(Group::superadmin()->id) || $this->hasPermission('superuser');
     }
 
     /**
@@ -481,7 +490,7 @@ trait UserTrait
      */
     public function isApiUser()
     {
-        return $this->hasPermission('api') || $this->inGroupId(Group::api()->id);
+        return $this->inGroupId(Group::api()->id);
     }
 
 
@@ -503,7 +512,8 @@ trait UserTrait
             $permissions = array_merge($permissions, $group->permissions);
         }
 
-        return array_merge($permissions, $this->permissions);
+        $permissions = array_merge($permissions, $this->permissions);
+        return $permissions;
     }
 
     /**
@@ -518,13 +528,10 @@ trait UserTrait
      * @param  string|array  $permissions
      * @param  bool  $all
      * @return bool
+     * @alias hasPermission($permissions, $all = true)
      */
     public function hasAccess($permissions, $all = true)
     {
-        if ($this->isSuperUser()) {
-            return true;
-        }
-
         return $this->hasPermission($permissions, $all);
     }
 
@@ -545,6 +552,10 @@ trait UserTrait
      */
     public function hasPermission($permissions, $all = true)
     {
+        if ($this->inGroupId(Group::superadmin()->id)) { // Note - Need to keep this
+            return true;
+        }
+
         $mergedPermissions = $this->getMergedPermissions();
 
         foreach ((array) $permissions as $permission) {
@@ -564,7 +575,8 @@ trait UserTrait
 
                     // We will make sure that the merged permission does not
                     // exactly match our permission, but starts with it.
-                    if ($checkPermission != $mergedPermission && Str::startsWith($mergedPermission, $checkPermission) and $value == 1) {
+                    if ($checkPermission != $mergedPermission && Str::startsWith($mergedPermission,
+                            $checkPermission) and $value == 1) {
                         $matched = true;
                         break;
                     }
@@ -579,7 +591,8 @@ trait UserTrait
 
                         // We will make sure that the merged permission does not
                         // exactly match our permission, but ends with it.
-                        if ($checkPermission != $mergedPermission && Str::endsWith($mergedPermission, $checkPermission) and $value == 1) {
+                        if ($checkPermission != $mergedPermission && Str::endsWith($mergedPermission,
+                                $checkPermission) and $value == 1) {
                             $matched = true;
                             break;
                         }
@@ -597,7 +610,8 @@ trait UserTrait
 
                             // We will make sure that the merged permission does not
                             // exactly match our permission, but starts with it.
-                            if ($checkMergedPermission != $permission && Str::startsWith($permission, $checkMergedPermission) && $value == 1) {
+                            if ($checkMergedPermission != $permission && Str::startsWith($permission,
+                                    $checkMergedPermission) && $value == 1) {
                                 $matched = true;
                                 break;
                             }
@@ -663,11 +677,11 @@ trait UserTrait
      * Find user based on bearer token(auth_token)
      *
      * @param $id
-     * @return \App\User|mixed|null
+     * @return User|mixed|null
      */
     public static function byId($id = null)
     {
-        return \App\User::active()->remember(timer('short'))->find($id);
+        return User::active()->remember(timer('short'))->find($id);
 
     }
 
@@ -680,7 +694,7 @@ trait UserTrait
         $token = $token ?: request()->bearerToken();
 
         if ($token) {
-            return \App\User::active()
+            return User::active()
                 ->where('auth_token', $token)
                 ->remember(timer('short'))
                 ->first();
@@ -694,7 +708,7 @@ trait UserTrait
      *
      * @param  null|mixed  $token
      * @param  null|mixed  $clientId
-     * @return null|\App\User|mixed
+     * @return null|User|mixed
      */
     public static function apiAuthenticator($token = null, $clientId = null)
     {
@@ -702,7 +716,7 @@ trait UserTrait
         $clientId = $clientId ?: request()->header('client-id');
 
         if ($token && $clientId) {
-            return \App\User::active()
+            return User::active()
                 ->where('api_token', $token)
                 ->remember(timer('short'))
                 ->find($clientId);
@@ -712,11 +726,11 @@ trait UserTrait
     /**
      * Create an empty guest user
      *
-     * @return \App\User
+     * @return User
      */
     public static function guestInstance()
     {
-        return new \App\User(['first_name' => 'guest']);
+        return new User(['first_name' => 'guest']);
     }
 
     /*
@@ -743,6 +757,14 @@ trait UserTrait
     |
     */
     /**
+     * Send email verification link.
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notifyNow(new VerifyEmail());
+    }
+
+    /**
      * Send reset password link
      *
      * @param  string  $token
@@ -750,14 +772,6 @@ trait UserTrait
     public function sendPasswordResetNotification($token)
     {
         $this->notifyNow(new ResetPassword($token));
-    }
-
-    /**
-     * Send email verification link.
-     */
-    public function sendEmailVerificationNotification()
-    {
-        $this->notifyNow(new VerifyEmail());
     }
 
     /**

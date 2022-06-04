@@ -14,7 +14,7 @@
     addValidationRules(); // Assign validation classes/rules
     enableValidation('{{$module->name}}'); // Enable Ajax based form validation.
 
-    showFieldsBasedOnGroupsSelection();
+    // showFieldsBasedOnGroupsSelection();
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@
     @if($element->isUpdating())
     // Todo: write codes here.
     // Redirection after saving
-    $('#{{$module->name}}-redirect-success').val('#'); //  # Stops redirection after save
+    {{-- $('#{{$module->name}}-redirect-success').val('#'); //  # Stops redirection after save --}}
     @endif
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@
      * Assigns validation rules during saving (both creating and updating)
      */
     function addValidationRules() {
-        $("input[name=name]").addClass('validate[required]');
+        $("input[name=email]").addClass('validate[required]');
         $("select[name=group_ids]").addClass('validate[required]');
     }
 

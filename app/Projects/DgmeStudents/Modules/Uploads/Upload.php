@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\Uploads;
 
 use App\Mainframe\Modules\Uploads\Traits\UploadTrait;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * App\Projects\DgmeStudents\Modules\Uploads\Upload
@@ -47,7 +48,6 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $uploadable
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Upload[] $uploads
  * @property-read int|null $uploads_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static \Illuminate\Database\Eloquent\Builder|Upload newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Upload newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Upload query()
@@ -75,13 +75,14 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUploadableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Upload whereNameExt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Upload whereSlug($value)
  */
 class Upload extends BaseModule
 {
     use UploadTrait, UploadHelper;
-
-    protected $moduleName = 'uploads';
-    protected $table      = 'uploads';
 
     /*
     |--------------------------------------------------------------------------
@@ -89,6 +90,18 @@ class Upload extends BaseModule
     |--------------------------------------------------------------------------
     */
 
+    // protected $guarded = [];
+    // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    // protected $casts = [];
+    // protected $with = [];
+    protected $moduleName = 'uploads';
+    protected $table = 'uploads';
+
+    /*
+    |--------------------------------------------------------------------------
+    | Option values
+    |--------------------------------------------------------------------------
+    */
     protected $fillable = [
         'project_id',
         'tenant_id',
@@ -107,30 +120,49 @@ class Upload extends BaseModule
         'uploadable_type',
         'is_active',
     ];
-
-    // protected $guarded = [];
-    // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-    // protected $casts = [];
-    // protected $with = [];
-    protected $appends = ['url', 'dir'];
-    protected $hidden  = ['linked_module'];
+    // protected $appends = ['url', 'dir'];
+    protected $hidden = ['linked_module'];
 
     /*
     |--------------------------------------------------------------------------
-    | Option values
+    | Options
     |--------------------------------------------------------------------------
+    |
+    |
     */
-
-    public const TYPE_GENERIC     = 'Generic';
+    /**
+     * Upload type options
+     */
+    public const TYPE_GENERIC = 'Generic';
     public const TYPE_PROFILE_PIC = 'Profile Picture';
-    public const TYPE_LOGO        = 'Logo';
+    public const TYPE_LOGO = 'Logo';
+    public const TYPE_SSC_EQUIVALENT = 'SSC Equivalent Document';
+    public const TYPE_HSC_EQUIVALENT = 'HSC Equivalent Document';
+    public const TYPE_PASSPORT = 'Passport';
+    public const TYPE_PAYMENT_DOCUMENT = 'Payment Document';
+    public const TYPE_OTHER = 'Other Document';
+    public const TYPE_APPLICANT_SIGNATURE = 'Applicant Signature';
+    public const TYPE_GUARDIAN_SIGNATURE = 'Guardian Signature';
 
     public static $types = [
         self::TYPE_GENERIC,
         self::TYPE_PROFILE_PIC,
         self::TYPE_LOGO,
+        self::TYPE_SSC_EQUIVALENT,
+        self::TYPE_HSC_EQUIVALENT,
+        self::TYPE_PASSPORT,
+        self::TYPE_PAYMENT_DOCUMENT,
+        self::TYPE_APPLICANT_SIGNATURE,
+        self::TYPE_GUARDIAN_SIGNATURE,
+        self::TYPE_OTHER,
     ];
 
+    /**
+     * Keeps only the latest file and deletes old.
+     * For cases like profile pic
+     *
+     * @var string[]
+     */
     public static $typesWithSingleImage = [
         self::TYPE_PROFILE_PIC,
         self::TYPE_LOGO,
@@ -146,11 +178,13 @@ class Upload extends BaseModule
         parent::boot();
         self::observe(UploadObserver::class);
 
-        // static::saving(function (Upload $element) { });
+        static::saving(function (Upload $element) {
+            $element->fillExtension();
+        });
 
         static::creating(function (Upload $element) {
             $element->fillModuleAndElement('uploadable'); // Fill polymorphic fields
-            $element->fillExtension();
+
         });
         // static::updating(function (Upload $element) { });
         // static::created(function (Upload $element) { });
@@ -163,7 +197,14 @@ class Upload extends BaseModule
         // static::deleting(function (Upload $element) { });
         // static::deleted(function (Upload $element) { });
     }
-
+    protected static function booted(){
+        static::addGlobalScope('ApplicantUploadScope',function(Builder $builder){
+                if(user()->isApplicant()){
+                    $builder->where('uploadable_type',\App\ForeignStudentApplication::class)
+                        ->whereIn('uploadable_id',user()->applications()->pluck('id'));
+                }
+        });
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Query scopes + Dynamic scopes

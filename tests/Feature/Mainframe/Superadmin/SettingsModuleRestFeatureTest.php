@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Mainframe\Superadmin;
 
-use App\Setting;
+use App\Mainframe\Helpers\Test\SuperadminTestCase;
 use App\Module;
+use App\Setting;
 
 class SettingsModuleRestFeatureTest extends SuperadminTestCase
 {
@@ -44,7 +45,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
      */
     public function test_user_can_see_create_form()
     {
-        $this->get('/'.$this->module->route_path.'/create')
+        $this->get('/' . $this->module->route_path . '/create')
             ->assertStatus(200)
             ->assertSee($this->module->title);
     }
@@ -58,7 +59,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
     {
         $name = $this->faker->slug;
         $this->followingRedirects()
-            ->post('/'.$this->module->name, [
+            ->post('/' . $this->module->route_path, [
                 'name' => $name,
             ])
             ->assertStatus(200)
@@ -71,7 +72,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
     {
         $name = $this->faker->slug;
         $this->followingRedirects()
-            ->post('/'.$this->module->name, [
+            ->post('/' . $this->module->route_path, [
                 'name' => $name,
                 'title' => strtoupper($name),
                 'type' => 'string',
@@ -87,7 +88,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
         $latest = $this->latest(Setting::class);
 
         $this->followingRedirects()
-            ->post('/'.$this->module->name, [
+            ->post('/' . $this->module->route_path, [
                 'name' => $latest->name,
                 'title' => strtoupper($latest->name),
                 'type' => 'string',
@@ -108,11 +109,11 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
     {
         $latest = $this->latest(Setting::class);
 
-        $this->get('/'.$this->module->name)
+        $this->get('/' . $this->module->route_path)
             ->assertStatus(200)
             ->assertSee($this->module->title);
 
-        $this->get('/'.$this->module->name.'/datatable/json')
+        $this->get('/' . $this->module->route_path . '/datatable/json')
             ->assertStatus(200)
             ->assertSee($latest->name);
     }
@@ -127,7 +128,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
         $latest = $this->latest(Setting::class);
 
         $this->followingRedirects()
-            ->get("/{$this->module->name}/{$latest->id}")
+            ->get("/{$this->module->route_path}/{$latest->id}")
             ->assertStatus(200)
             ->assertSee($latest->name);
 
@@ -142,7 +143,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
     {
         $latest = $this->latest(Setting::class);
 
-        $this->get("/{$this->module->name}/{$latest->id}/edit")
+        $this->get("/{$this->module->route_path}/{$latest->id}/edit")
             ->assertStatus(200)
             ->assertSee($latest->name);
 
@@ -159,7 +160,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
         $newValue = $this->faker->sentence;
 
         $this->followingRedirects()
-            ->patch("/{$this->module->name}/{$latest->id}", [
+            ->patch("/{$this->module->route_path}/{$latest->id}", [
                 'value' => $newValue,
             ])
             ->assertStatus(200)
@@ -185,7 +186,7 @@ class SettingsModuleRestFeatureTest extends SuperadminTestCase
 
         // delete with redirect=success to index route.
         $this->followingRedirects()
-            ->delete("/{$this->module->name}/{$latest->id}?redirect_success=".route($this->module->name.'.index'))
+            ->delete("/{$this->module->route_path}/{$latest->id}?redirect_success=" . route($this->module->name . '.index'))
             ->assertStatus(200)
             ->assertSee($this->module->title);
 

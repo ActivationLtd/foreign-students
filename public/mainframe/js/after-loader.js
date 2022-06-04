@@ -97,7 +97,7 @@ $('.datatable-min').dataTable({
     "bLengthChange": false,
     "bInfo": false,
     "bPageLength": 10,
-    "aaSorting": [[0, "desc"]]
+    "aaSorting": [[0, "asc"]]
 });
 
 $('.datatable-min-no-pagination').dataTable({
@@ -107,7 +107,7 @@ $('.datatable-min-no-pagination').dataTable({
     "bLengthChange": false,
     "bInfo": false,
     "bPageLength": 10,
-    "aaSorting": [[0, "desc"]]
+    "aaSorting": [[0, "asc"]]
 });
 
 /*
@@ -146,3 +146,7 @@ autosize(document.querySelectorAll('textarea'));
 |--------------------------------------------------------------------------
 */
 initJsonTextarea();
+
+
+// Enable sortable
+$('.sortable').sortable();

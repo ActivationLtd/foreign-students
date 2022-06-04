@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     @include('mainframe.layouts.default.includes.css')
-{{--    <link rel="stylesheet" href="{{asset('projects/vscript/css/print-pdf.css')}}" type="text/css"/>--}}
+    {{--    <link rel="stylesheet" href="{{asset('projects/vscript/css/print-pdf.css')}}" type="text/css"/>--}}
     <title>
         @section('head-title')
             {{setting('app-name')}}
@@ -17,30 +17,52 @@
     @show
 
     @section('css')
+        <style type="text/css">
+            table {
+                border-collapse: collapse;
+            }
+            table td {
+                padding: 0px 5px;
+
+            }
+            @media print {
+                #printPageButton {
+                    display: none;
+                }
+            }
+
+            table, tr, th, td, thead, tbody {
+                font-size: 14px !important;
+            }
+        </style>
     @show
-    @include('projects.vscript.layouts.default.includes.analytics')
+    @include('projects.dgme-students.layouts.default.includes.analytics')
 </head>
 <body>
 <div class="container">
+    <div class="row" >
+        @include('mainframe.layouts.default.includes.print-btn')
+    </div>
     <div class="row">
         <div class="col-md-12" align="center">
             <div class="header-line-up"></div>
             <table class="no-border no-padding" width="100%">
                 <tr>
-                    <td width="50%" align="left" style="vertical-align: middle">
-                        @section('title')
-                            <h1 class="pull-left">{{config('app.name')}}</h1>
-                        @show
-                        {{--<img class="image img-responsive"--}}
-                        {{--src="{{asset('projects/vscript/images/logo.png')}}" alt=""/>--}}
+                    <td>
+                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
+                             style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
-                    <td width="50%" align="right" style="vertical-align: middle">
-                        @section('title-right')
-                        @show
+                    <td>
+                        <h2 style="text-align: center">{{__('common.agency_full_name')}}</h2>
+                        <h4 style="text-align: center">{{__('common.gov_of_bangladesh')}}</h4>
+                    </td>
+                    <td>
+                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
+                             style="margin-top: 2%; border:none!important;width: 120px;" alt="">
                     </td>
                 </tr>
             </table>
-            <hr>
+
         </div>
     </div>
     <div class="row">

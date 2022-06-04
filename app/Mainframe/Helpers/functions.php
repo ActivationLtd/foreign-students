@@ -85,6 +85,11 @@ function projectNamespace()
     return Mf::projectNamespace();
 }
 
+function projectDir()
+{
+    return Mf::projectDir();
+}
+
 /**
  * Project resource root
  *
@@ -205,7 +210,7 @@ function cached($key, $seconds = null)
 
     $cached = new Cached();
     $cached->key = $key;
-    $function = lcfirst(\Str::camel($key)); //camelCaseFunction
+    $function = lcfirst(Str::camel($key)); //camelCaseFunction
 
     if (isset($seconds) && $seconds < 1) {
         Cache::forget($key);
@@ -290,7 +295,7 @@ function setError($message = '', $setMsg = true, $ret = false)
 /**
  * Resolve singleton messageBag
  *
- * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Support\MessageBag|mixed
+ * @return \Illuminate\Contracts\Foundation\Application|MessageBag|mixed
  */
 function messageBag()
 {
@@ -319,15 +324,15 @@ function classKey($class)
 {
 
     if (is_string($class)) {
-        return \Str::slug(\Str::kebab(className($class)));
+        return Str::slug(Str::kebab(className($class)));
     }
 
-    return \Str::slug(\Str::kebab(class_basename($class)));
+    return Str::slug(Str::kebab(class_basename($class)));
 }
 
 function classFromKey($key)
 {
-    return \Str::ucfirst(\Str::camel($key));
+    return Str::ucfirst(Str::camel($key));
 }
 
 /**
@@ -354,10 +359,10 @@ function classVar($class)
 function classSnakeKey($class)
 {
     if (is_string($class)) {
-        return \Str::snake(className($class));
+        return Str::snake(className($class));
     }
 
-    return \Str::snake(class_basename($class));
+    return Str::snake(class_basename($class));
 }
 
 /**
@@ -385,4 +390,27 @@ function className($class)
 function urlWithParams($url, $params = null)
 {
     return Mf::link($url, $params);
+}
+
+/**
+ * Flatten array keys
+ *
+ * @param $array
+ * @param $keys
+ * @return array|mixed
+ */
+function array_flat_keys($array, $keys = [])
+{
+
+    foreach ($array as $key => $value) {
+
+        $keys[] = $key;
+
+        if (is_array($value) && count($value)) {
+            $keys = array_merge($keys, array_flat_keys($value, $keys));
+        }
+
+    }
+
+    return array_unique($keys);
 }

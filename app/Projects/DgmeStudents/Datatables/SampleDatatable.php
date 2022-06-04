@@ -26,15 +26,15 @@ class SampleDatatable extends Datatable
      *
      * @return array
      */
-    // public function columns()
-    // {
-    //     return [
-    //         [$this->table.".id", 'id', 'ID'],
-    //         [$this->table.".name", 'name', 'Name'],
-    //         [$this->table.".group_ids", 'group_ids', 'Groups'],
-    //         ['updater.name', 'user_name', 'Updater'],
-    //         [$this->table.".updated_at", 'updated_at', 'Updated at'],
-    //         [$this->table.".is_active", 'is_active', 'Active'],
-    //     ];
-    // }
+    public function columns()
+    {
+        return [
+            [$this->table.".id", 'id', 'ID'],
+            [$this->table.".name", 'name', 'Name'],
+            [$this->table.".group_ids", 'group_ids', 'Groups'],
+            ['updater.name', 'user_name', 'Updater'],
+            [$this->table.".updated_at", 'updated_at', 'Updated at'],
+            [$this->table.".is_active", 'is_active', 'Active'],
+        ];
+    }
 }

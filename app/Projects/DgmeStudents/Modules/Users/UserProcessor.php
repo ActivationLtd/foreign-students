@@ -4,6 +4,8 @@ namespace App\Projects\DgmeStudents\Modules\Users;
 
 use App\Mainframe\Modules\Users\Traits\UserProcessorTrait;
 use App\Projects\DgmeStudents\Features\Modular\Validator\ModelProcessor;
+use App\User;
+use Illuminate\Validation\Rule;
 
 class UserProcessor extends ModelProcessor
 {
@@ -17,10 +19,17 @@ class UserProcessor extends ModelProcessor
     /** @var User */
     public $element;
 
-    public $immutables = ['email'];
+    // public $immutables = ['email'];
     // public $transitions;
     // public $trackedFields;
+    public function immutables()
+    {
+        if (user()->isApplicant()) {
+            $this->immutables = array_merge($this->immutables, ['email', 'group_ids', 'is_active', 'email_verified_at', 'passport_no']);
+        }
 
+        return $this->immutables;
+    }
     /* Further customize immutables and allowed value transitions*/
     /*
     |--------------------------------------------------------------------------
@@ -48,26 +57,22 @@ class UserProcessor extends ModelProcessor
     //  * @param  array  $merge
     //  * @return array
     //  */
-    // public static function rules($element, $merge = [])
-    // {
-    //     $rules = [
-    //         'email' => 'required|email|'.Rule::unique('users', 'email')->ignore($element->id)->whereNull('deleted_at'),
-    //         'first_name' => 'required|between:0,128',
-    //         'last_name' => 'required|between:0,128',
-    //         'group_ids' => 'required',
-    //         'address1' => 'between:0,512',
-    //         'address2' => 'between:0,512',
-    //         'city' => 'between:0,64',
-    //         'county' => 'between:0,64',
-    //         'zip_code' => 'between:0,20',
-    //         'phone' => 'between:0,20',
-    //         'mobile' => 'between:0,20',
-    //         'gender' => 'between:0,32',
-    //         'dob' => 'nullable|date:Y-m-d|before:'.date("Y-m-d", strtotime("-18 years")),
-    //     ];
-    //
-    //     return array_merge($rules, $merge);
-    // }
+    public static function rules($element, $merge = [])
+    {
+        $rules = [
+            'email' => 'required|email:rfc,dns,filter,strict|'.Rule::unique('users', 'email')->ignore($element->id)->whereNull('deleted_at'),
+            'first_name' => 'required|regex:/[a-zA-Z\s]+/ ',
+            'last_name' => 'required|regex:/[a-zA-Z\s]+/ ',
+            'password' => 'min:6|regex:/[a-zA-Z]/|regex:/[0-9]/',
+        ];
+        if (user()->isApplicant()) {
+            $merge = array_merge($merge, [
+                'passport_no' => 'required|alpha_num|'.Rule::unique('users', 'passport_no')->ignore($element->id)->whereNull('deleted_at'),
+            ]);
+        }
+
+        return array_merge($rules, $merge);
+    }
 
     /*
    |--------------------------------------------------------------------------

@@ -16,7 +16,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 </head>
 <body class="hold-transition login-page lb-bg">
+
+<div class="clearfix"></div>
 <div class="login-box shadow">
+    <div class="row">
+        <div class="login-box no-margin-t no-margin-b">
+            <div class="col-xs-3">
+                <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="" alt="" style="width: 90%">
+
+            </div>
+            <div class="col-xs-6 text-center">
+                <h3 class="no-margin">{{__('common.agency_full_name')}}</h3>
+                <h5>{{__('common.gov_of_bangladesh')}}</h5>
+            </div>
+            <div class="col-xs-3">
+                <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="" alt="" style="width: 100%">
+
+            </div>
+        </div>
+    </div>
     <div class="login-logo">
         {{config('app.name')}}
     </div>
@@ -41,13 +59,7 @@
     {{-- js section   --}}
 @show
 <script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-    });
+
 </script>
 </body>
 </html>

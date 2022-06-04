@@ -22,7 +22,8 @@ Route::prefix("core/{$version}")->middleware($middlewares)->group(function () us
     |-----------------------------------------*/
     Route::post('register/{groupName?}', 'Auth\RegisterController@register')->name($namePrefix.".register");
     Route::post('login', 'Auth\LoginController@login')->name($namePrefix.".login");
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name($namePrefix.".reset-password");
+    Route::post('password/email',
+        'Auth\ForgotPasswordController@sendResetLinkEmail')->name($namePrefix.".reset-password");
     Route::post('logout', 'Auth\LoginController@logout')->name($namePrefix.".logout");
 
     /*------------------------------------------
@@ -33,23 +34,24 @@ Route::prefix("core/{$version}")->middleware($middlewares)->group(function () us
 
             $path = $module->route_path;
             $controller = $module->controller;
-            $moduleName = $module->name;
+            // $routeName = $module->route_name;
+            $routeName = $module->name; // Note: route name should be same as module name
 
-            Route::get($path.'', $controller.'@listJson')->name($namePrefix.".{$moduleName}.list");
-            Route::get($path.'/report', $controller.'@report')->name($namePrefix.".{$moduleName}.report");
+            Route::get($path.'', $controller.'@listJson')->name($namePrefix.".{$routeName}.list");
+            Route::get($path.'/report', $controller.'@report')->name($namePrefix.".{$routeName}.report");
 
-            Route::get($path.'/{id}/uploads', $controller.'@uploads')->name($namePrefix.".{$moduleName}.uploads");
-            Route::post($path.'/{id}/uploads', $controller.'@attachUpload')->name($namePrefix.".{$moduleName}.attach-upload");
-
-            Route::get($path.'/{id}/comments', $controller.'@comments')->name($namePrefix.".{$moduleName}.comments");
-            Route::post($path.'/{id}/comments', $controller.'@attachComments')->name($namePrefix.".{$moduleName}.attach-comment");
+            Route::get($path.'/{id}/uploads', $controller.'@uploads')->name($namePrefix.".{$routeName}.uploads");
+            Route::post($path.'/{id}/uploads',
+                $controller.'@attachUpload')->name($namePrefix.".{$routeName}.attach-upload");
 
             Route::apiResource($path, $controller)->names([
-                'index' => "{$namePrefix}.{$moduleName}.index",
-                'store' => "{$namePrefix}.{$moduleName}.store",
-                'show' => "{$namePrefix}.{$moduleName}.show",
-                'update' => "{$namePrefix}.{$moduleName}.update",
-                'destroy' => "{$namePrefix}.{$moduleName}.destroy",
+                'index' => "{$namePrefix}.{$routeName}.index",
+                'store' => "{$namePrefix}.{$routeName}.store",
+                'show' => "{$namePrefix}.{$routeName}.show",
+                'update' => "{$namePrefix}.{$routeName}.update",
+                'destroy' => "{$namePrefix}.{$routeName}.destroy",
+            ])->parameters([
+                $routeName => 'element', // In case of param name larger than 32 chars
             ]);
         }
     });
@@ -83,18 +85,25 @@ Route::prefix("core/{$version}")->middleware($middlewares)->group(function () us
             Route::get('profile', 'Api\UserApiController@showUser')->name("{$namePrefix}.profile");
 
             // Section: Profile-pic
-            Route::post('profile-pic', 'Api\UserApiController@profilePicStore')->name("{$namePrefix}.profile-pic.store");
-            Route::delete('profile-pic', 'Api\UserApiController@profilePicDestroy')->name("{$namePrefix}.profile-pic.delete");
+            Route::post('profile-pic',
+                'Api\UserApiController@profilePicStore')->name("{$namePrefix}.profile-pic.store");
+            Route::delete('profile-pic',
+                'Api\UserApiController@profilePicDestroy')->name("{$namePrefix}.profile-pic.delete");
 
             // Section: In-app-notifications
-            Route::get('in-app-notifications', 'Api\UserApiController@inAppNotifications')->name("{$namePrefix}.in-app-notifications.index");
-            Route::patch('in-app-notifications/{id}', 'Api\UserApiController@inAppNotificationUpdate')->name("{$namePrefix}.in-app-notifications.update");
-            Route::patch('in-app-notifications/{id}/read', 'Api\UserApiController@inAppNotificationRead')->name("{$namePrefix}.in-app-notifications.read");
+            Route::get('in-app-notifications',
+                'Api\UserApiController@inAppNotifications')->name("{$namePrefix}.in-app-notifications.index");
+            Route::patch('in-app-notifications/{id}',
+                'Api\UserApiController@inAppNotificationUpdate')->name("{$namePrefix}.in-app-notifications.update");
+            Route::patch('in-app-notifications/{id}/read',
+                'Api\UserApiController@inAppNotificationRead')->name("{$namePrefix}.in-app-notifications.read");
             Route::post('in-app-notifications/read-all', 'Api\UserApiController@inAppNotificationsReadAll')
                 ->name("{$namePrefix}.in-app-notifications.read-all");
-            Route::delete('in-app-notifications/{id}', 'Api\UserApiController@inAppNotificationDelete')->name("{$namePrefix}.in-app-notifications.delete");
+            Route::delete('in-app-notifications/{id}',
+                'Api\UserApiController@inAppNotificationDelete')->name("{$namePrefix}.in-app-notifications.delete");
             Route::post('in-app-notifications/delete-all', 'Api\UserApiController@inAppNotificationsDeleteAll')
                 ->name("{$namePrefix}.in-app-notifications.delete-all");
         });
+
     });
 });

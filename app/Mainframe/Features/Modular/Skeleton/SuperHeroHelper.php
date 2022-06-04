@@ -23,17 +23,17 @@ trait SuperHeroHelper
         return $this;
     }
 
-    // /**
-    //  * Set address
-    //  * Example code
-    //  *
-    //  * @return $this
-    //  */
-    // public function setAddress()
-    // {
-    //     $this->field = 'val';
-    //     return $this;
-    // }
+    /**
+     * Set name_ext
+     * Example code
+     *
+     * @return $this
+     */
+    public function setNameExt()
+    {
+        $this->name_ext = $this->name;
+        return $this;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -65,6 +65,7 @@ trait SuperHeroHelper
     // public function isCreatable() { return true; }
     // public function isEditable() { return true; }
     // public function isDeletable() { return true; }
+    // public function isCloneable() { return true; }
 
     /*
     |--------------------------------------------------------------------------

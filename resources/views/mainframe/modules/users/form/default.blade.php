@@ -74,7 +74,8 @@
                                 <div class="controls">
                                     <div class="form-group">
                                         {{--@include('form.checkbox',['var'=>['name'=>'api_token_generate','label'=>'New token (Check and save)','value'=>"yes"]])--}}
-                                        <button id="api_token_generate" name="api_token_generate" class="btn btn-default">
+                                        <button id="api_token_generate" name="api_token_generate"
+                                                class="btn btn-default">
                                             <i class="fa fa-refresh"></i> Re-generate
                                         </button>
                                     </div>
@@ -108,7 +109,7 @@
     <div class="col-md-6 no-padding-l">
         <h5>File upload</h5>
         <small>Upload one or more files</small>
-        @include('form.uploads',['var'=>['type'=>'profile-pic','limit'=>1]])
+        @include('form.uploads',['var'=>['type'=>\App\Upload::TYPE_PROFILE_PIC,'limit'=>1]])
     </div>
 @endsection
 
@@ -118,7 +119,6 @@
     <script>
         //Make the api_token readonly
         $("input[name=api_token]").attr('readonly', true);
-
 
 
         $("#api_token_generate").click(function (e) {

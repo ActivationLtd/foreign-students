@@ -24,5 +24,11 @@ class UserViewProcessor extends BaseModuleViewProcessor
     // public function formPath($state = 'create') { return parent::formPath($state) }
     // public function gridPath()
     // ... See parent class for available functions
-
+    /**
+     * @return bool
+     */
+    public function viewAsApplicant(): bool
+    {
+        return (user()->isApplicant());
+    }
 }

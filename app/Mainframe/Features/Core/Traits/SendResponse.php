@@ -7,14 +7,14 @@ use App\Mainframe\Features\Responder\Response;
 /** @mixin  \App\Mainframe\Http\Controllers\BaseController $this */
 trait SendResponse
 {
-    /** * @var \App\Mainframe\Features\Responder\Response */
+    /** * @var Response */
     public $response;
 
     /** @var string */
     protected $redirectTo; // Note: This is set as 'protected' to avoid conflict with some laravel classes
 
     /**
-     * @param  \App\Mainframe\Features\Responder\Response  $response
+     * @param  Response  $response
      * @return SendResponse
      */
     public function setResponse($response)
@@ -44,7 +44,7 @@ trait SendResponse
      * Set redirection url
      *
      * @param $message
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function setMessage($message)
     {
@@ -55,7 +55,7 @@ trait SendResponse
      * Set redirection url
      *
      * @param  null  $to
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function setRedirectTo($to = null)
     {
@@ -217,7 +217,7 @@ trait SendResponse
      *
      * @param  null  $message
      * @param  int  $code
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function success($message = null, $code = Response::HTTP_OK)
     {
@@ -229,7 +229,7 @@ trait SendResponse
      *
      * @param  null  $message
      * @param  int  $code
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function fail($message = null, $code = Response::HTTP_UNPROCESSABLE_ENTITY)
     {
@@ -240,7 +240,7 @@ trait SendResponse
      * Set response as fail
      *
      * @param  string  $message
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function failValidation($message = '')
     {
@@ -251,7 +251,7 @@ trait SendResponse
      * Load a payload to be sent with the response
      *
      * @param  null  $payload
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function load($payload = null)
     {
@@ -260,7 +260,7 @@ trait SendResponse
 
     /**
      * @param  null  $redirectTo
-     * @return \App\Mainframe\Features\Responder\Response|mixed
+     * @return Response|mixed
      */
     public function to($redirectTo = null)
     {
@@ -274,7 +274,6 @@ trait SendResponse
      */
     public function isSuccess()
     {
-
         return $this->response()->isSuccess();
     }
 

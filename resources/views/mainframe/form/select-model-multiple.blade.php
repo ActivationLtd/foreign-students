@@ -29,9 +29,11 @@
  * @var \App\Mainframe\Features\Modular\BaseModule\BaseModule $element
  * @var bool $editable
  * @var array $immutables
+ * @var array $var
  */
 
-$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null, $immutables ?? null);
+$var = \App\Mainframe\Features\Form\Form::setUpVar($var, $errors ?? null, $element ?? null, $editable ?? null,
+    $immutables ?? null, $hiddenFields ?? null);
 $input = new \App\Mainframe\Features\Form\Select\SelectModelMultiple($var);
 ?>
 
@@ -48,7 +50,65 @@ $input = new \App\Mainframe\Features\Form\Select\SelectModelMultiple($var);
         @include('mainframe.form.includes.label')
 
         {{-- input --}}
-        {{ Form::select($input->name.'[]', $input->options(), $input->value(), $input->params) }}
+        {{--        {{ Form::select($input->name.'[]', $input->options(), $input->value(), $input->params) }}--}}
+
+        <?php
+        $attributes = "";
+        foreach ($input->params as $attr => $val) {
+            $attributes .= " $attr='$val' ";
+        }
+        ?>
+
+        <select name="{!! $input->name  !!}[]" id="{!! $input->id  !!}" {!! $attributes !!} multiple>
+            @if($input->showNullOption())
+                <?php
+                $selected = "";
+                if (in_array(null, Arr::wrap($input->value()))) {
+                    $selected = "selected";
+                }
+                ?>
+                <option value="" {!! $selected  !!}>{{$input->nullOptionText}}</option>
+            @endif
+
+            @if($input->showZeroOption())
+                <?php
+                $selected = "";
+                if (in_array(0, Arr::wrap($input->value()))) {
+                    $selected = "selected";
+                }
+                ?>
+                <option value="0" {!! $selected  !!}>{{$input->zeroOptionText}}</option>
+            @endif
+
+            @foreach($input->result() as $option)
+                <?php
+                /** @var $option */
+                $optionVal = $option->{$input->valueField};
+                $optionName = $option->{$input->nameField};
+                $selected = "";
+                if (in_array($optionVal, Arr::wrap($input->value()))) {
+                    $selected = "selected";
+                }
+
+                $dataAttributes = '';
+                foreach ($input->dataAttributes as $attribute) {
+
+                    $dataAttr = "data-{$attribute}";
+                    $dataVal = $option->{$attribute};
+
+                    if (!is_string($dataVal)) {
+                        $dataVal = json_encode($dataVal);
+                    }
+
+                    $dataAttributes .= " $dataAttr= '$dataVal'";
+                }
+                ?>
+
+                <option value="{!! $optionVal !!}" {{$selected}} {!! $dataAttributes !!}>
+                    {!! $optionName !!}
+                </option>
+            @endforeach
+        </select>
         {{--
         Ghost input
         ==================================================
@@ -84,6 +144,7 @@ $input = new \App\Mainframe\Features\Form\Select\SelectModelMultiple($var);
                     .prop('disabled', true);
             }
         });
+        $('[data-parent={{$input->dataParent}}] select[id={{$input->params['id']}}] ').trigger('change');
     </script>
 
     @parent

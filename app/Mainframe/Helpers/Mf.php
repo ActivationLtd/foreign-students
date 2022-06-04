@@ -7,7 +7,7 @@ use App\Module;
 use App\ModuleGroup;
 use App\User;
 use Auth;
-use Cache;
+use Illuminate\Support\Str;
 use Schema;
 
 /**
@@ -17,7 +17,6 @@ use Schema;
  */
 class Mf
 {
-
     /*
     |--------------------------------------------------------------------------
     | System functions
@@ -85,7 +84,8 @@ class Mf
      */
     public static function projectKey()
     {
-        return \Str::kebab(self::project());
+        return config('mainframe.config.project_key') ??
+            \Str::kebab(self::project());
     }
 
     /**
@@ -95,7 +95,23 @@ class Mf
      */
     public static function projectNamespace()
     {
-        return 'App\Projects\\'.self::project();
+
+        return config('mainframe.config.project_namespace')
+            ?? '\App\Projects\\'.self::project();
+
+    }
+
+    /**
+     * Get project directory app/Projects/DefaultProject
+     *
+     * @return array|\Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed|string|string[]
+     */
+    public static function projectDir()
+    {
+        $dir = config('mainframe.config.project_directory') ??
+            str_replace('\\', '/', self::projectNamespace());
+
+        return lcfirst(trim($dir, '\\/'));
     }
 
     /**
@@ -105,7 +121,8 @@ class Mf
      */
     public static function projectResources()
     {
-        return 'projects.'.self::projectKey();
+        return config('mainframe.config.project_resource') ??
+            'projects.'.self::projectKey();
     }
 
     /**
@@ -115,7 +132,8 @@ class Mf
      */
     public static function projectPublic()
     {
-        return 'projects/'.self::projectKey();
+        return config('mainframe.config.project_public_directory') ??
+            'projects/'.self::projectKey();
     }
 
     /**
@@ -126,7 +144,10 @@ class Mf
      */
     public static function projectConfig($key)
     {
-        return config('projects.'.self::projectKey().'.config.'.$key);
+        $config = config('mainframe.config.project_config') ??
+            'projects.'.self::projectKey().'.config';
+
+        return config($config.'.'.$key);
     }
 
     /**
@@ -134,7 +155,7 @@ class Mf
      * Do not change this function.
      *
      * @param  null  $id
-     * @return null|\App\User|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|mixed
+     * @return null|User|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|mixed
      */
     public static function user($id = null)
     {
@@ -171,7 +192,7 @@ class Mf
      */
     public static function modules()
     {
-        return Cache::remember('active-modules', timer('long'), function () {
+        return \Cache::remember('active-modules', timer('long'), function () {
             return Schema::hasTable('modules') ? Module::getActiveList() : [];
         });
 
@@ -184,7 +205,7 @@ class Mf
      */
     public static function moduleGroups()
     {
-        return Cache::remember('active-module-groups', timer('long'),
+        return \Cache::remember('active-module-groups', timer('long'),
             function () {
                 return Schema::hasTable('module_groups') ? ModuleGroup::getActiveList() : [];
             });
@@ -199,12 +220,12 @@ class Mf
      */
     public static function httpRequestSignature($append = null)
     {
-        $signature = \URL::full().json_encode(request()->all()).$append;
+        $signature = json_encode(\Arr::dot(request()->all()));
         if (user()) {
             $signature .= user()->uuid;
         }
 
-        return base64_encode($signature);
+        return $signature.$append;
     }
 
     /*
@@ -229,7 +250,7 @@ class Mf
     {
         $cache = $cache ?: timer('very-long');
 
-        return Cache::remember("columns-of-{$table}", $cache,
+        return \Cache::remember("columns-of-{$table}", $cache,
             function () use ($table) {
                 return Schema::getColumnListing($table);
             });
@@ -291,7 +312,8 @@ class Mf
     {
 
         $url = trim($url, "&?=");
-        $base = preg_replace('/\?.*/', '', $url); //https://stackoverflow.com/questions/4270677/removing-query-string-in-php-sometimes-based-on-referrer
+        $base = preg_replace('/\?.*/', '',
+            $url); //https://stackoverflow.com/questions/4270677/removing-query-string-in-php-sometimes-based-on-referrer
 
         $oldQueryStr = parse_url($url, PHP_URL_QUERY); //
 

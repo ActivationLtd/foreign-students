@@ -1,6 +1,7 @@
 <?php
 /** @noinspection SpellCheckingInspection */
 $scriptPaths = [
+    'js/app.js',
     'js/all.js',
     // 'mainframe/templates/admin/plugins/jQuery/jquery-2.2.3.min.js',
     // // 'mainframe/js/jquery-ui-1.10.3.min.js',
@@ -37,6 +38,7 @@ $scriptPaths = [
     'mainframe/templates/admin/plugins/select2-3.5.1/select2.js',
     // 'mainframe/templates/admin/plugins/ionslider/ion.rangeSlider.min.js',
     // 'mainframe/templates/admin/plugins/bootstrap-slider/bootstrap-slider.js',
+    'mainframe/js/plugins/datatables.1.10.2/dataTables.buttons.min.js',
     'mainframe/js/vue.min.js',
     'mainframe/js/axios.min.js',
     'mainframe/js/lodash.js',
@@ -52,7 +54,7 @@ $scriptPaths = [
     'mainframe/js/after-loader.js',
     'mainframe/js/custom.js',
     // WARNING: Do not put project specific JS here. Instead include them at the end of
-    // project template. i.e. resources/views/projects/dgme-students/layouts/default/template.blade.php
+    // project template. i.e. resources/views/projects/default-project/layouts/default/template.blade.php
 ];
 
 /*--------------------------------------

@@ -140,7 +140,7 @@ trait ModularControllerTrait
     /**
      * Store
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return $this|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      * @noinspection PhpUnusedParameterInspection
      */
@@ -165,7 +165,7 @@ trait ModularControllerTrait
     /**
      * Update
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param $id
      * @return $this|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      * @noinspection PhpUnusedParameterInspection
@@ -236,7 +236,7 @@ trait ModularControllerTrait
      */
     public function clone($id)
     {
-        if (!$this->user->can('create', $this->model)) {
+        if (!$this->user->can('clone', $this->model)) {
             return $this->permissionDenied();
         }
 
@@ -320,7 +320,7 @@ trait ModularControllerTrait
      * Uploads files under an element
      *
      * @param  null  $id
-     * @return \App\Mainframe\Features\Modular\ModularController\ModularController
+     * @return ModularController
      */
     public function attachUpload($id)
     {
@@ -381,7 +381,7 @@ trait ModularControllerTrait
      * Store comment files under an element
      *
      * @param  null  $id
-     * @return \App\Mainframe\Features\Modular\ModularController\ModularController
+     * @return ModularController
      */
     public function attachComment($id)
     {

@@ -6,7 +6,9 @@
 namespace App\Mainframe\Features\Modular\Validator;
 
 use App\Mainframe\Features\Core\Traits\Validable;
+use App\Mainframe\Jobs\JobSyncData;
 use App\Module;
+use App\Tenant;
 use App\User;
 use Illuminate\Support\Str;
 use Validator;
@@ -14,6 +16,9 @@ use Validator;
 class ModelProcessor
 {
     use Validable;
+
+    /** @var User */
+    public $user;
 
     /**
      * Element filled with new values
@@ -42,7 +47,7 @@ class ModelProcessor
     public $original;
 
     /**
-     * Old element filled with old values
+     * Old element(object) filled with old values
      *
      * @var \App\Mainframe\Features\Modular\BaseModule\BaseModule
      */
@@ -69,9 +74,6 @@ class ModelProcessor
     /** @var array Field that should be explicitly tracked in the changes table */
     public $trackedFields = [];
 
-    /** @var User */
-    public $user;
-
     /**
      * MainframeModelValidator constructor.
      *
@@ -79,16 +81,19 @@ class ModelProcessor
      */
     public function __construct($element)
     {
-        $this->user = user();
-        if ($element->isUpdating()) {
-            $this->oldElement = (clone $element)->refresh();
-        }
         $this->element = $element;
+        $this->user = user();
+        // if ($element->isUpdating()) {
+        //     $this->oldElement = $this->oldElement ?: (clone $element)->refresh();
+        // }
+
         $this->original = $element->getOriginal();
         $this->module = $element->module();
     }
 
     /**
+     * Adds an array of fields to existing $immutables array
+     *
      * @param  array  $immutables
      * @return ModelProcessor|mixed|$this
      */
@@ -253,7 +258,8 @@ class ModelProcessor
                 $change = $this->element->transition($field);
 
                 if ($change && !$this->transitionIsAllowed($field, $change['old'], $change['new'])) {
-                    $this->fieldError($field, $field.' - can not be updated from '.$change['old'].' to '.$change['new']);
+                    $this->fieldError($field,
+                        $field.' - can not be updated from '.$change['old'].' to '.$change['new']);
                 }
             }
         }
@@ -600,6 +606,26 @@ class ModelProcessor
         return $this->forSave();
     }
 
+    /**
+     * Dry runs all the validation logics for saving
+     *
+     * @return $this
+     */
+    public function checkForSave()
+    {
+        return $this->forSave();
+    }
+
+    /**
+     * Dry runs all the validation logics for delete
+     *
+     * @return $this
+     */
+    public function checkForDelete()
+    {
+        return $this->forDelete();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Events
@@ -774,6 +800,7 @@ class ModelProcessor
      */
     public function preUpdating()
     {
+        $this->oldElement = $this->oldElement ?: (clone $this->element)->refresh();
         $this->validateImmutables();
         $this->validateTransitions();
 
@@ -835,13 +862,13 @@ class ModelProcessor
 
         }
 
-        $this->element->saveQuietly(); // Set deleted by field
-
         if (!$this->element->delete()) {
-            $this->error('Error: Can not be deleted for some reason.');
+            $this->error('Error: This action is restricted. You can not delete');
 
             return $this;
         }
+        
+        $this->element->saveQuietly(); // Set deleted by field
 
         $this->deleted($this->element);
 
@@ -865,6 +892,24 @@ class ModelProcessor
         return $this;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Data sync between different tables.
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    /**
+     * @param  array  $fields
+     * @return void
+     */
+    public function syncDataForChanges(array $fields = [])
+    {
+        if ($this->fieldHasChanged($fields)) {
+            JobSyncData::dispatch($this->element);
+        }
+
+    }
     /*
     |--------------------------------------------------------------------------
     | Event specific validation
@@ -1006,4 +1051,44 @@ class ModelProcessor
 
         return $this;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Section: Tenant validations
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    /**
+     * Check if name is duplicate
+     *
+     * @return $this
+     */
+    public function checkCrossTenantNameDuplication()
+    {
+        $element = $this->element;
+
+        $query = $element->where('name', $element->name);
+
+        if ($element->tenant_id) {
+            $query->where(function ($q) use ($element) {
+                /** @var \Illuminate\Database\Query\Builder $q */
+                $q->whereNull('tenant_id')
+                    ->orWhere('tenant_id', Tenant::globalTenantId())
+                    ->orWhere('tenant_id', $element->tenant_id);
+            });
+        }
+
+        if ($element->isEditing()) {
+            $query->where('id', '!=', $element->id);
+        }
+
+        if ($exists = $query->exists()) {
+            $this->error('The name already exists', 'name');
+        }
+
+        return $this;
+
+    }
+
 }

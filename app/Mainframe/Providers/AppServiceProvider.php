@@ -5,6 +5,7 @@ namespace App\Mainframe\Providers;
 use App\Mainframe\Features\Responder\Response;
 use App\Mainframe\Macros\QueryBuilderMacros;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,12 +18,15 @@ class AppServiceProvider extends ServiceProvider
         \App\Mainframe\Commands\CleanDeletedUploads::Class,
         \App\Mainframe\Commands\FixPolymorphicType::class,
         \App\Mainframe\Commands\FixContentKey::class,
+        \App\Mainframe\Commands\RefreshGroupPermission::class,
+        \App\Mainframe\Commands\RefreshModules::class,
+        \App\Mainframe\Commands\CleanTempDirectory::class,
     ];
 
     protected $providers = [
-        \App\Mainframe\Providers\AuthServiceProvider::class,
-        \App\Mainframe\Providers\EventServiceProvider::class,
-        \App\Mainframe\Providers\RouteServiceProvider::class,
+        AuthServiceProvider::class,
+        EventServiceProvider::class,
+        RouteServiceProvider::class,
         \OwenIt\Auditing\AuditingServiceProvider::class,
     ];
 
@@ -52,10 +56,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         // Builder::macro('searchIn', function ($attributes, $needle) {
         //     return $this->where(function (Builder $query) use ($attributes, $needle) {
-        //         foreach (array_wrap($attributes) as $attribute) {
+        //         foreach (\Arr:wrap($attributes) as $attribute) {
         //             $query->orWhere($attribute, 'LIKE', "%{$needle}%");
         //         }
         //     });
@@ -106,8 +109,12 @@ class AppServiceProvider extends ServiceProvider
     public function registerSingletons()
     {
 
-        $this->app->singleton(MessageBag::class, function () { return new MessageBag(); });
-        $this->app->singleton(Response::class, function () { return new Response(); });
+        $this->app->singleton(MessageBag::class, function () {
+            return new MessageBag();
+        });
+        $this->app->singleton(Response::class, function () {
+            return new Response();
+        });
     }
 
 }

@@ -8,6 +8,8 @@ class SelectAjax extends SelectModel
 {
     public $url;
     public $preload;
+    public $minimumInputLength = 2;
+    private $urlParams = [];
 
     public function __construct($var = [], $element = null)
     {
@@ -23,6 +25,8 @@ class SelectAjax extends SelectModel
             unset($this->params['disabled']);
             $this->params['readonly'] = 'readonly';
         }
+
+        $this->minimumInputLength = $this->var['minimum_input'] ?? 2;
     }
 
     /**
@@ -56,19 +60,39 @@ class SelectAjax extends SelectModel
             return $this->url;
         }
 
+        $urlParams = $this->urlParams;
+        // 1. Add column selections
+        if (!array_key_exists('columns_csv', $urlParams)) {
+            $urlParams['columns_csv'] = $this->valueField.",".$this->nameField;
+        }
+
+        // 2. Show inactive items?
+        if (!$this->showInactive) {
+            $urlParams['is_active'] = 1;
+        }
+
+        // 3. Build Model/Table query
+        $moduleName = null;
         if ($this->table) {
             $moduleName = Module::fromTable($this->table)->name;
-
-            return route("{$moduleName}.list-json")."?columns_csv={$this->valueField},".$this->nameField;
         }
 
         if ($this->model) {
             $moduleName = $this->model->module()->name;
-
-            return route("{$moduleName}.list-json")."?columns_csv={$this->valueField},".$this->nameField;
         }
 
-        return null;
+        return route("$moduleName.list-json", $urlParams);
+
+    }
+
+    /**
+     * Select options
+     *
+     * @return array
+     */
+    public function options()
+    {
+        return []; // No option should be loaded initially
     }
 
 }

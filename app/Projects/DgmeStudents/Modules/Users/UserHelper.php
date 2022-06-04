@@ -30,7 +30,43 @@ trait UserHelper
      */
     public function isAdmin()
     {
-        return $this->isA('superuser');
+        return $this->isA('admin') || $this->isSuperUser();
+    }
+
+    /**
+     * Check if user is applicant
+     *
+     * @return bool
+     */
+    public function isApplicant()
+    {
+        return $this->isA('applicant-user');
+    }
+
+    /**
+     * Check if user is applicant
+     *
+     * @return bool
+     */
+    public function canApplyForGovMedical(): bool
+    {
+        $inProgressGovernmentMBBSApplicationCount = $this->applications()->where('course_id', 1)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Government')->count();
+        $inProgressGovermentBDSApplicationCount = $this->applications()->where('course_id', 2)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Government')->count();
+
+        return ($inProgressGovernmentMBBSApplicationCount == 0 || $inProgressGovermentBDSApplicationCount == 0);
+
+    }
+
+    public function canApplyPvtMedical(): bool
+    {
+        $inProgressPrivateMBBSApplicationCount = $this->applications()->where('course_id', 1)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Private')->count();
+        $inProgressPrivateBDSApplicationCount = $this->applications()->where('course_id', 2)->whereNotIn('status', ['Declined'])
+            ->where('application_category', 'Private')->count();
+
+        return ($inProgressPrivateMBBSApplicationCount == 0 || $inProgressPrivateBDSApplicationCount == 0);
     }
 
     /**

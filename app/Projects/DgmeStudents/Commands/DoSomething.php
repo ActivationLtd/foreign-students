@@ -12,7 +12,7 @@ class DoSomething extends Command
      *
      * @var string
      */
-    protected $signature = 'dgme-students:do-something';
+    protected $signature = 'command:do-something';
 
     /**
      * The console command description.

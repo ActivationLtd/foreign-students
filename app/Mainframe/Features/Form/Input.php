@@ -39,7 +39,7 @@ class Input extends Form
         $this->name = $this->var['name'] ?? Str::random(8);
         $this->params = $this->var['params'] ?? [];
         $this->isEditable = $this->var['editable'] ?? true; // $this->getEditable();
-        $this->isHidden = $this->var['hidden'] ?? false;
+        $this->isHidden = $this->var['hidden'] ?? in_array($this->name, $this->hiddenFields);
         $this->tooltip = $this->var['tooltip'] ?? null;
 
         // Force add form-control class
@@ -63,6 +63,14 @@ class Input extends Form
         $this->params['placeholder'] = $this->var['placeholder'] ?? $this->params['placeholder'] ?? '';
     }
 
+    public function setIsHidden()
+    {
+        $this->isHidden = $this->var['hidden'] ??
+            in_array($this->name, $this->hiddenFields);
+
+        return $this;
+    }
+
     /**
      * Get old input
      *
@@ -84,12 +92,17 @@ class Input extends Form
      */
     public function value()
     {
-        if ($this->value) {
-            return $this->value;
+        // if ($this->value) { // didn't work for 0 or null value
+        //     return $this->value;
+        // }
+
+        if (array_key_exists('value', $this->var)) {
+            return $this->var['value'];
         }
+
         // Retain null input.
         if (array_key_exists($this->name, request()->old())) {
-            return $this->old();
+            return $this->old(); // Also takes request() in consideration
         }
 
         // Retain 0 input
@@ -102,38 +115,6 @@ class Input extends Form
         }
 
         return null;
-    }
-
-    /**
-     * logically determine if the field is editable
-     * todo: unused
-     *
-     * @return bool|mixed
-     */
-    public function determineEditability()
-    {
-
-        if (isset($this->var['editable'])) {
-            return $this->var['editable'];
-        }
-
-        return true;
-
-        // $element = $this->element;
-        //
-        // if ($element
-        //     && $element->isUpdating()
-        //     && user()->cannot('update', $element)) {
-        //
-        //     return false;
-        // }
-        //
-        // if ($element
-        //     && $element->isCreating()
-        //     && user()->cannot('create', $element)) {
-        //
-        //     return false;
-        // }
     }
 
     /**

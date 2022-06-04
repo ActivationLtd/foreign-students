@@ -21,8 +21,8 @@
                 <div class="modal-footer">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id='deleteSubmit' name='delete' class="btn btn-danger pull-right flat">
-                            Confirm delete
+                        <button type="submit" id='deleteSubmit' name='delete' class="btn btn-danger pull-right">
+                            Confirm Delete
                         </button>
                     </div>
                 </div>

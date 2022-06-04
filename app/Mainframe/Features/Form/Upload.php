@@ -24,12 +24,18 @@ class Upload extends Input
     public $uploadBoxId;
     /** * @var string */
     public $uploadableType;
+    /** * @var string */
+    public $postUrl;
+    /** * @var string */
+    public $bucket;
+    /** * @var string */
+    public $zipDownload = false;
 
     /**
      * Input constructor.
      *
-     * @param  \App\Mainframe\Features\Modular\BaseModule\BaseModule $element
-     * @param  array $var
+     * @param  \App\Mainframe\Features\Modular\BaseModule\BaseModule  $element
+     * @param  array  $var
      */
     public function __construct($var = [], $element = null)
     {
@@ -52,10 +58,28 @@ class Upload extends Input
         $this->elementId = $this->var['element_id'] ?? $this->elementId;
         $this->elementUuid = $this->var['element_uuid'] ?? $this->elementUuid;
         $this->tenantId = $this->var['tenant_id'] ?? $this->tenantId;
+        $this->bucket = $this->var['bucket'] ?? trim(config('mainframe.config.upload_root'), "\\/ ");;
 
+        $this->zipDownload = $this->var['zip_download'] ?? $this->zipDownload;
         $this->type = $this->var['type'] ?? null;
         $this->limit = $this->var['limit'] ?? 999;
+        $this->postUrl = $this->var['url'] ?? route('uploads.store');
         $this->uploadBoxId = $this->var['upload_box_id'] ?? 'uploadBox'.Str::random(8);
 
+    }
+
+    public function postUrl()
+    {
+        return $this->postUrl ?: route('uploads.store');
+    }
+
+    public function bucket()
+    {
+        return $this->bucket;
+    }
+
+    public function zipDownloadUrl()
+    {
+        return route('download.zip', ['module_id' => $this->moduleId, 'element_id' => $this->elementId, 'type' => $this->type]);
     }
 }

@@ -17,37 +17,40 @@ class CreateSuperHeroesTable extends Migration
     public function up()
     {
 
-        // Note: Skip if the table exists
-        if (Schema::hasTable('{table}')) {
-            return;
-        }
-
         /*---------------------------------
-        | Create the table
+        | Create the table if doesnt exists
         |---------------------------------*/
-        Schema::create('{table}', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('uuid', 64)->nullable()->default(null);
-            $table->unsignedInteger('project_id')->nullable()->default(null);
-            $table->unsignedInteger('tenant_id')->nullable()->default(null);
-            $table->string('name', 512)->nullable()->default(null);
+        if (!Schema::hasTable('{table}')) {
 
-            /******* Custom columns **********/
-            // Todo: Add module specific fields and denormalized fields. In computing, denormalization is the process of
-            //  improving the read performance of a database, at the expense of losing some write performance,
-            //  by adding redundant copies of data or by grouping it.
+            Schema::create('{table}', function (Blueprint $table) {
 
-            //$table->string('title', 100)->nullable()->default(null);
-            //$table->text('field')->nullable()->default(null);
-            /*********************************/
+                /******* Default framework fields **********/
+                $table->bigIncrements('id');
+                $table->string('uuid', 64)->nullable()->default(null)->index();
+                $table->unsignedInteger('project_id')->nullable()->default(null)->index();
+                $table->unsignedInteger('tenant_id')->nullable()->default(null)->index();
+                $table->unsignedInteger('tenant_sl')->nullable()->default(null)->index();
+                $table->string('name', 250)->nullable()->default(null)->index();
+                $table->string('name_ext', 500)->nullable()->default(null)->index();
+                $table->string('slug', 50)->nullable()->default(null)->index();
 
-            $table->tinyInteger('is_active')->nullable()->default(1);
-            $table->unsignedInteger('created_by')->nullable()->default(null);
-            $table->unsignedInteger('updated_by')->nullable()->default(null);
-            $table->timestamps();
-            $table->softDeletes();
-            $table->unsignedInteger('deleted_by')->nullable()->default(null);
-        });
+                /******* Custom columns **********/
+                // Todo: Add module specific fields and denormalized fields. In computing, denormalization is the process of
+                //  improving the read performance of a database, at the expense of losing some write performance,
+                //  by adding redundant copies of data or by grouping it.
+
+                //$table->string('title', 100)->nullable()->default(null);
+                //$table->text('field')->nullable()->default(null);
+                /*********************************/
+
+                $table->tinyInteger('is_active')->nullable()->default(1);
+                $table->unsignedInteger('created_by')->nullable()->default(null)->index();
+                $table->unsignedInteger('updated_by')->nullable()->default(null)->index();
+                $table->timestamps();
+                $table->softDeletes();
+                $table->unsignedInteger('deleted_by')->nullable()->default(null)->index();
+            });
+        }
 
         /*---------------------------------
         | Update modules table
@@ -69,7 +72,8 @@ class CreateSuperHeroesTable extends Migration
         $module->processor = '{processor}';
         $module->controller = '{controller}';
         $module->view_directory = '{view_directory}';
-        $module->icon_css = 'fa fa-ellipsis-v';
+        $module->icon_css = 'fa fa-cube';
+        $module->color_css = 'navy';
         $module->is_visible = 1;
         $module->is_active = 1;
         $module->created_by = 1;
@@ -84,12 +88,15 @@ class CreateSuperHeroesTable extends Migration
             'cache:clear',
             'route:clear',
             'mainframe:create-root-models',
-            // 'ide-helper:model -W'
         ];
         foreach ($commands as $command) {
             $output->writeLn('php artisan '.$command);
             Artisan::call($command);
         }
+
+        // if (env('APP_ENV') == 'local') {
+        //     Artisan::call('ide-helper:model -W');
+        // }
 
     }
 

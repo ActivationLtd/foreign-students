@@ -11,6 +11,7 @@ class SuperHeroPolicy extends BaseModulePolicy
 
     /**
      * view-any
+     *
      * @param  \App\User  $user
      * @return mixed
      */
@@ -29,5 +30,6 @@ class SuperHeroPolicy extends BaseModulePolicy
     // public function delete($user, $element) {if (! parent::delete($user, $element)) {return false;} return true;}
     // public function restore($user, $element) {if (! parent::restore($user, $element)) {return false;} return true;}
     // public function forceDelete($user, $element) {if (! parent::forceDelete($user, $element)) {return false;} return true;}
+    // public function clone($user, $element) {if (! parent::clone($user, $element)) {return false;} return true;}
 
 }

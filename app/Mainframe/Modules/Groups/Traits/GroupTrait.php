@@ -3,12 +3,10 @@
 namespace App\Mainframe\Modules\Groups\Traits;
 
 use App\Group;
-use App\User;
-use InvalidArgumentException;
-use Request;
-use Illuminate\Database\Eloquent\Builder;
-use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
+use App\User;
+use Artisan;
+use InvalidArgumentException;
 
 trait GroupTrait
 {
@@ -115,7 +113,10 @@ trait GroupTrait
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users() { return $this->belongsToMany(User::class, 'user_group'); }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_group');
+    }
 
     /**
      * Get group by name
@@ -169,7 +170,8 @@ trait GroupTrait
 
                     // We will make sure that the merged permission does not
                     // exactly match our permission, but starts with it.
-                    if ($checkPermission != $groupPermission and starts_with($groupPermission, $checkPermission) and $value == 1) {
+                    if ($checkPermission != $groupPermission and starts_with($groupPermission,
+                            $checkPermission) and $value == 1) {
                         $matched = true;
                         break;
                     }
@@ -189,7 +191,8 @@ trait GroupTrait
 
                         // We will make sure that the merged permission does not
                         // exactly match our permission, but ends with it.
-                        if ($checkPermission != $groupPermission and ends_with($groupPermission, $checkPermission) and $value == 1) {
+                        if ($checkPermission != $groupPermission and ends_with($groupPermission,
+                                $checkPermission) and $value == 1) {
                             $matched = true;
                             break;
                         }
@@ -207,7 +210,8 @@ trait GroupTrait
 
                             // We will make sure that the merged permission does not
                             // exactly match our permission, but starts wtih it.
-                            if ($checkGroupPermission != $permission and starts_with($permission, $checkGroupPermission) and $value == 1) {
+                            if ($checkGroupPermission != $permission and starts_with($permission,
+                                    $checkGroupPermission) and $value == 1) {
                                 $matched = true;
                                 break;
                             }
@@ -299,5 +303,32 @@ trait GroupTrait
         return Group::where('name', User::TENANT_ADMIN_GROUP)
             ->remember(timer('very-long'))
             ->first();
+    }
+
+    /**
+     * Load config permission to database
+     *
+     * @param $config
+     * @return false
+     */
+    public function refreshPermissionFromConfig($config = null)
+    {
+        Artisan::call('config:clear');
+        $config = $config ?: 'projects.'.projectKey().'.permissions.'.$this->name;
+
+        $permission = config($config);
+
+        if (!$permission) {
+            $this->error('No config found at '.$config);
+            return false;
+        }
+
+        \DB::table('groups')->where('id', $this->id)->update([
+            'permissions' => json_encode($permission)
+        ]);
+
+        Artisan::call('cache:clear');
+
+        return true;
     }
 }

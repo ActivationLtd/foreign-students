@@ -14,12 +14,7 @@
 ?>
 
 @section('content')
-
-            @dump($element->sGroups()->get()->toArray())
-    {{--        @dump($element->sTags()->pluck('tag')->toArray())--}}
-{{--    @dump($element->spreads)--}}
-{{--            @dump($element->getSpreadTags('first_name'))--}}
-    <div class="col-md-12 col-lg-10 no-padding">
+     <div class="col-md-12 col-lg-10 no-padding">
 
         @if(($formState == 'create'))
             {{ Form::open($formConfig) }} <input name="uuid" type="hidden" value="{{$uuid}}"/>
@@ -34,6 +29,7 @@
         <div class="clearfix"></div>
         @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name']])
         @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name']])
+        @include('form.text',['var'=>['name'=>'passport_no','label'=>'Passport']])
 
         {{-- show password only for editable--}}
         @if($editable)
@@ -42,66 +38,78 @@
             @include('form.text',['var'=>['name'=>'password','type'=>'password','label'=>'New password','value'=>'']])
             @include('form.text',['var'=>['name'=>'password_confirmation','type'=>'password','label'=>'Confirm new password']])
         @endif
+        @if(!$view->viewAsApplicant())
+            <div class="clearfix"></div>
+            @include('form.datetime',['var'=>['name'=>'email_verified_at','label'=>'Email verified at']])
 
-        <div class="clearfix"></div>
-        @include('form.datetime',['var'=>['name'=>'email_verified_at','label'=>'Email verified at']])
+            <div class="clearfix"></div>
+            <?php
+            // myprint_r($element->group_ids);
+            $var = [
+                'name' => 'group_ids',
+                'label' => 'Group',
+                'value' => (isset($element)) ? $element->group_ids : [],
+                'query' => new \App\Group,
+                'name_field' => 'title',
+                'params' => ['multiple', 'id' => 'groups'],
+                'container_class' => 'col-sm-3'
+            ];
 
-        <div class="clearfix"></div>
-        <?php
-        // myprint_r($element->group_ids);
-        $var = [
-            'name' => 'group_ids',
-            'label' => 'Group',
-            'value' => (isset($element)) ? $element->group_ids : [],
-            'query' => new \App\Group,
-            'name_field' => 'title',
-            'params' => ['multiple', 'id' => 'groups'],
-            'container_class' => 'col-sm-3'
-        ];
-        ?>
-        @include('form.select-model-multiple', compact('var'))
-
+            //echo  $element->test->something;
+            ?>
+            @include('form.select-model-multiple', compact('var'))
+        @endif
         <div class='clearfix'></div>
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h5 class="panel-title">
-                        <a data-toggle="collapse" href="#other_info">
-                            <span class="fa fa-plus" aria-hidden="true"></span> &nbsp; &nbsp; Token
-                        </a>
-                    </h5>
-                </div>
-                <div id="other_info" class="panel-collapse collapse" style="margin:15px 0;">
-                    <div class="col-md-12">
-                        <div class="col-md-12 no-padding">
-                            {{--auth_token--}}
-                            @include('form.text',['var'=>['name'=>'api_token','label'=>'API token', 'container_class'=>'col-sm-8']])
-                            <br>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <div class="form-group">
-                                        {{--@include('form.checkbox',['var'=>['name'=>'api_token_generate','label'=>'New token (Check and save)','value'=>"yes"]])--}}
-                                        <button id="api_token_generate" name="api_token_generate" class="btn btn-default">
-                                            <i class="fa fa-refresh"></i> Re-generate
-                                        </button>
+        @if(!$view->viewAsApplicant())
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5 class="panel-title">
+                            <a data-toggle="collapse" href="#other_info">
+                                <span class="fa fa-plus" aria-hidden="true"></span> &nbsp; &nbsp; Token
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="other_info" class="panel-collapse collapse" style="margin:15px 0;">
+                        <div class="col-md-12">
+                            <div class="col-md-12 no-padding">
+                                {{--auth_token--}}
+                                @include('form.text',['var'=>['name'=>'api_token','label'=>'API token', 'container_class'=>'col-sm-8']])
+                                <br>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="form-group">
+                                            {{--@include('form.checkbox',['var'=>['name'=>'api_token_generate','label'=>'New token (Check and save)','value'=>"yes"]])--}}
+                                            <button id="api_token_generate" name="api_token_generate" class="btn btn-default">
+                                                <i class="fa fa-refresh"></i> Re-generate
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {{--auth_token--}}
+                            @include('form.plain-text',['var'=>['name'=>'auth_token','label'=>'Auth token', 'container_class'=>'col-sm-6']])
+                            {{--api_token_generated_at--}}
+                            @include('form.plain-text',['var'=>['name'=>'api_token_generated_at','label'=>'Api token generated at', 'container_class'=>'col-sm-6']])
+                            {{--device_name--}}
+                            @include('form.plain-text',['var'=>['name'=>'device_token','label'=>'Device token', 'container_class'=>'col-sm-12']])
                         </div>
-                        {{--auth_token--}}
-                        @include('form.plain-text',['var'=>['name'=>'auth_token','label'=>'Auth token', 'container_class'=>'col-sm-6']])
-                        {{--api_token_generated_at--}}
-                        @include('form.plain-text',['var'=>['name'=>'api_token_generated_at','label'=>'Api token generated at', 'container_class'=>'col-sm-6']])
-                        {{--device_name--}}
-                        @include('form.plain-text',['var'=>['name'=>'device_token','label'=>'Device token', 'container_class'=>'col-sm-12']])
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
             </div>
-        </div>
-        <div class="clearfix"></div>
+        @endif
 
-        @include('form.is-active')
+        <h3>Your Applications</h3>
+        <?php
+        $datatable = new \App\Projects\DgmeStudents\Datatables\ForeignApplicationForApplicantDatatable();
+        $datatable->addUrlParam(['user_id' => $element->id]);
+        ?>
+        @include('mainframe.layouts.module.grid.includes.datatable',compact('datatable'))
+        <div class="clearfix"></div>
+        @if(!$view->viewAsApplicant())
+            @include('form.is-active')
+        @endif
         {{--    Form inputs: ends    --}}
 
         @include('form.action-buttons')
@@ -140,7 +148,7 @@
         $("#api_token_generate").click(function (e) {
             event.preventDefault(e);
             $("input[name=api_token]").val(randomString(64));
-            console.log(randomString(64));
+            //console.log(randomString(64));
         });
     </script>
 @endsection

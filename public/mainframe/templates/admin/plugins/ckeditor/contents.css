@@ -2,12 +2,13 @@
 Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
-@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url("https://fonts.googleapis.com/css?family=Karla");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
 
 body {
     /* Font */
-    font-family: 'Karla', sans-serif, Arial, Verdana, "Trebuchet MS";
-    font-size: 12px;
+    font-family: "Inter", sans-serif, Arial, Verdana, "Trebuchet MS";
+    font-size: 13px;
 
     /* Text color */
     color: #333;
@@ -19,8 +20,8 @@ body {
 }
 
 .cke_editable {
-    font-family: 'Karla', sans-serif, Arial, Verdana, "Trebuchet MS";
-    font-size: 12px;
+    font-family: "Inter", sans-serif, Arial, Verdana, "Trebuchet MS";
+    font-size: 13px;
     line-height: 1.4;
 }
 
@@ -46,7 +47,7 @@ blockquote {
 }
 
 a {
-    color: #0782C1;
+    color: #0782c1;
 }
 
 ol, ul, dl {
@@ -114,5 +115,5 @@ a > img {
     padding: 1px;
     margin: 1px;
     border: none;
-    outline: 1px solid #0782C1;
+    outline: 1px solid #0782c1;
 }

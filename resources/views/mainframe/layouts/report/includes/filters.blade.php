@@ -16,7 +16,7 @@
 @stop
 
 <form method="get">
-    <div class="nav-tabs-custom">
+    <div class="nav-tabs-custom report-filter-tabs">
 
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_minimize" data-toggle="tab"><i class="fa fa-minus"></i></a></li>

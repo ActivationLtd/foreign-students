@@ -39,7 +39,6 @@ use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
  * @property-read int|null $uploads_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
  * @method static Builder|Group newModelQuery()
  * @method static Builder|Group newQuery()
  * @method static Builder|Group query()
@@ -58,6 +57,10 @@ use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
  * @method static Builder|Group whereUpdatedBy($value)
  * @method static Builder|Group whereUuid($value)
  * @mixin \Eloquent
+ * @property string|null $name_ext
+ * @property string|null $slug
+ * @method static Builder|Group whereNameExt($value)
+ * @method static Builder|Group whereSlug($value)
  */
 class Group extends BaseModule
 {
@@ -70,7 +73,7 @@ class Group extends BaseModule
     |
     */
     protected $moduleName = 'groups';
-    protected $table      = 'groups';
+    protected $table = 'groups';
 
     /*
     |--------------------------------------------------------------------------

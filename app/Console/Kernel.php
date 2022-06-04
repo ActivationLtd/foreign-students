@@ -24,8 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
         $schedule->command('telescope:prune')->hourly();
+        $schedule->command('cache:clear')->hourly();
+        $schedule->command('mainframe:clean-deleted-uploads')->daily();
+        $schedule->command('mainframe:clean-temp')->daily();
+        $schedule->command('command:send-application-summary-email')->daily();
     }
 
     /**
@@ -36,13 +39,11 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
         /*
          * You can load project specific command directories here.
          * Load commands from mainframe and project
          */
-        // $this->load(__DIR__.'/Projects/ArtemisPod');
-        // $this->load(app_path('Console/Commands/Projects/ArtemisPod'));
+        $this->load(app_path('Projects/'.project().'/Commands'));
 
         require base_path('routes/console.php');
     }

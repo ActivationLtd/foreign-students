@@ -4,10 +4,14 @@ namespace App\Mainframe\Modules\Uploads\Traits;
 
 use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Upload;
+use File;
+use Storage;
+use Str;
 
 /** @mixin Upload */
 trait UploadTrait
 {
+
     /**
      * get all uploads under a module
      *
@@ -37,15 +41,22 @@ trait UploadTrait
     }
 
     /**
-     * returns the absolute server path.
-     * This function is useful for plugins that needs the file
-     * location in the operating system
+     * The file can be stored under public/* or storage/*. Previously we stored files in public
+     * The function determines where the file actually is.
      *
      * @return string
      */
     public function absPath()
     {
-        return public_path().$this->path;
+        if (Storage::exists($this->path)) {
+            return storage_path($this->path);
+        }
+
+        if (File::exists(public_path($this->path))) {
+            return public_path($this->path);
+        }
+
+        return null;
     }
 
     /**
@@ -53,15 +64,13 @@ trait UploadTrait
      *
      * @return string
      */
-    public function thumbSrc()
+    public function thumbnail()
     {
         if ($this->isImage()) {
-            $src = route('download', $this->uuid);
-        } else {
-            $src = $this->extIconPath();
+            return $this->url;
         }
+        return $this->extIconPath();
 
-        return $src;
     }
 
     /**
@@ -76,6 +85,11 @@ trait UploadTrait
         }
 
         return false;
+    }
+
+    public function isPublic()
+    {
+        return Str::startsWith(trim($this->path, '/'), 'public');
     }
 
     /**
@@ -101,13 +115,9 @@ trait UploadTrait
      * @param  bool  $auth  set false to generate plain url.
      * @return string
      */
-    public function downloadUrl($auth = true)
+    public function downloadUrl()
     {
-        if ($auth) {
-            return route('download', $this->uuid);
-        }
-
-        return asset($this->path);
+        return route('download', $this->uuid);
     }
 
     /**
@@ -214,16 +224,52 @@ trait UploadTrait
     | Section: Attributes
     |--------------------------------------------------------------------------
     */
-    public function getUrlAttribute() { return asset($this->path); }
 
-    public function getDirAttribute() { return public_path().$this->path; }
+    /**
+     * Creates a URL to a file
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        // First check if file exists in storage/app/files
+        if (Storage::exists($this->path)) {
+
+            // 1- Check if storage is public. If public share the public URL
+            if ($this->isPublic()) {
+                return url(Storage::url($this->path));
+            }
+
+            // No! no direct access
+            if ($this->isImage()) {
+                return route('show.image', $this->id);
+            }
+
+            return $this->downloadUrl();
+        }
+
+        // Check if file exists in public/files
+        if (File::exists(public_path($this->path))) {
+            return asset($this->path);
+        }
+
+        return asset('mainframe/images/noimage.png');
+    }
+
+    public function getDirAttribute()
+    {
+        return public_path().$this->path;
+    }
 
     /*
     |--------------------------------------------------------------------------
     | Section: Relations
     |--------------------------------------------------------------------------
     */
-    public function uploadable() { return $this->morphTo(); }
+    public function uploadable()
+    {
+        return $this->morphTo();
+    }
 
     /*
     |--------------------------------------------------------------------------
