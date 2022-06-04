@@ -28,8 +28,8 @@
             <table class="no-border no-padding" width="100%">
                 <tr>
                     <td width="10%">
-                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
-                             style="width: 120px; float: right; padding-right: 15px" alt="">
+                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="pull-left"
+                             style="border:none!important;width: 120px;" alt="">
                     </td>
                     <td width="80%">
                         <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
