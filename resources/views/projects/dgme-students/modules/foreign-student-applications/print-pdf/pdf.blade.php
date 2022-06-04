@@ -52,7 +52,7 @@
                              style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
                     <td width="50%">
-                        <h2 style="text-align: center; font-size: 20px;line-height: 1.5em;font-weight: 100;color: #333;margin-top: 20px;margin-bottom: 10px;">{{__('common.agency_full_name')}}</h2>
+                        <h2 style="text-align: center;font-size: 20px;line-height: 1.5em;font-weight: 100;color: #333;margin-top: 20px;margin-bottom: 10px;">{{__('common.agency_full_name')}}</h2>
                         <h4 style="text-align: center;font-size: 16px;line-height: 1.5em;font-weight: 100;color: #333;margin-top: 20px;margin-bottom: 10px;">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>
                     <td width="25%">
