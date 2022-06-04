@@ -29,7 +29,7 @@
                 <tr>
                     <td width="10%">
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="pull-left"
-                             style="border:none!important;width: 120px;" alt="">
+                             style="border:none!important;width: 100px;" alt="">
                     </td>
                     <td width="80%">
                         <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
