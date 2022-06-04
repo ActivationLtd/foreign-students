@@ -38,7 +38,6 @@ if (user()->isAdmin()) {
         <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element)}}" target="_blank">Print</a>
     @endif
     @if($view->showDownloadAllButton())
-
         @include('mainframe.form.download-all-btn')
         <div class="clearfix"></div>
     @endif
