@@ -4,9 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    {{--    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">--}}
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     @include('mainframe.layouts.default.includes.css')
-    {{--        <link rel="stylesheet" href="{{asset('projects/vscript/css/print-pdf.css')}}" type="text/css"/>--}}
+            <link rel="stylesheet" href="{{asset('projects/dgme-students/css/print-pdf.css')}}" type="text/css"/>
     <title>
         @section('head-title')
             {{setting('app-name')}}
@@ -17,21 +17,6 @@
     @show
 
     @section('css')
-        <style type="text/css">
-            .container {width: 800px}
-            table {
-                border-collapse: collapse;
-            }
-            table td {
-                padding: 0px 5px;
-
-            }
-
-            table, tr, th, td, thead, tbody {
-                font-size: 14px !important;
-            }
-
-        </style>
     @show
     @include('projects.dgme-students.layouts.default.includes.analytics')
 </head>
@@ -47,8 +32,8 @@
                              style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
                     <td width="80%">
-                        <h2 style="display: block; text-align:center;font-size: 20px;margin:10px;">{{__('common.agency_full_name')}}</h2>
-                        <h4 style="display: block; text-align:center;font-size: 16px;margin:10px;">{{__('common.gov_of_bangladesh')}}</h4>
+                        <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
+                        <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>
                     <td width="10%">
                         <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
@@ -73,7 +58,6 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <h4 style="text-align: center;">{{"আবেদন"}}</h4>
             <table class="table table-bordered no-padding">
                 <tr>
                     <td style="width: 50%">
