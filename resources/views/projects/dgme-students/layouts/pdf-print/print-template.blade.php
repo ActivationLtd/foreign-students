@@ -42,7 +42,7 @@
 <div class="container">
     <div class="row" >
         @include('mainframe.layouts.default.includes.print-btn')
-        <a class="btn btn-default bg-white" href="{{route('applications.generate-pdf',$application)}}" target="_blank">Download PDF</a>
+        <a id="pdfBtn" class="btn btn-default bg-white" href="{{route('applications.generate-pdf',$application)}}" target="_blank">Download PDF</a>
     </div>
     <div class="row">
         <div class="col-md-12" align="center">
@@ -98,4 +98,12 @@
 
 </body>
 @section('js')
+    <script type="text/javascript">
+        function printPage() {
+            var pdfButton = document.getElementById("pdfBtn");
+            pdfButton.style.visibility = 'hidden';
+            window.print();
+            pdfButton.style.visibility = 'visible';
+        }
+    </script>
 @show
