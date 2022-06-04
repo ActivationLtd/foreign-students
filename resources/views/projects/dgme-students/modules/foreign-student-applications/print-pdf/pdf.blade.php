@@ -41,11 +41,6 @@
 </head>
 <body>
 <div class="container">
-    <div class="row" >
-        <a class="btn btn-default bg-white" href="{{route('applications.generate-pdf',$application)}}" target="_blank">Download PDF</a>
-
-
-    </div>
     <div class="row">
         <div class="col-md-12" align="center">
             <div class="header-line-up"></div>
