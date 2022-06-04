@@ -4,6 +4,11 @@
     @parent
     <style>
         .container {width: 800px}
+        @media print {
+            #pdfBtn {
+                display: none;
+            }
+        }
     </style>
 @endsection
 

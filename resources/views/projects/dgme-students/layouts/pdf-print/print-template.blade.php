@@ -98,12 +98,5 @@
 
 </body>
 @section('js')
-    <script type="text/javascript">
-        function printPage() {
-            var pdfButton = document.getElementById("pdfBtn");
-            pdfButton.style.visibility = 'hidden';
-            window.print();
-            pdfButton.style.visibility = 'visible';
-        }
-    </script>
+
 @show
