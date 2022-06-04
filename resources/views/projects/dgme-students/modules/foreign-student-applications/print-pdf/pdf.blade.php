@@ -51,23 +51,9 @@
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
                              style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
-                    <td width="50%">
-                        <h2 style="text-align: center;
-                font-size: 20px;
-                line-height: 1.5em;
-                font-weight: 100;
-                color: #333;
-                margin-top: 20px;
-                margin-bottom: 10px;">{{__('common.agency_full_name')}}</h2>
-                        <h4 style="text-align: center;
-                font-size: 16px;
-                line-height: 1.5em;
-                font-weight: 100;
-                color: #333;
-                margin-top: 20px;
-                margin-bottom: 10px;">{{__('common.gov_of_bangladesh')}}</h4>
+                    <h2 style="text-align: center; font-size: 20px;line-height: 1.5em;font-weight: 100;color: #333;margin-top: 20px;margin-bottom: 10px;">{{__('common.agency_full_name')}}</h2>
+                    <h4 style="text-align: center;font-size: 16px;line-height: 1.5em;font-weight: 100;color: #333;margin-top: 20px;margin-bottom: 10px;">{{__('common.gov_of_bangladesh')}}</h4>
 
-                    </td>
                     <td width="25%">
                         <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
                              style="margin-top: 2%; border:none!important;width: 120px;" alt="">
