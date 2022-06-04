@@ -54,6 +54,7 @@
                     <td width="50%">
                         <h2 style="text-align: center" style="text-align: center;">{{__('common.agency_full_name')}}</h2>
                         <h4 style="text-align: center" style="text-align: center;">{{__('common.gov_of_bangladesh')}}</h4>
+                        <h4 style="text-align: center" style="text-align: center;">{{"আবেদন"}}</h4>
                     </td>
                     <td width="25%">
                         <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
