@@ -25,19 +25,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="header-line-up"></div>
-            <table class="no-border no-padding" width="100%">
+            <table class="no-border no-padding" width="100%" style="margin-top: 2%;">
                 <tr>
-                    <td width="10%">
-                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="pull-left"
-                             style="margin-top: 2%; border:none!important;width: 110px;" alt="">
+                    <td width="10%" class="pull-left">
+                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
+                             style="border:none!important;width: 110px;" alt="">
                     </td>
                     <td width="80%" align="center">
                         <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
                         <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>
-                    <td width="10%">
-                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
-                             style="margin-top: 2%; border:none!important;width: 120px;" alt="">
+                    <td width="10%" class="pull-right">
+                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}"
+                             style="border:none!important;width: 120px;" alt="">
                     </td>
                 </tr>
             </table>
