@@ -20,9 +20,9 @@
                 @endif
             </td>
             <td style="width: 50%">
-                <div class="col-md-12 no-padding no-margin" style="height:80px!important; width: 80px!important; vertical-align: center">
+                <div class="col-md-12 no-padding no-margin" style="width:150px!important; vertical-align: center">
                     <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
-                         alt="{{$content}}">
+                         alt="{{$content}}" width="100px" height="100px"/>
                 </div>
             </td>
 
