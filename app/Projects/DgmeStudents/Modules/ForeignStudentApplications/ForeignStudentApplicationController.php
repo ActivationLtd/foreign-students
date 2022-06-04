@@ -6,6 +6,7 @@ use App\Projects\DgmeStudents\Features\Core\ViewProcessor;
 use App\Projects\DgmeStudents\Features\Modular\ModularController\ModularController;
 use App\Projects\DgmeStudents\Features\Report\ModuleList;
 use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor;
+use PDF;
 
 /**
  * @group  ForeignStudentApplication
@@ -54,7 +55,8 @@ class ForeignStudentApplicationController extends ModularController
     /**
      * @return bool|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\Support\Collection|\Illuminate\View\View|mixed|void
      */
-    public function report() {
+    public function report()
+    {
         if (!user()->can('view-report', $this->model)) {
             return $this->permissionDenied();
         }
@@ -88,11 +90,39 @@ class ForeignStudentApplicationController extends ModularController
         if (!$this->user->can('view', $foreignStudentApplication)) {
             return $this->permissionDenied();
         }
-        $contentQrCode="Application ID: ".$foreignStudentApplication->id."\nApplication UUID: ".$foreignStudentApplication->uuid."\nURL: ".route('foreign-student-applications.edit',$foreignStudentApplication->id);
+        $contentQrCode = "Application ID: ".$foreignStudentApplication->id."\nApplication UUID: ".$foreignStudentApplication->uuid."\nURL: ".route('foreign-student-applications.edit',
+                $foreignStudentApplication->id);
+
         return $this->view('projects.dgme-students.modules.foreign-student-applications.print-pdf.print')->with([
             'application' => $foreignStudentApplication,
             'content' => $contentQrCode,
         ]);
+
+    }
+
+    /**
+     * @param  \App\ForeignStudentApplication  $foreignStudentApplication
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|void
+     */
+    public function generatePdf(\App\ForeignStudentApplication $foreignStudentApplication)
+    {
+        if (!$this->user->can('view', $foreignStudentApplication)) {
+            return $this->permissionDenied();
+        }
+        $contentQrCode = "Application ID: ".$foreignStudentApplication->id."\nApplication UUID: ".$foreignStudentApplication->uuid."\nURL: ".route('foreign-student-applications.edit',
+                $foreignStudentApplication->id);
+        // $this->view('projects.dgme-students.modules.foreign-student-applications.print-pdf.print')->with([
+        //     'application' => $foreignStudentApplication,
+        //     'content' => $contentQrCode,
+        // ]);
+        $fileName = "Application No- ". $foreignStudentApplication->id.".pdf";
+        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print',[
+            'application' => $foreignStudentApplication,
+            'content' => $contentQrCode,
+        ]);
+
+        // download PDF file with download method
+        return $pdf->download($fileName);
 
     }
 }

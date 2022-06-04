@@ -14,12 +14,7 @@
 ?>
 
 @section('content')
-
-    {{--            @dump($element->sGroups()->get()->toArray())--}}
-    {{--        @dump($element->sTags()->pluck('tag')->toArray())--}}
-    {{--    @dump($element->spreads)--}}
-    {{--            @dump($element->getSpreadTags('first_name'))--}}
-    <div class="col-md-12 col-lg-10 no-padding">
+     <div class="col-md-12 col-lg-10 no-padding">
 
         @if(($formState == 'create'))
             {{ Form::open($formConfig) }} <input name="uuid" type="hidden" value="{{$uuid}}"/>

@@ -12,7 +12,7 @@ Route::middleware(['auth', 'verified', 'superuser'])->group(function () {
     Route::get('config/module-names', [SystemController::class, 'moduleNamesConfig'])->name('module-names-config');
     Route::get('config/module-groups', [SystemController::class, 'moduleGroupConfig'])->name('module-group-config');
     Route::get('config/user-consts', [SystemController::class, 'userConsts'])->name('user-consts');
-    // Route::get('phpinfo', 'HomeController@phpinfo')->name('phpinfo');
+    Route::get('cache-clear', [SystemController::class, 'cacheClear'])->name('cache-clear');
 });
 
 

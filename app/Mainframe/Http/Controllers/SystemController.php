@@ -3,7 +3,6 @@
 namespace App\Mainframe\Http\Controllers;
 
 use App\Group;
-use App\Mainframe\DataBlocks\SampleDataBlock;
 use App\Module;
 use App\ModuleGroup;
 
@@ -142,5 +141,14 @@ class SystemController extends BaseController
 
         echo "<br/></pre>";
 
+    }
+
+    public function cacheClear()
+    {
+        \Artisan::call('route:clear');
+        \Artisan::call('cache:clear');
+        \Artisan::call('config:clear');
+
+        return "Cache Cleared!";
     }
 }

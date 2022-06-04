@@ -20,8 +20,12 @@
                 @endif
             </td>
             <td style="width: 50%">
-
+                <div class="col-md-12 no-padding no-margin" style="width: 150px!important; vertical-align: center">
+                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
+                         alt="{{$content}}">
+                </div>
             </td>
+
         </tr>
 
         <tr>

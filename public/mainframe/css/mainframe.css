@@ -383,7 +383,6 @@ h2 .btn-sm, h2 .btn-xs, h2 .btn-clone {
 }
 
 /* Upload list */
-/* Upload list */
 div.filecard .info-box-icon img {
     float: left;
     height: 100%;
@@ -1030,4 +1029,20 @@ ul.quick-module-list li {
 
 .text-overflow-hide {
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.info-box {
+    display: block;
+    min-height: 90px;
+    /* background: #fff; */
+    width: 100%;
+    box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.info-box-icon {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background: transparent;
 }
