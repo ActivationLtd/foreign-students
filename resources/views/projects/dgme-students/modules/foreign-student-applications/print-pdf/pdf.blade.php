@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="header-line-up"></div>
-            <table class="no-border no-padding" width="90%" style="margin-top: 2%;">
+            <table class="no-border no-padding" width="100%" style="margin-top: 2%;">
                 <tr>
                     <td width="10%" class="pull-left">
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
@@ -58,7 +58,7 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <table class="table table-bordered no-padding" width="90%">
+            <table class="table table-bordered no-padding" width="100%">
                 <tr>
                     <td style="width: 50%">
                         @if($application->profilePic())
