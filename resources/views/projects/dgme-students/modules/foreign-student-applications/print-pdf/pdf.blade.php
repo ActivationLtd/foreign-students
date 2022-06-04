@@ -42,7 +42,8 @@
 <body>
 <div class="container">
     <div class="row" >
-        @include('mainframe.layouts.default.includes.print-btn')
+        <a class="btn btn-default bg-white" href="{{route('applications.generate-pdf',$application)}}" target="_blank">Download PDF</a>
+
 
     </div>
     <div class="row">
@@ -91,7 +92,10 @@
                         @endif
                     </td>
                     <td style="width: 50%">
-
+                        <div class="col-md-12 no-padding no-margin" style="width: 150px!important; vertical-align: center">
+                            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
+                                 alt="{{$content}}">
+                        </div>
                     </td>
                 </tr>
 
