@@ -23,7 +23,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-12" align="center">
+        <div class="col-md-12">
             <div class="header-line-up"></div>
             <table class="no-border no-padding" width="100%">
                 <tr>
