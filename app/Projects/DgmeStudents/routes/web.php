@@ -28,6 +28,8 @@ Route::middleware($middlewares)->group(function () use ($modules, $moduleGroups)
     // Todo : Write new routes for your project
     Route::get('foreign-student-applications/{foreignStudentApplication}/print-view',
         [ForeignStudentApplicationController::class, 'printView'])->name('applications.print-view');
+    Route::get('foreign-student-applications/{foreignStudentApplication}/generate-pdf',
+        [ForeignStudentApplicationController::class, 'generatePdf'])->name('applications.generate-pdf');
 });
 
 
