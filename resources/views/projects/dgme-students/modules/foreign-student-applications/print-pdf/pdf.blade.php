@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     @include('mainframe.layouts.default.includes.css')
             <link rel="stylesheet" href="{{asset('projects/dgme-students/css/print-pdf.css')}}" type="text/css"/>
