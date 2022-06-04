@@ -20,16 +20,9 @@
     @section('css')
     @show
     <style type="text/css">
-        @font-face {
-            font-family: 'Solaimanlipi';
-            font-style: normal;
-            font-weight: 400;
-            src: url('/public/fonts/SolaimanLipi.ttf');
-        }
-  
-        * {
-            font-family: "DejaVu Sans" !important;
-        }
+       body{
+           font-family: DejaVu Sans!important;
+       }
     </style>
     @include('projects.dgme-students.layouts.default.includes.analytics')
 </head>
@@ -71,7 +64,7 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <h3 style="font-family: Solaimanlipi;">ফরেন এপ্লিকেশন</h3>
+            <h3>ফরেন এপ্লিকেশন</h3>
             <table class="table table-bordered no-padding" width="100%">
                 <tr>
                     <td style="width: 50%">
