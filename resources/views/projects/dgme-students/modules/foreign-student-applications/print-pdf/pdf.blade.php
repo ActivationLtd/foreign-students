@@ -29,13 +29,13 @@
                 <tr>
                     <td width="10%">
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}" class="pull-left"
-                             style="border:none!important;width: 100px;" alt="">
+                             style="margin-top: 2%; border:none!important;width: 110px;" alt="">
                     </td>
                     <td width="80%">
                         <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
                         <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>
-                    <td width="10%">
+                    <td width="10%" style="padding-left:5%">
                         <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
                              style="margin-top: 2%; border:none!important;width: 120px;" alt="">
                     </td>
