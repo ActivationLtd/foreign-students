@@ -116,7 +116,7 @@ class ForeignStudentApplicationController extends ModularController
         //     'content' => $contentQrCode,
         // ]);
         $fileName = "Application No- ". $foreignStudentApplication->id.".pdf";
-        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print',[
+        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf',[
             'application' => $foreignStudentApplication,
             'content' => $contentQrCode,
         ]);
