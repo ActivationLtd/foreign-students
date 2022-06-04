@@ -35,6 +35,22 @@
             table, tr, th, td, thead, tbody {
                 font-size: 14px !important;
             }
+            .h2, h2 {
+                font-size: 20px;
+                line-height: 1.5em;
+                font-weight: 100;
+                color: #333;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+            .h4, h4 {
+                font-size: 20px;
+                line-height: 1.5em;
+                font-weight: 100;
+                color: #333;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
         </style>
     @show
     @include('projects.dgme-students.layouts.default.includes.analytics')
@@ -87,7 +103,7 @@
                         @endif
                     </td>
                     <td style="width: 50%">
-                        <div class="col-md-12 no-padding no-margin" style="width: 150px!important; vertical-align: center">
+                        <div class="col-md-12 no-padding no-margin" style="width: 100px!important; vertical-align: center">
                             <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
                                  alt="{{$content}}">
                         </div>
