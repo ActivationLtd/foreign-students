@@ -64,7 +64,9 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <h3>ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family: 'DejaVu Sans'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family: 'Nirmala UI'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family: 'Bodoni MT'">ফরেন এপ্লিকেশন</h3>
             <table class="table table-bordered no-padding" width="100%">
                 <tr>
                     <td style="width: 50%">
