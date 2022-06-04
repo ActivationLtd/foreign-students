@@ -26,6 +26,10 @@
             font-weight: 400;
             src: url('/public/fonts/SolaimanLipi.ttf');
         }
+  
+        * {
+            font-family: "DejaVu Sans" !important;
+        }
     </style>
     @include('projects.dgme-students.layouts.default.includes.analytics')
 </head>
