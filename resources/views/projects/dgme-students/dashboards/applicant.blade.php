@@ -78,7 +78,7 @@
         </div>
 
         <div class="col-md-3 col-md-8">
-            <div class="info-box bg-white">
+            <div class="info-box bg-gray">
                 <a href="{{asset('projects/dgme-students/files/user manual.pdf')}}" style="color:white">
                 <span class="info-box-icon">
                     <ion-icon name="help-circle-outline"></ion-icon>
@@ -88,13 +88,12 @@
                     <span style="display: block">Application Instruction</span>
                     <a href="{{asset('projects/dgme-students/files/user manual.pdf')}}"
                        class="apply" style="color:black">
-                        <span class="info-box-number">DOWNLOAD</span>
+                        <span class="info-box-number">DOWNLOAD <i class="fa fa-download"></i> </span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="clearfix"></div>
     <h3>Your Applications</h3>

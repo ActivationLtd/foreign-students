@@ -1,9 +1,14 @@
-@extends('projects.dgme-students.layouts.pdf-print.template')
+@extends('projects.dgme-students.layouts.pdf-print.print-template')
 
 @section('css')
     @parent
     <style>
         .container {width: 800px}
+        @media print {
+            #pdfBtn {
+                display: none;
+            }
+        }
     </style>
 @endsection
 
@@ -20,8 +25,12 @@
                 @endif
             </td>
             <td style="width: 50%">
-
+                <div class="col-md-12 no-padding no-margin" style="width:150px!important; vertical-align: center">
+                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
+                         alt="{{$content}}" width="100px" height="100px"/>
+                </div>
             </td>
+
         </tr>
 
         <tr>
