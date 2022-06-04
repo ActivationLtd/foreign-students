@@ -47,6 +47,8 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
         if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
             return false;
         }
+
+        // Todo; Fix query
         if ($user->isApplicant()) {
             $currentSession = ApplicationSession::latestOpenSession();
             $govermentMbbsOngoingApplication = $user->applications()->where('course_id', 1)
