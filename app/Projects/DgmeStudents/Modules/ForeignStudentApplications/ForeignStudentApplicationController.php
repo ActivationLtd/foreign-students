@@ -118,10 +118,12 @@ class ForeignStudentApplicationController extends ModularController
             'content' => $contentQrCode,
         ];
         // $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf', $data);
-        //for view
-        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
-        return $pdf->stream($fileName);
 
+        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
+        //for view
+        //return $pdf->stream($fileName);
+        //for download
+        return $pdf->download($fileName);
 
     }
 }
