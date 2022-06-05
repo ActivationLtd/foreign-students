@@ -181,6 +181,7 @@ if (user()->isAdmin()) {
 
             <div class="clearfix"></div>
             @if($view->showDecisionFields())
+                @include('form.checkbox',['var'=>['name'=>'is_valid','label'=>'Valid Application?']])
                 @include('form.checkbox',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified']])
                 @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
             @endif
