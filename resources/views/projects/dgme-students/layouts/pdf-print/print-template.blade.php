@@ -25,11 +25,6 @@
                 padding: 0px 5px;
 
             }
-            @media print {
-                #btnPrint {
-                    display:none;
-                }
-            }
             table, tr, th, td, thead, tbody {
                 font-size: 14px !important;
             }
