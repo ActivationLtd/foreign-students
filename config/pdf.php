@@ -20,7 +20,7 @@ return [
     'watermark_font' => 'sans-serif',
     'display_mode' => 'fullpage',
     'watermark_text_alpha' => 0.1,
-    'custom_font_dir' => base_path('/resources/fonts/'), // don't forget the trailing slash!
+    'custom_font_dir' => base_path('storage/fonts/'), // don't forget the trailing slash!
     'custom_font_data' => [
         'SolaimanLipi' => [
             'R' => 'SolaimanLipi.ttf',    // regular font
