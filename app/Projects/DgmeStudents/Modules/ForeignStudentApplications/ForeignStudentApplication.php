@@ -205,6 +205,7 @@ class ForeignStudentApplication extends BaseModule
         'remarks',
         //'application_session_name',
         //'submitted_at',
+        'is_valid',
         'is_payment_verified',
         'is_document_verified',
         'payment_transaction_id',
@@ -212,10 +213,11 @@ class ForeignStudentApplication extends BaseModule
     ];
 
     // protected $guarded = [];
-    // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at','submitted_at','dob'];
     // protected $casts = [];
     // protected $with = [];
     // protected $appends = [];
+
 
     /*
     |--------------------------------------------------------------------------

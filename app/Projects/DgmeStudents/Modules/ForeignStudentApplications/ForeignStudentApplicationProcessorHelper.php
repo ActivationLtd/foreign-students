@@ -78,6 +78,18 @@ trait ForeignStudentApplicationProcessorHelper
 
         return $this; // Return the same object for validation method chaining
     }
+    /**
+     * @return $this
+     */
+    public function setCheckBoxValueToZero()
+    {
+        $element = $this->element;
+        $element->is_payment_verified=($element->is_payment_verified)?1:0;
+        $element->is_document_verified=($element->is_document_verified)?1:0;
+        $element->is_valid=($element->is_valid)?1:0;
+
+        return $this; // Return the same object for validation method chaining
+    }
 
     /**
      * @return $this
