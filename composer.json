@@ -35,7 +35,8 @@
         "symfony/postmark-mailer": "^6.0",
         "watson/rememberable": "^6.0",
         "webpatser/laravel-uuid": "^4.0",
-        "yajra/laravel-datatables-oracle": "^9.6"
+        "yajra/laravel-datatables-oracle": "^9.6",
+        "carlos-meneses/laravel-mpdf": "2.1.6"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

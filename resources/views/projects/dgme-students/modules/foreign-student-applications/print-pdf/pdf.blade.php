@@ -21,7 +21,7 @@
     @show
     <style type="text/css">
        body{
-           font-family: DejaVu Sans!important;
+           font-family: SolaimanLipi!important;
        }
     </style>
     @include('projects.dgme-students.layouts.default.includes.analytics')
@@ -33,18 +33,18 @@
             <div class="header-line-up"></div>
             <table class="no-border no-padding" width="100%" style="margin-top: 2%;">
                 <tr>
-                    <td width="10%" class="pull-left">
-                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
-                             style="border:none!important;width: 110px;" alt="">
-                    </td>
-                    <td width="80%" align="center">
-                        <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
-                        <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>
-                    </td>
-                    <td width="10%" class="pull-right">
-                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}"
-                             style="border:none!important;width: 120px;" alt="">
-                    </td>
+{{--                    <td width="10%" class="pull-left">--}}
+{{--                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"--}}
+{{--                             style="border:none!important;width: 110px;" alt="">--}}
+{{--                    </td>--}}
+{{--                    <td width="80%" align="center">--}}
+{{--                        <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>--}}
+{{--                        <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>--}}
+{{--                    </td>--}}
+{{--                    <td width="10%" class="pull-right">--}}
+{{--                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}"--}}
+{{--                             style="border:none!important;width: 120px;" alt="">--}}
+{{--                    </td>--}}
                 </tr>
             </table>
 
@@ -64,23 +64,22 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <h3 style="font-family: 'DejaVu Sans'">ফরেন এপ্লিকেশন</h3>
-            <h3 style="font-family: 'Nirmala UI'">ফরেন এপ্লিকেশন</h3>
-            <h3 style="font-family: 'Bodoni MT'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family: 'SolaimanLipi'">ফরেন এপ্লিকেশন</h3>
+
             <table class="table table-bordered no-padding" width="100%">
                 <tr>
-                    <td style="width: 50%">
-                        @if($application->profilePic())
-                            <img class="img-thumbnail" style="height:150px!important;"
-                                 src="{{$application->profilePic()->thumbnail()}}" alt="alt text">
-                        @endif
-                    </td>
-                    <td style="width: 50%">
-                        <div class="col-md-12 no-padding no-margin" style="width:150px!important; vertical-align: center">
-                            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
-                                 alt="{{$content}}" width="100px" height="100px"/>
-                        </div>
-                    </td>
+{{--                    <td style="width: 50%">--}}
+{{--                        @if($application->profilePic())--}}
+{{--                            <img class="img-thumbnail" style="height:150px!important;"--}}
+{{--                                 src="{{$application->profilePic()->thumbnail()}}" alt="alt text">--}}
+{{--                        @endif--}}
+{{--                    </td>--}}
+{{--                    <td style="width: 50%">--}}
+{{--                        <div class="col-md-12 no-padding no-margin" style="width:150px!important; vertical-align: center">--}}
+{{--                            <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "--}}
+{{--                                 alt="{{$content}}" width="100px" height="100px"/>--}}
+{{--                        </div>--}}
+{{--                    </td>--}}
                 </tr>
 
                 <tr>
