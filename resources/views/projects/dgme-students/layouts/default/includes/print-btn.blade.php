@@ -1,4 +1,5 @@
-<input style="visibility:screenonly" id="btnPrint" type="button" class="btn btn-primary print-btn" value="Print this page" onclick="printPage()"/>
+
+<input id="btnPrint" type="button" class="btn btn-primary print-btn" value="Print this page" onclick="printPage()"/>
 
 <script type="text/javascript">
     function printPage() {
