@@ -25,6 +25,9 @@
                 padding: 0px 5px;
 
             }
+            #printPageButton {
+                visibility:screenonly;
+            }
             /*@media print {*/
             /*    #printPageButton {*/
             /*        display:none;*/
