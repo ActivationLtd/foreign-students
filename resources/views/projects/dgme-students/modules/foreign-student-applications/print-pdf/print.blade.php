@@ -5,10 +5,8 @@
 
     <style type="text/css">
         .container {width: 800px}
-        @media print {
-            #pdfBtn {
-                display: none;
-            }
+        #printPageButton {
+            visibility:screenonly;
         }
     </style>
 @endsection
