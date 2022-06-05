@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     @include('mainframe.layouts.default.includes.css')
-    {{--    <link rel="stylesheet" href="{{asset('projects/vscript/css/print-pdf.css')}}" type="text/css"/>--}}
+        <link rel="stylesheet" href="{{asset('projects/dgme-project/css/print-pdf.css')}}" type="text/css"/>
     <title>
         @section('head-title')
             {{setting('app-name')}}
@@ -25,16 +25,7 @@
                 padding: 0px 5px;
 
             }
-            @media print {
-                #btnPrint {
-                    display:none;
-                }
-            }
-            /*@media print {*/
-            /*    #printPageButton {*/
-            /*        display: none;*/
-            /*    }*/
-            /*}*/
+
 
             table, tr, th, td, thead, tbody {
                 font-size: 14px !important;
@@ -46,7 +37,7 @@
 <body>
 <div class="container">
     <div class="row" >
-        @include('projects.dgme-students.layouts.default.includes.print-btn')
+        @include('mainframe.layouts.default.includes.print-btn')
     </div>
     <div class="row">
         <div class="col-md-12" align="center">
