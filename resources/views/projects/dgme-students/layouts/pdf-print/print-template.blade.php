@@ -27,7 +27,7 @@
             }
             @media print {
                 #printPageButton {
-                    display: none;
+                    visibility: screenonly;
                 }
             }
 
