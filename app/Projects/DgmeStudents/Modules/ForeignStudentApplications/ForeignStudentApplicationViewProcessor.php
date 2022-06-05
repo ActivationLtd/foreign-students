@@ -145,6 +145,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
         return (isset($element->id));
     }
+
     /*
     |--------------------------------------------------------------------------
     | Section: Report related view helpers

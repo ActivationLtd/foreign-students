@@ -59,6 +59,32 @@ trait ForeignStudentApplicationHelper
         /** @var ForeignStudentApplication $this */
         Notification::send($this->user, new ApplicationStatusChange($this));
     }
+
+    /**
+     * Get status options based on current user
+     *
+     * @return array
+     */
+    public static function availableStatusOptions()
+    {
+        $user = user();
+
+        # Status option for applicant
+        if ($user->isApplicant()) {
+            return [
+                ForeignStudentApplication::STATUS_DRAFT,
+                ForeignStudentApplication::STATUS_SUBMITTED,
+
+            ];
+        }
+        # Status option for admin
+        if ($user->isAdmin()) {
+            return ForeignStudentApplication::$statuses;
+        }
+
+        return []; // Fallback empty array. !important to avoid code breaking
+
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Ability to create, edit, delete or restore
