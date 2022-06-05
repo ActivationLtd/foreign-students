@@ -42,7 +42,6 @@
 <div class="container">
     <div class="row" >
         @include('mainframe.layouts.default.includes.print-btn')
-        <a id="pdfBtn" class="btn btn-default bg-white" href="{{route('applications.generate-pdf',$application)}}" target="_blank">Download PDF</a>
     </div>
     <div class="row">
         <div class="col-md-12" align="center">
