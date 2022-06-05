@@ -26,11 +26,7 @@
 
             }
 
-            @media print {
-                #printPageButton {
-                    display:none;
-                }
-            }
+
 
             table, tr, th, td, thead, tbody {
                 font-size: 14px !important;

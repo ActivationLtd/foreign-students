@@ -5,7 +5,11 @@
 
     <style type="text/css">
         .container {width: 800px}
-
+        @media print {
+            #btnPrint {
+                display:none;
+            }
+        }
     </style>
 @endsection
 
