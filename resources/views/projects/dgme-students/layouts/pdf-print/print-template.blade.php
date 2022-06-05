@@ -25,15 +25,6 @@
                 padding: 0px 5px;
 
             }
-            #printPageButton {
-                visibility:screenonly;
-            }
-            /*@media print {*/
-            /*    #printPageButton {*/
-            /*        display:none;*/
-            /*    }*/
-            /*}*/
-
             table, tr, th, td, thead, tbody {
                 font-size: 14px !important;
             }
@@ -44,7 +35,7 @@
 <body>
 <div class="container">
     <div class="row" >
-        @include('mainframe.layouts.default.includes.print-btn')
+        @include('projects.dgme-students.layouts.default.includes.print-btn')
     </div>
     <div class="row">
         <div class="col-md-12" align="center">
