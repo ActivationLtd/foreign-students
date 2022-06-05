@@ -119,7 +119,7 @@ class ForeignStudentApplicationController extends ModularController
         ];
         // $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf', $data);
         //for view
-        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf', $data);
+        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
         return $pdf->stream($fileName);
 
 
