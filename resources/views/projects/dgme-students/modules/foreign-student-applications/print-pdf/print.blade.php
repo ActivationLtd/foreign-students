@@ -1,4 +1,4 @@
-@extends('projects.dgme-students.layouts.pdf-print.print-template')
+@extends('projects.dgme-students.layouts.pdf-print.template')
 
 @section('css')
     @parent
