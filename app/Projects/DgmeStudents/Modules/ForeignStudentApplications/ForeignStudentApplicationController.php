@@ -121,7 +121,7 @@ class ForeignStudentApplicationController extends ModularController
         $pdf=new PDF([
             'mode' => 'utf-8',
         ]);
-        $pdf = $pdf->loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
+        $pdf->loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
         //for view
         //return $pdf->stream($fileName);
         //for download
