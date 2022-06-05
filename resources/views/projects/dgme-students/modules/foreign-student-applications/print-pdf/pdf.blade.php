@@ -19,11 +19,7 @@
 
     @section('css')
     @show
-    <style type="text/css">
-       body{
-           font-family: SolaimanLipi!important;
-       }
-    </style>
+
     @include('projects.dgme-students.layouts.default.includes.analytics')
 </head>
 <body>
@@ -33,18 +29,18 @@
             <div class="header-line-up"></div>
             <table class="no-border no-padding" width="100%" style="margin-top: 2%;">
                 <tr>
-{{--                    <td width="10%" class="pull-left">--}}
-{{--                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"--}}
-{{--                             style="border:none!important;width: 110px;" alt="">--}}
-{{--                    </td>--}}
-{{--                    <td width="80%" align="center">--}}
-{{--                        <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>--}}
-{{--                        <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>--}}
-{{--                    </td>--}}
-{{--                    <td width="10%" class="pull-right">--}}
-{{--                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}"--}}
-{{--                             style="border:none!important;width: 120px;" alt="">--}}
-{{--                    </td>--}}
+                    <td width="10%" class="pull-left">
+                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
+                             style="border:none!important;width: 110px;" alt="">
+                    </td>
+                    <td width="80%" align="center">
+                        <h2 style="text-align:center;">{{__('common.agency_full_name')}}</h2>
+                        <h4 style="text-align:center;">{{__('common.gov_of_bangladesh')}}</h4>
+                    </td>
+                    <td width="10%" class="pull-right">
+                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}"
+                             style="border:none!important;width: 120px;" alt="">
+                    </td>
                 </tr>
             </table>
 
@@ -64,7 +60,12 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <h3 style="font-family: 'SolaimanLipi'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family:'Nikosh'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family:'kalpurush'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family:'NikoshBAN'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family:'NikoshLight'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family:'Nikosh'">ফরেন এপ্লিকেশন</h3>
+            <h3 style="font-family:'Nikosh'">ফরেন এপ্লিকেশন</h3>
 
             <table class="table table-bordered no-padding" width="100%">
                 <tr>
