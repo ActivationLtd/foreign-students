@@ -60,12 +60,7 @@
         {{--middle table--}}
         @section('content')
             <h3>Summary of Foreign Student Application</h3>
-            <h3 style="font-family:'Nikosh'">ফরেন এপ্লিকেশন</h3>
             <h3 style="font-family:'kalpurush'">ফরেন এপ্লিকেশন</h3>
-            <h3 style="font-family:'NikoshBAN'">ফরেন এপ্লিকেশন</h3>
-            <h3 style="font-family:'NikoshLight'">ফরেন এপ্লিকেশন</h3>
-            <h3 style="font-family:'Nikosh'">ফরেন এপ্লিকেশন</h3>
-            <h3 style="font-family:'Nikosh'">ফরেন এপ্লিকেশন</h3>
 
             <table class="table table-bordered no-padding" width="100%">
                 <tr>

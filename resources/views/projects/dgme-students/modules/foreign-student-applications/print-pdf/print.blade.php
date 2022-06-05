@@ -4,12 +4,6 @@
     @parent
 
     <style type="text/css">
-        @font-face {
-            font-family: 'Solaimanlipi';
-            font-style: normal;
-            font-weight: 400;
-            src: url('/public/fonts/SolaimanLipi.ttf');
-        }
         .container {width: 800px}
         @media print {
             #pdfBtn {
@@ -22,7 +16,7 @@
 @section('content')
 
     <h3>Summary of Foreign Student Application</h3>
-    <h3 style="font-family: Solaimanlipi;">ফরেন এপ্লিকেশন</h3>
+    <h3 style="font-family:'kalpurush'">ফরেন এপ্লিকেশন</h3>
 
     <table class="table table-bordered no-padding">
         <tr>
@@ -32,12 +26,12 @@
                          src="{{$application->profilePic()->thumbnail()}}" alt="alt text">
                 @endif
             </td>
-{{--            <td style="width: 50%">--}}
-{{--                <div class="col-md-12 no-padding no-margin" style="width:150px!important; vertical-align: center">--}}
-{{--                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "--}}
-{{--                         alt="{{$content}}" width="100px" height="100px"/>--}}
-{{--                </div>--}}
-{{--            </td>--}}
+            <td style="width: 50%">
+                <div class="col-md-12 no-padding no-margin" style="width:150px!important; vertical-align: center">
+                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($content)) !!} "
+                         alt="{{$content}}" width="100px" height="100px"/>
+                </div>
+            </td>
 
         </tr>
 
