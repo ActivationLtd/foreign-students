@@ -5,9 +5,7 @@
 
     <style type="text/css">
         .container {width: 800px}
-        #printPageButton {
-            visibility:screenonly;
-        }
+
     </style>
 @endsection
 
