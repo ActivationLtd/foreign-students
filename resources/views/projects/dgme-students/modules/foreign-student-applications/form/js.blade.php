@@ -49,8 +49,6 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isUpdating())
-    ajaxForExaminations();
-    validationForExaminations();
     loadDomicileCountry();
     // Todo: write codes here.
     // Redirection after saving
@@ -73,79 +71,6 @@
         $("input[name=applicant_mobile_no]").addClass('validate[required]');
     }
 
-
-    function handleLanguageProficiencySuccess(response) {
-        $("#appLanguageProficiencyDatatableDt").DataTable().ajax.reload();
-        $("#languageProficiencyFormModalCloseButton").click();
-        $("#languageProficiencyForm").trigger("reset");
-        console.log(response);
-    }
-
-
-    /**
-     * Validation For Examination
-     */
-    function validationForExaminations() {
-        let currentYear = new Date().getFullYear();
-        let oneYearBefore = currentYear - 1;
-        let twoYearBefore = currentYear - 2;
-        let threeYearBefore = currentYear - 3;
-        let fiveYearBefore = currentYear - 5;
-
-        $('#applicationExaminationForm').validationEngine({
-            prettySelect: true,
-            promptPosition: "topLeft",
-            scroll: false
-        });
-        $('#applicationExaminationForm #examination_type').addClass('validate[required]');
-        $('#applicationExaminationForm #examination_name').addClass('validate[required]');
-        $('#applicationExaminationForm #passing_year').addClass('validate[required]');
-        $('#applicationExaminationForm #examination_type').change(function () {
-            let minYear = null;
-            let maxYear = null;
-            $('#applicationExaminationForm #passing_year').removeClass();
-            if (this.value == 'O level') {
-                minYear = fiveYearBefore;
-                maxYear = threeYearBefore;
-
-            } else if (this.value == 'A level') {
-                minYear = twoYearBefore;
-                maxYear = oneYearBefore;
-            }
-            $('#applicationExaminationForm #passing_year').addClass('form-control passing_year validate[required] validate[min[' + minYear + '],max[' + maxYear + ']]')
-        });
-        $('#applicationExaminationForm #subjects').addClass('validate[required]');
-        $('#applicationExaminationForm #certificate_name').addClass('validate[required]');
-
-    }
-
-    /**
-     * Ajax For Examination
-     */
-    function ajaxForExaminations() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $("#applicationExaminationForm").submit(function (e) {
-            e.preventDefault();
-            if ($("#applicationExaminationForm").validationEngine('validate')) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{route('foreign-application-examinations.store')}}",
-                    data: $('#applicationExaminationForm').serialize(),
-                    success: function (data) {
-                        $('#applicationExaminationDatatableDt').DataTable().ajax.reload();
-                        $('#applicationExaminationModalCloseButton').click();
-                        $("#applicationExaminationForm").trigger('reset');
-                    }
-                });
-            }
-
-
-        });
-    }
 
     function declarationLogic() {
         if ($('select[name=status]').val() == "Submitted") {

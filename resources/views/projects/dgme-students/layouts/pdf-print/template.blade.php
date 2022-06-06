@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     @include('mainframe.layouts.default.includes.css')
-    {{--    <link rel="stylesheet" href="{{asset('projects/vscript/css/print-pdf.css')}}" type="text/css"/>--}}
+{{--        <link rel="stylesheet" href="{{asset('projects/dgme-project/css/print-pdf.css')}}" type="text/css"/>--}}
     <title>
         @section('head-title')
             {{setting('app-name')}}
@@ -52,7 +52,7 @@
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
                              style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
-                    <td>
+                    <td align="center">
                         <h2 style="text-align: center">{{__('common.agency_full_name')}}</h2>
                         <h4 style="text-align: center">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>

@@ -31,6 +31,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                     'application_session_id',
                     'is_payment_verified',
                     'is_document_verified',
+                    'is_valid',
                     'remarks',
                 ]
             ));
@@ -140,6 +141,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             $this->element->submitted_at = now();
         }
         $this->checkCourseAndType();
+        $this->setCheckBoxValueToZero();
 
         if ($this->element->status == 'Submitted') {
             $this->checkDocuments();

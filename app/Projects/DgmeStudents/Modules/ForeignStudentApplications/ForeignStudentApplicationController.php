@@ -106,22 +106,23 @@ class ForeignStudentApplicationController extends ModularController
      */
     public function generatePdf(\App\ForeignStudentApplication $foreignStudentApplication)
     {
+
         if (!$this->user->can('view', $foreignStudentApplication)) {
             return $this->permissionDenied();
         }
         $contentQrCode = "Application ID: ".$foreignStudentApplication->id."\nApplication UUID: ".$foreignStudentApplication->uuid."\nURL: ".route('foreign-student-applications.edit',
                 $foreignStudentApplication->id);
-        // $this->view('projects.dgme-students.modules.foreign-student-applications.print-pdf.print')->with([
-        //     'application' => $foreignStudentApplication,
-        //     'content' => $contentQrCode,
-        // ]);
         $fileName = "Application No- ". $foreignStudentApplication->id.".pdf";
-        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf',[
+        $data = [
             'application' => $foreignStudentApplication,
             'content' => $contentQrCode,
-        ]);
+        ];
+        // $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf', $data);
 
-        // download PDF file with download method
+        $pdf=PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
+        //for view
+        //return $pdf->stream($fileName);
+        //for download
         return $pdf->download($fileName);
 
     }

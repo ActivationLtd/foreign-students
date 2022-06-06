@@ -184,7 +184,10 @@ return [
         | Section: Project Service providers
         |---------------------------------*/
         App\Projects\DgmeStudents\Providers\AppServiceProvider::class,
-
+        /*
+         * https://bestofphp.com/repo/mccarlosen-laravel-mpdf
+         */
+        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class
     ],
 
     /*
@@ -238,6 +241,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         /*------------------------------------------
        | Section: Additional packages
        |------------------------------------------*/

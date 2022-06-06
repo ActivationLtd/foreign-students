@@ -60,6 +60,7 @@ $statuses = ForeignStudentApplication::$statuses;
                 @include('form.select-array-multiple',['var'=>['name'=>'statuses','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-3']])
                 @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
                 @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
+                @include('form.select-array',['var'=>['name'=>'is_valid','label'=>'Valid Application?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
             </div>
         @endif
         <table id="{{$datatableName}}"
@@ -99,6 +100,7 @@ $statuses = ForeignStudentApplication::$statuses;
                     d.statuses = $('#statuses').val();
                     d.is_payment_verified = $('#is_payment_verified').val();
                     d.is_document_verified = $('#is_document_verified').val();
+                    d.is_valid = $('#is_valid').val();
                     d.created_at_from = $('#created_at_from').val();
                     d.created_at_till = $('#created_at_till').val();
                 }
@@ -132,7 +134,7 @@ $statuses = ForeignStudentApplication::$statuses;
         {{$datatableName}}.buttons().container().appendTo('.dataTables_length');
 
         // Respond to change
-        $('#application_session_id,#course_id,#application_category,#is_saarc,#dob_country_ids,#domicile_country_ids,#financing_modes, #statuses,#is_payment_verified,#is_document_verified,#created_at_from,#created_at_till').on('change', function () {
+        $('#application_session_id,#course_id,#application_category,#is_saarc,#dob_country_ids,#domicile_country_ids,#financing_modes, #statuses,#is_payment_verified,#is_document_verified,#created_at_from,#created_at_till,#is_valid').on('change', function () {
             {{$datatableName}}.draw();
         });
         $("#created_at_from").bootstrapDatepicker({
