@@ -17964,17 +17964,6 @@
      
 }
 
-    namespace App\Projects\DgmeStudents\Helpers { 
-            /**
-     * 
-     *
-     */ 
-        class Cached {
-         
-    }
-     
-}
-
     namespace Meneses\LaravelMpdf\Facades { 
             /**
      * Class LaravelMpdf
@@ -18073,6 +18062,17 @@
                         /** @var \Meneses\LaravelMpdf\LaravelMpdfWrapper $instance */
                         return $instance->chunkLoadView($separator, $view, $data, $mergeData, $config);
         }
+         
+    }
+     
+}
+
+    namespace App\Projects\DgmeStudents\Helpers { 
+            /**
+     * 
+     *
+     */ 
+        class Cached {
          
     }
      
@@ -23268,8 +23268,8 @@ namespace  {
             class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
             class Form extends \Collective\Html\FormFacade {}
             class Html extends \Collective\Html\HtmlFacade {}
-            class Cached extends \App\Projects\DgmeStudents\Helpers\Cached {}
             class PDF extends \Meneses\LaravelMpdf\Facades\LaravelMpdf {}
+            class Cached extends \App\Projects\DgmeStudents\Helpers\Cached {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class Sentry extends \Sentry\Laravel\Facade {}
             class QrCode extends \SimpleSoftwareIO\QrCode\Facades\QrCode {}

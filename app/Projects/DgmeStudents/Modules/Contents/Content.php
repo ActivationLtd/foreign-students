@@ -66,6 +66,10 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUpdatedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereUuid($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Content onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Content withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Content withoutTrashed()
  */
 class Content extends BaseModule
 {

@@ -59,6 +59,10 @@ use App\Mainframe\Modules\Subscriptions\Traits\SubscriptionTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Subscription onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Subscription withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Subscription withoutTrashed()
  */
 class Subscription extends BaseModule
 {

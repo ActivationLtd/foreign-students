@@ -93,6 +93,10 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereViewDirectory($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Module onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Module withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Module withoutTrashed()
  */
 class Module extends BaseModule
 {

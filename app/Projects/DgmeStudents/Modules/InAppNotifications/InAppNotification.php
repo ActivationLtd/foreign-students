@@ -99,6 +99,10 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereUuid($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|InAppNotification onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|InAppNotification withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|InAppNotification withoutTrashed()
  */
 class InAppNotification extends BaseModule
 {

@@ -69,6 +69,9 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string|null $slug
  * @method static Builder|Setting whereNameExt($value)
  * @method static Builder|Setting whereSlug($value)
+ * @method static \Illuminate\Database\Query\Builder|Setting onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Setting withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Setting withoutTrashed()
  */
 class Setting extends BaseModule
 {

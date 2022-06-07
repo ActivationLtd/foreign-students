@@ -2,6 +2,7 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 use App\Projects\DgmeStudents\Notifications\ForeignStudentApplication\ApplicationStatusChange;
 use Notification;
 
@@ -44,7 +45,12 @@ trait ForeignStudentApplicationHelper
     |--------------------------------------------------------------------------
     */
     // Todo: Write non-static helper functions here
-
+    public function canBeSubmitted(): bool
+    {
+        return ($this->user->isApplicant()
+            && $this->status == \App\ForeignStudentApplication::STATUS_DRAFT
+            && ApplicationSession::latestOpenSession()->id == $this->application_session_id);
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Static helper functions

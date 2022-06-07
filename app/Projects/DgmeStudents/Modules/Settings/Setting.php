@@ -63,6 +63,10 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Setting onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Setting withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Setting withoutTrashed()
  */
 class Setting extends BaseModule
 {

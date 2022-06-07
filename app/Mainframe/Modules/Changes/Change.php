@@ -72,6 +72,10 @@ use App\Mainframe\Modules\Changes\Traits\ChangeTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Change whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Change whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Change onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Change withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Change withoutTrashed()
  */
 class Change extends BaseModule
 {

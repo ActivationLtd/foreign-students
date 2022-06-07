@@ -44,34 +44,17 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
             return false;
         }
         //checking if session is open
-        if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
+        if (!ApplicationSession::latestOpenSession()) {
             return false;
         }
 
-        // Todo; Fix query
         if ($user->isApplicant()) {
-            $currentSession = ApplicationSession::latestOpenSession();
-            $govermentMbbsOngoingApplication = $user->applications()->where('course_id', 1)
-                ->where('application_category', 'Government')
-                ->where('application_session_id', $currentSession->id)
-                ->whereNotIn('status', ['Declined'])->count();
-            $privatembbsOngoingApplication = $user->applications()->where('course_id', 1)
-                ->where('application_category', 'Private')
-                ->where('application_session_id', $currentSession->id)
-                ->whereNotIn('status', ['Declined'])->count();
-            $govermentbdsOngoingApplication = $user->applications()->where('course_id', 2)
-                ->where('application_category', 'Government')
-                ->where('application_session_id', $currentSession->id)
-                ->whereNotIn('status', ['Declined'])->count();
-            $privatebdsOngoingApplication = $user->applications()->where('course_id', 2)
-                ->where('application_category', 'Private')
-                ->where('application_session_id', $currentSession->id)
-                ->whereNotIn('status', ['Declined'])->count();
-            if ($govermentMbbsOngoingApplication == 1 && $privatembbsOngoingApplication == 1 &&
-                $govermentbdsOngoingApplication == 1 && $privatebdsOngoingApplication == 1) {
+
+            if ($user->applications()
+                    ->where('application_session_id', ApplicationSession::latestOpenSession()->id)
+                    ->count() >= 4) {
                 return false;
             }
-
         }
 
         return true;
@@ -82,26 +65,40 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
         if (!parent::update($user, $element)) {
             return false;
         }
+        if (!ApplicationSession::latestOpenSession()) {
+            return false;
+        }
+        if (user()->isApplicant()) {
+            if (ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
+                return false;
+            }
+            if ($user->isApplicant() && $user->id != $element->user_id) {
+                return false;
+            }
+            if ($element->status == 'Submitted' && Time::differenceInHours($element->submitted_at, now()) >= 24) {
+                return false;
+            }
+        }
 
-        //checking if session is open
-        if ($user->isApplicant() && !ApplicationSession::latestOpenSession()) {
-            return false;
-        }
-        //if application session id and open session id does not match
-        if ($user->isApplicant() && ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
-            return false;
-        }
-        if ($user->isApplicant() && $user->id != $element->user_id) {
-            return false;
-        }
+        return true;
+    }
 
-        if ($user->isApplicant() && $element->status == 'Submitted' && Time::differenceInHours($element->submitted_at, now()) >= 24) {
+    public function delete($user, $element)
+    {
+        if (!parent::delete($user, $element)) {
+            return false;
+        }
+        // old submitted applications can not be deleted by anyone
+        if ($element->status != ForeignStudentApplication::STATUS_DRAFT) {
+            return false;
+        }
+        //restricting from deleting old draft applications
+        if (ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
             return false;
         }
 
         return true;
     }
-    // public function delete($user, $element) {if (! parent::delete($user, $element)) {return false;} return true;}
     // public function restore($user, $element) {if (! parent::restore($user, $element)) {return false;} return true;}
     // public function forceDelete($user, $element) {if (! parent::forceDelete($user, $element)) {return false;} return true;}
 
