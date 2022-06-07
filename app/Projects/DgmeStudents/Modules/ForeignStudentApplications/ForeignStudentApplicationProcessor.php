@@ -140,7 +140,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         if ($this->hasTransition('status', 'Draft', 'Submitted')) {
             $this->element->submitted_at = now();
         }
-        $this->checkCourseAndType();
+        $this->checkCourseSessionAndType();
         $this->setCheckBoxValueToZero();
 
         if ($this->element->status == 'Submitted') {
