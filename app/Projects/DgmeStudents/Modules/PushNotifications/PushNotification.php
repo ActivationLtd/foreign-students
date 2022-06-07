@@ -82,6 +82,10 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereUuid($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|PushNotification onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PushNotification withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PushNotification withoutTrashed()
  */
 class PushNotification extends BaseModule
 {

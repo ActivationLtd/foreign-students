@@ -73,6 +73,10 @@ use App\Mainframe\Modules\Reports\Traits\ReportTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Report whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Report whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Report onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Report withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Report withoutTrashed()
  */
 class Report extends BaseModule
 {

@@ -63,6 +63,10 @@ use App\Mainframe\Modules\Projects\Traits\ProjectTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Project onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Project withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Project withoutTrashed()
  */
 class Project extends BaseModule
 {
