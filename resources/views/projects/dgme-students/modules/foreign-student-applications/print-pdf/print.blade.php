@@ -12,7 +12,7 @@
 @section('content')
 
     <h3>Summary of Foreign Student Application</h3>
-    <h3 style="font-family:'kalpurush'">ফরেন এপ্লিকেশন</h3>
+{{--    <h3 style="font-family:'kalpurush'">ফরেন এপ্লিকেশন</h3>--}}
 
     <table class="table table-bordered no-padding">
         <tr>
