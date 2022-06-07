@@ -45,6 +45,12 @@ return [
     'admin_update_emails' => [
         'raihan.act@gmail.com',
         'sanjidhabib@gmail.com',
+        'dg@dgme.gov.bd',
+        'dgmeded@gmail.com',
+        'paedeye@yahoo.com',
+        'amirulmorshed@gmail.com',
+        'kaziafzalrahman@yahoo.com',
+        'rahmanmasud01@gmail.com',
         // 'rifatshara@gmail.com',
     ],
 
