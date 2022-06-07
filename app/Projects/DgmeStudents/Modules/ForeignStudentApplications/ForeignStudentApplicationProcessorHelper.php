@@ -62,6 +62,7 @@ trait ForeignStudentApplicationProcessorHelper
     }
 
     /**
+     * to check duplicate application can not be submitted
      * @return $this
      */
     public function checkCourseSessionAndType(): static
