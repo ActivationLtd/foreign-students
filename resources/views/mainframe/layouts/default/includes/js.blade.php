@@ -39,6 +39,7 @@ $scriptPaths = [
     // 'mainframe/templates/admin/plugins/ionslider/ion.rangeSlider.min.js',
     // 'mainframe/templates/admin/plugins/bootstrap-slider/bootstrap-slider.js',
     'mainframe/js/plugins/datatables.1.10.2/dataTables.buttons.min.js',
+    'mainframe/js/plugins/idle-timer.min.js',
     'mainframe/js/vue.min.js',
     'mainframe/js/axios.min.js',
     'mainframe/js/lodash.js',
