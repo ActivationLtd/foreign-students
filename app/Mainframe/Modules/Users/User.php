@@ -142,8 +142,6 @@ use Watson\Rememberable\Rememberable;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|User whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSlug($value)
- * @property string|null $passport_no
- * @method static \Illuminate\Database\Eloquent\Builder|User wherePassportNo($value)
  */
 class User extends Authenticatable implements MustVerifyEmail, Auditable
 {

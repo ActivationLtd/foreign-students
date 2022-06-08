@@ -86,11 +86,6 @@ use App\Mainframe\Modules\Countries\Traits\CountryTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Country whereSlug($value)
- * @property int|null $is_saarc
- * @method static \Illuminate\Database\Query\Builder|Country onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Country whereIsSaarc($value)
- * @method static \Illuminate\Database\Query\Builder|Country withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Country withoutTrashed()
  */
 class Country extends BaseModule
 {

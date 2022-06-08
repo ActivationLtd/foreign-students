@@ -1,6 +1,5 @@
-<div class="row text-center">
-    <input id="btnPrint" type="button" class="btn btn-default print-btn" value="Print" onclick="printPage()"/>
-</div>
+<input id="btnPrint" type="button" class="btn btn-primary print-btn" value="Print this page" onclick="printPage()"/>
+
 <script type="text/javascript">
     function printPage() {
         var printButton = document.getElementById("btnPrint");

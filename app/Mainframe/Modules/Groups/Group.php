@@ -61,10 +61,6 @@ use App\Mainframe\Modules\Groups\Traits\GroupDefinitionsTrait;
  * @property string|null $slug
  * @method static Builder|Group whereNameExt($value)
  * @method static Builder|Group whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|Group onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Group withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Group withoutTrashed()
  */
 class Group extends BaseModule
 {

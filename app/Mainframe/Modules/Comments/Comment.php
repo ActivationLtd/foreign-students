@@ -68,10 +68,6 @@ use App\Mainframe\Modules\Comments\Traits\CommentTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|Comment onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Comment withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Comment withoutTrashed()
  */
 class Comment extends BaseModule
 {

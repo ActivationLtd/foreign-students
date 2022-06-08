@@ -66,10 +66,6 @@ use App\Mainframe\Modules\Contents\Traits\ContentTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Content whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|Content onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Content withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Content withoutTrashed()
  */
 class Content extends BaseModule
 {
