@@ -57,7 +57,6 @@
                 <td>{{$applicationData->payment_verified}}</td>
                 <td>{{$applicationData->document_verified}}</td>
                 <td>{{$applicationData->accepted}}</td>
-
             </tr>
         @endforeach
 

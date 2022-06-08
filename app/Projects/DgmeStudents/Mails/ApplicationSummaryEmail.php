@@ -40,4 +40,18 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
             ->view('projects.dgme-students.emails.foreign-applications.admin-updates')
             ->with(['data' => $data]);
     }
+
+    /**
+     * List of default recipients for this email
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    public static function recipients()
+    {
+        if (\App::environment(['production'])) {
+            return project_config('admin_update_emails');
+        }
+        return project_config('dev_emails') ?: [];
+    }
+
 }

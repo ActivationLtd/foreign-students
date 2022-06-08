@@ -42,6 +42,11 @@ return [
     |--------------------------------------------------------------------------
     |
     */
+    'dev_emails' => [
+        'devs@activationltd.com',
+        'raihan.act@gmail.com',
+        'sanjidhabib@gmail.com',
+    ],
     'admin_update_emails' => [
         'raihan.act@gmail.com',
         'sanjidhabib@gmail.com',
@@ -51,7 +56,7 @@ return [
         'amirulmorshed@gmail.com',
         'kaziafzalrahman@yahoo.com',
         'rahmanmasud01@gmail.com',
-        // 'rifatshara@gmail.com',
+        'rifatshara@gmail.com',
     ],
 
 ];
