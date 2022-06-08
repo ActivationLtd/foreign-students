@@ -1,6 +1,24 @@
+@font-face {
+    font-family: "solaiman-lipi";
+    src: url("fonts/solaiman-lipi.ttf");
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("fonts/Inter-Regular.ttf");
+}
+
+body, html, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
+.content-header h4,
+.main-header, input, textarea {
+    font-family: "solaiman-lipi", "Inter", "Roboto", "Arial", sans-serif;
+!important;
+    color: #333;
+
+}
+
 body {
     margin: 0;
-    font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: inherit;
     line-height: 1.5;

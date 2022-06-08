@@ -1,5 +1,13 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Laravel mPDF configuration file
+|--------------------------------------------------------------------------
+| https://github.com/mccarlosen/laravel-mpdf
+|
+*/
+
 return [
 
     'mode' => 'utf-8',
@@ -13,7 +21,7 @@ return [
     'margin_header' => 0,
     'margin_footer' => 0,
     'orientation' => 'P',
-    'title' =>env('APP_NAME'),
+    'title' => env('APP_NAME'),
     'author' => env('APP_NAME'),
     'watermark' => '',
     'show_watermark' => false,
@@ -21,29 +29,13 @@ return [
     'display_mode' => 'fullpage',
     'defaultCSS ' => '',
     'watermark_text_alpha' => 0.1,
-    'custom_font_dir' => base_path('storage/fonts/'), // don't forget the trailing slash!
+    'custom_font_dir' => base_path('storage/fonts'), // don't forget the trailing slash!
     'custom_font_data' => [
-        'SolaimanLipi' => [
-            'R' => 'SolaimanLipi.ttf',    // regular font
-            'B' => 'SolaimanLipi_Bold_10-03-12.ttf',       // optional: bold font
+        'solaiman-lipi' => [
+            'R' => 'solaiman-lipi.ttf',             // regular font
+            // 'B' => 'solaiman-lipi.ttf',          // optional: bold font
             //'I'  => 'ExampleFont-Italic.ttf',     // optional: italic font
             //'BI' => 'ExampleFont-Bold-Italic.ttf' // optional: bold-italic font
-            'useOTL' => 0xFF,
-        ],
-        'Nikosh' => [
-            'R' => 'Nikosh.ttf',    // regular font
-            'useOTL' => 0xFF,
-        ],
-        'kalpurush' => [
-            'R' => 'kalpurush.ttf',    // regular font
-            'useOTL' => 0xFF,
-        ],
-        'NikoshBAN' => [
-            'R' => 'NikoshBAN.ttf',    // regular font
-            'useOTL' => 0xFF,
-        ],
-        'NikoshLight' => [
-            'R' => 'NikoshLight.ttf',    // regular font
             'useOTL' => 0xFF,
         ],
         // ...add as many as you want.
