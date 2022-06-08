@@ -15,21 +15,21 @@
     <table class="table" style="width: 100%">
         <tr>
             <td style="width: 25%"><b>Session</b></td>
-            <td style="width: 25%">2021-22</td>
+            <td style="width: 25%">{{$data['session']->name}}</td>
             <td style="width: 25%"><b>Status</b></td>
-            <td style="width: 25%">Closed</td>
+            <td style="width: 25%">{{$data['session']->status}}</td>
         </tr>
         <tr>
             <td><b>Start Date</b></td>
-            <td>12/12/12</td>
+            <td>{{formatDate($data['session']->starts_on)}}</td>
             <td><b>End Date</b></td>
-            <td>12/12/12</td>
+            <td>{{formatDate($data['session']->ends_on)}}</td>
         </tr>
         <tr>
             <td><b>Selection Completed?</b></td>
-            <td>Yes</td>
+            <td>{{($data['session']->selection_completed)}}</td>
             <td><b>Admission Completed?</b></td>
-            <td>No</td>
+            <td>{{($data['session']->admission_completed)}}</td>
         </tr>
     </table>
 
@@ -39,60 +39,29 @@
         <thead>
         <tr class="row-border-bottom">
             <td style="width: 25%"><b>Country</b></td>
-            <td><b>Male</b></td>
-            <td><b>Female</b></td>
+{{--            <td><b>Male</b></td>--}}
+{{--            <td><b>Female</b></td>--}}
             <td><b>Total</b></td>
             <td><b>Payment <br/>Verified</b></td>
             <td><b>Document <br/>Verified</b></td>
+            <td><b>Valid</b></td>
             <td><b>Accepted</b></td>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>India</td>
-            <td>23</td>
-            <td>24</td>
-            <td>47</td>
-            <td>4</td>
-            <td>4</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>India</td>
-            <td>23</td>
-            <td>24</td>
-            <td>47</td>
-            <td>4</td>
-            <td>4</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>India</td>
-            <td>23</td>
-            <td>24</td>
-            <td>47</td>
-            <td>4</td>
-            <td>4</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>India</td>
-            <td>23</td>
-            <td>24</td>
-            <td>47</td>
-            <td>4</td>
-            <td>4</td>
-            <td>4</td>
-        </tr>
-        <tr class="row-total">
-            <td><b>Total</b></td>
-            <td><b>99</b></td>
-            <td><b>99</b></td>
-            <td><b>99</b></td>
-            <td><b>99</b></td>
-            <td><b>99</b></td>
-            <td><b>99</b></td>
-        </tr>
+        @foreach($data['applications'] as $applicationData)
+            <tr>
+                <td>{{$applicationData->country}}</td>
+{{--                <td>23</td>--}}
+{{--                <td>24</td>--}}
+                <td>{{$applicationData->total}}</td>
+                <td>{{$applicationData->payment_verified}}</td>
+                <td>{{$applicationData->document_verified}}</td>
+                <td>{{$applicationData->valid_application}}</td>
+                <td>{{$applicationData->accepted}}</td>
+            </tr>
+        @endforeach
+
         </tbody>
     </table>
 

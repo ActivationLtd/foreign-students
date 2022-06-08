@@ -39,6 +39,7 @@ $scriptPaths = [
     // 'mainframe/templates/admin/plugins/ionslider/ion.rangeSlider.min.js',
     // 'mainframe/templates/admin/plugins/bootstrap-slider/bootstrap-slider.js',
     'mainframe/js/plugins/datatables.1.10.2/dataTables.buttons.min.js',
+    'mainframe/js/plugins/idle-timer.min.js',
     'mainframe/js/vue.min.js',
     'mainframe/js/axios.min.js',
     'mainframe/js/lodash.js',
@@ -79,7 +80,7 @@ $scriptPaths = array_merge($scriptPaths, mf_config('load.js'));
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 <script>
-    @if(env('APP_ENV')!='production')
+    @if(config('app.env')!='production')
         Vue.config.devtools = true;
     @endif
 </script>

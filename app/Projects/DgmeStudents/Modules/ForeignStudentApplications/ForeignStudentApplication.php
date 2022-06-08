@@ -132,6 +132,21 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Query\Builder|ForeignStudentApplication withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ForeignStudentApplication withoutTrashed()
  * @mixin \Eloquent
+ * @property int $is_valid
+ * @property int|null $is_payment_verified
+ * @property int|null $is_document_verified
+ * @property int|null $application_session_id
+ * @property string|null $application_session_name
+ * @property string|null $remarks
+ * @property string|null $slug
+ * @property-read \App\ApplicationSession|null $applicationSession
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereApplicationSessionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereApplicationSessionName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereIsDocumentVerified($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereIsPaymentVerified($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereIsValid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereRemarks($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ForeignStudentApplication whereSlug($value)
  */
 class ForeignStudentApplication extends BaseModule
 {
@@ -205,6 +220,7 @@ class ForeignStudentApplication extends BaseModule
         'remarks',
         //'application_session_name',
         //'submitted_at',
+        'is_valid',
         'is_payment_verified',
         'is_document_verified',
         'payment_transaction_id',
@@ -212,10 +228,11 @@ class ForeignStudentApplication extends BaseModule
     ];
 
     // protected $guarded = [];
-    // protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at','submitted_at','dob'];
     // protected $casts = [];
     // protected $with = [];
     // protected $appends = [];
+
 
     /*
     |--------------------------------------------------------------------------

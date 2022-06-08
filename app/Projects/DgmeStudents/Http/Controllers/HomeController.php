@@ -26,16 +26,16 @@ class HomeController extends BaseController
     public function index()
     {
         if ($this->user->isAdmin() || $this->user->isSuperUser()) {
-            $this->view('projects.dgme-students.dashboards.admin');
-            $adminData = (new AdminDataBlock)->data();
+            $this->view('projects.dgme-students.dashboards.admin.index');
+            $adminData = (new AdminDataBlock)->get();
 
             return $this->response()
                 ->setViewVars(['adminData' => $adminData])
                 ->send();
         }
         if ($this->user->isApplicant()) {
-            $this->view('projects.dgme-students.dashboards.applicant');
-            $applicantData = (new ApplicantDataBlock)->data();
+            $this->view('projects.dgme-students.dashboards.applicant.index');
+            $applicantData = (new ApplicantDataBlock)->get();
 
             return $this->response()
                 ->setViewVars(['applicantData' => $applicantData])

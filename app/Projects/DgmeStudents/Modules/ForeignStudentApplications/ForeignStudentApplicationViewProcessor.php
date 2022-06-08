@@ -59,19 +59,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
     public function showExaminationCreateButton(): bool
     {
-        // if ($this->user->isAdmin()) {
-        //     return true;
-        // }
-        if ($this->user->isApplicant()) {
-            if ($this->element->status == 'Submitted' && Time::differenceInHours($this->element->submitted_at, now()) >= 24) {
-                return false;
-            }
-            if (!ApplicationSession::latestOpenSession()) {
-                return false;
-            }
-        }
-
-        return true;
+        return ($this->user->can('update', $this->element));
     }
 
     /**
@@ -87,8 +75,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
      */
     public function showSubmitButton(): bool
     {
-
-        return ($this->user->isApplicant() && $this->element->status == \App\ForeignStudentApplication::STATUS_DRAFT && ApplicationSession::latestOpenSession());
+        return $this->element->canBeSubmitted();
     }
 
     /**
@@ -98,6 +85,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     {
         return ($this->user->isAdmin());
     }
+
     /**
      * @return bool
      */
@@ -105,6 +93,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     {
         return ($this->user->isAdmin());
     }
+
     /**
      * @return bool
      */
@@ -112,7 +101,6 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     {
         return ($this->user->isAdmin() && $this->element->id);
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|mixed|null
@@ -145,6 +133,7 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 
         return (isset($element->id));
     }
+
     /*
     |--------------------------------------------------------------------------
     | Section: Report related view helpers

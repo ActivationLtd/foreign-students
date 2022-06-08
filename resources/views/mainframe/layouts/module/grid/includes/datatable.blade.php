@@ -13,7 +13,7 @@ $ajaxUrl = $datatable->ajaxUrl();
 $datatableName = $datatable->name();
 ?>
 
-<div class="{{$datatableName}}-container datatable-container">
+<div class="{{$datatableName}}-container datatable-container table-responsive">
     <table id="{{$datatableName}}" class="table module-grid table-condensed {{$datatableName}} dataTable table-hover"
            style="width: 100%">
         <thead>
