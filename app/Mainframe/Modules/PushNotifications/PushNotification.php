@@ -83,6 +83,10 @@ use App\Mainframe\Modules\PushNotifications\Traits\PushNotificationTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PushNotification whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|PushNotification onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PushNotification withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|PushNotification withoutTrashed()
  */
 class PushNotification extends BaseModule
 {

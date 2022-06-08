@@ -85,6 +85,8 @@ use App\Mainframe\Modules\Countries\Traits\CountryTrait;
  * @method static \Illuminate\Database\Query\Builder|Country onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Country withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Country withoutTrashed()
+ * @property int|null $is_saarc
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereIsSaarc($value)
  */
 class Country extends BaseModule
 {

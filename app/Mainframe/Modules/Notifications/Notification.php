@@ -68,6 +68,10 @@ use App\Mainframe\Modules\Notifications\Traits\NotificationTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Notification onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Notification withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Notification withoutTrashed()
  */
 class Notification extends BaseModule
 {

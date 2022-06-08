@@ -62,14 +62,17 @@ trait ForeignStudentApplicationProcessorHelper
     }
 
     /**
+     * to check duplicate application can not be submitted
      * @return $this
      */
-    public function checkCourseAndType()
+    public function checkCourseSessionAndType(): static
     {
         $element = $this->element;
-        $existingOngoingApplicationForCourseCount = $this->user->applications()->where('id', '!=', $element->id)
-            ->where('course_id', $element->course_id)
-            ->where('application_category', $element->application_category)
+        $existingOngoingApplicationForCourseCount = $this->user->applications()
+            ->where('id', '!=', $element->id)
+            ->where('course_id', $element->course_id) //checking course
+            ->where('application_category', $element->application_category) //checking category
+            ->where('application_session_id', $element->application_session_id) //checking session
             ->whereNotIn('status', ['Declined'])
             ->count();
         if ($existingOngoingApplicationForCourseCount) {
@@ -78,15 +81,16 @@ trait ForeignStudentApplicationProcessorHelper
 
         return $this; // Return the same object for validation method chaining
     }
+
     /**
      * @return $this
      */
-    public function setCheckBoxValueToZero()
+    public function setCheckBoxValueToZero(): static
     {
         $element = $this->element;
-        $element->is_payment_verified=($element->is_payment_verified)?1:0;
-        $element->is_document_verified=($element->is_document_verified)?1:0;
-        $element->is_valid=($element->is_valid)?1:0;
+        $element->is_payment_verified = ($element->is_payment_verified) ? 1 : 0;
+        $element->is_document_verified = ($element->is_document_verified) ? 1 : 0;
+        $element->is_valid = ($element->is_valid) ? 1 : 0;
 
         return $this; // Return the same object for validation method chaining
     }
@@ -94,7 +98,7 @@ trait ForeignStudentApplicationProcessorHelper
     /**
      * @return $this
      */
-    public function checkSAARCCountry()
+    public function checkSAARCCountry(): static
     {
         $element = $this->element;
         if ($element->is_saarc == 1 && $element->domicileCountry->is_saarc != 1) {
