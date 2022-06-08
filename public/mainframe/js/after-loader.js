@@ -148,12 +148,18 @@ autosize(document.querySelectorAll('textarea'));
 initJsonTextarea();
 
 
-// Enable sortable
+/*
+|--------------------------------------------------------------------------
+| Enable sortable list
+|--------------------------------------------------------------------------
+*/
 $('.sortable').sortable();
+
 
 /*
 |--------------------------------------------------------------------------
-| Show red required mark
+| Add required mark in labels
 |--------------------------------------------------------------------------
 */
 showRequiredIcons();
+

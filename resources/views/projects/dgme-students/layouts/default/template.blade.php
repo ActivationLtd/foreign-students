@@ -108,6 +108,8 @@
 @include('mainframe.layouts.default.includes.js')
 
 @section('js')
+
 @show
+<script src="{{asset('mainframe/js/after-loader.js')}}"></script>
 </body>
 </html>

@@ -29,7 +29,10 @@ function enableValidation(form_name, successHandlerFunction = false, failHandler
         // If all frontend validations are ok then only ajax validation will execute
         form.validationEngine('hideAll');
         $.ajax({
-            datatype: 'json', method: "POST", url: form.attr('action'), data: form.serialize()
+            datatype: 'json',
+            method: "POST",
+            url: form.attr('action'),
+            data: form.serialize()
         }).done(function (response) {
 
             response = parseJson(response); // Just in case of exception
@@ -213,6 +216,6 @@ function showRequiredIcons() {
         var e = $(collection[i]);
         var name = e.attr('name');
         var label_for = name;
-        e.siblings('label[for=' + label_for + ']').append('<span class=\'text-red\'>*</span>');
+        e.siblings('label[for=' + label_for + ']').append('<span class=\'requried text-red\'>*</span>');
     }
 }
