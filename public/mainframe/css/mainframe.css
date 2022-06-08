@@ -1046,3 +1046,9 @@ ul.quick-module-list li {
     border-bottom-left-radius: 6px;
     background: transparent;
 }
+
+label.required::after {
+    font-weight: bold;
+    color: red;
+    content: "* ";
+}

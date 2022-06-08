@@ -3,6 +3,8 @@
  */
 function enableValidation(form_name, successHandlerFunction = false, failHandlerFunction = false) {
 
+    showRequiredIcons();
+
     var form = $('form[name=' + form_name + '] ');
     var btn = form.find(' button[type=submit]');
 
@@ -216,6 +218,7 @@ function showRequiredIcons() {
         var e = $(collection[i]);
         var name = e.attr('name');
         var label_for = name;
-        e.siblings('label[for=' + label_for + ']').append('<span class=\'requried text-red\'>*</span>');
+        e.siblings('label[for=' + label_for + ']').addClass('required');
+
     }
 }

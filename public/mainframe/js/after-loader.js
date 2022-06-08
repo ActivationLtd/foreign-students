@@ -23,8 +23,7 @@ $('.popup').click(function () {
 
     var height = 600;
     var width = 800;
-    var NWin = window.open($(this).prop('href'), ''
-        , 'scrollbars=1,height=' + height + ',width=' + width);
+    var NWin = window.open($(this).prop('href'), '', 'scrollbars=1,height=' + height + ',width=' + width);
     if (window.focus) {
         NWin.focus();
     }
@@ -49,13 +48,9 @@ $('[data-toggle="popover"]').popover();
 |
 |
 */
-$('.datepicker').datepicker(
-    {
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        clearBtn: true
-    }
-);
+$('.datepicker').datepicker({
+    format: 'yyyy-mm-dd', autoclose: true, clearBtn: true
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -91,13 +86,8 @@ $('slimscroll').each((i, el) => {
 |
 */
 $('.datatable-min').dataTable({
-    "bPagination": false,
-    "bFilter": false,
-    //"bPaginate": false,
-    "bLengthChange": false,
-    "bInfo": false,
-    "bPageLength": 10,
-    "aaSorting": [[0, "asc"]]
+    "bPagination": false, "bFilter": false, //"bPaginate": false,
+    "bLengthChange": false, "bInfo": false, "bPageLength": 10, "aaSorting": [[0, "asc"]]
 });
 
 $('.datatable-min-no-pagination').dataTable({
@@ -127,8 +117,7 @@ $('.select2').select2(); // Causes issue with vue
 |
 */
 $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass: 'iradio_minimal-blue'
+    checkboxClass: 'icheckbox_minimal-blue', radioClass: 'iradio_minimal-blue'
 });
 
 // init mainframe checkbox with checked_val and unchecked_val
@@ -154,12 +143,3 @@ initJsonTextarea();
 |--------------------------------------------------------------------------
 */
 $('.sortable').sortable();
-
-
-/*
-|--------------------------------------------------------------------------
-| Add required mark in labels
-|--------------------------------------------------------------------------
-*/
-showRequiredIcons();
-

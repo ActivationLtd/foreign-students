@@ -94,7 +94,7 @@ class CreateSuperHeroesTable extends Migration
             Artisan::call($command);
         }
 
-        // if (env('APP_ENV') == 'local') {
+        // if (config('app.env') == 'local') {
         //     Artisan::call('ide-helper:model -W');
         // }
 

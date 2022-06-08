@@ -102,6 +102,7 @@
 @include('mainframe.layouts.default.includes.js')
 
 @section('js')
+    {{-- section: js--}}
 @show
 </body>
 </html>
