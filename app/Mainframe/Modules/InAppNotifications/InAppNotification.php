@@ -99,10 +99,6 @@ use App\Mainframe\Modules\InAppNotifications\Traits\InAppNotificationTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|InAppNotification whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|InAppNotification onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|InAppNotification withTrashed()
- * @method static \Illuminate\Database\Query\Builder|InAppNotification withoutTrashed()
  */
 class InAppNotification extends BaseModule
 {

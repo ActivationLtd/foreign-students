@@ -33,13 +33,13 @@ $statuses = ForeignStudentApplication::$statuses;
     <div class="{{$datatableName}}-container datatable-container">
         @if($view->showApplicationFilter())
             <div class="filters col-md-12 no-padding">
-                @include('form.text',['var'=>['name'=>'created_at_from','label'=>'Created(from)', 'div'=>'col-md-3']])
-                @include('form.text',['var'=>['name'=>'created_at_till','label'=>'Created(till)', 'div'=>'col-md-3']])
+                {{-- @include('form.text',['var'=>['name'=>'created_at_from','label'=>'Created(from)', 'div'=>'col-md-2']])--}}
+                {{-- @include('form.text',['var'=>['name'=>'created_at_till','label'=>'Created(till)', 'div'=>'col-md-2']])--}}
                 <?php
                 $var = [
                     'name' => 'application_session_id',
                     'label' => 'Session',
-                    'div' => 'col-sm-3',
+                    'div' => 'col-md-2',
                     'null_option' => true,
                     'model' => \App\ApplicationSession::class,
                     'show_inactive' => true
@@ -47,20 +47,20 @@ $statuses = ForeignStudentApplication::$statuses;
                 ?>
                 @include('form.select-model',['var'=>$var])
 
-                @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-3']])
-                @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
-                @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
+                @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-2']])
+                @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-2']])
+                @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>$yesNoOptions,'div'=>'col-md-2']])
 
 
-                @include('form.select-array-multiple',['var'=>['name'=>'financing_modes','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-3']])
-                @include('form.select-model-multiple',['var'=>['name'=>'domicile_country_ids','label'=>'Domicile Country','table'=>'countries', 'div'=>'col-md-3']])
-                @include('form.select-model-multiple',['var'=>['name'=>'dob_country_ids','label'=>'DOB Country','table'=>'countries', 'div'=>'col-md-3']])
+                @include('form.select-array-multiple',['var'=>['name'=>'financing_modes','label'=>'Financing', 'options'=>kv($fundingModes), 'div'=>'col-md-2']])
+                @include('form.select-model-multiple',['var'=>['name'=>'domicile_country_ids','label'=>'Domicile Country','table'=>'countries', 'div'=>'col-md-2']])
+                @include('form.select-model-multiple',['var'=>['name'=>'dob_country_ids','label'=>'DOB Country','table'=>'countries', 'div'=>'col-md-2']])
 
 
-                @include('form.select-array-multiple',['var'=>['name'=>'statuses','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-3']])
-                @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
-                @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
-                @include('form.select-array',['var'=>['name'=>'is_valid','label'=>'Valid Application?', 'options'=>$yesNoOptions,'div'=>'col-md-3']])
+                @include('form.select-array-multiple',['var'=>['name'=>'statuses','label'=>'Status', 'options'=>kv($statuses),'div'=>'col-md-2']])
+                @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-2']])
+                @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>$yesNoOptions,'div'=>'col-md-2']])
+                @include('form.select-array',['var'=>['name'=>'is_valid','label'=>'Valid Application?', 'options'=>$yesNoOptions,'div'=>'col-md-2']])
             </div>
         @endif
         <table id="{{$datatableName}}"

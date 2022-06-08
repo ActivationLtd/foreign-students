@@ -44,6 +44,7 @@
             <td><b>Total</b></td>
             <td><b>Payment <br/>Verified</b></td>
             <td><b>Document <br/>Verified</b></td>
+            <td><b>Valid</b></td>
             <td><b>Accepted</b></td>
         </tr>
         </thead>
@@ -56,8 +57,8 @@
                 <td>{{$applicationData->total}}</td>
                 <td>{{$applicationData->payment_verified}}</td>
                 <td>{{$applicationData->document_verified}}</td>
+                <td>{{$applicationData->valid_application}}</td>
                 <td>{{$applicationData->accepted}}</td>
-
             </tr>
         @endforeach
 

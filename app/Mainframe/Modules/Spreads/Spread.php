@@ -72,10 +72,6 @@ use App\Mainframe\Modules\Spreads\Traits\SpreadTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Spread whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Spread whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|Spread onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Spread withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Spread withoutTrashed()
  */
 class Spread extends BaseModule
 {

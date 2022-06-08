@@ -71,10 +71,6 @@ use App\Mainframe\Modules\ModuleGroups\Traits\ModuleGroupTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ModuleGroup whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|ModuleGroup onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|ModuleGroup withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ModuleGroup withoutTrashed()
  */
 class ModuleGroup extends BaseModule
 {

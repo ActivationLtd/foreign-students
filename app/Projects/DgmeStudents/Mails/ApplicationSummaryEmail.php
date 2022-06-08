@@ -28,8 +28,9 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
             ->select('domicile_country_name as country', DB::raw('count(*) as total'),
                 DB::raw('count(case when is_payment_verified = 1 then 1 end) as payment_verified'),
                 DB::raw('count(case when is_document_verified = 1 then 1 end) as document_verified'),
+                DB::raw('count(case when is_valid = 1 then 1 end) as valid_application'),
                 DB::raw('count(case when `status` ="'.ForeignStudentApplication::STATUS_ACCEPTED.'" then 1 end) as accepted'),
-            )->get();
+            )->orderBy('total','desc')->get();
 
         $data = [
             'applications' => $applicationsData,
@@ -40,4 +41,18 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
             ->view('projects.dgme-students.emails.foreign-applications.admin-updates')
             ->with(['data' => $data]);
     }
+
+    /**
+     * List of default recipients for this email
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    public static function recipients()
+    {
+        if (\App::environment(['production'])) {
+            return project_config('admin_update_emails');
+        }
+        return project_config('dev_emails') ?: [];
+    }
+
 }

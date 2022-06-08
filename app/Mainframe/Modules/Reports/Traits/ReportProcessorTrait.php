@@ -87,9 +87,11 @@ trait ReportProcessorTrait
      */
     public function setTenantEditable()
     {
-        $this->element->is_tenant_editable = 0;
-        if ($this->user->ofTenant() && $this->element->hasColumn('is_tenant_editable')) {
-            $this->element->is_tenant_editable = 1;
+        if ($this->element->hasColumn('is_tenant_editable')) {
+            $this->element->is_tenant_editable = 0;
+            if ($this->user->ofTenant()) {
+                $this->element->is_tenant_editable = 1;
+            }
         }
 
         return $this;

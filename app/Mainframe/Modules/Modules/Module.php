@@ -93,10 +93,6 @@ use App\Mainframe\Features\Modular\BaseModule\BaseModule;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Module whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|Module onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Module withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Module withoutTrashed()
  */
 class Module extends BaseModule
 {

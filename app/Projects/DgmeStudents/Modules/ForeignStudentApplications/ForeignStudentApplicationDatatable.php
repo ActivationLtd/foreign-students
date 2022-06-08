@@ -13,6 +13,22 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
 
     public $moduleName = 'foreign-student-applications';
     public $booleans = ['is_saarc','is_valid','is_payment_verified','is_document_verified'];
+    public $dates = ['created_at','submitted_at'];
+
+    public $transforms = [
+        'is_valid'=>[
+            '1' => '<span class="badge bg-green">Yes</span>',
+            '0' => '<span class="badge bg-red">No</span>',
+        ],
+        'is_payment_verified'=>[
+            '1' => '<span class="badge bg-green">Yes</span>',
+            '0' => '<span class="badge bg-red">No</span>',
+        ],
+        'is_document_verified'=>[
+            '1' => '<span class="badge bg-green">Yes</span>',
+            '0' => '<span class="badge bg-red">No</span>',
+        ],
+    ];
 
 
     /*---------------------------------
@@ -38,11 +54,11 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         return [
             // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
-            [$this->table.'.applicant_name', 'applicant_name', 'Name'],
+            [$this->table.'.applicant_name', 'applicant_name', '<span class="pull-left" style="width:150px">Name</span>'],
             [$this->table.'.domicile_country_name', 'domicile_country_name', 'Domicile Country'],
             [$this->table.'.applicant_passport_no', 'applicant_passport_no', 'Passport No'],
             [$this->table.'.application_category', 'application_category', 'Category'],
-            [$this->table.'.is_saarc', 'is_saarc', 'Saarc Country'],
+            [$this->table.'.is_saarc', 'is_saarc', 'Saarc'],
             [$this->table.'.application_session_name', 'application_session_name', 'Session'],
             [$this->table.'.course_name', 'course_name', 'Course'],
             [$this->table.'.is_valid', 'is_valid', 'Valid'],
@@ -50,9 +66,10 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
             [$this->table.'.is_document_verified', 'is_document_verified', 'Document Verified'],
             [$this->table.'.status', 'status', 'Status'],
             [$this->table.'.created_at', 'created_at', 'Created at'],
-            [$this->table.'.updated_at', 'updated_at', 'Updated at'],
-            [$this->table.'.updated_by', 'updated_by', 'Updater'],
-            [$this->table.'.is_active', 'is_active', 'Active'],
+            [$this->table.'.submitted_at', 'submitted_at', 'Submitted at'],
+            // [$this->table.'.updated_at', 'updated_at', 'Updated at'],
+            // [$this->table.'.updated_by', 'updated_by', 'Updater'],
+            // [$this->table.'.is_active', 'is_active', 'Active'],
         ];
     }
 

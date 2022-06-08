@@ -63,10 +63,6 @@ use App\Mainframe\Modules\Tenants\Traits\TenantTrait;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tenant whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
- * @method static \Illuminate\Database\Query\Builder|Tenant onlyTrashed()
- * @method static \Illuminate\Database\Query\Builder|Tenant withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Tenant withoutTrashed()
  */
 class Tenant extends BaseModule
 {
