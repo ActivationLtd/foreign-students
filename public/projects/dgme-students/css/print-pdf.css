@@ -89,8 +89,7 @@ th {
 
 .container {
     width: 760px;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding: 30px;
     margin-right: auto;
     margin-left: auto
 }
