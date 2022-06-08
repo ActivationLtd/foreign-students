@@ -3,8 +3,6 @@
  */
 function enableValidation(form_name, successHandlerFunction = false, failHandlerFunction = false) {
 
-    showRequiredIcons();
-
     var form = $('form[name=' + form_name + '] ');
     var btn = form.find(' button[type=submit]');
 
@@ -31,10 +29,7 @@ function enableValidation(form_name, successHandlerFunction = false, failHandler
         // If all frontend validations are ok then only ajax validation will execute
         form.validationEngine('hideAll');
         $.ajax({
-            datatype: 'json',
-            method: "POST",
-            url: form.attr('action'),
-            data: form.serialize()
+            datatype: 'json', method: "POST", url: form.attr('action'), data: form.serialize()
         }).done(function (response) {
 
             response = parseJson(response); // Just in case of exception
