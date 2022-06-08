@@ -1,13 +1,16 @@
 body {
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
+    font-family: "Inter", sans-serif;
     font-style: normal;
-    font-size: 0.9em;
     font-weight: inherit;
     line-height: 1.5;
     color: #000000;
     text-align: left;
     background-color: #fff
+}
+
+body, table, tr, th, td, thead, tbody {
+    font-size: 14px !important;
 }
 
 @page {
@@ -22,7 +25,6 @@ hr {
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, .3)
 }
-
 
 a {
     color: #0056b3;
@@ -86,7 +88,7 @@ th {
 }
 
 .container {
-    width: 95%;
+    width: 760px;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -104,3 +106,10 @@ th {
     vertical-align: top;
     border: 1px solid #f3f3f3;
 }
+
+@media print {
+    #printPageButton {
+        display: none;
+    }
+}
+

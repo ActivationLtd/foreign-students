@@ -2,10 +2,8 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
-use App\Projects\DgmeStudents\Features\Core\ViewProcessor;
 use App\Projects\DgmeStudents\Features\Modular\ModularController\ModularController;
 use App\Projects\DgmeStudents\Features\Report\ModuleList;
-use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor;
 use PDF;
 
 /**
@@ -112,14 +110,15 @@ class ForeignStudentApplicationController extends ModularController
         }
         $contentQrCode = "Application ID: ".$foreignStudentApplication->id."\nApplication UUID: ".$foreignStudentApplication->uuid."\nURL: ".route('foreign-student-applications.edit',
                 $foreignStudentApplication->id);
-        $fileName = "Application No- ". $foreignStudentApplication->id.".pdf";
+        $fileName = "Application No- ".$foreignStudentApplication->id.".pdf";
         $data = [
             'application' => $foreignStudentApplication,
             'content' => $contentQrCode,
+            'render' => 'pdf',
         ];
         // $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.pdf', $data);
 
-        $pdf=PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
+        $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
         //for view
         //return $pdf->stream($fileName);
         //for download

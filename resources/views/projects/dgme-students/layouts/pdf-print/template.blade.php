@@ -1,13 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<?php
+$render = $render ?? 'print'
+?>
+
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-
-        <link rel="stylesheet" href="{{asset('mainframe/templates/admin/bootstrap/css/bootstrap.min.css')}}" type="text/css"/>
-        <link rel="stylesheet" href="{{asset('projects/dgme-students/css/print-pdf.css')}}" type="text/css"/>
+    <link rel="stylesheet" href="{{asset('mainframe/templates/admin/bootstrap/css/bootstrap.min.css')}}"
+          type="text/css"/>
+    <link rel="stylesheet" href="{{asset('projects/dgme-students/css/print-pdf.css')}}" type="text/css"/>
     <title>
         @section('head-title')
             {{setting('app-name')}}
@@ -16,34 +19,12 @@
 
     @section('head')
     @show
-
-    @section('css')
-        <style type="text/css">
-            table {
-                border-collapse: collapse;
-            }
-            table td {
-                padding: 0px 5px;
-
-            }
-            @media print {
-                #printPageButton {
-                    display: none;
-                }
-            }
-
-            table, tr, th, td, thead, tbody {
-                font-size: 14px !important;
-            }
-        </style>
-    @show
-    @include('projects.dgme-students.layouts.default.includes.analytics')
 </head>
 <body>
 <div class="container">
-    <div class="row" >
+    @if($render == 'print')
         @include('mainframe.layouts.default.includes.print-btn')
-    </div>
+    @endif
     <div class="row">
         <div class="col-md-12" align="center">
             <div class="header-line-up"></div>
@@ -51,7 +32,7 @@
                 <tr>
                     <td>
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
-                             style="width: 120px; float: right; padding-right: 15px" alt="">
+                             style="width: 113px; float: right; padding-right: 15px" alt="">
                     </td>
                     <td align="center">
                         <h2 style="text-align: center">{{__('common.agency_full_name')}}</h2>

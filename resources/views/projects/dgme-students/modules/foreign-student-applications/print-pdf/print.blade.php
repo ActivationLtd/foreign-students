@@ -1,19 +1,7 @@
 @extends('projects.dgme-students.layouts.pdf-print.template')
 
-@section('css')
-    @parent
-
-    <style type="text/css">
-        .container {width: 800px}
-
-    </style>
-@endsection
-
 @section('content')
-
     <h3>Summary of Foreign Student Application</h3>
-{{--    <h3 style="font-family:'kalpurush'">ফরেন এপ্লিকেশন</h3>--}}
-
     <table class="table table-bordered no-padding">
         <tr>
             <td style="width: 50%">
@@ -28,13 +16,10 @@
                          alt="{{$content}}" width="100px" height="100px"/>
                 </div>
             </td>
-
         </tr>
-
         <tr>
             <td>Name of the course for which Admission is sought</td>
             <td>{{$application->course_name}}</td>
-
         </tr>
         <tr>
             <td>Application ID</td>
@@ -72,7 +57,6 @@
             <td>Emergency Contact Name (Domicile)</td>
             <td>{{$application->emergency_contact_domicile_name}}</td>
         </tr>
-
     </table>
 @endsection
 @section('content-bottom')
