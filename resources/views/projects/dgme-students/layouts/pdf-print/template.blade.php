@@ -32,7 +32,7 @@ $render = $render ?? 'print'
                 <tr>
                     <td>
                         <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
-                             style="width: 113px; float: right; padding-right: 15px" alt="">
+                             style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
                     <td align="center">
                         <h2 style="text-align: center">{{__('common.agency_full_name')}}</h2>
@@ -40,7 +40,7 @@ $render = $render ?? 'print'
                     </td>
                     <td>
                         <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
-                             style="margin-top: 2%; border:none!important;width: 120px;" alt="">
+                             style="width: 120px; float: left; padding-right: 15px" alt="">
                     </td>
                 </tr>
             </table>
