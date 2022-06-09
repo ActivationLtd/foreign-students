@@ -59,6 +59,10 @@ use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModule;
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereValidFrom($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereValidTill($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Subscription onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Subscription withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Subscription withoutTrashed()
  */
 class Subscription extends BaseModule
 {

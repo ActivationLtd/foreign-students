@@ -69,7 +69,9 @@ $statuses = ForeignStudentApplication::$statuses;
                 <div class="clearfix"></div>
                 @include('form.select-array',['var'=>['name'=>'is_payment_verified','label'=>'Payment Verified?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
                 @include('form.select-array',['var'=>['name'=>'is_document_verified','label'=>'Document Verified?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+                @include('form.select-array',['var'=>['name'=>'is_valid','label'=>'Valid Application?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
                 @include('form.date',['var'=>['name'=>'created_at_from','label'=>'Created(from)', 'div'=>'col-md-3']])
+                <div class="clearfix"></div>
                 @include('form.date',['var'=>['name'=>'created_at_till','label'=>'Created(till)', 'div'=>'col-md-3']])
 
             </div>

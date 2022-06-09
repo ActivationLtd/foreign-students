@@ -49,7 +49,7 @@ trait UploadTrait
     public function absPath()
     {
         if (Storage::exists($this->path)) {
-            return storage_path($this->path);
+            return Storage::path($this->path);
         }
 
         if (File::exists(public_path($this->path))) {

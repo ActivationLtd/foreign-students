@@ -63,6 +63,20 @@ class ApplicationExaminationDatatable extends Datatable
     {
         return [
             // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
+            //[$this->table.'.id', 'id', 'ID'],
+            [$this->table.'.examination_type', 'examination_type', 'Type'],
+            [$this->table.'.examination_name', 'examination_name', 'Examination'],
+            [$this->table.'.passing_year', 'passing_year', 'Passing Year'],
+            [$this->table.'.subjects', 'subjects', 'Subjects'],
+            [$this->table.'.certificate_name', 'certificate_name', 'Certificates'],
+            [$this->table.'.id', 'action', '-'],
+        ];
+    }
+
+    public function selects()
+    {
+        $columns = [
+            // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
             [$this->table.'.examination_type', 'examination_type', 'Type'],
             [$this->table.'.examination_name', 'examination_name', 'Examination'],
@@ -71,6 +85,7 @@ class ApplicationExaminationDatatable extends Datatable
             [$this->table.'.certificate_name', 'certificate_name', 'Certificates'],
             [$this->table.'.id', 'action', '-'],
         ];
+        return $this->selectQueryString($columns);
     }
 
     /**

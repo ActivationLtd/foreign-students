@@ -7,7 +7,6 @@ use Illuminate\Console\Command;
 
 class SendApplicationSummaryEmail extends Command
 {
-    // Todo : Register this command in \App\Projects\DgmeStudents\Providers\AppServiceProvider::$commands
     /**
      * The name and signature of the console command.
      *
@@ -23,16 +22,6 @@ class SendApplicationSummaryEmail extends Command
     protected $description = 'Send summary email to admins';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      * Invoice invoice
      *
@@ -40,7 +29,7 @@ class SendApplicationSummaryEmail extends Command
      */
     public function handle()
     {
-        \Mail::to(project_config('admin_update_emails'))
+        \Mail::to(ApplicationSummaryEmail::recipients())
             ->send(new ApplicationSummaryEmail());
     }
 }

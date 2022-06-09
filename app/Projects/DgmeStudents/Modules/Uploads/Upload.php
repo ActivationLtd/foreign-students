@@ -79,6 +79,10 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereNameExt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Upload whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BaseModule active()
+ * @method static \Illuminate\Database\Query\Builder|Upload onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Upload withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Upload withoutTrashed()
  */
 class Upload extends BaseModule
 {

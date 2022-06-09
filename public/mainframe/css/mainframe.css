@@ -4,6 +4,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
 
+@font-face {
+    font-family: "solaiman-lipi";
+    src: url("fonts/solaiman-lipi.ttf");
+}
+
 /***********************************************************************
 * Global font settings
 ************************************************************************/
@@ -1045,4 +1050,10 @@ ul.quick-module-list li {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     background: transparent;
+}
+
+label.required::after {
+    font-weight: bold;
+    color: red;
+    content: "* ";
 }

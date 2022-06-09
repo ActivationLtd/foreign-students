@@ -19,6 +19,7 @@ class TestController extends MfTestController
     {
         $application = \App\ForeignStudentApplication::find($id);
 
+
         return (new ApplicationStatusChange($application))
             ->toMail($application->user);
     }
@@ -54,7 +55,8 @@ class TestController extends MfTestController
     {
 
         // Section: Test mail send
-        // \Mail::to(project_config('admin_update_emails'))->send(new ApplicationSummaryEmail());
+        \Mail::to(ApplicationSummaryEmail::recipients())
+            ->send(new ApplicationSummaryEmail());
 
         // Section: Show preview
         return (new ApplicationSummaryEmail());

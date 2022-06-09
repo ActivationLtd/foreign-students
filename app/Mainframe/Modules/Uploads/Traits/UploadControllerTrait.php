@@ -194,7 +194,7 @@ trait UploadControllerTrait
      */
     public function uniqueFileName()
     {
-        return \Str::random(4)."_".$this->getFile()->getClientOriginalName();
+        return \Str::random(4)."_".urlencode($this->getFile()->getClientOriginalName());
     }
 
     /**

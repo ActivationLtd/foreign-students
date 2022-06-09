@@ -38,14 +38,27 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | List of admin emails
+    | List default email recipients
     |--------------------------------------------------------------------------
     |
     */
-    'admin_update_emails' => [
+    # Developers
+    'dev_emails' => [
+        'devs@activationltd.com',
         'raihan.act@gmail.com',
         'sanjidhabib@gmail.com',
-        // 'rifatshara@gmail.com',
+    ],
+    # Live users
+    'admin_update_emails' => [
+        'dg@dgme.gov.bd',
+        'dgmeded@gmail.com',
+        'paedeye@yahoo.com',
+        'amirulmorshed@gmail.com',
+        'kaziafzalrahman@yahoo.com',
+        'rashed.dgme@gmail.com',
+        'rahmanmasud01@gmail.com',
+        'sagor.kst2000@gmail.com',
+        'devs@activationltd.com',
     ],
 
 ];

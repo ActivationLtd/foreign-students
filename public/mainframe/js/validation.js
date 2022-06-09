@@ -218,6 +218,7 @@ function showRequiredIcons() {
         var e = $(collection[i]);
         var name = e.attr('name');
         var label_for = name;
-        e.siblings('label[for=' + label_for + ']').append('<span class=\'text-red\'>*</span>');
+        e.siblings('label[for=' + label_for + ']').addClass('required');
+
     }
 }

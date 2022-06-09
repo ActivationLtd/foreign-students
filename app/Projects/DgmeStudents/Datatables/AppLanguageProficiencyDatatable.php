@@ -66,6 +66,18 @@ class AppLanguageProficiencyDatatable extends Datatable
     {
         return [
             // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
+            //[$this->table.'.id', 'id', 'ID'],
+            [$this->table.'.language_name', 'language_name', 'Language'],
+            [$this->table.'.reading_proficiency', 'reading_proficiency', 'Reading'],
+            [$this->table.'.writing_proficiency', 'writing_proficiency', 'Writing'],
+            [$this->table.'.speaking_proficiency', 'speaking_proficiency', 'Speaking'],
+            [$this->table.'.id', 'action', '-'],
+        ];
+    }
+    public function selects()
+    {
+        $columns = [
+            // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
             [$this->table.'.language_name', 'language_name', 'Language'],
             [$this->table.'.reading_proficiency', 'reading_proficiency', 'Reading'],
@@ -73,6 +85,7 @@ class AppLanguageProficiencyDatatable extends Datatable
             [$this->table.'.speaking_proficiency', 'speaking_proficiency', 'Speaking'],
             [$this->table.'.id', 'action', '-'],
         ];
+        return $this->selectQueryString($columns);
     }
     /**
      * @param  \Yajra\DataTables\DataTableAbstract  $dt

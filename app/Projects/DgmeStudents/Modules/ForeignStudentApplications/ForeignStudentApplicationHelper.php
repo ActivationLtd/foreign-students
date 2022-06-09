@@ -2,6 +2,7 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 use App\Projects\DgmeStudents\Notifications\ForeignStudentApplication\ApplicationStatusChange;
 use Notification;
 
@@ -44,7 +45,12 @@ trait ForeignStudentApplicationHelper
     |--------------------------------------------------------------------------
     */
     // Todo: Write non-static helper functions here
-
+    public function canBeSubmitted(): bool
+    {
+        return (ApplicationSession::latestOpenSession() && $this->user->isApplicant()
+            && $this->status == \App\ForeignStudentApplication::STATUS_DRAFT
+            && ApplicationSession::latestOpenSession()->id == $this->application_session_id);
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Static helper functions
@@ -58,6 +64,32 @@ trait ForeignStudentApplicationHelper
     {
         /** @var ForeignStudentApplication $this */
         Notification::send($this->user, new ApplicationStatusChange($this));
+    }
+
+    /**
+     * Get status options based on current user
+     *
+     * @return array
+     */
+    public static function availableStatusOptions()
+    {
+        $user = user();
+
+        # Status option for applicant
+        if ($user->isApplicant()) {
+            return [
+                ForeignStudentApplication::STATUS_DRAFT,
+                ForeignStudentApplication::STATUS_SUBMITTED,
+
+            ];
+        }
+        # Status option for admin
+        if ($user->isAdmin()) {
+            return ForeignStudentApplication::$statuses;
+        }
+
+        return []; // Fallback empty array. !important to avoid code breaking
+
     }
     /*
     |--------------------------------------------------------------------------
