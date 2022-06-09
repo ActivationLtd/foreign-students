@@ -63,7 +63,7 @@ $datatable->hidden = ['applicant_name'];
 
         $(function () {
             $(document).on("idle.idleTimer", function (event, elem, obj) {
-                alert('{{_('session_expired')}}');
+                alert('@lang('session_expired')');
                 window.location.href = "{{route('get.logout')}}"
             });
         });
