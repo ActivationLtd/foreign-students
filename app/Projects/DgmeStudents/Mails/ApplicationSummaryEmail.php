@@ -25,12 +25,14 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
         $applicationsData = ForeignStudentApplication::groupBy('domicile_country_id')
             ->where('status', '!=', ForeignStudentApplication::STATUS_DRAFT)
             ->where('application_session_id', $applicationSession->id)
-            ->select('domicile_country_name as country', DB::raw('count(*) as total'),
+            ->select('domicile_country_name as country',
+                DB::raw('count(*) as total'),
                 DB::raw('count(case when is_payment_verified = 1 then 1 end) as payment_verified'),
                 DB::raw('count(case when is_document_verified = 1 then 1 end) as document_verified'),
                 DB::raw('count(case when is_valid = 1 then 1 end) as valid_application'),
                 DB::raw('count(case when `status` ="'.ForeignStudentApplication::STATUS_ACCEPTED.'" then 1 end) as accepted'),
-            )->orderBy('total','desc')->get();
+            )
+            ->orderBy('total','desc')->get();
 
         $data = [
             'applications' => $applicationsData,

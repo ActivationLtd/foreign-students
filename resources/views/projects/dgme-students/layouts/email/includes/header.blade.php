@@ -10,7 +10,7 @@
         </td>
         <td>
             <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
-                 style="margin-top: 2%; border:none!important;width: 120px;" alt="">
+                 style="width: 120px; float: left; padding-right: 15px" alt="">
         </td>
     </tr>
 </table>
