@@ -17,8 +17,11 @@
                 @endif
             </td>
             <td style="width: 50%; text-align: right">
-                <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(150)->generate($content)) !!} "
-                     alt="{{$content}}" style="height: 150px; width: 150px; float: right"/>
+                <?php
+                $qrCodeImageBase64 = base64_encode(QrCode::format('png')->size(150)->generate($application->qrCodeContent()));
+                ?>
+                <img src="data:image/png;base64, {!! $qrCodeImageBase64 !!} "
+                     alt="{{$application->qrCodeContent()}}" style="height: 150px; width: 150px; float: right"/>
             </td>
         </tr>
         <tr>
