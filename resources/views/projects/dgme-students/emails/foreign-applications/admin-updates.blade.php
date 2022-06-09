@@ -3,8 +3,8 @@
 @section('css')
     @parent
     <style>
-        tr.row-total{
-            border-top: 1px lightgrey solid ;
+        tr.row-total {
+            border-top: 1px lightgrey solid;
         }
     </style>
 @endsection
@@ -39,8 +39,8 @@
         <thead>
         <tr class="row-border-bottom">
             <td style="width: 25%"><b>Country</b></td>
-{{--            <td><b>Male</b></td>--}}
-{{--            <td><b>Female</b></td>--}}
+            {{--            <td><b>Male</b></td>--}}
+            {{--            <td><b>Female</b></td>--}}
             <td><b>Total</b></td>
             <td><b>Payment <br/>Verified</b></td>
             <td><b>Document <br/>Verified</b></td>
@@ -49,18 +49,40 @@
         </tr>
         </thead>
         <tbody>
+        <?php
+        $sumTotal = 0;
+        $sumPaymentVerified = 0;
+        $sumDocumentVerified = 0;
+        $sumValidApplication = 0;
+        $sumAccepted = 0;
+        ?>
         @foreach($data['applications'] as $applicationData)
             <tr>
                 <td>{{$applicationData->country}}</td>
-{{--                <td>23</td>--}}
-{{--                <td>24</td>--}}
+                {{--                <td>23</td>--}}
+                {{--                <td>24</td>--}}
                 <td>{{$applicationData->total}}</td>
                 <td>{{$applicationData->payment_verified}}</td>
                 <td>{{$applicationData->document_verified}}</td>
                 <td>{{$applicationData->valid_application}}</td>
                 <td>{{$applicationData->accepted}}</td>
             </tr>
+            <?php
+            $sumTotal=$sumTotal+$applicationData->total;
+            $sumPaymentVerified=$sumPaymentVerified+$applicationData->payment_verified;
+            $sumDocumentVerified=$sumDocumentVerified+$applicationData->document_verified;
+            $sumValidApplication=$sumValidApplication+$applicationData->valid_application;
+            $sumAccepted=$sumAccepted+$applicationData->accepted;
+            ?>
         @endforeach
+        <tr>
+            <td>Total</td>
+            <td>{{$sumTotal}}</td>
+            <td>{{$sumPaymentVerified}}</td>
+            <td>{{$sumDocumentVerified}}</td>
+            <td>{{$sumValidApplication}}</td>
+            <td>{{$sumAccepted}}</td>
+        </tr>
 
         </tbody>
     </table>
