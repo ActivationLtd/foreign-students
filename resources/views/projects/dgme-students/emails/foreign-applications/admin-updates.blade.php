@@ -75,13 +75,13 @@
             $sumAccepted=$sumAccepted+$applicationData->accepted;
             ?>
         @endforeach
-        <tr>
-            <td>Total</td>
-            <td>{{$sumTotal}}</td>
-            <td>{{$sumPaymentVerified}}</td>
-            <td>{{$sumDocumentVerified}}</td>
-            <td>{{$sumValidApplication}}</td>
-            <td>{{$sumAccepted}}</td>
+        <tr style="border-top: 2px solid grey">
+            <td><b>Total</b></td>
+            <td><b>{{$sumTotal}}</b></td>
+            <td><b>{{$sumPaymentVerified}}</b></td>
+            <td><b>{{$sumDocumentVerified}}</b></td>
+            <td><b>{{$sumValidApplication}}</b></td>
+            <td><b>{{$sumAccepted}}</b></td>
         </tr>
 
         </tbody>
