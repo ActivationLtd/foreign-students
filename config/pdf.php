@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Laravel mPDF configuration file
@@ -7,9 +6,7 @@
 | https://github.com/mccarlosen/laravel-mpdf
 |
 */
-
 return [
-
     'mode' => 'utf-8',
     'format' => 'A4',
     'default_font_size' => '10',
