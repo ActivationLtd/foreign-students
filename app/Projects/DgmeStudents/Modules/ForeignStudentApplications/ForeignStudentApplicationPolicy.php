@@ -69,7 +69,7 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
             return false;
         }
         if (user()->isApplicant()) {
-            if (ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
+            if (ApplicationSession::latestOpenSession() && ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
                 return false;
             }
             if ($user->isApplicant() && $user->id != $element->user_id) {
@@ -93,7 +93,7 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
             return false;
         }
         //restricting from deleting old draft applications
-        if (ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
+        if (ApplicationSession::latestOpenSession() && ApplicationSession::latestOpenSession()->id != $element->application_session_id) {
             return false;
         }
 
