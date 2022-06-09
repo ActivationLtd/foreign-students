@@ -23268,7 +23268,11 @@ namespace  {
             class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
             class Form extends \Collective\Html\FormFacade {}
             class Html extends \Collective\Html\HtmlFacade {}
-            class PDF extends \Meneses\LaravelMpdf\Facades\LaravelMpdf {}
+
+    /**
+     * @method download(string $string)
+     */
+    class PDF extends \Meneses\LaravelMpdf\Facades\LaravelMpdf {}
             class Cached extends \App\Projects\DgmeStudents\Helpers\Cached {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class Sentry extends \Sentry\Laravel\Facade {}

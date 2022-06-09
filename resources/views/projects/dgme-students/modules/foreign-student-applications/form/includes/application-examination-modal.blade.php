@@ -38,7 +38,7 @@
                         <input name="foreign_student_application_id" type="hidden" value="{{$element->id}}">
                         <input name="user_id" type="hidden" value="{{$element->user_id}}">
                         <div class="clearfix"></div>
-                        @include('form.select-array',['var'=>['name'=>'examination_type','label'=>'O Level/ A Level Equivalent', 'options'=>($examinationTypes),'div'=>'col-md-12']])
+                        @include('form.select-array',['var'=>['name'=>'examination_type','label'=>'O Level/ A Level Equivalent', 'options'=>(App\ForeignApplicationExamination::$examinationTypes),'div'=>'col-md-12']])
                         @include('form.text',['var'=>['name'=>'examination_name','label'=>'Examination','div'=>'col-md-12']])
                         @include('form.number',['var'=>['name'=>'passing_year','label'=>'Passing Year','div'=>'col-md-6']])
                         @include('form.textarea',['var'=>['name'=>'subjects','label'=>'Subjects Taken','div'=>'col-md-12']])

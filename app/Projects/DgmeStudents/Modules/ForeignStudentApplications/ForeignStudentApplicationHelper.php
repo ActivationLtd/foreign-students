@@ -51,6 +51,17 @@ trait ForeignStudentApplicationHelper
             && $this->status == \App\ForeignStudentApplication::STATUS_DRAFT
             && ApplicationSession::latestOpenSession()->id == $this->application_session_id);
     }
+
+    /**
+     * Generate QrCode content
+     * @return string
+     */
+    public function qrCodeContent()
+    {
+        return "Application ID: ".$this->id
+            ."\nApplication UUID: ".$this->uuid
+            ."\nURL: ".route('foreign-student-applications.edit', $this->id);
+    }
     /*
     |--------------------------------------------------------------------------
     | Section: Static helper functions
@@ -71,7 +82,7 @@ trait ForeignStudentApplicationHelper
      *
      * @return array
      */
-    public static function availableStatusOptions()
+    public static function availableStatusOptions(): array
     {
         $user = user();
 
