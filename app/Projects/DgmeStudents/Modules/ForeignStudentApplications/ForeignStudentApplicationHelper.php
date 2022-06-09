@@ -82,7 +82,7 @@ trait ForeignStudentApplicationHelper
      *
      * @return array
      */
-    public static function availableStatusOptions()
+    public static function availableStatusOptions(): array
     {
         $user = user();
 

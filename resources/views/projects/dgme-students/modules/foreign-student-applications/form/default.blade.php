@@ -13,22 +13,9 @@
  * @var \App\Tenant $tenant
  * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor $view
  */
-use App\ForeignAppLangProficiency;use App\ForeignApplicationExamination;use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;use App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplication;
+
 $foreignStudentApplication = $element;
 
-
-$yesNoOptions = ForeignStudentApplication::$optionsYesNo;
-$optionsGovernmentPublic = ForeignStudentApplication::$optionsGovernmentPublic;
-$proficiencyLevels = ForeignAppLangProficiency::$proficiencyLevels;
-$fundingModes = ForeignStudentApplication::$fundingModes;
-$statuses = ForeignStudentApplication::$statuses;
-$examinationTypes = ForeignApplicationExamination::$examinationTypes;
-if (user()->isApplicant()) {
-    $statuses = ForeignStudentApplication::$applicantStatuses;
-}
-if (user()->isAdmin()) {
-    $statuses = ForeignStudentApplication::$adminStatuses;
-}
 ?>
 
 @section('content-top')
@@ -61,30 +48,19 @@ if (user()->isAdmin()) {
             'label' => 'Session',
             'div' => 'col-sm-3',
             'null_option' => false,
+            'show_inactive' => true,
+            'model' => App\ApplicationSession::class,
         ];
-
-        //for admins show all values
-
-        $var['model'] = \App\ApplicationSession::class::whereIn('status',
-            [ApplicationSession::SESSION_STATUS_OPEN, ApplicationSession::SESSION_STATUS_CLOSED]);
-        $var ['show_inactive'] = true;
-
         //for created only show the existing value
-        if ($element->application_session_id) {
+        if ($element->isCreating()) {
+            $var['model'] = App\ApplicationSession::class::where('status',
+                App\ApplicationSession::SESSION_STATUS_OPEN)->latest('ends_on');
             $var ['value'] = $element->application_session_id;
-            $var ['show_inactive'] = true;
-        } else {
-            //new application should show active sessions
-            if (user()->isApplicant()) {
-                $var['model'] = ApplicationSession::class::where('status',
-                    ApplicationSession::SESSION_STATUS_OPEN)->latest();
-
-            }
         }
         ?>
         @include('form.select-model',['var'=>$var])
-        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-3']])
-        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv(App\ForeignStudentApplication::$optionsGovernmentPublic),'div'=>'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>(App\ForeignStudentApplication::$optionsYesNo),'div'=>'col-md-3']])
 
         @include('form.select-model',['var' => ['name' => 'course_id', 'label' => 'Course', 'table' => 'foreign_application_courses', 'div' => 'col-md-3']])
 
@@ -114,16 +90,7 @@ if (user()->isAdmin()) {
             @include('form.select-model',['var'=>['name'=>'dob_country_id','label'=>'Country of Birth','table'=>'countries', 'div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'dob_address','label'=>'Place Of Birth','div'=>'col-md-4']])
             <div class="clearfix"></div>
-
-            <?php
-            $var = ['name' => 'domicile_country_id', 'label' => 'Country of Domicile', 'div' => 'col-md-4'];
-            $var['model'] = \App\Country::where('is_saarc', '0');
-            if ($element->is_saarc == 1) {
-                $var['model'] = \App\Country::where('is_saarc', '1');
-            }
-            ?>
-
-            @include('form.select-model',['var'=>$var])
+            @include('form.select-model',['var'=>['name' => 'domicile_country_id','table'=>'countries', 'label' => 'Country of Domicile', 'div' => 'col-md-4']])
             @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
@@ -144,13 +111,13 @@ if (user()->isAdmin()) {
             <div class="clearfix"></div>
 
             <h3>4. Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h3>
-            @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>($yesNoOptions), 'div'=>'col-md-6']])
+            @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>(App\ForeignStudentApplication::$optionsYesNo), 'div'=>'col-md-6']])
             <div id="previousApplicationFeedback">
                 @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
             </div>
             <div class="clearfix"></div>
             <h3>5. Proposed Mode Of Financing Study</h3>
-            @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv($fundingModes), 'div'=>'col-md-6']])
+            @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv(App\ForeignStudentApplication::$fundingModes), 'div'=>'col-md-6']])
             <div id="applicationFinanceOther">
                 @include('form.textarea',['var'=>['name'=>'finance_mode_other','label'=>'Details of Finance Other']])
             </div>
@@ -173,7 +140,7 @@ if (user()->isAdmin()) {
                 @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
             @endif
             <div class="clearfix"></div>
-            @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($statuses)]])
+            @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($element->availableStatusOptions())]])
             @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
             <div class="clearfix"></div>
             @if($view->showDecisionFields())

@@ -40,9 +40,9 @@
                         <div class="clearfix"></div>
                         @csrf
                         @include('form.text',['var'=>['name'=>'language_name','label'=>'Language','div'=>'col-md-12']])
-                        @include('form.select-array',['var'=>['name'=>'reading_proficiency','label'=>'Reading', 'options'=>kv($proficiencyLevels)]])
-                        @include('form.select-array',['var'=>['name'=>'writing_proficiency','label'=>'Writing', 'options'=>kv($proficiencyLevels)]])
-                        @include('form.select-array',['var'=>['name'=>'speaking_proficiency','label'=>'Speaking', 'options'=>kv($proficiencyLevels)]])
+                        @include('form.select-array',['var'=>['name'=>'reading_proficiency','label'=>'Reading', 'options'=>kv(App\ForeignAppLangProficiency::$proficiencyLevels)]])
+                        @include('form.select-array',['var'=>['name'=>'writing_proficiency','label'=>'Writing', 'options'=>kv(App\ForeignAppLangProficiency::$proficiencyLevels)]])
+                        @include('form.select-array',['var'=>['name'=>'speaking_proficiency','label'=>'Speaking', 'options'=>kv(App\ForeignAppLangProficiency::$proficiencyLevels)]])
                         <input name="redirect_success" type="hidden"
                                value="{{route('foreign-student-applications.edit',$element->id)}}"/>
                         <input name="redirect_fail" type="hidden"
