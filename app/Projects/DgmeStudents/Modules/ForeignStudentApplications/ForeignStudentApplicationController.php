@@ -99,19 +99,24 @@ class ForeignStudentApplicationController extends ModularController
     }
 
     /**
+     * Download Application Pdf
+     *
      * @param  \App\ForeignStudentApplication  $foreignStudentApplication
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|void
+     * @return \Illuminate\Http\JsonResponse|void
      */
-    public function generatePdf(\App\ForeignStudentApplication $foreignStudentApplication)
+    public function downloadPdf(\App\ForeignStudentApplication $foreignStudentApplication)
     {
-        if (!$this->user->can('view', $foreignStudentApplication)) {
+        $application = $foreignStudentApplication;
+
+        if (!$this->user->can('view', $application)) {
             return $this->permissionDenied();
         }
         $data = [
-            'application' => $foreignStudentApplication,
+            'application' => $application,
             'render' => 'pdf', // Note: This is passed to determine show/hide of the print button.
         ];
         $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
-        return $pdf->download("Foreign-Application-".$foreignStudentApplication->id.".pdf");
+
+        return $pdf->download("Foreign-Application-".$application->id.".pdf");
     }
 }

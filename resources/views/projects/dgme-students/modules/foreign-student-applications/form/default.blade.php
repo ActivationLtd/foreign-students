@@ -36,7 +36,7 @@ if (user()->isAdmin()) {
     @include('mainframe.form.back-link',['var'=>['element'=>$element->user,'class'=>'pull-left']])
     @if($view->showPrintButton())
         <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element)}}" target="_blank">Print</a>
-        <a id="pdfBtn" class="btn btn-default bg-white" href="{{route('applications.generate-pdf',$element)}}" target="_blank">Download PDF</a>
+        <a id="pdfBtn" class="btn btn-default bg-white" href="{{route('applications.download-pdf',$element)}}" target="_blank">Download PDF</a>
     @endif
     @if($view->showDownloadAllButton())
         @include('mainframe.form.download-all-btn')
