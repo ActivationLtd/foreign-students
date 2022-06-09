@@ -47,7 +47,7 @@ trait ForeignStudentApplicationHelper
     // Todo: Write non-static helper functions here
     public function canBeSubmitted(): bool
     {
-        return ($this->user->isApplicant()
+        return (ApplicationSession::latestOpenSession() && $this->user->isApplicant()
             && $this->status == \App\ForeignStudentApplication::STATUS_DRAFT
             && ApplicationSession::latestOpenSession()->id == $this->application_session_id);
     }
