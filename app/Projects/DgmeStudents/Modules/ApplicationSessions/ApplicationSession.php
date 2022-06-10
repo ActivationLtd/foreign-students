@@ -81,14 +81,14 @@ class ApplicationSession extends BaseModule
     use ApplicationSessionHelper;
 
     public const YES = "Yes";
-    public const NO  = "No";
+    public const NO = "No";
 
-    public const SESSION_STATUS_OPEN      = "Open";
+    public const SESSION_STATUS_OPEN = "Open";
     public const SESSION_STATUS_SCHEDULED = "Scheduled";
-    public const SESSION_STATUS_CLOSED    = "Closed";
+    public const SESSION_STATUS_CLOSED = "Closed";
 
     protected $moduleName = 'application-sessions';
-    protected $table      = 'application_sessions';
+    protected $table = 'application_sessions';
     /*
     |--------------------------------------------------------------------------
     | Properties
@@ -107,6 +107,10 @@ class ApplicationSession extends BaseModule
         'selection_completed',
         'admission_completed',
         'academic_session_id',
+        'allowed_category_options',
+        'allowed_is_saarc_options',
+        'allowed_course_id_options',
+        'allowed_country_id_options',
         'is_active',
     ];
 
@@ -118,7 +122,12 @@ class ApplicationSession extends BaseModule
         'starts_on',
         'ends_on',
     ];
-    // protected $casts = [];
+    protected $casts = [
+        'allowed_category_options' => 'array',
+        'allowed_is_saarc_options' => 'array',
+        'allowed_course_id_options' => 'array',
+        'allowed_country_id_options' => 'array',
+    ];
     // protected $with = []; // Note: Should be left empty! and used only when needed : $model->append(...)!
     // protected $appends = []; // Note: Should be left empty! and used only when needed : $model->load(...)!
 
@@ -127,7 +136,7 @@ class ApplicationSession extends BaseModule
     | Option values
     |--------------------------------------------------------------------------
     */
-    public static $statuses    = [
+    public static $statuses = [
         self::SESSION_STATUS_OPEN,
         self::SESSION_STATUS_SCHEDULED,
         self::SESSION_STATUS_CLOSED,

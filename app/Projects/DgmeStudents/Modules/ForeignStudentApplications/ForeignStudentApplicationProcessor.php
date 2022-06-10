@@ -2,9 +2,8 @@
 
 namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
-use App\Projects\DgmeStudents\Features\Modular\Validator\ModelProcessor;
 use App\ForeignStudentApplication;
-use App\Projects\DgmeStudents\Helpers\Time;
+use App\Projects\DgmeStudents\Features\Modular\Validator\ModelProcessor;
 
 class ForeignStudentApplicationProcessor extends ModelProcessor
 {
@@ -23,24 +22,15 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     // public $trackedFields;
     public function immutables()
     {
-
-        if (user()->isAdmin() && $this->element->status == \App\ForeignStudentApplication::STATUS_SUBMITTED) {
-            $this->immutables = array_merge($this->immutables, $this->element->fields(
-                [
-                    'status',
-                    'application_session_id',
-                    'is_payment_verified',
-                    'is_document_verified',
-                    'is_valid',
-                    'remarks',
-                ]
-            ));
-        }
         //after creation session can not be modified by applicant
         if (user()->isApplicant()) {
-            if ($this->element->isCreated()) {
-                $this->immutables = array_merge($this->immutables, ['application_session_id']);
-            }
+            $this->immutables = array_merge($this->immutables, [
+                'application_session_id',
+                'application_category',
+                'is_saarc',
+                'course_id',
+            ]);
+
             //applicant can not revert application to Draft after submission
             if ($this->element->status == \App\ForeignStudentApplication::STATUS_SUBMITTED) {
                 $this->immutables = array_merge($this->immutables, ['status']);
@@ -84,7 +74,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
             'application_session_id' => 'required',
             'is_active' => 'in:1,0',
         ];
-        if ($element->id && $element->status == ForeignStudentApplication::STATUS_SUBMITTED) {
+        if ($element->isCreated() && $element->status == ForeignStudentApplication::STATUS_SUBMITTED) {
             $rules = array_merge($rules, [
                 'payment_transaction_id' => 'required',
                 'applicant_father_name' => 'required|regex:/[a-zA-Z0-9\s]+/ ',
@@ -97,13 +87,9 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                 'domicile_address' => 'required',
                 'nationality' => 'required',
                 'applicant_passport_no' => 'required',
-                //'applicant_passport_issue_date' => 'required',
-                //'applicant_passport_expiry_date' => 'required',
-
                 'legal_guardian_name' => 'required',
                 'legal_guardian_nationality' => 'required',
                 'legal_guardian_address' => 'required',
-                //'emergency_contact_bangladesh_name' => 'required',
                 'emergency_contact_bangladesh_address' => 'required_unless:emergency_contact_bangladesh_name,null',
                 'emergency_contact_domicile_name' => 'required',
                 'emergency_contact_domicile_address' => 'required',
@@ -118,8 +104,21 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     }
 
     /* Further customize error messages and attribute names by overriding */
-    // public function customErrorMessages($merge = [])
-    // public static function customAttributes($merge = [])
+    // public static function customErrorMessages($merge = [])
+    // {
+    //     return [
+    //         'dob_country_id.required'=>':attribute: required'
+    //     ];
+    // }
+
+    public static function customAttributes($merge = [])
+    {
+        return [
+            'dob'=>'date of birth',
+            'dob_country_id'=>'place of birth',
+            'dob_address'=>'place of birth'
+        ];
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -190,8 +189,10 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
 
         return $this;
     }
+
     // public function deleting($element) { return $this; }
-    public function deleted($element) {
+    public function deleted($element)
+    {
         $element->applicationExaminations()->delete();
         $element->applicationLanguageProfiencies()->delete();
         $element->uploads()->delete();

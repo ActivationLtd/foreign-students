@@ -37,6 +37,13 @@ $applicationSession = $element;
         @include('form.select-array',['var'=>['name'=>'selection_completed','label'=>'Selection Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
         @include('form.select-array',['var'=>['name'=>'admission_completed','label'=>'Admission Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
 
+        <div class="clearfix"></div>
+        @include('form.select-array-multiple',['var'=>['name'=>'allowed_category_options','label'=>'Allowed Categories','options'=>kv(\App\ForeignStudentApplication::$categoryOptions)]])
+        @include('form.select-array-multiple',['var'=>['name'=>'allowed_is_saarc_options','label'=>'Allowed SAARC Country','options'=>kv(['Yes','No']),'tooltip'=>'Leave empty to allow both SAARC and non-SAARC applicants']])
+        @include('form.select-model-multiple',['var'=>['name'=>'allowed_course_id_options','label'=>'Allowed Courses', 'model'=>\App\ForeignApplicationCourse::class]])
+        @include('form.select-model-multiple',['var'=>['name'=>'allowed_country_id_options','label'=>'Allowed Countries','model'=>\App\Country::class]])
+
+
         {{-- @include('form.is-active')--}}
         {{---------------|  Form input start |-----------------------}}
 
@@ -56,4 +63,7 @@ $applicationSession = $element;
 @section('js')
     @parent
     @include('projects.dgme-students.modules.application-sessions.form.js')
+    <script>
+        $('select').select2();
+    </script>
 @endsection

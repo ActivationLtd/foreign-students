@@ -8,30 +8,24 @@
  * @var bool $editable
  * @var array $immutables
  * @var \App\ForeignStudentApplication $element
+ * @var \App\ForeignStudentApplication $application
  * @var \App\ForeignStudentApplication $foreignStudentApplication
  * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor $view
  */
 ?>
 <script>
-    /*
-    |--------------------------------------------------------------------------
+    /*--------------------------------------------------------------------------
     | Common - creating and updating
-    |--------------------------------------------------------------------------
-    */
-    // $('select').select2(); // Make all select2
+    |--------------------------------------------------------------------------*/
+    $('select').select2(); // Make all select2
 
     // Redirection after delete
-    @if($element->some_id)
-    $('.delete-cta button[name=genericDeleteBtn]').attr('data-redirect_success', '{!! route('some-module.edit',$element->some_id) !!}')
-    @endif
-
+    $('.delete-cta button[name=genericDeleteBtn]').attr('data-redirect_success', '{!! $element->indexUrl() !!}');
+    $('#declaration').hide();
     // Validation
     addValidationRules();
-    showDeclaration();
+    enableValidation('{{$module->name}}');
     applicationSubmitButtonAction();
-    showPreviousApplicationFeedback();
-    showApplicationFinanceOther();
-
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +33,9 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isCreating())
-    $('#foreign-student-applicationsSubmitBtn').html(' Next');
+    $('.delete-cta').css('margin-right', '0');
+    $('.cta-block').css({'position': 'relative', 'border-top': 'none'});
+    $('#foreign-student-applicationsSubmitBtn').html(' Proceed To Next Step <i class="fa fa-angle-right"></i>');
     // Todo: write codes here.
     @endif
 
@@ -49,10 +45,10 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isUpdating())
-    loadDomicileCountry();
-    // Todo: write codes here.
-    // Redirection after saving
-    // $('#{{$module->name}}-redirect-success').val('#'); //  # Stops redirection
+    @if(user()->isApplicant() && $application->status != \App\ForeignStudentApplication::STATUS_SUBMITTED)
+    $('#foreign-student-applicationsSubmitBtn').html(' Save as draft');
+    @endif
+
     @endif
     /*
     |--------------------------------------------------------------------------
@@ -63,6 +59,7 @@
      * Add CSS for validation rules
      */
     function addValidationRules() {
+        $("select[name=application_session_id]").addClass('validate[required]');
         $("select[name=course_id]").addClass('validate[required]');
         $("select[name=application_category]").addClass('validate[required]');
         $("select[name=is_saarc]").addClass('validate[required]');
@@ -71,43 +68,12 @@
         $("input[name=applicant_mobile_no]").addClass('validate[required]');
     }
 
-
-    function declarationLogic() {
-        if ($('select[name=status]').val() == "Submitted") {
-            $('#declaration').show();
-            $('input[id=declaration_check]').prop('checked', true);
-            //make the button read Only after application is submitted
-            $('input[id=declaration_check]').prop('readonly', true);
-
-        } else {
-            $('#declaration').hide();
-            $('input[id=declaration_check]').prop('checked', false);
-
-        }
-    }
-
-    function showDeclaration() {
-        declarationLogic();
-        $('select[name=status]').change(function () {
-            if ($('select[name=status]').val() == "Submitted") {
-                showAlert("Please confirm the declaration <br>" +
-                    " Once submitted the application can be edited in the next 24 hours only.");
-                $('#declaration').show();
-                $('#applicationSubmitButton').hide();
-                $('#foreign-student-applicationsSubmitBtn').html("Submit");
-                $("input[id=declaration_check]").addClass('validate[required]');
-            } else {
-                $('#declaration').hide();
-                $("input[id=declaration_check]").removeClass('validate[required]');
-            }
-        });
-    }
-
     function applicationSubmitButtonAction() {
         $('#applicationSubmitButton').click(function () {
             $('select[name=status]').val('Submitted');
+            $('input[name=status]').val('Submitted');
             showAlert("Please confirm the declaration.<br>" +
-                "Once submitted the application can be edited in the next 24 hours only.<br>"
+                "Once submitted, the application can be edited in the next 24 hours only.<br>"
             );
             $('#applicationSubmitButton').hide();
             $('#foreign-student-applicationsSubmitBtn').removeClass('submit btn btn-success').addClass('submit btn btn-success').html('<i class="fa fa-check"></i> Submit');
@@ -116,56 +82,19 @@
         });
     }
 
-    function showPreviousApplicationFeedbackLogic() {
-        $('#previousApplicationFeedback').hide();
-        if ($('select[name=has_previous_application]').val() == 1) {
-            $('#previousApplicationFeedback').show();
+    $('select[name=has_previous_application]').on('change', function () {
+        var div = $('.previous_application_feedback_div');
+        div.hide();
+        if ($(this).val() == 1) {
+            div.show();
         }
-    }
+    }).trigger('change');
 
-    function showPreviousApplicationFeedback() {
-        showPreviousApplicationFeedbackLogic();
-        $('select[name=has_previous_application]').change(showPreviousApplicationFeedbackLogic);
-    }
-
-    function showApplicationFinanceOtherLogic() {
-        $('#applicationFinanceOther').hide();
-        if ($('select[name=financing_mode]').val() == 'Other') {
-            $('#applicationFinanceOther').show();
+    $('select[name=financing_mode]').on('change', function () {
+        var div = $('.finance_mode_other_div');
+        div.hide();
+        if ($(this).val() == 1) {
+            div.show();
         }
-    }
-
-    function showApplicationFinanceOther() {
-        showApplicationFinanceOtherLogic();
-        $('select[name=financing_mode]').change(showApplicationFinanceOtherLogic);
-    }
-
-
-    function loadDomicileCountry() {
-        let url = '{{route('countries.list-json',['is_active'=>'1','force_all_data'=>'yes'])}}';
-        $('select[name=is_saarc]').on('change', function () {
-            let isSaarc = $('select[name=is_saarc]').val();
-            var childOldValue = $("select[name=domicile_country_id]").val(); // Temprarily store value to assign after ajax loading
-
-            $("select[name=domicile_country_id]").select2("val", "").empty().select2('enable', false); // Clear and disable child
-            /*----------------------------------------
-            | Options 1 : Axios based implementations
-            |----------------------------------------*/
-            axios.get(url, {
-                params: {
-                    is_saarc: isSaarc,
-                    force_all_data: 'yes',
-                }
-            }).then((response) => {
-                $($("select[name=domicile_country_id]")).append("<option value=0>" + "-" + "</option>"); // Add empty selection
-                $.each(response.data.data.items, function (i, obj) { // Load options
-                    $($("select[name=domicile_country_id]")).append("<option value=" + obj.id + ">" + obj.name + "</option>");
-                });
-                console.log(childOldValue);
-                $("select[name=domicile_country_id]").select2('enable', true); // Enable back child after the ajax call
-                $("select[name=domicile_country_id]").val(childOldValue).select2(); // Assign backold value
-            });
-        }).trigger('change');
-
-    }
+    }).trigger('change');
 </script>

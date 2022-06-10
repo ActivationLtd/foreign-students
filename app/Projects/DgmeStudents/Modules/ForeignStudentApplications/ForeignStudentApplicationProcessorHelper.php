@@ -68,15 +68,16 @@ trait ForeignStudentApplicationProcessorHelper
     public function checkCourseSessionAndType(): static
     {
         $element = $this->element;
-        $existingOngoingApplicationForCourseCount = $this->user->applications()
+        $existing = $this->user->applications()
             ->where('id', '!=', $element->id)
             ->where('course_id', $element->course_id) //checking course
             ->where('application_category', $element->application_category) //checking category
             ->where('application_session_id', $element->application_session_id) //checking session
-            ->whereNotIn('status', ['Declined'])
+            ->whereNotIn('status', [\App\ForeignStudentApplication::STATUS_DECLINED])
             ->count();
-        if ($existingOngoingApplicationForCourseCount) {
-            $this->error('An Application on this course '.$element->course->name.' and application category '.$element->application_category.' is all ready under processing'); // Raise error
+        if ($existing) {
+            $this->error('An Application on this course '.$element->course->name.' and application category '.$element->application_category
+                .' is all ready under processing. You can not submit another of the same type'); // Raise error
         }
 
         return $this; // Return the same object for validation method chaining

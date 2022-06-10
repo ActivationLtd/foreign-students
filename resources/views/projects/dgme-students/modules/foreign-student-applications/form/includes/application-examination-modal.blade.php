@@ -71,11 +71,6 @@
          * 1. Add FE validations
          * todo:(optional)
          *************************/
-        let currentYear = new Date().getFullYear();
-        let oneYearBefore = currentYear - 1;
-        let twoYearBefore = currentYear - 2;
-        let threeYearBefore = currentYear - 3;
-        let fiveYearBefore = currentYear - 5;
 
         $('#applicationExaminationForm').validationEngine({
             prettySelect: true,
@@ -85,20 +80,7 @@
         $('#applicationExaminationForm #examination_type').addClass('validate[required]');
         $('#applicationExaminationForm #examination_name').addClass('validate[required]');
         $('#applicationExaminationForm #passing_year').addClass('validate[required]');
-        $('#applicationExaminationForm #examination_type').change(function () {
-            let minYear = null;
-            let maxYear = null;
-            $('#applicationExaminationForm #passing_year').removeClass();
-            if (this.value == 'O level') {
-                minYear = fiveYearBefore;
-                maxYear = threeYearBefore;
 
-            } else if (this.value == 'A level') {
-                minYear = twoYearBefore;
-                maxYear = oneYearBefore;
-            }
-            $('#applicationExaminationForm #passing_year').addClass('form-control passing_year validate[required] validate[min[' + minYear + '],max[' + maxYear + ']]')
-        });
         $('#applicationExaminationForm #subjects').addClass('validate[required]');
         $('#applicationExaminationForm #certificate_name').addClass('validate[required]');
 
