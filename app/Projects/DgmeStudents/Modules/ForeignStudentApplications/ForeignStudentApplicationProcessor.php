@@ -114,9 +114,9 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     public static function customAttributes($merge = [])
     {
         return [
-            'dob'=>'date of birth',
-            'dob_country_id'=>'place of birth',
-            'dob_address'=>'place of birth'
+            'dob' => 'date of birth',
+            'dob_country_id' => 'place of birth',
+            'dob_address' => 'place of birth'
         ];
     }
 
@@ -153,6 +153,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         // Todo: Then do further processing
         // ----------------------------------
         if ($this->isValid()) {
+            $element->is_valid = $element->is_valid ?: 1;
             $this->fillRelationData();
 
         }
