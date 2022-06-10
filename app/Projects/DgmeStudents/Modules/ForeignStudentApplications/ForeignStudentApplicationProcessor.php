@@ -30,11 +30,6 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
                 'is_saarc',
                 'course_id',
             ]);
-
-            //applicant can not revert application to Draft after submission
-            if ($this->element->status == \App\ForeignStudentApplication::STATUS_SUBMITTED) {
-                $this->immutables = array_merge($this->immutables, ['status']);
-            }
         }
 
         return $this->immutables;
