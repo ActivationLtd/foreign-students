@@ -28,20 +28,28 @@ $applicationSession = $element;
         {{---------------|  Form input start |-----------------------}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
         @include('form.text',['var'=>['name'=>'code','label'=>'Code','editable'=>false]])
-        @include('form.date',['var'=>['name'=>'starts_on','label'=>'Start','tooltip'=>'Session Start Date']])
-        @include('form.date',['var'=>['name'=>'ends_on','label'=>'End','tooltip'=>'Session End Date']])
+
+        <div class="clearfix"></div>
         @include('form.textarea',['var'=>['name'=>'description','label'=>'Description']])
 
         <div class="clearfix"></div>
-        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status','options'=>kv(\App\ApplicationSession::$statuses)]])
-        @include('form.select-array',['var'=>['name'=>'selection_completed','label'=>'Selection Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
-        @include('form.select-array',['var'=>['name'=>'admission_completed','label'=>'Admission Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
+        <h3>Schedule</h3>
+        @include('form.date',['var'=>['name'=>'starts_on','label'=>'Start','tooltip'=>'Session Start Date']])
+        @include('form.date',['var'=>['name'=>'ends_on','label'=>'End','tooltip'=>'Session End Date']])
+        @include('form.select-array',['var'=>['name'=>'status','label'=>'Status (Auto updated based on start/end time)','options'=>kv(\App\ApplicationSession::$statuses), 'div'=>'col-md-6']])
 
         <div class="clearfix"></div>
+        <h3>Allowed Options</h3>
         @include('form.select-array-multiple',['var'=>['name'=>'allowed_category_options','label'=>'Allowed Categories','options'=>kv(\App\ForeignStudentApplication::$categoryOptions)]])
         @include('form.select-array-multiple',['var'=>['name'=>'allowed_is_saarc_options','label'=>'Allowed SAARC Country','options'=>kv(['Yes','No']),'tooltip'=>'Leave empty to allow both SAARC and non-SAARC applicants']])
         @include('form.select-model-multiple',['var'=>['name'=>'allowed_course_id_options','label'=>'Allowed Courses', 'model'=>\App\ForeignApplicationCourse::class]])
         @include('form.select-model-multiple',['var'=>['name'=>'allowed_country_id_options','label'=>'Allowed Countries','model'=>\App\Country::class]])
+
+        <div class="clearfix"></div>
+        <h3>Progress</h3>
+        @include('form.select-array',['var'=>['name'=>'selection_completed','label'=>'Selection Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
+        @include('form.select-array',['var'=>['name'=>'admission_completed','label'=>'Admission Completed?','options'=>kv(\App\ApplicationSession::$YesNoFields)]])
+
 
 
         {{-- @include('form.is-active')--}}
