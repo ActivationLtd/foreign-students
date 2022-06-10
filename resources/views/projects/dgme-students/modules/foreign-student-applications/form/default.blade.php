@@ -71,7 +71,6 @@ $foreignStudentApplication = $application = $element;
         <div class="clearfix"></div>
 
         <h3>2. Applicant Info</h3>
-
         @if($view->showProfilePic())
             <div class="col-md-3 no-padding-l" style="padding-right: 20px">
                 <img class="img-thumbnail" style="height:120px!important;" src="{{$view->profilePicPath()}}"
@@ -166,8 +165,35 @@ $foreignStudentApplication = $application = $element;
             @endif
 
             <div class="clearfix"></div>
+
+
+            <div class="col-md-12 no-padding-l">
+                <h3>9. Upload Documents</h3>
+            </div>
+            <div class="col-md-4 no-padding-l">
+                <h5>Applicant's Picture</h5><small>Upload one or more files</small><br/><br/>
+                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
+                <h5>Applicant's Signature</h5><small>Upload one or more files</small>
+                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
+            </div>
+            <div class="col-md-4 no-padding-l">
+                <h5>Applicant's Passport</h5><small>Upload one or more files</small><br/><br/>
+                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
+                <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
+                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
+            </div>
+            <div class="col-md-4 no-padding-l">
+                <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or
+                    more
+                    files</small>
+                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
+                <h5>Applicant's A Level Or Equivalent Certificate</h5><small>Upload one or more files</small>
+                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
+            </div>
+
+
             <div id="declaration" style="color: red">
-                <h3>9. Declaration</h3>
+                <h3>10. Declaration</h3>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
                 <p>I, thereby, declare that particulars given and documents submitted above are true and valid to the
@@ -194,30 +220,7 @@ $foreignStudentApplication = $application = $element;
 
 @section('content-bottom')
     @parent
-    @if($application->isCreated())
-        <div class="col-md-12 no-padding-l">
-            <h3>Upload Documents</h3>
-        </div>
-        <div class="col-md-4 no-padding-l">
-            <h5>Applicant's Picture</h5><small>Upload one or more files</small><br/><br/>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC,'zip_download'=>false]])
-            <h5>Applicant's Signature</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE,'zip_download'=>false]])
-        </div>
-        <div class="col-md-4 no-padding-l">
-            <h5>Applicant's Passport</h5><small>Upload one or more files</small><br/><br/>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT,'zip_download'=>false]])
-            <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT,'zip_download'=>false]])
-        </div>
-        <div class="col-md-4 no-padding-l">
-            <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or more
-                files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT,'zip_download'=>false]])
-            <h5>Applicant's A Level Or Equivalent Certificate</h5><small>Upload one or more files</small>
-            @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT,'zip_download'=>false]])
-        </div>
-    @endif
+
 @endsection
 
 @section('js')

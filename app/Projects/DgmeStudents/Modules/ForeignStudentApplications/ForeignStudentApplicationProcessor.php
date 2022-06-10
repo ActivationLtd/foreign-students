@@ -104,8 +104,21 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
     }
 
     /* Further customize error messages and attribute names by overriding */
-    // public function customErrorMessages($merge = [])
-    // public static function customAttributes($merge = [])
+    // public static function customErrorMessages($merge = [])
+    // {
+    //     return [
+    //         'dob_country_id.required'=>':attribute: required'
+    //     ];
+    // }
+
+    public static function customAttributes($merge = [])
+    {
+        return [
+            'dob'=>'date of birth',
+            'dob_country_id'=>'place of birth',
+            'dob_address'=>'place of birth'
+        ];
+    }
 
     /*
     |--------------------------------------------------------------------------

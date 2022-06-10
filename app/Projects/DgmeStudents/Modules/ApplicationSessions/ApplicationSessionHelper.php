@@ -110,7 +110,7 @@ trait ApplicationSessionHelper
     // Todo: static helper functions
     public static function latestOpenSession(): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|null
     {
-        return ApplicationSession::where('status', self::SESSION_STATUS_OPEN)->latest('ends_on')->first();
+        return ApplicationSession::where('status', self::SESSION_STATUS_OPEN)->latest('ends_on')->remember(timer('long'))->first();
     }
 
     public static function currentOpenSession()
@@ -120,7 +120,7 @@ trait ApplicationSessionHelper
 
     public static function latestSession(): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|null
     {
-        return ApplicationSession::latest('ends_on')->first();
+        return ApplicationSession::latest('ends_on')->remember(timer('long'))->first();
     }
     /*
     |--------------------------------------------------------------------------
