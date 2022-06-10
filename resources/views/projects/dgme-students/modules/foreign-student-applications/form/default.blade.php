@@ -115,7 +115,7 @@ $foreignStudentApplication = $application = $element;
             @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
-            @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4', ,'value'=> $element->applicant_passport_no ?? user()->passport_no, 'tooltip'=>'Must Match The Logged In User Passport']])
+            @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4', 'value'=> $element->applicant_passport_no ?? user()->passport_no, 'tooltip'=>'Must Match The Logged In User Passport']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
