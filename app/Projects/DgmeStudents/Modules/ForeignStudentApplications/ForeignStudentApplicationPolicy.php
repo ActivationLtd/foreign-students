@@ -4,7 +4,6 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
 use App\ForeignStudentApplication;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModulePolicy;
-use App\Projects\DgmeStudents\Helpers\Time;
 use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 
 class ForeignStudentApplicationPolicy extends BaseModulePolicy
@@ -78,7 +77,7 @@ class ForeignStudentApplicationPolicy extends BaseModulePolicy
             // if ($element->status == 'Submitted' && Time::differenceInHours($element->submitted_at, now()) >= 24) {
             //     return false;
             // }
-            if ($element->status == 'Submitted' && Time::differenceInHours($element->submitted_at, now()) >= 24) {
+            if ($element->status == 'Submitted') { // Note: Do not allow edit after submission
                 return false;
             }
         }
