@@ -47,8 +47,8 @@ trait ApplicationSessionHelper
 
     public function formatDate(): static
     {
-        $this->ends_on = Carbon::create($this->ends_on)->endOfDay();
         $this->starts_on = Carbon::create($this->starts_on)->startOfDay();
+        $this->ends_on = Carbon::create($this->ends_on)->endOfDay();
 
         return $this;
     }

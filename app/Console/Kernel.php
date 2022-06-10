@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('mainframe:clean-deleted-uploads')->daily();
         $schedule->command('mainframe:clean-temp')->daily();
         $schedule->command('command:send-application-summary-email')->dailyAt('9');
+        $schedule->command('command:update-session-status')->everyFiveMinutes();
     }
 
     /**
