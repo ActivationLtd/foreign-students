@@ -29,6 +29,18 @@ $foreignStudentApplication = $application = $element;
         @include('mainframe.form.download-all-btn')
         <div class="clearfix"></div>
     @endif
+    @if($application->isCreating())
+        <?php
+        $session = \App\ApplicationSession::currentOpenSession();
+        ?>
+        @if($session->description)
+            <div class="alert alert-danger alert-dismissible col-md-10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4>📢 Notice!</h4>
+                {{ $session->description }}
+            </div>
+        @endif
+    @endif
 @endsection
 
 @section('content')
@@ -38,7 +50,6 @@ $foreignStudentApplication = $application = $element;
         @elseif($formState == 'edit')
             {{ Form::model($element, $formConfig)}}
         @endif
-
 
         {{---------------|  Form input start |-----------------------}}
         <h3>1. Name of the course to which admission is sought</h3>
@@ -166,7 +177,6 @@ $foreignStudentApplication = $application = $element;
 
             <div class="clearfix"></div>
 
-
             <div class="col-md-12 no-padding-l">
                 <h3>9. Upload Documents</h3>
             </div>
@@ -216,11 +226,6 @@ $foreignStudentApplication = $application = $element;
         @include('form.action-buttons')
         {{ Form::close() }}
     </div>
-@endsection
-
-@section('content-bottom')
-    @parent
-
 @endsection
 
 @section('js')

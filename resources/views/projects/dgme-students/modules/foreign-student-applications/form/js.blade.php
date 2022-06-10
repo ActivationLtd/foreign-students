@@ -35,7 +35,7 @@
     @if($element->isCreating())
     $('.delete-cta').css('margin-right', '0');
     $('.cta-block').css({'position': 'relative', 'border-top': 'none'});
-    $('#foreign-student-applicationsSubmitBtn').html(' Proceed To Next Step');
+    $('#foreign-student-applicationsSubmitBtn').html(' Proceed To Next Step <i class="fa fa-angle-right"></i>');
     // Todo: write codes here.
     @endif
 
