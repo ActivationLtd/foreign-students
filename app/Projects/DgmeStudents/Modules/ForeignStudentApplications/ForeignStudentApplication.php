@@ -154,23 +154,23 @@ class ForeignStudentApplication extends BaseModule
     use ForeignStudentApplicationHelper;
 
     protected $moduleName = 'foreign-student-applications';
-    protected $table      = 'foreign_student_applications';
+    protected $table = 'foreign_student_applications';
 
-    public const STATUS_DRAFT                 = 'Draft';
-    public const STATUS_SUBMITTED             = 'Submitted';
-    public const STATUS_DECLINED              = 'Declined';
-    public const STATUS_ACCEPTED              = 'Accepted';
+    public const STATUS_DRAFT = 'Draft';
+    public const STATUS_SUBMITTED = 'Submitted';
+    public const STATUS_DECLINED = 'Declined';
+    public const STATUS_ACCEPTED = 'Accepted';
 
-    public const FINANCE_MODE_OWN_FUND        = 'Own funds';
-    public const FINANCE_MODE_CANDIDATE_GOVT  = 'Scholarship awarded by candidates\'s own Government';
+    public const FINANCE_MODE_OWN_FUND = 'Own funds';
+    public const FINANCE_MODE_CANDIDATE_GOVT = 'Scholarship awarded by candidates\'s own Government';
     public const FINANCE_MODE_BANGLADESH_GOVT = 'Scholarship to be awarded by Bangladeshi Government';
-    public const FINANCE_MODE_OTHER           = 'Other';
+    public const FINANCE_MODE_OTHER = 'Other';
 
     public const OPTION_YES = 1;
-    public const OPTION_NO  = 0;
+    public const OPTION_NO = 0;
 
     public const OPTION_GOVERNMENT = 'Government';
-    public const OPTION_PRIVATE    = 'Private';
+    public const OPTION_PRIVATE = 'Private';
 
     /*
     |--------------------------------------------------------------------------
@@ -228,11 +228,10 @@ class ForeignStudentApplication extends BaseModule
     ];
 
     // protected $guarded = [];
-    protected $dates = ['created_at', 'updated_at', 'deleted_at','submitted_at','dob'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'submitted_at', 'dob'];
     // protected $casts = [];
     // protected $with = [];
     // protected $appends = [];
-
 
     /*
     |--------------------------------------------------------------------------
@@ -240,33 +239,33 @@ class ForeignStudentApplication extends BaseModule
     |--------------------------------------------------------------------------
     */
     // public static $types = [];
-    public static $statuses                = [
+    public static $statuses = [
         ForeignStudentApplication::STATUS_DRAFT,
         ForeignStudentApplication::STATUS_SUBMITTED,
         ForeignStudentApplication::STATUS_ACCEPTED,
         ForeignStudentApplication::STATUS_DECLINED,
     ];
-    public static $applicantStatuses       = [
+    public static $applicantStatuses = [
         ForeignStudentApplication::STATUS_DRAFT,
         ForeignStudentApplication::STATUS_SUBMITTED,
 
     ];
-    public static $adminStatuses           = [
+    public static $adminStatuses = [
         ForeignStudentApplication::STATUS_SUBMITTED,
         ForeignStudentApplication::STATUS_ACCEPTED,
         ForeignStudentApplication::STATUS_DECLINED,
     ];
-    public static $fundingModes            = [
+    public static $fundingModes = [
         ForeignStudentApplication::FINANCE_MODE_OWN_FUND,
         ForeignStudentApplication::FINANCE_MODE_CANDIDATE_GOVT,
         ForeignStudentApplication::FINANCE_MODE_BANGLADESH_GOVT,
         ForeignStudentApplication::FINANCE_MODE_OTHER,
     ];
-    public static $optionsYesNo            = [
+    public static $optionsYesNo = [
         ForeignStudentApplication::OPTION_YES => 'Yes',
         ForeignStudentApplication::OPTION_NO => 'No',
     ];
-    public static $optionsGovernmentPublic = [
+    public static $categoryOptions = [
         ForeignStudentApplication::OPTION_GOVERNMENT,
         ForeignStudentApplication::OPTION_PRIVATE,
     ];
@@ -363,9 +362,15 @@ class ForeignStudentApplication extends BaseModule
     {
         return $this->belongsTo(\App\ApplicationSession::class);
     }
+
+    public function session(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\ApplicationSession::class, 'application_session_id');
+    }
+
     public function profilePic()
     {
-        return $this->uploads()->where('type',\App\Upload::TYPE_PROFILE_PIC)->first();
+        return $this->uploads()->where('type', \App\Upload::TYPE_PROFILE_PIC)->first();
     }
     /*
     |--------------------------------------------------------------------------

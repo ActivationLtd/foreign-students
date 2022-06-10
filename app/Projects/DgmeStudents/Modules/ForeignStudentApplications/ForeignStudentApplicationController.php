@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
 use App\Projects\DgmeStudents\Features\Modular\ModularController\ModularController;
 use App\Projects\DgmeStudents\Features\Report\ModuleList;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 use PDF;
 
 /**
@@ -29,6 +30,31 @@ class ForeignStudentApplicationController extends ModularController
     |--------------------------------------------------------------------------
     | Override the following list of functions to customize the behavior of the controller
     */
+    public function create()
+    {
+        if ($this->user->isApplicant() && !$currentApplicationSession = ApplicationSession::currentOpenSession()) {
+            return $this->permissionDenied('There is no current application session open for applying');
+        }
+
+
+        $uuid = request()->old('uuid') ?: uuid();
+        $this->element = $this->element ?: $this->model->fill(request()->all());
+        $this->element->application_session_id = $currentApplicationSession->id;
+
+        $this->element->uuid = $uuid;
+        $this->element->is_active = 1; // Note: Set to active by default while creating
+
+        if (!$this->user->can('create', $this->element)) {
+            return $this->permissionDenied();
+        }
+
+        // Set view processor attributes
+        $this->view->setType('create')->setElement($this->element);
+
+        return $this->view($this->view->formPath('create'))
+            ->with($this->view->varsCreate());
+    }
+
     /**
      * ForeignStudentApplication Datatable
      *

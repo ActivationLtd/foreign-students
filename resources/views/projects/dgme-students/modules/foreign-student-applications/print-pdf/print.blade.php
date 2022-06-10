@@ -25,6 +25,14 @@
             </td>
         </tr>
         <tr>
+            <td>Session</td>
+            <td>{{$application->session->name}}</td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>{{$application->application_category}}</td>
+        </tr>
+        <tr>
             <td>Name of the course for which Admission is sought</td>
             <td>{{$application->course_name}}</td>
         </tr>
@@ -32,6 +40,7 @@
             <td>Application ID</td>
             <td>{{$application->id}}</td>
         </tr>
+
         <tr>
             <td>Application Status</td>
             <td>{{$application->status}}</td>
@@ -55,6 +64,10 @@
         <tr>
             <td>Passport No</td>
             <td>{{$application->applicant_passport_no}}</td>
+        </tr>
+        <tr>
+            <td>Country of Domicile</td>
+            <td>{{$application->domicile_country_name}}</td>
         </tr>
         <tr>
             <td>Emergency Contact Name (Bangladesh)</td>

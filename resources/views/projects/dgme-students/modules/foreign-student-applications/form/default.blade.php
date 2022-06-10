@@ -13,17 +13,17 @@
  * @var \App\Tenant $tenant
  * @var \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationViewProcessor $view
  */
-
-$foreignStudentApplication = $element;
-
+$foreignStudentApplication = $application = $element;
 ?>
 
 @section('content-top')
     @parent
     @include('mainframe.form.back-link',['var'=>['element'=>$element->user,'class'=>'pull-left']])
     @if($view->showPrintButton())
-        <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element)}}" target="_blank">Print</a>
-        <a id="pdfBtn" class="btn btn-default bg-white" href="{{route('applications.download-pdf',$element)}}" target="_blank">Download PDF</a>
+        <a class="btn btn-default bg-white" href="{{route('applications.print-view',$element)}}"
+           target="_blank">Print</a>
+        <a id="pdfBtn" class="btn btn-default bg-white" href="{{route('applications.download-pdf',$element)}}"
+           target="_blank">Download PDF</a>
     @endif
     @if($view->showDownloadAllButton())
         @include('mainframe.form.download-all-btn')
@@ -46,23 +46,27 @@ $foreignStudentApplication = $element;
         $var = [
             'name' => 'application_session_id',
             'label' => 'Session',
-            'div' => 'col-sm-3',
-            'null_option' => false,
-            'show_inactive' => true,
             'model' => App\ApplicationSession::class,
         ];
         //for created only show the existing value
-        if ($element->isCreating()) {
-            $var['model'] = App\ApplicationSession::class::where('status',
+        if ($application->isCreating()) {
+            $var['query'] = App\ApplicationSession::class::where('status',
                 App\ApplicationSession::SESSION_STATUS_OPEN)->latest('ends_on');
-            $var ['value'] = $element->application_session_id;
         }
         ?>
         @include('form.select-model',['var'=>$var])
-        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv(App\ForeignStudentApplication::$optionsGovernmentPublic),'div'=>'col-md-3']])
-        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>(App\ForeignStudentApplication::$optionsYesNo),'div'=>'col-md-3']])
 
-        @include('form.select-model',['var' => ['name' => 'course_id', 'label' => 'Course', 'table' => 'foreign_application_courses', 'div' => 'col-md-3']])
+        @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Category', 'options'=>kv($application->availableCategoryOptions())]])
+        @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>$view->availableIsSaarcOptions()]])
+
+        <?php
+        $model = \App\ForeignApplicationCourse::active();
+        if ($application->isCreating() && user()->isApplicant() && $application->session->allowed_course_id_options) {
+            $model->whereIn('id', $application->session->allowed_course_id_options);
+        }
+        ?>
+
+        @include('form.select-model',['var' => ['name' => 'course_id', 'label' => 'Course', 'model'=>$model]])
 
         <div class="clearfix"></div>
 
@@ -74,13 +78,12 @@ $foreignStudentApplication = $element;
                      alt="Profile Pic">
             </div>
         @endif
-        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','div'=>'col-md-6']])
-        @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','div'=>'col-md-3']])
-        @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No','div'=>'col-md-3']])
+        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','value'=> $element->name ?? user()->name, 'div'=>'col-md-6']])
+        @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','value'=> $element->email ?? user()->email]])
+        @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No']])
 
         <div class="clearfix"></div>
-        @if($element->id)
-
+        @if($application->isCreated())
             @include('form.text',['var'=>['name'=>'applicant_father_name','label'=>'Father\'s Name','div'=>'col-md-6']])
             @include('form.text',['var'=>['name'=>'applicant_mother_name','label'=>'Mother\'s Name','div'=>'col-md-6']])
             <div class="clearfix"></div>
@@ -90,13 +93,18 @@ $foreignStudentApplication = $element;
             @include('form.select-model',['var'=>['name'=>'dob_country_id','label'=>'Country of Birth','table'=>'countries', 'div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'dob_address','label'=>'Place Of Birth','div'=>'col-md-4']])
             <div class="clearfix"></div>
-            @include('form.select-model',['var'=>['name' => 'domicile_country_id','table'=>'countries', 'label' => 'Country of Domicile', 'div' => 'col-md-4']])
+            <?php
+            $model = \App\Country::active();
+            if (user()->isApplicant() && !$application->domicile_country_id) {
+                $model->whereIn('id', $application->session->allowed_country_id_options);
+            }
+            ?>
+            @include('form.select-model',['var'=>['name' => 'domicile_country_id','label' => 'Country of Domicile','model'=>$model, 'div' => 'col-md-4']])
+
             @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4','tooltip'=>'Must Match The Logged In User Passport']])
-            {{--            @include('form.date',['var'=>['name'=>'applicant_passport_issue_date','label'=>'Passport Issue Date','div'=>'col-md-4']])--}}
-            {{--            @include('form.date',['var'=>['name'=>'applicant_passport_expiry_date','label'=>'Passport Expiry Date','div'=>'col-md-4']])--}}
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'legal_guardian_name','label'=>'Legal Guardian Name','div'=>'col-md-4']])
             @include('form.text',['var'=>['name'=>'legal_guardian_nationality','label'=>'Legal Guardian Nationality','div'=>'col-md-4']])
@@ -112,13 +120,16 @@ $foreignStudentApplication = $element;
 
             <h3>4. Have you applied for admission in an Educational Institute in Bangladesh Earlier?</h3>
             @include('form.select-array',['var'=>['name'=>'has_previous_application','label'=>'Have Previous Application?', 'options'=>(App\ForeignStudentApplication::$optionsYesNo), 'div'=>'col-md-6']])
-            <div id="previousApplicationFeedback">
+
+            <div class="previous_application_feedback_div">
                 @include('form.textarea',['var'=>['name'=>'previous_application_feedback','label'=>'Details of Previous Application']])
             </div>
+
+
             <div class="clearfix"></div>
             <h3>5. Proposed Mode Of Financing Study</h3>
             @include('form.select-array',['var'=>['name'=>'financing_mode','label'=>'Proposed Mode Of Financing Study', 'options'=>kv(App\ForeignStudentApplication::$fundingModes), 'div'=>'col-md-6']])
-            <div id="applicationFinanceOther">
+            <div class="finance_mode_other_div">
                 @include('form.textarea',['var'=>['name'=>'finance_mode_other','label'=>'Details of Finance Other']])
             </div>
             <div class="clearfix"></div>
@@ -140,15 +151,22 @@ $foreignStudentApplication = $element;
                 @include('form.checkbox',['var'=>['name'=>'is_document_verified','label'=>'Document Verified']])
             @endif
             <div class="clearfix"></div>
-            @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($element->availableStatusOptions())]])
-            @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
+
+            @if(user()->isApplicant())
+                @include('form.hidden',['var'=>['name'=>'status']])
+            @else
+                @include('form.select-array',['var'=>['name'=>'status','label'=>'Status', 'options'=>kv($application->availableStatusOptions())]])
+            @endif
+            @if($application->submitted_at)
+                @include('form.plain-text',['var'=>['name'=>'submitted_at','label'=>'Submitted At']])
+            @endif
             <div class="clearfix"></div>
             @if($view->showDecisionFields())
                 @include('form.textarea',['var'=>['name'=>'remarks','label'=>'Remark']])
             @endif
 
             <div class="clearfix"></div>
-            <div id="declaration">
+            <div id="declaration" style="color: red">
                 <h3>9. Declaration</h3>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])
                 <div class="clearfix"></div>
@@ -176,7 +194,7 @@ $foreignStudentApplication = $element;
 
 @section('content-bottom')
     @parent
-    @if($element->isCreated())
+    @if($application->isCreated())
         <div class="col-md-12 no-padding-l">
             <h3>Upload Documents</h3>
         </div>

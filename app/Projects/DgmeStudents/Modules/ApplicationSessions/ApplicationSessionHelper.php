@@ -113,6 +113,11 @@ trait ApplicationSessionHelper
         return ApplicationSession::where('status', self::SESSION_STATUS_OPEN)->latest('ends_on')->first();
     }
 
+    public static function currentOpenSession()
+    {
+        return self::latestOpenSession();
+    }
+
     public static function latestSession(): \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Builder|null
     {
         return ApplicationSession::latest('ends_on')->first();
