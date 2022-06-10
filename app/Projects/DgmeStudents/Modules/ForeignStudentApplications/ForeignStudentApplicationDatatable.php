@@ -5,31 +5,29 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 use App\Projects\DgmeStudents\Features\ApplicantScope\GlobalScope\CheckApplicantScope;
 use App\Projects\DgmeStudents\Features\Datatable\ModuleDatatable;
 use Illuminate\Support\Arr;
-use function PHPUnit\Framework\isNull;
 
 class ForeignStudentApplicationDatatable extends ModuleDatatable
 {
     // Note: Pull in necessary traits
 
     public $moduleName = 'foreign-student-applications';
-    public $booleans = ['is_saarc','is_valid','is_payment_verified','is_document_verified'];
-    public $dates = ['created_at','submitted_at'];
+    public $booleans = ['is_saarc', 'is_valid', 'is_payment_verified', 'is_document_verified'];
+    public $dates = ['created_at', 'submitted_at'];
 
     public $transforms = [
-        'is_valid'=>[
+        'is_valid' => [
             '1' => '<span class="badge bg-green">Yes</span>',
             '0' => '<span class="badge bg-red">No</span>',
         ],
-        'is_payment_verified'=>[
+        'is_payment_verified' => [
             '1' => '<span class="badge bg-green">Yes</span>',
             '0' => '<span class="badge bg-red">No</span>',
         ],
-        'is_document_verified'=>[
+        'is_document_verified' => [
             '1' => '<span class="badge bg-green">Yes</span>',
             '0' => '<span class="badge bg-red">No</span>',
         ],
     ];
-
 
     /*---------------------------------
     | Section : Define query tables/model
@@ -52,7 +50,6 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
     public function columns()
     {
         return [
-            // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
             [$this->table.'.id', 'id', 'ID'],
             [$this->table.'.applicant_name', 'applicant_name', '<span class="pull-left" style="width:150px">Name</span>'],
             [$this->table.'.domicile_country_name', 'domicile_country_name', 'Domicile Country'],
@@ -83,29 +80,11 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
     //  */
     public function selects()
     {
-        $columns = [
-            // [TABLE_FIELD, SQL_TABLE_FIELD_AS, HTML_GRID_TITLE],
-            [$this->table.'.id', 'id', 'ID'],
-            [$this->table.'.applicant_name', 'applicant_name'],
-            [$this->table.'.domicile_country_name', 'domicile_country_name'],
-            [$this->table.'.application_category', 'application_category'],
-            [$this->table.'.applicant_passport_no', 'applicant_passport_no'],
-            [$this->table.'.application_session_id', 'application_session_id'],
-            [$this->table.'.application_session_name', 'application_session_name'],
-            [$this->table.'.is_saarc', 'is_saarc'],
-            [$this->table.'.is_payment_verified', 'is_payment_verified'],
-            [$this->table.'.is_document_verified', 'is_document_verified'],
-            [$this->table.'.is_valid', 'is_valid'],
-            [$this->table.'.course_name', 'course_name'],
-            [$this->table.'.status', 'status'],
-            [$this->table.'.updated_by', 'updated_by'],
-            [$this->table.'.updated_at', 'updated_at'],
-            [$this->table.'.created_at', 'created_at'],
-            [$this->table.'.is_active', 'is_active'],
-        ];
-
-        // Note: Modify the $columns as you need.
-        return $this->selectQueryString($columns);
+        return $this->selectQueryString(
+            array_merge($this->columns(), [
+                [$this->table.'.domicile_country_id', 'domicile_country_id', 'domicile_country_id'],
+                [$this->table.'.application_session_id', 'application_session_id', 'application_session_id'],
+            ]));
     }
 
     /*---------------------------------
@@ -120,7 +99,6 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
         // if (request('id')) { // Example code
         //     $query->where('id', request('id'));
         // }
-
 
         //Removing this because of adding Applicant Scope
         //$user = user();
@@ -187,7 +165,7 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
     public function modify($dt)
     {
         $dt = parent::modify($dt);
-        $dt->rawColumns(['id', 'email', 'is_active','is_saarc','is_valid','is_payment_verified','is_document_verified']); // Dynamically set HTML columns
+        $dt->rawColumns(['id', 'email', 'is_active', 'is_saarc', 'is_valid', 'is_payment_verified', 'is_document_verified']); // Dynamically set HTML columns
 
         if ($this->hasColumn('updated_by')) {
             $dt->editColumn('updated_by', function ($row) { return optional($row->updater)->name; });
@@ -196,8 +174,6 @@ class ForeignStudentApplicationDatatable extends ModuleDatatable
             $dt = $dt->editColumn('id', '<a href="{{ route(\''.$this->module->name.'.edit\', $id) }}">{{pad($id)}}</a>');
 
         }
-
-
 
         return $dt;
     }
