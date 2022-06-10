@@ -93,7 +93,7 @@
     $('select[name=financing_mode]').on('change', function () {
         var div = $('.finance_mode_other_div');
         div.hide();
-        if ($(this).val() == 1) {
+        if ($(this).val() == 'Other') {
             div.show();
         }
     }).trigger('change');
