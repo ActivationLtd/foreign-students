@@ -105,9 +105,10 @@ $foreignStudentApplication = $application = $element;
             <div class="clearfix"></div>
             <?php
             $model = \App\Country::active();
-            if (user()->isApplicant() && !$application->domicile_country_id) {
+            if (user()->isApplicant() && !$application->domicile_country_id && $application->session->allowed_country_id_options) {
                 $model->whereIn('id', $application->session->allowed_country_id_options);
             }
+            $element->domicile_country_id = $element->domicile_country_id ?: user()->country_id;
             ?>
             @include('form.select-model',['var'=>['name' => 'domicile_country_id','label' => 'Country of Domicile','model'=>$model, 'div' => 'col-md-4']])
 
