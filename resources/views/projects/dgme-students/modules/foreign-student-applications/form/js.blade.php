@@ -73,7 +73,7 @@
             $('select[name=status]').val('Submitted');
             $('input[name=status]').val('Submitted');
             showAlert("Please confirm the declaration.<br>" +
-                "Once submitted, the application can be edited in the next 24 hours only.<br>"
+                "Once submitted, the application can no longer be edited.Carefully check your application before submission.<br>"
             );
             $('#applicationSubmitButton').hide();
             $('#foreign-student-applicationsSubmitBtn').removeClass('submit btn btn-success').addClass('submit btn btn-success').html('<i class="fa fa-check"></i> Submit');

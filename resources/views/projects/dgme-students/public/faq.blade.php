@@ -12,7 +12,7 @@
         <ol>
             <li>
                 <span class="faq-question">For how long an applicant is allowed to edit an application that has been submitted?</span>
-                <span class="faq-answer">An applicant can Update the submitted application with in 24 hours of submission.</span>
+                <span class="faq-answer">An applicant can no longer update an application once submitted. Carefully check your application before submission.</span>
             </li>
         </ol>
     </div>
