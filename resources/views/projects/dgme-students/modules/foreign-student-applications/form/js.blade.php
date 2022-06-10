@@ -143,10 +143,10 @@
 
     function loadDomicileCountry() {
         let url = '{{route('countries.list-json',['is_active'=>'1','force_all_data'=>'yes'])}}';
-
         $('select[name=is_saarc]').on('change', function () {
             let isSaarc = $('select[name=is_saarc]').val();
-            var childOldValue = $("select[name=domicile_country_id]").select2('val'); // Temprarily store value to assign after ajax loading
+            var childOldValue = $("select[name=domicile_country_id]").val(); // Temprarily store value to assign after ajax loading
+
             $("select[name=domicile_country_id]").select2("val", "").empty().select2('enable', false); // Clear and disable child
             /*----------------------------------------
             | Options 1 : Axios based implementations
@@ -161,10 +161,11 @@
                 $.each(response.data.data.items, function (i, obj) { // Load options
                     $($("select[name=domicile_country_id]")).append("<option value=" + obj.id + ">" + obj.name + "</option>");
                 });
+                console.log(childOldValue);
                 $("select[name=domicile_country_id]").select2('enable', true); // Enable back child after the ajax call
                 $("select[name=domicile_country_id]").val(childOldValue).select2(); // Assign backold value
             });
-        });
+        }).trigger('change');
 
     }
 </script>
