@@ -2,8 +2,8 @@
 
 namespace App\Projects\DgmeStudents\Modules\ApplicationSessions;
 
-use App\Projects\DgmeStudents\Features\Modular\Validator\ModelProcessor;
 use App\ApplicationSession;
+use App\Projects\DgmeStudents\Features\Modular\Validator\ModelProcessor;
 
 class ApplicationSessionProcessor extends ModelProcessor
 {
@@ -25,7 +25,6 @@ class ApplicationSessionProcessor extends ModelProcessor
         if ($this->user->isApplicant()) {
             $this->immutables = array_merge($this->immutables, ['is_active']);
         }
-
 
         return $this->immutables;
     }
@@ -89,7 +88,7 @@ class ApplicationSessionProcessor extends ModelProcessor
         // ----------------------------------
         if ($this->isValid()) {
             $element->setNameExt()->setIsActive()
-            ->setCode()->formatDate();
+                ->setCode()->formatDate();
         }
 
         return $this;
@@ -109,6 +108,7 @@ class ApplicationSessionProcessor extends ModelProcessor
         // $element->refresh(); // Get the updated model(and relations) before using.
         // The refresh method will re-hydrate the existing model using fresh data from the database.
 
+        \Artisan::call('cache:clear');
         return $this;
     }
     // public function deleting($element) { return $this; }
@@ -150,8 +150,8 @@ class ApplicationSessionProcessor extends ModelProcessor
 
         }
         //check two session is not open
-        if($element->hasTransitionTo('status',ApplicationSession::SESSION_STATUS_OPEN) &&
-            ApplicationSession::where('id','!=',$element->id)->where('status', ApplicationSession::SESSION_STATUS_OPEN)->count()){
+        if ($element->hasTransitionTo('status', ApplicationSession::SESSION_STATUS_OPEN) &&
+            ApplicationSession::where('id', '!=', $element->id)->where('status', ApplicationSession::SESSION_STATUS_OPEN)->count()) {
             $this->error('There is open session, please close it before making another session open'); // Raise error
 
         }

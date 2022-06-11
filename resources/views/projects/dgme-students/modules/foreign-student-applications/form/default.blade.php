@@ -80,12 +80,11 @@ $foreignStudentApplication = $application = $element;
         @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>$view->availableIsSaarcOptions()]])
 
         <?php
-        $model = \App\ForeignApplicationCourse::active();
+        $model = \App\ForeignApplicationCourse::query();
         if ($application->isCreating() && user()->isApplicant() && $application->session->allowed_course_id_options) {
             $model->whereIn('id', $application->session->allowed_course_id_options);
         }
         ?>
-
         @include('form.select-model',['var' => ['name' => 'course_id', 'label' => 'Course', 'model'=>$model]])
 
         <div class="clearfix"></div>
