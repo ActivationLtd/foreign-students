@@ -140,6 +140,11 @@ class Datatable
      */
     public $bDeferRender = true;
 
+    public $dom = 'Blftipr';
+    public $mark = 'true';
+    public $processing = 'true';
+    public $serverSide = 'true';
+
     /**
      * Force hide some fields that are already included in the
      * initial column list. This is useful when you want to reuse the
@@ -376,6 +381,41 @@ class Datatable
     public function bDeferRender()
     {
         if ($this->bDeferRender == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function dom()
+    {
+        return $this->dom ?: 'Blftipr';
+    }
+
+    public function mark()
+    {
+        if ($this->mark == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    public function processing()
+    {
+        if ($this->processing == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    public function serverSide()
+    {
+        if ($this->serverSide == false) {
             return 'false';
         }
 

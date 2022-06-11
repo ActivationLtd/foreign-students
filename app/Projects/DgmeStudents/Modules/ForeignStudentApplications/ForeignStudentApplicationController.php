@@ -39,6 +39,7 @@ class ForeignStudentApplicationController extends ModularController
 
         $uuid = request()->old('uuid') ?: uuid();
         $this->element = $this->element ?: $this->model->fill(request()->all());
+
         $this->element->application_session_id = optional($currentApplicationSession)->id;
 
         if ($this->user->isApplicant()) {

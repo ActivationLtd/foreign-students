@@ -107,6 +107,7 @@ trait ForeignStudentApplicationHelper
     public function availableCategoryOptions()
     {
         $options = \App\ForeignStudentApplication::$categoryOptions;
+
         if ($this->isCreating() && user()->isApplicant()) {
             $options = $this->session->allowed_category_options ?: $options;
         }
