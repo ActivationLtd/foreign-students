@@ -4,6 +4,7 @@
     $datatable = new \App\Projects\DgmeStudents\Datatables\ApplicationExaminationDatatable();
     $datatable->addUrlParam(['foreign_student_application_id' => $element->id]);
     $datatable->bPaginate = false;
+    $datatable->bFilter = false;
     ?>
     <h3>6. Beginning with Matriculation/O Level or equivalent examinations list your examinations</h3>
     @include('mainframe.layouts.module.grid.includes.datatable',['datatable'=>$datatable])
