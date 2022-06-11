@@ -18,8 +18,7 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
 @section('content')
     <h2 style="text-align: left">Session Summary
         <br>
-        Total {{ $totalApplicationsSubmittedYesterday }} - applications were submitted yesterday.
-        ({{today()->subDay()->format('d-m-Y')}})
+        Total {{ $totalApplicationsSubmittedYesterday }} - applications were submitted yesterday ({{today()->subDay()->format('d-m-Y')}}).
     </h2>
 
     <table class="table" style="width: 100%">
