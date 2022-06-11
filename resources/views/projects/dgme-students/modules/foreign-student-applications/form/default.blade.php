@@ -28,7 +28,7 @@ $foreignStudentApplication = $application = $element;
     @if($view->showDownloadAllButton())
         @include('mainframe.form.download-all-btn')
     @endif
-    
+
     @if($application->status)
         <span class="btn application-status">
         Application Status:
