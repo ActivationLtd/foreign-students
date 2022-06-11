@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <td>Session</td>
-            <td>{{$application->session->name}}</td>
+            <td>{{optional($application->session)->name}}</td>
         </tr>
         <tr>
             <td>Category</td>

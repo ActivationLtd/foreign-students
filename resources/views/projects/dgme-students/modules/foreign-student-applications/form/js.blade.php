@@ -33,10 +33,9 @@
     |--------------------------------------------------------------------------
     */
     @if($element->isCreating())
+    // Todo: write codes here.
     $('.delete-cta').css('margin-right', '0');
     $('.cta-block').css({'position': 'relative', 'border-top': 'none'});
-    $('#foreign-student-applicationsSubmitBtn').html(' Proceed To Next Step <i class="fa fa-angle-right"></i>');
-    // Todo: write codes here.
     @endif
 
     /*
@@ -44,12 +43,10 @@
     | updating
     |--------------------------------------------------------------------------
     */
-    @if($element->isUpdating())
-    @if(user()->isApplicant() && $application->status != \App\ForeignStudentApplication::STATUS_SUBMITTED)
-    $('#foreign-student-applicationsSubmitBtn').html(' Save as draft');
-    @endif
 
-    @endif
+
+    $('#foreign-student-applicationsSubmitBtn').html('{!!  $view->submitButtonText()  !!}');
+
     /*
     |--------------------------------------------------------------------------
     | List of functions

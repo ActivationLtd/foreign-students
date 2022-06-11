@@ -80,7 +80,7 @@ return [
 
     'load' => [
         'css' => [
-            'projects/dgme-students/css/dgme-students.css',
+            'projects/dgme-students/css/custom.css',
         ],
         'js' => [
             'projects/dgme-students/js/dgme-students.js',

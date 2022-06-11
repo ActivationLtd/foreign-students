@@ -27,8 +27,16 @@ $foreignStudentApplication = $application = $element;
     @endif
     @if($view->showDownloadAllButton())
         @include('mainframe.form.download-all-btn')
-        <div class="clearfix"></div>
     @endif
+
+    @if($application->status)
+        <span class="btn application-status">
+        Application Status:
+        <span class="badge status-{{ Str::slug($application->status)}}">{{$application->status}}</span>
+    </span>
+    @endif
+
+    <div class="clearfix"></div>
     @if($application->isCreating())
         <?php
         $session = \App\ApplicationSession::currentOpenSession();
@@ -41,6 +49,7 @@ $foreignStudentApplication = $application = $element;
             </div>
         @endif
     @endif
+    <div class="clearfix"></div>
 @endsection
 
 @section('content')
@@ -88,8 +97,8 @@ $foreignStudentApplication = $application = $element;
                      alt="Profile Pic">
             </div>
         @endif
-        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','value'=> $element->name ?? user()->name, 'div'=>'col-md-6']])
-        @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','value'=> $element->email ?? user()->email]])
+        @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','value'=> $element->applicant_name ?? user()->name, 'div'=>'col-md-6']])
+        @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','value'=> $element->applicant_email ?? user()->email]])
         @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No']])
 
         <div class="clearfix"></div>
@@ -182,27 +191,26 @@ $foreignStudentApplication = $application = $element;
                 <h3>9. Upload Documents</h3>
             </div>
             <div class="col-md-4 no-padding-l">
-                <h5>Applicant's Picture</h5><small>Upload one or more files</small><br/><br/>
+                <h5>Applicant's Picture</h5><small>{{-- Upload one or more files --}}</small><br/><br/>
                 @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PROFILE_PIC]])
-                <h5>Applicant's Signature</h5><small>Upload one or more files</small>
+                <h5>Applicant's Signature</h5><small>{{-- Upload one or more files --}}</small>
                 @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_APPLICANT_SIGNATURE]])
             </div>
             <div class="col-md-4 no-padding-l">
-                <h5>Applicant's Passport</h5><small>Upload one or more files</small><br/><br/>
-                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PASSPORT]])
-                <h5>Confirmed Payment Document</h5><small>Upload one or more files</small>
-                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
+                <h5>Applicant's Passport</h5><small>{{-- Upload one or more files --}}</small><br/><br/>
+                @include('form.uploads',['var'=>['limit'=>5,'type'=>\App\Upload::TYPE_PASSPORT]])
+                <h5>Confirmed Payment Document</h5><small>{{-- Upload one or more files --}}</small>
+                @include('form.uploads',['var'=>['limit'=>2,'type'=>\App\Upload::TYPE_PAYMENT_DOCUMENT]])
             </div>
             <div class="col-md-4 no-padding-l">
                 <h5>Applicant's O Level/Different Grading System Or Equivalent Certificate</h5><small>Upload one or
                     more
                     files</small>
-                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
-                <h5>Applicant's A Level Or Equivalent Certificate</h5><small>Upload one or more files</small>
-                @include('form.uploads',['var'=>['limit'=>1,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
+                @include('form.uploads',['var'=>['limit'=>5,'type'=>\App\Upload::TYPE_SSC_EQUIVALENT]])
+                <h5>Applicant's A Level Or Equivalent Certificate</h5><small>{{-- Upload one or more files --}}</small>
+                @include('form.uploads',['var'=>['limit'=>5,'type'=>\App\Upload::TYPE_HSC_EQUIVALENT]])
             </div>
-
-
+            <div class="clearfix"></div>
             <div id="declaration" style="color: red">
                 <h3>10. Declaration</h3>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])

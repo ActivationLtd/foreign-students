@@ -32,14 +32,19 @@ class ForeignStudentApplicationController extends ModularController
     */
     public function create()
     {
-        if ($this->user->isApplicant() && !$currentApplicationSession = ApplicationSession::currentOpenSession()) {
+        $currentApplicationSession = ApplicationSession::currentOpenSession();
+        if ($this->user->isApplicant() && !$currentApplicationSession) {
             return $this->permissionDenied('There is no current application session open for applying');
         }
 
-
         $uuid = request()->old('uuid') ?: uuid();
         $this->element = $this->element ?: $this->model->fill(request()->all());
-        $this->element->application_session_id = $currentApplicationSession->id;
+        $this->element->application_session_id = optional($currentApplicationSession)->id;
+
+        if ($this->user->isApplicant()) {
+            $this->element->applicant_name = $this->user->name;
+            $this->element->applicant_email = $this->user->email;
+        }
 
         $this->element->uuid = $uuid;
         $this->element->is_active = 1; // Note: Set to active by default while creating

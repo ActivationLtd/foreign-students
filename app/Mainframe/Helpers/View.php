@@ -9,18 +9,18 @@ class View extends \Illuminate\View\View
      * Renders the left menu of the application and makes the current item active based on breadcrumb
      *
      * @param        $tree
-     * @param  string $currentModuleName
-     * @param  array $breadcrumbs
+     * @param  string  $currentModuleName
+     * @param  array  $breadcrumbs
      * @return null
      */
     public static function renderMenuTree($tree, $currentModuleName = '', $breadcrumbs = [])
     {
-        if (! is_array($tree)) {
+        if (!is_array($tree)) {
             return null;
         }
         foreach ($tree as $leaf) {
-            $item       = $leaf['item'];
-            $type       = $leaf['type'];
+            $item = $leaf['item'];
+            $type = $leaf['type'];
             $permission = $item->name.'-view-any'; //lorems-view-any
 
             $allow = false;
@@ -47,7 +47,10 @@ class View extends \Illuminate\View\View
                 // matching current breadcrumb of the application set an item as active
 
                 echo "<li class='$liClass'>";
-                echo "<a href=\"$url\"><i class=\"".$item->icon_css."\"></i><span>".$item->title."</span> ";
+
+                $menuItemName = $item->menuItemName ?? $item->title;
+
+                echo "<a href=\"$url\"><i class=\"".$item->icon_css."\"></i><span>".$menuItemName."</span> ";
                 if ($hasChildren) {
                     echo "<span class=\"pull-right-container\"> <i class=\"fa fa-angle-left pull-right\"></i> </span> ";
                 }
@@ -68,7 +71,7 @@ class View extends \Illuminate\View\View
     /**
      * Returns an array with module/module_group name as key
      *
-     * @param  \App\Module|null $module
+     * @param  \App\Module|null  $module
      * @return array
      */
     public static function breadcrumb($module = null)
@@ -78,10 +81,10 @@ class View extends \Illuminate\View\View
             $items = $module->moduleGroupTree();
             foreach ($items as $item) {
                 $breadcrumbs[$item->name] = [
-                    'name'  => $item->name,
+                    'name' => $item->name,
                     'title' => $item->title,
                     'route' => "$item->name.index",
-                    'url'   => route("$item->name.index"),
+                    'url' => route("$item->name.index"),
                 ];
             }
         }
