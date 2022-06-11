@@ -11,13 +11,16 @@
 
 <?php
 $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('status',
-    \App\ForeignStudentApplication::STATUS_SUBMITTED)->where('submitted_at', today()->subDay())->count();
+    \App\ForeignStudentApplication::STATUS_SUBMITTED)->whereBetween('submitted_at', [today()->subDay(), today()])->count();
 ?>
 
 
 @section('content')
-    <h2 style="text-align: left">Session Summary | {{ $totalApplicationsSubmittedYesterday }} - submitted yesterday
-        ({{today()->subDay()->format('d-m-Y')}})</h2>
+    <h2 style="text-align: left">Session Summary
+        <br>
+        Total {{ $totalApplicationsSubmittedYesterday }} - applications were submitted yesterday.
+        ({{today()->subDay()->format('d-m-Y')}})
+    </h2>
 
     <table class="table" style="width: 100%">
         <tr>
