@@ -9,8 +9,15 @@
     </style>
 @endsection
 
+<?php
+$totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('status',
+    \App\ForeignStudentApplication::STATUS_SUBMITTED)->where('submitted_at', today()->subDay())->count();
+?>
+
+
 @section('content')
-    <h2 style="text-align: left">Session Summary</h2>
+    <h2 style="text-align: left">Session Summary | {{ $totalApplicationsSubmittedYesterday }} - submitted yesterday
+        ({{today()->subDay()->format('d-m-Y')}})</h2>
 
     <table class="table" style="width: 100%">
         <tr>
@@ -41,11 +48,11 @@
             <td style="width: 25%"><b>Country</b></td>
             {{--            <td><b>Male</b></td>--}}
             {{--            <td><b>Female</b></td>--}}
-            <td><b>Total</b></td>
-            <td><b>Payment <br/>Verified</b></td>
-            <td><b>Document <br/>Verified</b></td>
-            <td><b>Valid</b></td>
-            <td><b>Accepted</b></td>
+            <td style="width: 15%"><b>Total</b></td>
+            <td style="width: 15%"><b>Payment <br/>Verified</b></td>
+            <td style="width: 15%"><b>Document <br/>Verified</b></td>
+            <td style="width: 15%"><b>Valid</b></td>
+            <td style="width: 15%"><b>Accepted</b></td>
         </tr>
         </thead>
         <tbody>
@@ -68,11 +75,11 @@
                 <td>{{$applicationData->accepted}}</td>
             </tr>
             <?php
-            $sumTotal=$sumTotal+$applicationData->total;
-            $sumPaymentVerified=$sumPaymentVerified+$applicationData->payment_verified;
-            $sumDocumentVerified=$sumDocumentVerified+$applicationData->document_verified;
-            $sumValidApplication=$sumValidApplication+$applicationData->valid_application;
-            $sumAccepted=$sumAccepted+$applicationData->accepted;
+            $sumTotal = $sumTotal + $applicationData->total;
+            $sumPaymentVerified = $sumPaymentVerified + $applicationData->payment_verified;
+            $sumDocumentVerified = $sumDocumentVerified + $applicationData->document_verified;
+            $sumValidApplication = $sumValidApplication + $applicationData->valid_application;
+            $sumAccepted = $sumAccepted + $applicationData->accepted;
             ?>
         @endforeach
         <tr style="border-top: 2px solid grey">
