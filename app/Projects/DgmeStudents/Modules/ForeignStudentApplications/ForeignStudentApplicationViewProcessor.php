@@ -159,4 +159,17 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
         return $options;
     }
 
+    public function submitButtonText()
+    {
+        if ($this->element->isCreating()) {
+            return ' Proceed To Next Step <i class="fa fa-angle-right"></i>';
+        }
+        // Updating
+        if (user()->isApplicant() && $this->element->status != \App\ForeignStudentApplication::STATUS_SUBMITTED) {
+            return "Save as draft";
+        }
+
+        return "Save";
+    }
+
 }

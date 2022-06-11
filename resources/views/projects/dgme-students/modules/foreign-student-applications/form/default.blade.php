@@ -27,8 +27,16 @@ $foreignStudentApplication = $application = $element;
     @endif
     @if($view->showDownloadAllButton())
         @include('mainframe.form.download-all-btn')
-        <div class="clearfix"></div>
     @endif
+    
+    @if($application->status)
+        <span class="btn application-status">
+        Application Status:
+        <span class="badge status-{{ Str::slug($application->status)}}">{{$application->status}}</span>
+    </span>
+    @endif
+
+    <div class="clearfix"></div>
     @if($application->isCreating())
         <?php
         $session = \App\ApplicationSession::currentOpenSession();
@@ -41,6 +49,7 @@ $foreignStudentApplication = $application = $element;
             </div>
         @endif
     @endif
+    <div class="clearfix"></div>
 @endsection
 
 @section('content')
@@ -203,6 +212,7 @@ $foreignStudentApplication = $application = $element;
             </div>
 
 
+            <div class="clearfix"></div>
             <div id="declaration" style="color: red">
                 <h3>10. Declaration</h3>
                 @include('form.checkbox',['var'=>['name'=>'declaration_check']])

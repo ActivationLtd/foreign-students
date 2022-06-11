@@ -31,7 +31,7 @@ $render = $render ?? 'print'
             <table class="no-border no-padding" width="100%">
                 <tr>
                     <td>
-                        <img src="{{asset('projects/dgme-students/images/bangladesh.png')}}"
+                        <img src="{{asset('projects/dgme-students/images/bangladesh-logo.png')}}"
                              style="width: 120px; float: right; padding-right: 15px" alt="">
                     </td>
                     <td align="center">
@@ -39,7 +39,7 @@ $render = $render ?? 'print'
                         <h4 style="text-align: center">{{__('common.gov_of_bangladesh')}}</h4>
                     </td>
                     <td>
-                        <img src="{{asset('projects/dgme-students/images/dgme.png')}}" class="pull-right"
+                        <img src="{{asset('projects/dgme-students/images/dgme-logo.png')}}" class="pull-right"
                              style="width: 120px; float: left; padding-right: 15px" alt="">
                     </td>
                 </tr>
