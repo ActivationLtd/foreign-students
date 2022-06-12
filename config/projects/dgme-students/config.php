@@ -50,6 +50,15 @@ return [
     ],
     # Live users
     'admin_update_emails' => [
-        'dgme-admins@dgmebd.com',
+        'dg@dgme.gov.bd',
+        'dgmeded@gmail.com',
+        'paedeye@yahoo.com',
+        'amirulmorshed@gmail.com',
+        'kaziafzalrahman@yahoo.com',
+        'rashed.dgme@gmail.com',
+        'rahmanmasud01@gmail.com',
+        'devs@activationltd.com',
+        'profakazad@gmail.com'
     ],
+
 ];
