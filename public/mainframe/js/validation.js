@@ -70,7 +70,7 @@ function enableValidation(form_name, successHandlerFunction = false, failHandler
             }
 
         }).error(function (response, textStatus, errorThrown) { // Gracefully handle 422, 400 error responses
-            console.log(response.responseJSON.message);
+            // console.log(response.responseJSON.message);
             showAlert(response.responseJSON.message); //
         }).always(function (ret, textStatus, errorThrown) {
             btn.html(btnText).removeClass('disabled'); // Re-enable the save button
