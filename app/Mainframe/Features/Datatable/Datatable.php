@@ -10,6 +10,9 @@ class Datatable
 {
     use DatatableTrait;
 
+    public const DOM_WITH_BTN = 'Blftipr';
+    public const DOM_WITHOUT_BTN = 'lftipr';
+
     /**
      * Unique name of the data table. A JS variable will be created by
      * this name that will contain the datatable instance. If name
@@ -486,5 +489,20 @@ class Datatable
     public function transforms()
     {
         return $this->transforms ?? [];
+    }
+
+    /**
+     * Hide pagination, filter, buttons and info
+     *
+     * @return $this
+     */
+    public function minimal()
+    {
+        $this->bPaginate = false;
+        $this->bFilter = false;
+        $this->dom = Datatable::DOM_WITHOUT_BTN;
+        $this->bInfo = false;
+
+        return $this;
     }
 }
