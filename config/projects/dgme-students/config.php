@@ -59,7 +59,7 @@ return [
         'rahmanmasud01@gmail.com',
         'sagor.kst2000@gmail.com',
         'devs@activationltd.com',
-        'profakazad@gmail.com '
+        'profakazad@gmail.com'
     ],
 
 ];
