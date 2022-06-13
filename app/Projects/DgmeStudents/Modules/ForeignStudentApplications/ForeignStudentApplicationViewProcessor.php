@@ -4,8 +4,6 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
 use App\ForeignStudentApplication;
 use App\Projects\DgmeStudents\Features\Modular\BaseModule\BaseModuleViewProcessor;
-use App\Projects\DgmeStudents\Helpers\Time;
-use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 
 class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
 {
@@ -25,7 +23,13 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     public $element;
 
     // Note: See parent class for available functions
-    // public function immutables() { $this->addImmutables(['your_field']); return $this->immutables; }
+    public function immutables()
+    {
+        // if ($this->user->isApplicant()) {
+        //     $this->addImmutables(['application_session_id']);
+        // }
+        return $this->immutables;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -139,5 +143,33 @@ class ForeignStudentApplicationViewProcessor extends BaseModuleViewProcessor
     | Section: Report related view helpers
     |--------------------------------------------------------------------------
     */
+
+    public function availableIsSaarcOptions()
+    {
+        $options = [];
+        foreach ($this->element->availableIsSaarcOptions() as $k) {
+            if ($k == 'Yes') {
+                $options['1'] = 'Yes';
+            }
+            if ($k == 'No') {
+                $options['0'] = 'No';
+            }
+        }
+
+        return $options;
+    }
+
+    public function submitButtonText()
+    {
+        if ($this->element->isCreating()) {
+            return ' Proceed To Next Step <i class="fa fa-angle-right"></i>';
+        }
+        // Updating
+        if (user()->isApplicant() && $this->element->status != \App\ForeignStudentApplication::STATUS_SUBMITTED) {
+            return "Save as draft";
+        }
+
+        return "Save";
+    }
 
 }

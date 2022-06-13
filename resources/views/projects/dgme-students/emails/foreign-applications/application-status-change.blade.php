@@ -6,7 +6,7 @@ $user = $application->user;
 
 @section('content-header')
     @parent
-    <h2 style="text-align: center">Reset password</h2>
+    <h2 style="text-align: center">Application Status Changed</h2>
 @endsection
 
 @section('content')
@@ -16,7 +16,8 @@ $user = $application->user;
     The status for your application on has been changed to - {{$application->status}}.
     <br><br>
 
-    Please <a href="{{route('foreign-student-applications.edit',$application->id)}}">click here</a> to view your application<br><br>
+    Please <a href="{{route('foreign-student-applications.edit',$application->id)}}">click
+        here</a> to view your application<br><br>
 
     Thank you.
     <br><br>

@@ -54,6 +54,7 @@ trait ForeignStudentApplicationHelper
 
     /**
      * Generate QrCode content
+     *
      * @return string
      */
     public function qrCodeContent()
@@ -102,6 +103,29 @@ trait ForeignStudentApplicationHelper
         return []; // Fallback empty array. !important to avoid code breaking
 
     }
+
+    public function availableCategoryOptions()
+    {
+        $options = \App\ForeignStudentApplication::$categoryOptions;
+
+        if ($this->isCreating() && user()->isApplicant()) {
+            $options = $this->session->allowed_category_options ?: $options;
+        }
+
+        return $options;
+    }
+
+    public function availableIsSaarcOptions()
+    {
+        $options = ['Yes', 'No'];
+        if ($this->isCreating() && user()->isApplicant()) {
+            $options = $this->session->allowed_is_saarc_options ?: $options;
+        }
+
+        return $options;
+    }
+
+
     /*
     |--------------------------------------------------------------------------
     | Section: Ability to create, edit, delete or restore

@@ -57,8 +57,8 @@ return [
         'kaziafzalrahman@yahoo.com',
         'rashed.dgme@gmail.com',
         'rahmanmasud01@gmail.com',
-        'sagor.kst2000@gmail.com',
         'devs@activationltd.com',
+        'profakazad@gmail.com'
     ],
 
 ];

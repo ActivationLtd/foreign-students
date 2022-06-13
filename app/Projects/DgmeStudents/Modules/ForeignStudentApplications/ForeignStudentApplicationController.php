@@ -4,6 +4,7 @@ namespace App\Projects\DgmeStudents\Modules\ForeignStudentApplications;
 
 use App\Projects\DgmeStudents\Features\Modular\ModularController\ModularController;
 use App\Projects\DgmeStudents\Features\Report\ModuleList;
+use App\Projects\DgmeStudents\Modules\ApplicationSessions\ApplicationSession;
 use PDF;
 
 /**
@@ -29,6 +30,37 @@ class ForeignStudentApplicationController extends ModularController
     |--------------------------------------------------------------------------
     | Override the following list of functions to customize the behavior of the controller
     */
+    public function create()
+    {
+        $currentApplicationSession = ApplicationSession::currentOpenSession();
+        if ($this->user->isApplicant() && !$currentApplicationSession) {
+            return $this->permissionDenied('There is no current application session open for applying');
+        }
+
+        $uuid = request()->old('uuid') ?: uuid();
+        $this->element = $this->element ?: $this->model->fill(request()->all());
+
+        $this->element->application_session_id = optional($currentApplicationSession)->id;
+
+        if ($this->user->isApplicant()) {
+            $this->element->applicant_name = $this->user->name;
+            $this->element->applicant_email = $this->user->email;
+        }
+
+        $this->element->uuid = $uuid;
+        $this->element->is_active = 1; // Note: Set to active by default while creating
+
+        if (!$this->user->can('create', $this->element)) {
+            return $this->permissionDenied();
+        }
+
+        // Set view processor attributes
+        $this->view->setType('create')->setElement($this->element);
+
+        return $this->view($this->view->formPath('create'))
+            ->with($this->view->varsCreate());
+    }
+
     /**
      * ForeignStudentApplication Datatable
      *
@@ -99,19 +131,24 @@ class ForeignStudentApplicationController extends ModularController
     }
 
     /**
+     * Download Application Pdf
+     *
      * @param  \App\ForeignStudentApplication  $foreignStudentApplication
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|void
+     * @return \Illuminate\Http\JsonResponse|void
      */
-    public function generatePdf(\App\ForeignStudentApplication $foreignStudentApplication)
+    public function downloadPdf(\App\ForeignStudentApplication $foreignStudentApplication)
     {
-        if (!$this->user->can('view', $foreignStudentApplication)) {
+        $application = $foreignStudentApplication;
+
+        if (!$this->user->can('view', $application)) {
             return $this->permissionDenied();
         }
         $data = [
-            'application' => $foreignStudentApplication,
+            'application' => $application,
             'render' => 'pdf', // Note: This is passed to determine show/hide of the print button.
         ];
         $pdf = PDF::loadView('projects.dgme-students.modules.foreign-student-applications.print-pdf.print', $data);
-        return $pdf->download("Foreign-Application-".$foreignStudentApplication->id.".pdf");
+
+        return $pdf->download("Foreign-Application-".$application->id.".pdf");
     }
 }

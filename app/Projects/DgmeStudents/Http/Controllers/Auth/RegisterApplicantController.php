@@ -136,6 +136,7 @@ class RegisterApplicantController extends MfRegisterTenantController
             'full_name' => request('first_name').' '.request('last_name'),
             'name' => request('first_name').' '.request('last_name'),
             'email' => request('email'),
+            'country_id' => request('country_id'),
             'passport_no' => request('passport_no'),
             'password' => Hash::make(request('password')),
             'group_ids' => [(string) User::APPLICANT_USER_GROUP_ID],

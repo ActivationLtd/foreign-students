@@ -21,7 +21,7 @@ $columnsJson = $datatable->columnsJson();
 $ajaxUrl = $datatable->ajaxUrl();
 $datatableName = $datatable->name();
 $yesNoOptions = [0 => 'No', 1 => 'Yes'];
-$optionsGovernmentPublic = ForeignStudentApplication::$optionsGovernmentPublic;
+$optionsGovernmentPublic = ForeignStudentApplication::$categoryOptions;
 $fundingModes = ForeignStudentApplication::$fundingModes;
 $statuses = ForeignStudentApplication::$statuses;
 ?>
@@ -48,7 +48,7 @@ $statuses = ForeignStudentApplication::$statuses;
                 @include('form.select-model',['var'=>$var])
 
                 @include('form.select-model',['var'=>['name'=>'course_id','label'=>'Course','table'=>'foreign_application_courses', 'div'=>'col-md-2']])
-                @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Government/Private Institute', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-2']])
+                @include('form.select-array',['var'=>['name'=>'application_category','label'=>'Category', 'options'=>kv($optionsGovernmentPublic),'div'=>'col-md-2']])
                 @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>$yesNoOptions,'div'=>'col-md-2']])
 
 

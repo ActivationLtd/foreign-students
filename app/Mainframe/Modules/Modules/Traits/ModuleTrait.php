@@ -370,4 +370,15 @@ trait ModuleTrait
     {
         return $this->modelInstance()->hasTenantContext();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Attribute
+    |--------------------------------------------------------------------------
+    */
+    public function getMenuItemNameAttribute()
+    {
+        return \Str::title(\Str::plural($this->title));
+    }
+
 }

@@ -10,6 +10,9 @@ class Datatable
 {
     use DatatableTrait;
 
+    public const DOM_WITH_BTN = 'Blftipr';
+    public const DOM_WITHOUT_BTN = 'lftipr';
+
     /**
      * Unique name of the data table. A JS variable will be created by
      * this name that will contain the datatable instance. If name
@@ -139,6 +142,11 @@ class Datatable
      * @var bool
      */
     public $bDeferRender = true;
+
+    public $dom = 'Blftipr';
+    public $mark = 'true';
+    public $processing = 'true';
+    public $serverSide = 'true';
 
     /**
      * Force hide some fields that are already included in the
@@ -385,6 +393,41 @@ class Datatable
     /**
      * @return string
      */
+    public function dom()
+    {
+        return $this->dom ?: 'Blftipr';
+    }
+
+    public function mark()
+    {
+        if ($this->mark == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    public function processing()
+    {
+        if ($this->processing == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    public function serverSide()
+    {
+        if ($this->serverSide == false) {
+            return 'false';
+        }
+
+        return 'true';
+    }
+
+    /**
+     * @return string
+     */
     public function searchDelay()
     {
         return $this->searchDelay;
@@ -446,5 +489,20 @@ class Datatable
     public function transforms()
     {
         return $this->transforms ?? [];
+    }
+
+    /**
+     * Hide pagination, filter, buttons and info
+     *
+     * @return $this
+     */
+    public function minimal()
+    {
+        $this->bPaginate = false;
+        $this->bFilter = false;
+        $this->dom = Datatable::DOM_WITHOUT_BTN;
+        $this->bInfo = false;
+
+        return $this;
     }
 }

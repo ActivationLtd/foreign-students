@@ -28,7 +28,7 @@
         <a href="{{route('home')}}" class="logo">
 
             <span class="logo-mini">
-                 <img style="width: 80%" src="{{asset('projects/dgme-students/images/logo.png')}}" alt="{{config('app.name')}}"/>
+                 <img style="width: 80%" src="{{asset('projects/dgme-students/images/dgme-logo.png')}}" alt="{{config('app.name')}}"/>
 
             </span>
             <span class="logo-lg">

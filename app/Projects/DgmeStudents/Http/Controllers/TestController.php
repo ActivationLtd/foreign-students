@@ -55,8 +55,7 @@ class TestController extends MfTestController
     {
 
         // Section: Test mail send
-        \Mail::to(ApplicationSummaryEmail::recipients())
-            ->send(new ApplicationSummaryEmail());
+        // \Mail::to(ApplicationSummaryEmail::recipients())->send(new ApplicationSummaryEmail());
 
         // Section: Show preview
         return (new ApplicationSummaryEmail());

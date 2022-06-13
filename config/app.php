@@ -241,19 +241,10 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         /*------------------------------------------
-       | Section: Additional packages
-       |------------------------------------------*/
-        // 'SSH' => Collective\Remote\RemoteFacade::class,
-        // 'PDF' => Barryvdh\DomPDF\Facade::class,
-        /*-------------------------------------------------------------------------
-        | Section: Alias Mainframe module classes. A good place to override Mainframe class reference
-        |-------------------------------------------------------------------------*/
-        // 'App\Change' => App\Mainframe\Modules\Changes\Change::class,
-        // 'App\Comment' => App\Mainframe\Modules\Comments\Comment::class,
-        //  ...
-
+        | Section: Additional packages
+        |------------------------------------------*/
+        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         /*-------------------------------------------------------------------------
         | Section: Alias project module classes.
         |-------------------------------------------------------------------------*/

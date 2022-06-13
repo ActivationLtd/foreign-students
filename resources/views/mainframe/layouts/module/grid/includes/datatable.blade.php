@@ -13,7 +13,7 @@ $ajaxUrl = $datatable->ajaxUrl();
 $datatableName = $datatable->name();
 ?>
 
-<div class="{{$datatableName}}-container datatable-container table-responsive">
+<div class="{{$datatableName}}-container datatable-container">
     <table id="{{$datatableName}}" class="table module-grid table-condensed {{$datatableName}} dataTable table-hover"
            style="width: 100%">
         <thead>
@@ -42,8 +42,8 @@ Section: Data table JS
         var {{$datatableName}} = $('#{{$datatableName}}').DataTable({
             ajax: "{!! $ajaxUrl !!}",
             columns: [{!! $columnsJson !!}],
-            processing: true,
-            serverSide: true,
+            processing: {!! $datatable->processing() !!},
+            serverSide: {!! $datatable->serverSide() !!},
             searchDelay: {!! $datatable->searchDelay() !!}, // Search delay
             minLength: {!! $datatable->minLength() !!},     // Minimum characters to be typed before search begins
             lengthMenu: {!! $datatable->lengthMenu() !!},
@@ -54,7 +54,7 @@ Section: Data table JS
             bFilter: {!! $datatable->bFilter() !!},
             bInfo: {!! $datatable->bInfo() !!},
             bDeferRender: {!! $datatable->bDeferRender() !!},
-            "dom": 'Blftipr',                               // Special code to load dom element. i.e. B=buttons
+            "dom": '{!! $datatable->dom() !!}',                               // Special code to load dom element. i.e. B=buttons
             "buttons": [
                 {
                     className: 'dt-refresh-btn btn btn-sm btn-default pull-left bg-white form-control input-sm',
@@ -64,7 +64,7 @@ Section: Data table JS
                     }
                 }
             ],
-            mark: true // Mark/highlight the search results (in yellow)
+            mark: {!! $datatable->mark() !!} // Mark/highlight the search results (in yellow)
         });
 
         {{-- {{$datatableName}}.buttons().container().appendTo('.dataTables_length');--}}
