@@ -23,3 +23,20 @@ function formatDateTime($date)
 {
     return Date::formattedDateTime($date);
 }
+
+function transformBooleans($value){
+    if ($value == 1) {
+        return 'Yes';
+    }
+    if ($value == 0) {
+        return 'No';
+    }
+}
+function transformSaarcField($value){
+    if ($value == 1) {
+        return 'Saarc';
+    }
+    if ($value == 0) {
+        return 'Non Saarc';
+    }
+}

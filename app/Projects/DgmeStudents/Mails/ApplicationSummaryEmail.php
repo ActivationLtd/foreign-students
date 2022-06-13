@@ -32,10 +32,22 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
                 DB::raw('count(case when is_valid = 1 then 1 end) as valid_application'),
                 DB::raw('count(case when `status` ="'.ForeignStudentApplication::STATUS_ACCEPTED.'" then 1 end) as accepted'),
             )
-            ->orderBy('total','desc')->get();
+            ->orderBy('total', 'desc')->get();
+        $privatePublicCountBasedOnSaarc = ForeignStudentApplication::groupBy('is_saarc')
+            ->where('application_session_id', $applicationSession->id)
+            ->where('status', '!=', ForeignStudentApplication::STATUS_DRAFT)
+            ->select('is_saarc',
+                DB::raw('count(case when application_category ="'.ForeignStudentApplication::OPTION_PRIVATE.'"then 1 end) as private'),
+                DB::raw('count(case when application_category ="'.ForeignStudentApplication::OPTION_GOVERNMENT.'"then 1 end) as government'),
+                DB::raw('count(case when course_id =1 then 1 end) as mbbs'),
+                DB::raw('count(case when course_id =2 then 1 end) as bds'),
+            )->orderBy('is_saarc','desc')->get();
+
+
 
         $data = [
             'applications' => $applicationsData,
+            'pvtPublicCountBasedOnSaarc' => $privatePublicCountBasedOnSaarc,
             'session' => $applicationSession,
         ];
 
@@ -54,6 +66,7 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
         if (\App::environment(['production'])) {
             return project_config('admin_update_emails');
         }
+
         return project_config('dev_emails') ?: [];
     }
 
