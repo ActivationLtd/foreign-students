@@ -41,6 +41,52 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
             <td>{{($data['session']->admission_completed)}}</td>
         </tr>
     </table>
+    <h2 style="text-align: left">Saarc Country-wise Applications</h2>
+    <table class="table" style="width: 100%">
+        <thead>
+        <tr class="row-border-bottom">
+            <td style="width: 25%"><b>From Saarc Countries</b></td>
+            <td style="width: 15%"><b>Public</b></td>
+            <td style="width: 15%"><b>Private </b></td>
+            <td style="width: 15%"><b>MBBS</b></td>
+            <td style="width: 15%"><b>BDS </b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+
+        $privateApplications = 0;
+        $publicApplications = 0;
+        $bdsApplications = 0;
+        $mbbsApplications = 0;
+        ?>
+        @foreach($data['pvtPublicCountBasedOnSaarc'] as $applicationData)
+            <tr>
+                <td>{{transformBooleans($applicationData->is_saarc)}}</td>
+                <td>{{$applicationData->private}}</td>
+                <td>{{$applicationData->government}}</td>
+                <td>{{$applicationData->mbbs}}</td>
+                <td>{{$applicationData->bds}}</td>
+            </tr>
+            <?php
+
+            $privateApplications += $applicationData->private;
+            $publicApplications += $applicationData->government;
+            $bdsApplications += $applicationData->mbbs;
+            $mbbsApplications += $applicationData->bds;
+            ?>
+        @endforeach
+        <tr>
+            <td>Total</td>
+            <td>{{$privateApplications}}</td>
+            <td>{{$publicApplications}}</td>
+            <td>{{$bdsApplications}}</td>
+            <td>{{$mbbsApplications}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
 
 
     <h2 style="text-align: left">Country-wise Applications</h2>
