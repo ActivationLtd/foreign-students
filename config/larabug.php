@@ -34,8 +34,8 @@ return [
     | This setting determines if the exception should be send over or not.
     |
     */
-
     'environments' => [
+        'development',
         'staging',
         'production',
         // 'local',
