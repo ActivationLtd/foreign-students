@@ -32,3 +32,11 @@ function transformBooleans($value){
         return 'No';
     }
 }
+function transformSaarcField($value){
+    if ($value == 1) {
+        return 'Saarc';
+    }
+    if ($value == 0) {
+        return 'Non Saarc';
+    }
+}

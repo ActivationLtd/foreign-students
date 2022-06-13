@@ -45,7 +45,7 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
     <table class="table" style="width: 100%">
         <thead>
         <tr class="row-border-bottom">
-            <td style="width: 25%"><b>From Saarc Countries</b></td>
+            <td style="width: 25%"></td>
             <td style="width: 15%"><b>Public</b></td>
             <td style="width: 15%"><b>Private </b></td>
             <td style="width: 15%"><b>MBBS</b></td>
@@ -62,7 +62,7 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
         ?>
         @foreach($data['pvtPublicCountBasedOnSaarc'] as $applicationData)
             <tr>
-                <td>{{transformBooleans($applicationData->is_saarc)}}</td>
+                <td>{{transformSaarcField($applicationData->is_saarc)}}</td>
                 <td>{{$applicationData->private}}</td>
                 <td>{{$applicationData->government}}</td>
                 <td>{{$applicationData->mbbs}}</td>
