@@ -143,10 +143,34 @@ class Datatable
      */
     public $bDeferRender = true;
 
+    /**
+     * Datatable dom options
+     * See: https://datatables.net/reference/option/dom
+     *
+     * @var string
+     */
     public $dom = 'Blftipr';
-    public $mark = 'true';
-    public $processing = 'true';
-    public $serverSide = 'true';
+
+    /**
+     * Show marked(highlighted) matched text in search result
+     *
+     * @var string
+     */
+    public $mark = true;
+
+    /**
+     * Show processing text
+     *
+     * @var bool
+     */
+    public $processing = true;
+
+    /**
+     * Activate AJAX based data fetch from server side
+     *
+     * @var bool
+     */
+    public $serverSide = true;
 
     /**
      * Force hide some fields that are already included in the
