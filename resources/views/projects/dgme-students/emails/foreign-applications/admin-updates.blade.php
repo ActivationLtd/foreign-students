@@ -77,7 +77,7 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
             ?>
         @endforeach
         <tr style="border-top: 2px solid grey">
-            <td>Total</td>
+            <td><b>Total</b></td>
             <td><b>{{$publicApplications}}</b></td>
             <td><b>{{$privateApplications}}</b></td>
             <td><b>{{$bdsApplications}}</b></td>
