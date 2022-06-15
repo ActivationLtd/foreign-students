@@ -45,6 +45,7 @@ class ForeignStudentApplicationController extends ModularController
         if ($this->user->isApplicant()) {
             $this->element->applicant_name = $this->user->name;
             $this->element->applicant_email = $this->user->email;
+            $this->element->gender = $this->user->gender;
         }
 
         $this->element->uuid = $uuid;

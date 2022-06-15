@@ -30,6 +30,7 @@
         @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name']])
         @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name']])
         @include('form.text',['var'=>['name'=>'passport_no','label'=>'Passport']])
+        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>App\User::$genderOptions]])
 
         {{-- show password only for editable--}}
         @if($editable)
