@@ -184,6 +184,7 @@ class ForeignStudentApplication extends BaseModule
         'name',
         //'user_id',
         'applicant_name',
+        'gender',
         'applicant_father_name',
         'applicant_mother_name',
         'communication_address',

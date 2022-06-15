@@ -8,7 +8,7 @@
         @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name', 'div'=>'col-sm-6','tooltip'=>'Applicant\'s First Name']])
         @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name', 'div'=>'col-sm-6','tooltip'=>'Applicant\'s Last Name']])
         @include('form.text',['var'=>['name'=>'email','label'=>'Email Address', 'div'=>'col-sm-6','tooltip'=>'Applicant\'s Email Name']])
-
+        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>App\User::$genderOptions,'div'=>'col-sm-6','tooltip'=>'Applicant\'s Gender']])
         <?php
 
         $model = \App\Country::active();
@@ -46,6 +46,7 @@
         $("#applicant_registration_form input[name=first_name]").addClass('validate[required]');
         $("#applicant_registration_form input[name=last_name]").addClass('validate[required]');
         $("#applicant_registration_form input[name=email]").addClass('validate[required]');
+        $("#applicant_registration_form input[name=gender]").addClass('validate[required]');
         $("#applicant_registration_form select[id=country_id]").addClass('validate[required]');
         $("#applicant_registration_form input[name=passport_no]").addClass('validate[required]');
         $("#applicant_registration_form input[name=password]").addClass('validate[required]');
