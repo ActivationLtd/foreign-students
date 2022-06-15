@@ -16,32 +16,33 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
 
 
 @section('content')
-    <h2 style="text-align: left">Session Summary
-        <br>
-        Total {{ $totalApplicationsSubmittedYesterday }} - applications were submitted yesterday ({{today()->subDay()->format('d-m-Y')}}).
+    <h2 style="text-align: left">
+        <span>Session Summary </span>
+
+        <span style="float: right; font-size: 12px; background-color: #00a65a; padding: 5px; color: white; border-radius: 5px"> {{ $totalApplicationsSubmittedYesterday }} - applications submitted yesterday ({{today()->subDay()->format('d-m-Y')}}).</span>
     </h2>
 
     <table class="table" style="width: 100%">
-        <tr>
+        <tr class="row-border-bottom">
             <td style="width: 25%"><b>Session</b></td>
             <td style="width: 25%">{{$data['session']->name}}</td>
             <td style="width: 25%"><b>Status</b></td>
             <td style="width: 25%">{{$data['session']->status}}</td>
         </tr>
-        <tr>
+        <tr class="row-border-bottom">
             <td><b>Start Date</b></td>
             <td>{{formatDate($data['session']->starts_on)}}</td>
             <td><b>End Date</b></td>
             <td>{{formatDate($data['session']->ends_on)}}</td>
         </tr>
-        <tr>
+        <tr class="row-border-bottom">
             <td><b>Selection Completed?</b></td>
             <td>{{($data['session']->selection_completed)}}</td>
             <td><b>Admission Completed?</b></td>
             <td>{{($data['session']->admission_completed)}}</td>
         </tr>
     </table>
-    <h2 style="text-align: left">Saarc Country-wise Applications</h2>
+    <h2 style="text-align: left">SAARC/Non-SAARC Breakdown </h2>
     <table class="table" style="width: 100%">
         <thead>
         <tr class="row-border-bottom">

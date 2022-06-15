@@ -16,15 +16,17 @@
     }
 
     body, body *:not(html):not(style):not(br):not(tr):not(code) {
-        font-family: Inter, Helvetica, sans-serif;
+        font-family: 'solaiman-lipi', 'Arial', Inter, Helvetica, sans-serif;
         box-sizing: border-box;
+        color: #777777;
+
     }
 
     body {
-        background-color: #f5f8fa;
-        color: #74787E;
+
         height: 100%;
         hyphens: auto;
+        font-size: 13px;
         line-height: 1.4;
         margin: 0;
         -moz-hyphens: auto;
@@ -55,8 +57,8 @@
 
     h1 {
         color: #2F3133;
-        font-size: 19px;
-        font-weight: bold;
+        font-size: 18px;
+        font-weight: normal;
         margin: 20px 0;
         text-align: left;
     }
@@ -64,7 +66,7 @@
     h2 {
         color: #2F3133;
         font-size: 16px;
-        font-weight: bold;
+        font-weight: normal;
         margin: 20px 0;
         text-align: left;
     }
@@ -72,14 +74,14 @@
     h3 {
         color: #2F3133;
         font-size: 14px;
-        font-weight: bold;
+        font-weight: normal;
         margin: 20px 0;
         text-align: left;
     }
 
     p {
         color: #74787E;
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1.5em;
         margin-top: 0;
         text-align: left;
@@ -117,13 +119,12 @@
     /* Header */
 
     .header {
-        padding: 25px 0;
+        padding: 10px 0;
         text-align: center;
     }
 
     .header a {
         color: #bbbfc3;
-        font-size: 19px;
         font-weight: bold;
         text-decoration: none;
         text-shadow: 0 1px 0 white;
@@ -185,15 +186,13 @@
 
     /* Tables */
 
-    table{
+    table {
         border-collapse: collapse;
     }
 
-    .row-border-bottom{
-        border-bottom: 1px lightgrey solid ;
+    .row-border-bottom {
+        border-bottom: 1px lightgrey solid;
     }
-
-
 
     .table table {
         margin: 30px auto;
