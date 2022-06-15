@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('foreign_student_applications', function (Blueprint $table) {
             //
+            $table->string('gender', 20)->nullable()->default(null)->after('applicant_name')->index();
         });
     }
 

@@ -111,7 +111,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         return [
             'dob' => 'date of birth',
             'dob_country_id' => 'place of birth',
-            'dob_address' => 'place of birth'
+            'dob_address' => 'place of birth',
         ];
     }
 
@@ -137,7 +137,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         $this->checkCourseSessionAndType();
         $this->setCheckBoxValueToZero();
 
-        if ($this->element->status == 'Submitted') {
+        if ($this->hasTransitionTo('status', ForeignStudentApplication::STATUS_SUBMITTED)) {
             $this->checkDocuments();
             $this->checkPassportAndEmail();
             $this->checkSAARCCountry();
@@ -191,6 +191,7 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         $element->applicationExaminations()->delete();
         $element->applicationLanguageProfiencies()->delete();
         $element->uploads()->delete();
+
         return $this;
     }
 
