@@ -132,12 +132,13 @@ class ForeignStudentApplicationProcessor extends ModelProcessor
         // --------------------
         // $this->checkSomething();
         if ($this->hasTransition('status', 'Draft', 'Submitted')) {
-            $this->element->submitted_at = now();
+            $element->submitted_at = now();
         }
-        $this->checkCourseSessionAndType();
+
         $this->setCheckBoxValueToZero();
 
         if ($this->hasTransitionTo('status', ForeignStudentApplication::STATUS_SUBMITTED)) {
+            $this->checkCourseSessionAndType();
             $this->checkDocuments();
             $this->checkPassportAndEmail();
             $this->checkSAARCCountry();
