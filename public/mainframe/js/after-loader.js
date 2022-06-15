@@ -136,10 +136,14 @@ autosize(document.querySelectorAll('textarea'));
 */
 initJsonTextarea();
 
-
 /*
 |--------------------------------------------------------------------------
 | Enable sortable list
 |--------------------------------------------------------------------------
 */
 $('.sortable').sortable();
+
+$.fn.dataTable.ext.errMode = function (settings, helpPage, message) {
+    console.log(message);
+    alert("Data could not be loaded. It can be because of your session has expired. Please refresh the page.");
+};

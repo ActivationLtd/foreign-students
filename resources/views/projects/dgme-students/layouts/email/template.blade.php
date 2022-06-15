@@ -13,7 +13,7 @@
 <body>
 
 <table class="content" width="100%" cellpadding="0" cellspacing="0">
-    <tr>
+    <tr style="background-color: #f5f8fa">
         <td class="header" width="100%" cellpadding="0" cellspacing="0">
             @section('title')
                 {{-- section: title --}}
@@ -27,6 +27,7 @@
             <table class="inner-body" align="center" width="650px" cellpadding="0" cellspacing="0">
                 <tr>
                     <td class="content-cell">
+                        <span style="color: red; display: block; text-align: center ">This is a system-generated email generated at : {{now()->format('M d,Y h:i A')}}</span>
                         @section('content-header')
                             <h1 style="text-align: center">{{config('app.name')}}</h1>
                             {{-- section: content-header --}}
