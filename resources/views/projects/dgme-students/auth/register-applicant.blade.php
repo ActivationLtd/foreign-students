@@ -8,7 +8,7 @@
         @include('form.text',['var'=>['name'=>'first_name','label'=>'First Name', 'div'=>'col-sm-6','tooltip'=>'Applicant\'s First Name']])
         @include('form.text',['var'=>['name'=>'last_name','label'=>'Last Name', 'div'=>'col-sm-6','tooltip'=>'Applicant\'s Last Name']])
         @include('form.text',['var'=>['name'=>'email','label'=>'Email Address', 'div'=>'col-sm-6','tooltip'=>'Applicant\'s Email Name']])
-        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>App\User::$genderOptions,'div'=>'col-sm-6','tooltip'=>'Applicant\'s Gender']])
+        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>kv(App\User::$genderOptions),'div'=>'col-sm-6','tooltip'=>'Applicant\'s Gender']])
         <?php
 
         $model = \App\Country::active();

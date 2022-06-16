@@ -34,6 +34,7 @@ class UserDatatable extends ModuleDatatable
             [$this->table.'.name', 'name', 'Name'],
             [$this->table.'.email', 'email', 'Email'],
             [$this->table.'.passport_no', 'passport_no', 'Passport'],
+            [$this->table.'.gender', 'gender', 'Gender'],
             ['updater.name', 'user_name', 'Updater'],
             [$this->table.'.updated_at', 'updated_at', 'Updated at'],
             [$this->table.'.is_active', 'is_active', 'Active'],
