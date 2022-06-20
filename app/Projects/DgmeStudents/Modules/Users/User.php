@@ -261,7 +261,10 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
     |--------------------------------------------------------------------------
     */
     // public static $types = [];
-
+    public static $genderOptions=[
+        self::GENDER_MALE,
+        self::GENDER_FEMALE
+    ];
     /*
     |--------------------------------------------------------------------------
     | Boot method and model events.

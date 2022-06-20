@@ -97,6 +97,8 @@ $foreignStudentApplication = $application = $element;
             </div>
         @endif
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','value'=> $element->applicant_name ?? user()->name, 'div'=>'col-md-6']])
+        <div class="clearfix"></div>
+        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>App\User::$genderOptions,'div'=>'col-sm-3']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','value'=> $element->applicant_email ?? user()->email]])
         @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No']])
 
