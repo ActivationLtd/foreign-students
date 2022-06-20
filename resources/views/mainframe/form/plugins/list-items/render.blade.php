@@ -10,7 +10,9 @@ $plugin = new \App\Mainframe\Features\Form\Plugins\ListItems\ListItems($var);
 @if(isset($element) && $element->isCreated())
 
     <div class="clearfix"></div>
-    <h3>{!! $plugin->label !!}</h3>
+    @if($plugin->label)
+        <h3>{!! $plugin->label !!}</h3>
+    @endif
     @if($plugin->createLink())
         <a href="{!! $plugin->createLink() !!}" class="btn btn-default bg-white">
             {!! $plugin->createText() !!}

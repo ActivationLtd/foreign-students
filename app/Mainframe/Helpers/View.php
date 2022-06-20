@@ -50,7 +50,7 @@ class View extends \Illuminate\View\View
 
                 $menuItemName = $item->menuItemName ?? $item->title;
 
-                echo "<a href=\"$url\"><i class=\"".$item->icon_css."\"></i><span>".$menuItemName."</span> ";
+                echo "<a href='$url'>".$item->icon_html.$menuItemName."</span> ";
                 if ($hasChildren) {
                     echo "<span class=\"pull-right-container\"> <i class=\"fa fa-angle-left pull-right\"></i> </span> ";
                 }

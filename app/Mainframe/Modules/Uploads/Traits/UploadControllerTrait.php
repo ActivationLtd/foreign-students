@@ -194,7 +194,18 @@ trait UploadControllerTrait
      */
     public function uniqueFileName()
     {
-        return \Str::random(4)."_".urlencode($this->getFile()->getClientOriginalName());
+        // Old implementation that retained file name
+        // ----------------------------------------------
+        // $fileName = urlencode($this->getFile()->getClientOriginalName()); // original filename with extension
+        // $fileName = substr($fileName, -30, 30); // Take last 30 characters
+        // return \Str::random(4)."_".urlencode($fileName);
+
+        // New implementation that forces a valid file name
+        //-------------------------------------------------
+        $namePart = \Str::random(4)."_".now()->format('YmdHis');
+        $ext = $this->getFile()->getClientOriginalExtension();
+
+        return $namePart.'.'.$ext;
     }
 
     /**

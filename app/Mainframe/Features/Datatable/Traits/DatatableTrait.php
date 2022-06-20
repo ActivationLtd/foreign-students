@@ -90,6 +90,27 @@ trait DatatableTrait
     }
 
     /**
+     * Auto apply filter based on query.
+     *
+     * @param $query \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|mixed
+     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|mixed
+     */
+    public function applyAutoFilterUsingRequestParameters($query)
+    {
+        if ($this->model) {
+            $columns = $this->model->tableColumns();
+            $table = $this->model->getTable();
+            foreach ($columns as $column) {
+                if (request($column)) { // Example code
+                    $query->whereIn($table.'.'.$column, \Arr::wrap(request($column)));
+                }
+            }
+        }
+
+        return $query;
+    }
+
+    /**
      * Modify datatable values
      *
      * @return mixed

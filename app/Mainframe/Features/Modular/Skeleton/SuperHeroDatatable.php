@@ -19,7 +19,7 @@ class SuperHeroDatatable extends ModuleDatatable
     public function source()
     {
         // return \DB::table($this->table)->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by'); // Old table based implementation
-       return SuperHero::with(['updater:id,name']); // Model based query.
+        return SuperHero::with(['updater:id,name']); // Model based query.
     }
 
     /*---------------------------------
@@ -64,6 +64,7 @@ class SuperHeroDatatable extends ModuleDatatable
     //  */
     // public function filter($query)
     // {
+    //     $query = parent::query($query);
     //     // if (request('id')) { // Example code
     //     //     $query->where('id', request('id'));
     //     // }

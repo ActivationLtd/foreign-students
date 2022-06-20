@@ -24,10 +24,10 @@ $superHero = $element;
             {{ Form::model($element, $formConfig)}}
         @endif
 
-        {{---------------|  Form input start |-----------------------}}
+        {{---------------|  Form input start |---------------}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
         @include('form.is-active')
-        {{---------------|  Form input start |-----------------------}}
+        {{---------------|  Form input start |---------------}}
 
         @include('form.action-buttons')
         {{ Form::close() }}

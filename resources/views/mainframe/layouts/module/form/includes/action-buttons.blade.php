@@ -37,7 +37,7 @@ $float = $float ?? true;
                value="{{Request::get('ret')}}"/>
 
         <button id="{{$module->name}}SubmitBtn" type="submit"
-                class="submit btn btn-success {{$module->name}}-SubmitBtn">
+                class="submit btn btn-success {{$module->name}}-SubmitBtn module-save-btn">
             <i class="fa fa-check"></i> &nbsp;&nbsp;&nbsp;Save
         </button>
 
@@ -48,8 +48,8 @@ $float = $float ?? true;
         <div class="pull-right delete-cta no-padding">
             <?php
             $var = [
-                'route' => route($module->name . ".destroy", $element->id),
-                'redirect_success' => route($module->name . ".index"),
+                'route' => route($module->name.".destroy", $element->id),
+                'redirect_success' => route($module->name.".index"),
             ];
             ?>
             @include('form.delete-button',['var'=>$var])

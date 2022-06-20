@@ -103,7 +103,7 @@ $emptyValue = $emptyValue ?? '';
                     });
 
 
-                });
+                }).trigger('change');
 
                 {{-- {{$currentSelect}}.trigger('change'); // Force trigger a 'change' event  so that child options refresh based on current parent selection.--}}
             </script>
