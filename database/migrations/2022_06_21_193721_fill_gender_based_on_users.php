@@ -15,12 +15,7 @@ return new class extends Migration
     public function up()
     {
         //
-        User::whereNotNull('gender')->chunk(50,function($users){
-            foreach($users as $user){
-                $user->applications()->update(['gender'=>$user->gender]);
-            }
-
-        });
+        Artisan::call('command:populate-gender-applications');
     }
 
     /**
