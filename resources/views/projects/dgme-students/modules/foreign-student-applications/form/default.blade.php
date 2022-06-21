@@ -98,7 +98,7 @@ $foreignStudentApplication = $application = $element;
         @endif
         @include('form.text',['var'=>['name'=>'applicant_name','label'=>'Student Full Name','value'=> $element->applicant_name ?? user()->name, 'div'=>'col-md-6']])
         <div class="clearfix"></div>
-        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>App\User::$genderOptions,'div'=>'col-sm-3']])
+        @include('form.select-array',['var'=>['name'=>'gender','label'=>'Sex','options'=>kv(App\User::$genderOptions),'div'=>'col-sm-3']])
         @include('form.text',['var'=>['name'=>'applicant_email','label'=>'Student Email','value'=> $element->applicant_email ?? user()->email]])
         @include('form.number',['var'=>['name'=>'applicant_mobile_no','label'=>'Student Mobile No']])
 
@@ -120,10 +120,10 @@ $foreignStudentApplication = $application = $element;
             }
             $element->domicile_country_id = $element->domicile_country_id ?: user()->country_id;
             ?>
-            @include('form.select-model',['var'=>['name' => 'domicile_country_id','label' => 'Country of Domicile','model'=>$model, 'div' => 'col-md-4']])
+            @include('form.select-model',['var'=>['name' => 'domicile_country_id','label' => 'Nationality Country','model'=>$model, 'div' => 'col-md-4']])
 
             @include('form.text',['var'=>['name'=>'domicile_address','label'=>'Place of Domicile','div'=>'col-md-4']])
-            @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
+            @include('form.plain-text',['var'=>['name'=>'nationality','label'=>'Nationality','div'=>'col-md-4']])
             <div class="clearfix"></div>
             @include('form.text',['var'=>['name'=>'applicant_passport_no','label'=>'Passport No','div'=>'col-md-4', 'value'=> $element->applicant_passport_no ?? user()->passport_no, 'tooltip'=>'Must Match The Logged In User Passport']])
             <div class="clearfix"></div>
