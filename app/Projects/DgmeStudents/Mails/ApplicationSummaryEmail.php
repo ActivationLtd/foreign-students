@@ -41,6 +41,8 @@ class ApplicationSummaryEmail extends Mailable implements ShouldQueue
                 DB::raw('count(case when application_category ="'.ForeignStudentApplication::OPTION_GOVERNMENT.'"then 1 end) as government'),
                 DB::raw('count(case when course_id =1 then 1 end) as mbbs'),
                 DB::raw('count(case when course_id =2 then 1 end) as bds'),
+                DB::raw('count(case when gender = "Male" then 1 end) as male'),
+                DB::raw('count(case when gender = "Female" then 1 end) as female'),
             )->orderBy('is_saarc','desc')->get();
 
 

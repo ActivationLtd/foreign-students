@@ -114,6 +114,7 @@ class Country extends BaseModule
         'uuid',
         'name',
         'is_saarc',
+        'nationality',
         'is_active',
     ];
 

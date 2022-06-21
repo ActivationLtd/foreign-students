@@ -26,6 +26,7 @@ $yesNoOptions = ForeignStudentApplication::$optionsYesNo;
         {{--    Form inputs: starts    --}}
         {{--   --------------------    --}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
+        @include('form.text',['var'=>['name'=>'nationality','label'=>'Nationality']])
         @include('form.select-array',['var'=>['name'=>'is_saarc','label'=>'Is SAARC?', 'options'=>($yesNoOptions),'div'=>'col-md-2']])
 
         @include('form.is-active')
