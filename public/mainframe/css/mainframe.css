@@ -4,6 +4,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,600;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
 
+@font-face {
+    font-family: "solaiman-lipi";
+    src: url("fonts/solaiman-lipi.ttf");
+}
+
+.bangla {
+    font-family: "solaiman-lipi", "Inter", "Roboto", "Arial", sans-serif;!important;
+}
+
 .material-icons-outlined,
 .material-symbols-outlined {
     font-size: inherit;
@@ -766,6 +775,13 @@ div.dataTables_length label {
     margin-right: 5px;
 }
 
+ion-icon {
+    visibility: hidden;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: -2px;
+}
+
 .sidebar-menu > li > a > .fa,
 .sidebar-menu > li > a > .glyphicon,
 .sidebar-menu > li > a > .ion,
@@ -985,7 +1001,8 @@ textarea.json {
     min-height: 90px;
     /* background: #fff; */
     width: 100%;
-    box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
+    /*box-shadow: 0 4px 13px rgb(0 0 0 / 10%);*/
+    box-shadow: none;
     margin-bottom: 15px;
 }
 
@@ -1139,27 +1156,6 @@ label.required::after {
     padding-top: 10px;
 }
 
-/**
-* Bordered input field
-*/
-.fulfillment label {
-    color: white;
-    font-weight: bold;
-    background-color: #fc466b;
-    display: block;
-    padding: 5px;
-    border-radius: 5px 5px 0 0;
-}
-
-.fulfillment {
-    float: right;
-}
-
-.fulfillment .form-control {
-    border: 2px #fc466b solid;
-    border-radius: 0 0 5px 5px;
-}
-
 /**** Is active: starts **************/
 .is-active-div {
     border: 2px solid green;
@@ -1181,6 +1177,27 @@ input.is_active {
 }
 
 /**** Is active : ends **************/
+
+/**
+* Bordered input field
+*/
+.boxed-input label {
+    color: white;
+    font-weight: bold;
+    background-color: #fc466b;
+    display: block;
+    padding: 5px;
+    border-radius: 5px 5px 0 0;
+}
+
+.boxed-input {
+    /*float: left;*/
+}
+
+.boxed-input .form-control {
+    border: 2px #fc466b solid;
+    border-radius: 0 0 5px 5px;
+}
 
 /**
 * Bordered input field for ajax-preview-search select
@@ -1210,4 +1227,12 @@ input.is_active {
     color: white;
     border: 2px green solid;
     background-color: green;
+}
+
+/**
+* Text transforms
+******************************************************/
+
+.uppercase {
+    text-transform: uppercase;
 }

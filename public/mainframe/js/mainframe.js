@@ -412,3 +412,20 @@ function initJsonTextarea(css) {
     });
 
 }
+
+/**
+ * Float the cta
+ */
+function ctaFloat() {
+    $(".delete-cta").css({"margin-right": 0});
+    $(".cta-block").css({"position": "relative", "border-top": "none"});
+}
+
+/**
+ * Change default module CTA text
+ * @param text
+ * @param target
+ */
+function ctaText(text, target = ".module-save-btn") {
+    $(target).html(text);
+}

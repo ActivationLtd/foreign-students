@@ -78,7 +78,7 @@ $emptyValue = $emptyValue ?? '';
                     if (!val || val == 0) {
                         {{$childSelect}}.select2("val", "").empty().select2('enable', false);
                         {{$childSelect}}.trigger('change');
-                        console.log('{{$childSelect}}');
+
                         return;
                     }
 

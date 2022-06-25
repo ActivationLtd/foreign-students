@@ -27,8 +27,8 @@ class SelectAjaxPreviewSearch extends SelectAjax
         $this->previewUrl = $this->var['preview_url'] ?? null;
         $this->previewUrlParam = $this->var['preview_url_param'] ?? null;
         $this->modal = $this->var['modal'] ?? null;
-        $this->datatable = $this->var['datatable'] ?? null; // todo
-        $this->datatableView = $this->var['datatable_view'] ?? null; // todo
+        $this->datatable = $this->var['datatable'] ?? null;             //todo
+        $this->datatableView = $this->var['datatable_view'] ?? null;    //todo
 
         $this->id = \Str::camel($this->id); // For camel case because function names will be created using this Id
     }
@@ -45,7 +45,7 @@ class SelectAjaxPreviewSearch extends SelectAjax
             $urlParams['columns_csv'] = implode(',', [
                 $this->valueField,
                 $this->nameField,
-                // 'name_bn' // Addaddtional fields
+                // 'name_bn' // Additional fields
             ]);
         }
 

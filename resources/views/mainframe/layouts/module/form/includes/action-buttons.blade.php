@@ -44,7 +44,7 @@ $float = $float ?? true;
     @endif
 
     {{-- Delete modal open button--}}
-    @if(isset($element->id) && user()->can('delete',$element))
+    @if($element->isCreated() && user()->can('delete',$element))
         <div class="pull-right delete-cta no-padding">
             <?php
             $var = [
@@ -57,7 +57,7 @@ $float = $float ?? true;
     @endif
 
     {{--  Change log button      --}}
-    @if(isset($element->id))
+    @if($element->isCreated())
         <a target="_blank" class="btn  bg-white pull-right"
            href="{{route("$module->name.changes",$element->id)}}">Change log</a>
     @endif

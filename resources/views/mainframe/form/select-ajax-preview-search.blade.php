@@ -47,10 +47,9 @@ $section = 'ajax_search_modal_'.$input->id;
         {{-- input --}}
         <div class="clearfix"></div>
 
-
         {{--clear button--}}
-
         <div class="selection-data col-md-12 no-padding-l">
+            
             <div class="col-md-{{ $input->isEditable ? '10' : '12'}} no-padding">
                 {{ Form::text($input->name, $input->value(), $input->params) }}
                 <input name="preload" type="hidden" class="select2-ajax-preload" value="{{$input->preload()}}"/>
