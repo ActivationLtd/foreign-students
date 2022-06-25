@@ -195,7 +195,7 @@ class ForeignStudentApplication extends BaseModule
         'domicile_country_id',
         'domicile_country_name',
         'domicile_address',
-        'nationality',
+        //'nationality',
         'applicant_passport_no',
         'applicant_passport_issue_date',
         'applicant_passport_expiry_date',

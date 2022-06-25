@@ -28,6 +28,7 @@ trait ForeignStudentApplicationProcessorHelper
         }
         if ($element->domicile_country_id) {
             $element->domicile_country_name = $element->domicileCountry->name;
+            $element->nationality=$element->domicileCountry->nationality;
         }
         if ($element->course_id) {
             $element->course_name = $element->course->name;

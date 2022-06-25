@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Projects\DgmeStudents\Commands\DoSomething::Class,
         \App\Projects\DgmeStudents\Commands\PopulateSessionIdInApplication::Class,
         \App\Projects\DgmeStudents\Commands\DeleteRelationsOfDeletedApplication::Class,
+        \App\Projects\DgmeStudents\Commands\PopulateGenderInApplication::Class,
 
     ];
 

@@ -50,20 +50,18 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
     <table class="table" style="width: 100%">
         <thead>
         <tr class="row-border-bottom">
-            <td style="width: 25%"></td>
+            <td style="width: 10%"></td>
             <td style="width: 15%"><b>Public</b></td>
             <td style="width: 15%"><b>Private </b></td>
             <td style="width: 15%"><b>MBBS</b></td>
             <td style="width: 15%"><b>BDS </b></td>
+            <td style="width: 15%"><b>Male </b></td>
+            <td style="width: 15%"><b>Female </b></td>
         </tr>
         </thead>
         <tbody>
         <?php
-
-        $privateApplications = 0;
-        $publicApplications = 0;
-        $bdsApplications = 0;
-        $mbbsApplications = 0;
+        $privateApplications = $publicApplications = $bdsApplications = $mbbsApplications = $maleApplications = $femaleApplications= 0;
         ?>
         @foreach($data['pvtPublicCountBasedOnSaarc'] as $applicationData)
             <tr>
@@ -72,13 +70,16 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
                 <td>{{$applicationData->private}}</td>
                 <td>{{$applicationData->mbbs}}</td>
                 <td>{{$applicationData->bds}}</td>
+                <td>{{$applicationData->male}}</td>
+                <td>{{$applicationData->female}}</td>
             </tr>
             <?php
-
             $privateApplications += $applicationData->private;
             $publicApplications += $applicationData->government;
             $bdsApplications += $applicationData->mbbs;
             $mbbsApplications += $applicationData->bds;
+            $maleApplications += $applicationData->male;
+            $femaleApplications += $applicationData->female;
             ?>
         @endforeach
         <tr style="border-top: 2px solid grey">
@@ -87,6 +88,8 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
             <td><b>{{$privateApplications}}</b></td>
             <td><b>{{$bdsApplications}}</b></td>
             <td><b>{{$mbbsApplications}}</b></td>
+            <td><b>{{$maleApplications}}</b></td>
+            <td><b>{{$femaleApplications}}</b></td>
         </tr>
         </tbody>
     </table>
