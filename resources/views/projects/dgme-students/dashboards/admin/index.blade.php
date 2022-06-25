@@ -5,7 +5,6 @@
  * @var \App\Mainframe\Modules\Modules\Module $module
  * @var array $columns
  */
-use App\ForeignStudentApplication;
 $datatable = new \App\Projects\DgmeStudents\Modules\ForeignStudentApplications\ForeignStudentApplicationDatatable();
 $titles = $datatable->titles();
 $columnsJson = $datatable->columnsJson();
@@ -16,9 +15,11 @@ $datatableName = $datatable->name();
 @section('head-title')
     {{config('app.name')}} | Admin Dashboard
 @endsection
+
 @section('title')
-    Foreign Medical/Dental Student Application
+    @include('projects.dgme-students.dashboards._includes.system-title')
 @endsection
+
 @section('content')
     <div class="clearfix"></div>
     <div class="row">
@@ -118,7 +119,7 @@ $datatableName = $datatable->name();
 
     <div class="row">
         <div class="col-md-12">
-            @include('projects.dgme-students.dashboards.admin.includes.latest-applications-datatable');
+            @include('projects.dgme-students.dashboards.admin.includes.latest-applications-datatable')
         </div>
     </div>
 @endsection

@@ -996,16 +996,6 @@ textarea.json {
     font-family: Monospace, serif;
 }
 
-.info-box {
-    display: block;
-    min-height: 90px;
-    /* background: #fff; */
-    width: 100%;
-    /*box-shadow: 0 4px 13px rgb(0 0 0 / 10%);*/
-    box-shadow: none;
-    margin-bottom: 15px;
-}
-
 .truncate {
     white-space: nowrap;
     overflow: hidden;
@@ -1135,7 +1125,8 @@ ul.quick-module-list li {
     min-height: 90px;
     /* background: #fff; */
     width: 100%;
-    box-shadow: 0 4px 13px rgb(0 0 0 / 10%);
+    /*box-shadow: 0 4px 13px rgb(0 0 0 / 10%);*/
+    box-shadow: none;
     border-radius: 6px;
     margin-bottom: 15px;
 }

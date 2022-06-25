@@ -18,7 +18,7 @@ $datatable->hidden = ['applicant_name'];
 ?>
 
 <h3>Latest Applications</h3>
-<div class="{{$datatableName}}-container datatable-container shadow table-responsive" style="padding: 20px">
+<div class="{{$datatableName}}-container datatable-container bordered table-responsive" style="padding: 20px">
     <div class="filters col-md-12 no-padding">
         <?php
         $var = [
