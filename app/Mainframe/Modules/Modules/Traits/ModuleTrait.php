@@ -381,4 +381,20 @@ trait ModuleTrait
         return \Str::title(\Str::plural($this->title));
     }
 
+    /**
+     * Generate appropriate icon code based on config
+     *
+     * @return string|null
+     */
+    public function getIconHtmlAttribute()
+    {
+        if (\Str::contains($this->icon_css, '<')) {
+            return $this->icon_css;
+        }
+        if (\Str::contains($this->icon_css, 'fa')) {
+            return "<i class='".$this->icon_css."'></i>";
+        }
+        return "<ion-icon name='".$this->icon_css."'></ion-icon>";
+    }
+
 }

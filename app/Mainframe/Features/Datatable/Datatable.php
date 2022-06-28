@@ -3,6 +3,7 @@
 namespace App\Mainframe\Features\Datatable;
 
 use App\Mainframe\Features\Datatable\Traits\DatatableTrait;
+use App\Mainframe\Features\Modular\BaseModule\BaseModule;
 use App\Module;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +40,7 @@ class Datatable
     /**
      * For datatable of a module this has to be set.
      *
-     * @var Model
+     * @var BaseModule
      */
     public $model;
 

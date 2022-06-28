@@ -17,17 +17,17 @@ $superHero = $element;
 ?>
 
 @section('content')
-    <div class="col-md-12 no-padding">
+    <div class="col-md-12 col-lg-10 col-xl-8 no-padding">
         @if(($formState == 'create'))
             {{ Form::open($formConfig) }} <input name="uuid" type="hidden" value="{{$uuid}}"/>
         @elseif($formState == 'edit')
             {{ Form::model($element, $formConfig)}}
         @endif
 
-        {{---------------|  Form input start |-----------------------}}
+        {{---------------|  Form input start |---------------}}
         @include('form.text',['var'=>['name'=>'name','label'=>'Name']])
         @include('form.is-active')
-        {{---------------|  Form input start |-----------------------}}
+        {{---------------|  Form input start |---------------}}
 
         @include('form.action-buttons')
         {{ Form::close() }}

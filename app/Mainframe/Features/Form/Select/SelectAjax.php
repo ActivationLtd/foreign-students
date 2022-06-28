@@ -9,7 +9,7 @@ class SelectAjax extends SelectModel
     public $url;
     public $preload;
     public $minimumInputLength = 2;
-    private $urlParams = [];
+    public $urlParams = [];
 
     public function __construct($var = [], $element = null)
     {

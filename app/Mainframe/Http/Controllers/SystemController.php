@@ -47,7 +47,7 @@ class SystemController extends BaseController
 
         echo "<pre>[<br/>";
         foreach ($modules as $module) {
-            echo "\"$module->name\"  =>[<br/>";
+            echo "\"".trim($module->name)."\"  =>[<br/>";
 
             foreach ($module->tableColumns() as $column) {
                 if (!in_array($column, $skip)) {
@@ -56,7 +56,7 @@ class SystemController extends BaseController
                     $val = $module->$column;
 
                     if (is_string($val)) {
-                        echo "\"$val\"";
+                        echo "\"".trim(htmlentities(str_replace('"', '\"', $val)))."\"";
                     } else {
                         if (is_null($val)) {
                             echo 'null';

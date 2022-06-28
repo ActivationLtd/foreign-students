@@ -11,7 +11,9 @@
 
 <?php
 $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('status',
-    \App\ForeignStudentApplication::STATUS_SUBMITTED)->whereBetween('submitted_at', [today()->subDay(), today()])->count();
+    \App\ForeignStudentApplication::STATUS_SUBMITTED)
+    ->whereBetween('submitted_at', [today()->subDay(), today()])
+    ->count();
 ?>
 
 
@@ -19,12 +21,14 @@ $totalApplicationsSubmittedYesterday = \App\ForeignStudentApplication::where('st
     <h2 style="text-align: left">
         <span>Session Summary </span>
 
-        <span style="float: right; font-size: 12px; background-color: #00a65a; padding: 5px; color: white; border-radius: 5px"> {{ $totalApplicationsSubmittedYesterday }} - applications submitted yesterday ({{today()->subDay()->format('d-m-Y')}}).</span>
+        @if($totalApplicationsSubmittedYesterday)
+            <span style="float: right; font-size: 12px; background-color: #00a65a; padding: 5px; color: white; border-radius: 5px"> {{ $totalApplicationsSubmittedYesterday }} - applications submitted yesterday ({{today()->subDay()->format('d-m-Y')}}).</span>
+        @endif
     </h2>
 
     <table class="table" style="width: 100%">
         <tr class="row-border-bottom">
-            <td style="width: 25%"><b>Session</b></td>
+            <td style="width: 25%"><b>Latest Session</b></td>
             <td style="width: 25%">{{$data['session']->name}}</td>
             <td style="width: 25%"><b>Status</b></td>
             <td style="width: 25%">{{$data['session']->status}}</td>

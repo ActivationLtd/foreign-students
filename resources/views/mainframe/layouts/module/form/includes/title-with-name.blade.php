@@ -13,8 +13,6 @@ if ($element->isCreating()) {
 }
 ?>
 
-<span class="form-title-prefix text-dark-gray">{{$prefix}} {{Str::singular($module->title)}} </span> {{$name}}
-
 @if($user->can('create', $element) && $element->isUpdating())
     <a class="btn btn-xs module-create-btn {{$module->name.'-module-create-btn'}}"
        href="{{route("$module->name.create")}}" data-toggle="tooltip"
@@ -26,6 +24,8 @@ if ($element->isCreating()) {
        data-toggle="tooltip"
        title="View list of {{Str::plural($module->title)}}"><i class="fa fa-list"></i></a>
 @endif
+
+<span class="form-title-prefix text-dark-gray">{{$prefix}} {{Str::singular($module->title)}} </span> {{$name}}
 
 @if($view->showCloneBtn())
     @include('mainframe.layouts.default.includes.navigation.clone')

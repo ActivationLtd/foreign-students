@@ -418,6 +418,11 @@ trait ViewProcessorTrait
         return isset($this->element) && $this->element->isCreating();
     }
 
+    public function isCreated()
+    {
+        return $this->isEditing();
+    }
+
     /**
      * Check if the element is being edited
      *

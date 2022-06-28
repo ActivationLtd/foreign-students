@@ -19,7 +19,7 @@ class SuperHeroDatatable extends ModuleDatatable
     public function source()
     {
         // return \DB::table($this->table)->leftJoin('users as updater', 'updater.id', $this->table.'.updated_by'); // Old table based implementation
-       return SuperHero::with(['updater:id,name']); // Model based query.
+        return SuperHero::with(['updater:id,name']); // Model based query.
     }
 
     /*---------------------------------
@@ -62,14 +62,15 @@ class SuperHeroDatatable extends ModuleDatatable
     //  * @param  \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixed  $query
     //  * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|mixed
     //  */
-    // public function filter($query)
-    // {
-    //     // if (request('id')) { // Example code
-    //     //     $query->where('id', request('id'));
-    //     // }
-    //
-    //     return $query;
-    // }
+    public function selects()
+    {
+        $columns = array_merge($this->columns(), [
+            [$this->table.'.id', 'id', 'ID'],
+        ]);
+        // Note: Modify the $columns as you need.
+        return $this->selectQueryString($columns);
+    }
+
 
     /*---------------------------------
     | Section : Modify row-columns

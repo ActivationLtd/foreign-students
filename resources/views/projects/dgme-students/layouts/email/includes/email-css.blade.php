@@ -16,7 +16,7 @@
     }
 
     body, body *:not(html):not(style):not(br):not(tr):not(code) {
-        font-family: 'solaiman-lipi', 'Arial', Inter, Helvetica, sans-serif;
+        font-family: 'Poppins', 'Arial', Inter, Helvetica, sans-serif;
         box-sizing: border-box;
         color: #777777;
 
@@ -27,7 +27,7 @@
         height: 100%;
         hyphens: auto;
         font-size: 13px;
-        line-height: 1.4;
+        line-height: 1.3;
         margin: 0;
         -moz-hyphens: auto;
         -ms-word-break: break-all;
@@ -81,7 +81,7 @@
 
     p {
         color: #74787E;
-        font-size: 12px;
+        font-size: inherit;
         line-height: 1.5em;
         margin-top: 0;
         text-align: left;
@@ -211,9 +211,9 @@
 
     .table td {
         color: #74787E;
-        font-size: 13px;
+        font-size: inherit;
         line-height: 18px;
-        padding: 10px 0;
+        padding: 10px 10px 10px 0;
         margin: 0;
     }
 

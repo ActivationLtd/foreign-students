@@ -1036,7 +1036,7 @@ trait ModularTrait
      */
     public function editLink($field = 'id', $params = [])
     {
-        return "<a href='".$this->editUrl($params)."'>{$this->$field}</a>";
+        return "<a href='".$this->editUrl($params)."'>".($this->$field ?? $field)."</a>";
     }
 
 

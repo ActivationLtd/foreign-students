@@ -13,6 +13,7 @@
         "barryvdh/laravel-debugbar": "^3.5",
         "barryvdh/laravel-dompdf": "^1.0",
         "barryvdh/laravel-ide-helper": "^2.8",
+        "carlos-meneses/laravel-mpdf": "2.1.6",
         "fruitcake/laravel-cors": "^2.0",
         "garygreen/pretty-routes": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -33,10 +34,10 @@
         "symfony/http-client": "^6.0",
         "symfony/mailgun-mailer": "^6.0",
         "symfony/postmark-mailer": "^6.0",
+        "twilio/sdk": "^6.37",
         "watson/rememberable": "^6.0",
         "webpatser/laravel-uuid": "^4.0",
-        "yajra/laravel-datatables-oracle": "^9.6",
-        "carlos-meneses/laravel-mpdf": "2.1.6"
+        "yajra/laravel-datatables-oracle": "^9.6"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

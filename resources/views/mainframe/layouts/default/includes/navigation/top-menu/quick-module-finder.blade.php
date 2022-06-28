@@ -38,7 +38,6 @@ $modules = \App\Module::getActiveList();
 
     <script>
         $('#moduleSearchBox').bind('keydown keypress keyup change', function () {
-            console.log('here');
             var search = this.value.toUpperCase();
             var $li = $("#moduleSearchBoxData li").hide();
             $li.filter(function () {

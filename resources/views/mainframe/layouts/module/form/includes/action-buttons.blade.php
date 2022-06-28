@@ -37,19 +37,19 @@ $float = $float ?? true;
                value="{{Request::get('ret')}}"/>
 
         <button id="{{$module->name}}SubmitBtn" type="submit"
-                class="submit btn btn-success {{$module->name}}-SubmitBtn">
+                class="submit btn btn-success {{$module->name}}-SubmitBtn module-save-btn">
             <i class="fa fa-check"></i> &nbsp;&nbsp;&nbsp;Save
         </button>
 
     @endif
 
     {{-- Delete modal open button--}}
-    @if(isset($element->id) && user()->can('delete',$element))
+    @if($element->isCreated() && user()->can('delete',$element))
         <div class="pull-right delete-cta no-padding">
             <?php
             $var = [
-                'route' => route($module->name . ".destroy", $element->id),
-                'redirect_success' => route($module->name . ".index"),
+                'route' => route($module->name.".destroy", $element->id),
+                'redirect_success' => route($module->name.".index"),
             ];
             ?>
             @include('form.delete-button',['var'=>$var])
@@ -57,7 +57,7 @@ $float = $float ?? true;
     @endif
 
     {{--  Change log button      --}}
-    @if(isset($element->id))
+    @if($element->isCreated())
         <a target="_blank" class="btn  bg-white pull-right"
            href="{{route("$module->name.changes",$element->id)}}">Change log</a>
     @endif
