@@ -1149,7 +1149,7 @@ label.required::after {
 
 /**** Is active: starts **************/
 .is-active-div {
-    border: 2px solid green;
+    border: 1px solid lightgrey;
     border-radius: 3px;
     padding: 5px 10px;
     width: 134px;
@@ -1170,15 +1170,15 @@ input.is_active {
 /**** Is active : ends **************/
 
 /**
-* Bordered input field
-*/
+* Boxed input
+**********************************************************/
 .boxed-input label {
     color: white;
     font-weight: bold;
     background-color: #fc466b;
     display: block;
-    padding: 5px;
-    border-radius: 5px 5px 0 0;
+    padding: 0 5px;
+    border-radius: 3px 3px 0 0;
 }
 
 .boxed-input {
@@ -1187,7 +1187,22 @@ input.is_active {
 
 .boxed-input .form-control {
     border: 2px #fc466b solid;
+    border-radius: 0 0 3px 3px;
+}
+
+.blue-boxed label {
+    color: white;
+    font-weight: bold;
+    background-color: #3f5efb;
+    display: block;
+    padding: 5px 5px 5px 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.blue-boxed .selection-data {
+    border: 2px #3f5efb solid;
     border-radius: 0 0 5px 5px;
+    padding: 10px;
 }
 
 /**
@@ -1226,4 +1241,11 @@ input.is_active {
 
 .uppercase {
     text-transform: uppercase;
+}
+
+/**
+* back-link
+******************************************************/
+.back-link {
+    border: 2px solid lightgrey;
 }

@@ -12,11 +12,14 @@ $label = $var['label'] ?? $label;
 ?>
 
 @if($backToElement)
-    <a class="btn btn-default bg-white" href="{{$backToElement->editUrl()}}">
+    <a class="btn btn-default bg-white back-link" href="{{$backToElement->editUrl()}}">
         <i class="fa fa-angle-left"></i>
-        <b>{{$label}}</b>
+
+        @if($label)
+            <span class="badge badge-primary bg-blue flat"><b>{{$label}}</b></span>
+        @endif
         <span class="badge badge-primary bg-red flat">{{$backToElement->id}}</span>
-        {{$backToElement->$showField}}
+        <b>{{$backToElement->$showField}}</b>
     </a>
 @endif
 

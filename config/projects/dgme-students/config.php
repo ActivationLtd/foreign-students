@@ -55,6 +55,7 @@ return [
         'paedeye@yahoo.com',
         'amirulmorshed@gmail.com',
         'kaziafzalrahman@yahoo.com',
+        'mostafakhaled39453@gmail.com',
         'rahatgp@yahoo.com',
         'rahmanmasud01@gmail.com',
         'devs@activationltd.com',
